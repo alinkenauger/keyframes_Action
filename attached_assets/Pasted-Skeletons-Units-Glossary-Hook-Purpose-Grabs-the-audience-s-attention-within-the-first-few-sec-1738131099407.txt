@@ -1,0 +1,786 @@
+Skeletons Units Glossary
+Hook
+○
+○
+○
+Purpose: Grabs the audience’s attention within the first few seconds.
+Examples: Visual Hook, Shock Value, Intriguing Question.
+Placement: Always the first segment in the Skeleton.
+Intro
+○
+○
+Purpose: Sets expectations and primes the audience for the content.
+Examples: Relatable Problem, Conflict Setup, Promise of Value.
+Challenge Setup
+○
+○
+Purpose: Lays out the stakes, rules, or objectives of a challenge.
+Common in: MrBeast’s high-stakes videos.
+Story Setup
+○
+○
+Purpose: Introduces context or background for storytelling.
+Common in: Casey Neistat’s and Nas Daily’s narrative-driven content.
+Problem Setup
+○
+○
+○
+Purpose: Identifies a challenge or issue the content aims to resolve.
+Examples: Relatable Problem, Myth-Buster.
+Common in: Alex Hormozi’s problem-solving videos.
+Content Delivery / Content Segments
+○
+○
+○
+Purpose: Provides the core content, whether it’s a tutorial, performance,
+or demonstration.
+Examples: Teach a Concept, Step-by-Step Demo, Conflict Setup.
+Common in: NikkieTutorials and Charli D’Amelio’s videos.
+Content Journey
+○
+○
+○
+Purpose: Represents a sequential or progressive narrative unfolding in
+the content.
+Examples: Relatable Moment, Conflict Setup, Escalation.
+Common in: Casey Neistat’s vlogs and storytelling creators.
+Escalation
+○
+○
+○
+Purpose: Gradually raises stakes or tension to keep the audience
+engaged.
+Examples: Stakes Amplifier, Triumph Over Adversity.
+Common in: MrBeast’s and Dude Perfect’s videos.
+Rehook
+○
+○
+○
+Purpose: Midway engagement trigger to re-capture attention.
+Examples: Question Rehook, Humor Rehook, Midway Shock.
+Placement: Between content segments or after dense sections.
+Climax
+○
+○
+○
+Purpose: Brings the content to its dramatic or emotional peak.
+Examples: Big Reveal, Transformation, Success Roadmap.
+Common in: Nas Daily and MrBeast’s videos.
+Reveal
+○
+○
+○
+Purpose: Delivers a surprising or satisfying conclusion.
+Examples: Big Reveal, Unexpected Twist.
+Common in: Marques Brownlee’s tech reviews.
+Reflection
+○
+○
+○
+Purpose: Offers takeaways, lessons, or insights gained from the content.
+Examples: Empathy Builder, One-Liner Wisdom.
+Common in: Casey Neistat’s and educational creators’ content.
+Engagement Trigger
+○
+○
+○
+Purpose: Direct prompts for audience interaction.
+Examples: Call-to-Action, Ask a Question, Poll the Audience.
+Placement: Throughout the content or in the Outro.
+Outro
+○
+○
+○
+Purpose: Wraps up the content, often with a CTA or reflection.
+Examples: Quick Win, Call-to-Action, Lighthearted Humor.
+Optional: Some creators like MrBeast use abrupt endings.
+Native Call To Action
+○
+○
+○
+Purpose: To generate native actions that help the platforms algorithm
+Examples: “Like this video if you want to see more like it!” “Comment any
+questions you have and I’ll respond asap!” “If that helped, mash Subscribe
+below! I put out new videos every week, and until you hit that button, you
+may miss new videos!”
+Placement: Before or after content segments.
+Frames Glossary
+Informational Frames
+●
+Teach a Concept: Explains a clear, actionable idea or strategy to the
+audience.
+○
+today.
+”
+Example: “Here are three ways to increase your productivity
+○
+Popular Use: Educational videos, tutorials, and how-to guides.
+●
+Stat Drop: Uses impactful statistics to capture attention or add
+credibility.
+○
+Example: “Did you know that 80% of small businesses fail
+within the first five years?”
+○
+Popular Use: Informational videos and industry analysis.
+●
+How-To: Step-by-step guide for completing a task or solving a
+problem.
+○
+○
+Example: “How to edit videos like a pro using free tools.
+”
+Popular Use: Tutorials and explainer content.
+●
+Myth-Buster: Challenges common misconceptions or myths.
+○
+Example: “No, you don’t need a massive budget to create viral
+videos!”
+○
+Popular Use: Thought-leadership and audience engagement.
+●
+Listicle: Presents a list of items or ideas in an engaging format.
+○
+Example: “5 habits of highly successful people.
+”
+○
+Popular Use: Blog-style videos and social media reels.
+●
+Framework Breakdown: Explains a structured process or concept.
+○
+Example: “Let me show you the 3-step formula for closing more
+sales.
+”
+○
+Popular Use: Coaching and consulting content.
+●
+Data Story: Uses data or statistics to tell a compelling narrative.
+○
+Example: “Here’s how this brand increased sales by 200% in
+”
+one year.
+○
+Popular Use: Business and marketing case studies.
+Storytelling Frames
+●
+●
+●
+●
+●
+Conflict Setup: Establishes a problem or challenge that sets the
+stage for a solution.
+○
+Example: “Most people struggle with staying consistent. Here’s
+why.
+”
+○
+Popular Use: Storytelling or transformational content.
+Hero’s Journey: A narrative structure that follows a character
+overcoming obstacles to achieve a goal.
+○
+Example: “I started with nothing, but here’s how I built a
+7-figure business.
+”
+○
+Popular Use: Inspirational content and personal branding.
+Before & After: Highlights transformation by comparing the starting
+point and the end result.
+○
+Example: “Watch how we turned this outdated office into a
+modern workspace.
+”
+○
+Popular Use: Makeovers, fitness, or renovation stories.
+Relatable Moment: Connects with the audience by sharing an
+experience they identify with.
+○
+Example: “Have you ever felt overwhelmed trying to start
+something new?”
+○
+Popular Use: Building trust and engagement.
+Origin Story: Explains how a person, brand, or product came to be.
+○
+Example: “It all started in my garage with just an idea and a
+laptop.
+”
+○
+Popular Use: Personal branding and startup stories.
+●
+Moment of Failure: Shares a setback or failure to highlight a learning
+experience.
+○
+learned.
+”
+Example: “I lost $10,000 on my first campaign—here’s what I
+○
+Popular Use: Authentic and relatable content.
+●
+Underdog Story: Celebrates overcoming adversity or achieving
+success against the odds.
+○
+Example: “From living in my car to building a thriving business.
+”
+○
+Popular Use: Inspirational and motivational content.
+●
+Cliffhanger: Leaves the audience in suspense to maintain
+engagement.
+○
+○
+Example: “And that’s when everything went wrong…
+”
+Popular Use: Episodic or storytelling content.
+●
+Flashback: Uses a past moment to enhance the narrative.
+○
+Example: “Let’s go back to where this all started…
+”
+○
+Popular Use: Building context and depth in storytelling.
+Engagement Frames
+●
+Ask a Question: Invites the audience to reflect or respond.
+○
+Example: “What’s the one thing you struggle with most in
+productivity?”
+○
+Popular Use: Social media posts and Q&A content.
+●
+Challenge the Audience: Encourages viewers to take action or
+participate.
+○
+○
+Example: “Try this tip today and let me know how it worked!”
+Popular Use: Tutorials and motivational videos.
+●
+Interactive Hook: Engages the audience with an interactive element.
+○
+○
+Example: “Drop your answer in the comments below!”
+Popular Use: Live streams and engagement-focused content.
+●
+Hot Take: Shares a bold or controversial opinion.
+○
+Example: “Networking is overrated—here’s why.
+”
+○
+Popular Use: Thought-leadership and debate content.
+●
+Poll the Audience: Asks for input to involve viewers.
+○
+Example: “Which strategy works better for you: A or B?”
+○
+Popular Use: Instagram Stories and community posts.
+●
+What Would You Do?: Poses a hypothetical scenario to the
+audience.
+○
+use it?”
+Example: “If you were given $1,000 to invest, how would you
+○
+Popular Use: Creative and interactive content.
+●
+Guess What Happens Next: Builds suspense by asking viewers to
+predict the outcome.
+○
+Example: “Can you guess what’s about to happen?”
+○
+Popular Use: Episodic or storytelling content.
+●
+Fill-in-the-Blank: Encourages audience participation with an
+open-ended prompt.
+○
+○
+Example: “The best productivity tool is
+”
+.
+________
+Popular Use: Social media posts and audience-building.
+Proof Frames
+●
+Transformation/Result: Highlights the outcome of a process or
+effort.
+○
+Example: “Here’s how we turned a struggling business into a
+success story.
+”
+○
+Popular Use: Case studies, testimonials, and product
+showcases.
+●
+Testimonial/Quote: Shares direct feedback or quotes from others.
+○
+Example: “This course changed my life!”
+- Happy Customer
+○
+Popular Use: Social proof in marketing and promotional
+content.
+●
+Case Study: Deep dive into a specific example or scenario.
+○
+Example: “How we doubled our email subscribers in 90 days.
+”
+○
+Popular Use: Business and educational content.
+●
+Success Formula: Demonstrates a repeatable method for achieving
+success.
+○
+○
+Example: “The 3-part formula we use to grow every campaign.
+”
+Popular Use: Tutorials and coaching content.
+●
+Comparison: Highlights differences or advantages of one option over
+another.
+○
+○
+Example: “Here’s why our solution beats the competition.
+”
+Popular Use: Product reviews and promotional videos.
+●
+Behind-the-Scenes: Offers an insider look at a process or creation.
+○
+Example: “Here’s how we made this viral video.
+”
+○
+Popular Use: Building trust and relatability.
+●
+Live Example: Demonstrates a process or idea in real-time.
+○
+Example: “Watch me create this graphic from scratch.
+”
+○
+Popular Use: Tutorials and live presentations.
+Emotional Frames
+●
+Heartfelt Confession: Shares a vulnerable or deeply personal story
+to connect with the audience.
+○
+○
+Example: “I used to struggle with anxiety every day—here’s
+what helped me overcome it.
+”
+Popular Use: Building authenticity and emotional connection.
+●
+Triumph Over Adversity: Showcases overcoming challenges or
+obstacles.
+○
+Example: “After losing everything, I rebuilt my business from
+the ground up.
+”
+○
+Popular Use: Motivational and inspirational content.
+●
+Empathy Builder: Demonstrates understanding and support for the
+audience’s struggles.
+○
+Example: “I know how hard it is to balance work and
+family—it’s something I’ve struggled with too.
+”
+○
+Popular Use: Relatable content and audience engagement.
+●
+Shock Factor: Uses surprising or dramatic information to grab
+attention.
+○
+Example: “What you eat every day might be slowly harming
+you—here’s why.
+”
+○
+Popular Use: Hooks and awareness campaigns.
+●
+Celebration: Highlights achievements or joyful moments.
+○
+Example: “We just hit 1 million subscribers—thank you for
+being part of this journey!”
+○
+Popular Use: Community building and milestone sharing.
+Value Frames
+●
+Quick Win: Provides an immediately actionable tip or result.
+○
+Example: “Here’s a 10-second trick to improve your focus
+instantly.
+”
+○
+Popular Use: Educational content and tutorials.
+●
+Tool Recommendation: Recommends a helpful tool or resource.
+○
+○
+Example: “This free app changed how I manage my
+tasks—check it out.
+”
+Popular Use: Product reviews and tech tips.
+●
+Common Pitfalls: Warns against mistakes or bad habits.
+○
+Example: “Avoid these 3 common mistakes when starting a
+business.
+”
+○
+Popular Use: Educational and troubleshooting content.
+●
+One-Liner Wisdom: Shares a concise, impactful insight.
+○
+Example: “Consistency beats talent every time.
+”
+○
+Popular Use: Motivational quotes and quick tips.
+Visual/Creative Frames
+●
+Time-Lapse: Uses fast-forward visuals to show progress or
+transformation.
+○
+Example: “Watch as we transform this empty room into a home
+office in under a minute.
+”
+○
+Popular Use: Makeovers and DIY projects.
+●
+Transformative Visual: Highlights a dramatic before-and-after
+moment.
+○
+○
+Example: “From cluttered to organized—check out this
+space-saving hack.
+”
+Popular Use: Lifestyle and design content.
+●
+Behind-the-Lens: Provides a peek into the creation process.
+○
+Example: “Here’s how we captured this stunning shot using just
+a smartphone.
+”
+○
+Popular Use: Photography and creative tutorials.
+●
+Step-by-Step Graphic: Breaks down a process visually.
+○
+Example: “Follow this simple chart to find your ideal content
+strategy.
+”
+○
+Popular Use: Infographics and explainer content.
+Challenge Frames
+●
+Dare to Try: Challenges the audience to attempt something new or
+bold.
+○
+○
+Example: “Try waking up at 5 AM for a week—you might be
+surprised by the results.
+”
+Popular Use: Motivational and self-improvement content.
+●
+Take Action Now: Urges immediate participation or action.
+○
+Example: “Sign up today to start your journey!”
+○
+Popular Use: Calls-to-action and promotional content.
+●
+Consistency Challenge: Encourages sustained effort over time.
+○
+Example: “Post one video every day for 30 days—can you do
+it?”
+○
+Popular Use: Growth and habit-building content.
+●
+Accountability Check: Asks the audience to report back on progress
+or results.
+○
+Example: “Let me know in the comments if you’ve tried this and
+how it worked for you!”
+○
+Popular Use: Engagement and follow-up content.
+Relatability Frames
+●
+This is You: Directly connects with the audience’s current experience
+or challenge.
+○
+Example: “You’re probably sitting at your desk right now,
+feeling stuck on what to do next.
+”
+○
+Popular Use: Relatable and empathetic content.
+●
+We’ve All Been There: Normalizes a shared experience or struggle.
+○
+Example: “We’ve all had that moment where nothing seems to
+go right.
+”
+○
+Popular Use: Building trust and relatability.
+●
+Audience Hero: Puts the audience in the spotlight as the protagonist.
+○
+Example: “You’re the kind of person who takes action and
+makes things happen.
+”
+○
+Popular Use: Empowering and motivational content.
+●
+Lighthearted Humor: Uses wit or light comedy to engage the
+audience.
+○
+than once.
+”
+Example: “If you’re like me, you’ve Googled ‘how to adult’ more
+○
+Popular Use: Entertainment and engagement-focused content.
+Educational Frames
+●
+Step-by-Step Demo: Provides a visual or hands-on demonstration.
+○
+Example: “Here’s how to set up your camera for perfect
+lighting.
+”
+○
+Popular Use: Tutorials and how-to guides.
+●
+FAQ Answer: Responds to common questions from the audience.
+○
+Example: “One question I get all the time is,
+‘How do you stay
+consistent?’”
+○
+Popular Use: Informational and audience-focused content.
+●
+Deep Dive: Explores a topic in great detail for thorough
+understanding.
+○
+Example: “Let’s break down the psychology behind why people
+click on headlines.
+”
+○
+Popular Use: Educational and expert-level content.
+●
+Counterintuitive Insight: Challenges conventional wisdom with
+surprising truths.
+○
+Example: “Working longer hours doesn’t make you more
+productive—here’s what does.
+”
+○
+Popular Use: Thought-leadership and awareness content.
+Urgency Frames
+●
+Limited Time Offer: Emphasizes scarcity or a time-sensitive
+opportunity.
+○
+○
+Example: “Sign up now—this deal ends at midnight!”
+Popular Use: Promotions and sales campaigns.
+●
+Act Before It’s Too Late: Warns of potential consequences of
+inaction.
+○
+○
+Example: “Don’t miss this chance to grow your audience before
+the trend dies down.
+”
+Popular Use: Calls-to-action and motivational content.
+●
+Don’t Miss Out: Highlights the fear of missing an opportunity.
+○
+Example: “Everyone’s talking about this strategy—are you?”
+○
+Popular Use: Social proof and urgency-focused content.
+●
+Countdown: Uses a ticking clock or deadline to create pressure.
+○
+Example: “Only 3 days left to claim your spot!”
+○
+Popular Use: Time-sensitive campaigns and events.
+Social Proof Frames
+●
+What Others Are Saying: Highlights testimonials or endorsements.
+○
+Example: “Here’s what people are saying about this course:
+‘Life-changing!’”
+○
+Popular Use: Trust-building and promotional content.
+●
+Numbers Don’t Lie: Leverages impressive data or statistics to build
+credibility.
+○
+Example: “Join over 10,000 satisfied users who have
+transformed their content.
+”
+○
+Popular Use: Marketing and promotional campaigns.
+●
+Real Stories, Real Results: Shares authentic success stories from
+users or clients.
+○
+Example: “Meet Sarah—she used this system to double her
+revenue in six months.
+”
+○
+Popular Use: Case studies and testimonials.
+●
+Community Wins: Showcases collective achievements or
+user-generated content.
+○
+Example: “Our community just hit a major milestone—1 million
+hours saved!”
+○
+Popular Use: Building brand loyalty and fostering community.
+Hook Frames
+●
+Bold Statement: Opens with a powerful or provocative claim to
+immediately grab attention.
+○
+Example: “Everything you’ve learned about productivity is
+”
+wrong.
+○
+Popular Use: Hooks for YouTube videos and
+attention-grabbing posts.
+●
+Intriguing Question: Poses a thought-provoking question to pique
+curiosity.
+○
+success?”
+Example: “What’s the one thing holding you back from
+○
+Popular Use: Opening lines in social media or blog posts.
+●
+Shock Value: Uses surprising or extreme information to captivate the
+audience.
+○
+seat?”
+Example: “Did you know your phone is dirtier than a toilet
+○
+Popular Use: Viral content and awareness campaigns.
+●
+Promise of Value: Highlights what the audience will gain by watching
+or reading.
+●
+●
+●
+●
+●
+●
+○
+○
+Example: “Learn how to save 10 hours a week with this simple
+system.
+”
+Popular Use: Tutorials and educational content.
+Call Out the Audience: Directly addresses the target audience to
+make them feel seen.
+○
+Example: “Hey content creators, this is for you!”
+○
+Popular Use: Community-focused and niche content.
+What Happens Next?: Creates suspense by hinting at a surprising
+or dramatic event.
+○
+Example: “You won’t believe what happened when we tried
+this…
+”
+○
+Popular Use: Episodic or cliffhanger-style content.
+Relatable Problem: Identifies a challenge the audience is likely
+facing.
+○
+○
+Example: “Struggling to find time to work out? You’re not
+alone.
+”
+Popular Use: Relatable and empathetic content.
+Visual Hook: Uses a striking or unexpected visual to capture interest
+immediately.
+○
+○
+Example: A time-lapse of a storm forming over a city.
+Popular Use: Instagram reels and TikTok content.
+Breaking the Norm: Challenges conventional ideas or norms to
+stand out.
+○
+setting.
+”
+Example: “Forget everything you’ve been told about goal
+○
+Popular Use: Thought-leadership and opinion pieces.
+Big Reveal: Teases a surprising or transformative outcome.
+○
+Example: “Wait until you see the final result—it’s worth it!”
+○
+Popular Use: Tutorials and storytelling.
+●
+Comparison: Pits two ideas or products against each other to spark
+interest.
+○
+○
+Example: “Apple vs. Samsung—who does it better?”
+Popular Use: Reviews and debates.
+●
+Story Teaser: Hints at an engaging or dramatic story.
+○
+Example: “I was about to give up—then this happened.
+”
+○
+Popular Use: Personal branding and motivational content.
+●
+Emotional Appeal: Tugs at the audience’s heartstrings to draw them
+in.
+○
+○
+Example: “This story will restore your faith in humanity.
+”
+Popular Use: Inspirational and feel-good content.
+●
+Challenge Hook: Dares the audience to test themselves or their
+assumptions.
+○
+○
+Example: “Can you go 7 days without checking your phone?”
+Popular Use: Interactive and engagement-driven content.
+Rehook Frames
+●
+Midway Shock: Drops a surprising fact or twist to recapture
+attention.
+○
+Example: “And here’s the part nobody talks about…
+”
+○
+Use Case: During an explanation to re-engage wandering
+viewers.
+●
+Personal Connection: Shares a quick, relatable anecdote to
+re-engage.
+○
+deadline…
+”
+Example: “This reminds me of the time I almost missed a big
+○
+Use Case: In storytelling segments to reignite interest.
+●
+Question Rehook: Poses a thought-provoking question to keep
+viewers curious.
+●
+●
+○
+○
+Example: “Have you ever wondered why this happens?”
+Use Case: Used during data-heavy or slower parts of the
+content.
+Teaser Rehook: Hypes what’s coming next to maintain anticipation.
+○
+Example: “But the best part? That’s coming up next.
+”
+○
+Use Case: Right before transitioning to the final or most
+impactful segment.
+Humor Rehook: Inserts a funny moment or unexpected joke to
+refresh the tone.
+○
+Example: “Okay, so I’m terrible at this, but here’s what
+works…
+”
+○
+Use Case: When explaining dense or serious topics to lighten
+the mood.

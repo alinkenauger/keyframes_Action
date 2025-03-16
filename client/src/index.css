@@ -1,0 +1,16 @@
+/* Import touch utilities for mobile gesture support */
+@import './styles/touch-utils.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}

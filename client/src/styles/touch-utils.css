@@ -1,0 +1,91 @@
+/* 
+  Touch Utilities 
+  These styles enhance the mobile touch experience and provide visual feedback
+*/
+
+/* Prevent grey highlight on tap in iOS */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Make touch elements more tappable */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Disable pinch zoom on specific elements */
+.touch-none {
+  touch-action: none;
+}
+
+/* Improved touch feedback */
+@media (hover: none) {
+  .touch-feedback:active {
+    opacity: 0.7;
+    transform: scale(0.98);
+  }
+}
+
+/* Allow horizontal pan gestures */
+.touch-pan-x {
+  touch-action: pan-x;
+}
+
+/* Allow vertical pan gestures */
+.touch-pan-y {
+  touch-action: pan-y;
+}
+
+/* Control touch actions for manipulation only */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* Add styles for active touch state */
+.active-touch {
+  position: relative;
+}
+
+.active-touch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: currentColor;
+  opacity: 0;
+  border-radius: inherit;
+  transition: opacity 0.2s ease;
+}
+
+.active-touch:active::after {
+  opacity: 0.1;
+}
+
+/* Custom ripple effect for touch interactions */
+.touch-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.touch-ripple::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #000 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+.touch-ripple:active::after {
+  transform: scale(0, 0);
+  opacity: 0.15;
+  transition: 0s;
+}

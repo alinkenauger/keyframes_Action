@@ -1,0 +1,106 @@
+Skeletons Units Glossary
+Hook
+○
+○
+○
+Purpose: Grabs the audience’s attention within the first few seconds.
+Examples: Visual Hook, Shock Value, Intriguing Question.
+Placement: Always the first segment in the Skeleton.
+Intro
+○
+○
+Purpose: Sets expectations and primes the audience for the content.
+Examples: Relatable Problem, Conflict Setup, Promise of Value.
+Challenge Setup
+○
+○
+Purpose: Lays out the stakes, rules, or objectives of a challenge.
+Common in: MrBeast’s high-stakes videos.
+Story Setup
+○
+○
+Purpose: Introduces context or background for storytelling.
+Common in: Casey Neistat’s and Nas Daily’s narrative-driven content.
+Problem Setup
+○
+○
+○
+Purpose: Identifies a challenge or issue the content aims to resolve.
+Examples: Relatable Problem, Myth-Buster.
+Common in: Alex Hormozi’s problem-solving videos.
+Content Delivery / Content Segments
+○
+○
+○
+Purpose: Provides the core content, whether it’s a tutorial, performance,
+or demonstration.
+Examples: Teach a Concept, Step-by-Step Demo, Conflict Setup.
+Common in: NikkieTutorials and Charli D’Amelio’s videos.
+Content Journey
+○
+○
+○
+Purpose: Represents a sequential or progressive narrative unfolding in
+the content.
+Examples: Relatable Moment, Conflict Setup, Escalation.
+Common in: Casey Neistat’s vlogs and storytelling creators.
+Escalation
+○
+○
+○
+Purpose: Gradually raises stakes or tension to keep the audience
+engaged.
+Examples: Stakes Amplifier, Triumph Over Adversity.
+Common in: MrBeast’s and Dude Perfect’s videos.
+Rehook
+○
+○
+○
+Purpose: Midway engagement trigger to re-capture attention.
+Examples: Question Rehook, Humor Rehook, Midway Shock.
+Placement: Between content segments or after dense sections.
+Climax
+○
+○
+○
+Purpose: Brings the content to its dramatic or emotional peak.
+Examples: Big Reveal, Transformation, Success Roadmap.
+Common in: Nas Daily and MrBeast’s videos.
+Reveal
+○
+○
+○
+Purpose: Delivers a surprising or satisfying conclusion.
+Examples: Big Reveal, Unexpected Twist.
+Common in: Marques Brownlee’s tech reviews.
+Reflection
+○
+○
+○
+Purpose: Offers takeaways, lessons, or insights gained from the content.
+Examples: Empathy Builder, One-Liner Wisdom.
+Common in: Casey Neistat’s and educational creators’ content.
+Engagement Trigger
+○
+○
+○
+Purpose: Direct prompts for audience interaction.
+Examples: Call-to-Action, Ask a Question, Poll the Audience.
+Placement: Throughout the content or in the Outro.
+Outro
+○
+○
+○
+Purpose: Wraps up the content, often with a CTA or reflection.
+Examples: Quick Win, Call-to-Action, Lighthearted Humor.
+Optional: Some creators like MrBeast use abrupt endings.
+Native Call To Action
+○
+○
+○
+Purpose: To generate native actions that help the platforms algorithm
+Examples: “Like this video if you want to see more like it!” “Comment any
+questions you have and I’ll respond asap!” “If that helped, mash Subscribe
+below! I put out new videos every week, and until you hit that button, you
+may miss new videos!”
+Placement: Before or after content segments.

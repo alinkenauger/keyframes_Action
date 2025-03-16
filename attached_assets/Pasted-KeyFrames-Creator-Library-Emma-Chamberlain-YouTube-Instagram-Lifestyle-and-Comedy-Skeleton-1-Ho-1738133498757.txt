@@ -1,0 +1,124 @@
+KeyFrames Creator Library
+Emma Chamberlain (YouTube/Instagram, Lifestyle and Comedy)
+Skeleton:
+1. Hook: Relatable Problem (e.g., “Why do I embarrass myself every time I leave
+the house?”).
+2. Intro: Lighthearted Humor to set a casual, comedic tone.
+3. Content Journey: Relatable Moment + Unfiltered Confession to tell a story with
+self-deprecating honesty.
+4. Rehook: Humor Rehook (e.g., “And this is where I made it worse…”).
+5. Outro: Wrap up with a comedic punchline or relatable reflection.
+Common Frames:
+● Relatable Problem: Connect with the audience’s everyday struggles.
+● Lighthearted Humor: Keep the tone playful and engaging.
+● Unfiltered Confession: Build trust with vulnerability.
+● Humor Rehook: Refresh attention with an unexpected joke or quip.
+Charli D’Amelio (TikTok, Dance, Short-form Content)
+Skeleton:
+1. Hook: Visual Hook (e.g., eye-catching dance move in the first second).
+2. Content Delivery: Perform the trending dance or choreography.
+3. Outro: Subtle call-to-action via text overlay or visual (e.g., “Follow for more!”).
+Common Frames:
+● Visual Hook: Capture attention instantly.
+● Transformative Visual: Showcase creative choreography and effects.
+● Call-to-Action: Subtly encourage audience interaction.
+Casey Neistat (YouTube, Vlogging, Filmmaking)
+Skeleton:
+1. Hook: Visual Hook (e.g., dramatic aerial shots of a cityscape).
+2. Story Setup: Introduce the day’s theme or mission with a personal angle.
+3. Content Journey: Use Conflict Setup + Relatable Moment to unfold the story.
+4. Climax: Deliver a resolution or inspiring insight.
+5. Reflection: Offer a takeaway or moral lesson.
+6. Outro: Reflect on the journey with a subtle call-to-action (e.g., “Subscribe to
+follow my adventures.”).
+Common Frames:
+● Visual Hook: Stunning cinematography to draw viewers in.
+● Conflict Setup: Introduce a challenge or obstacle.
+● Relatable Moment: Ground the story in personal experience.
+● Big Reveal: End with an impactful takeaway.
+Nas Daily (Facebook/YouTube, Short Educational Videos)
+Skeleton:
+1. Hook: Intriguing Question (e.g., “Did you know there’s a country with no
+military?”).
+2. Story Setup: Tease the answer with a brief intro (under 10 seconds).
+3. Content Delivery: Use Teach a Concept + Data Story to explain the topic.
+4. Rehook: Big Reveal (e.g., “But there’s something even more surprising about
+this place…”).
+5. Outro: Call-to-action (e.g., “Follow for more amazing facts!”).
+Common Frames:
+● Teach a Concept: Share educational insights clearly and concisely.
+● Data Story: Use stats to add credibility and intrigue.
+● Big Reveal: Maintain curiosity until the end.
+● Call-to-Action: Encourage audience interaction.
+Marques Brownlee (MKBHD) (YouTube, Tech Reviews)
+Skeleton:
+1. Hook: Promise of Value (e.g., “Is this the best phone of 2025?”).
+2. Intro: Brief overview of the product and its key features.
+3. Content Segment 1: Stat Drop + Teach a Concept (e.g., breaking down specs).
+4. Rehook: Big Reveal (e.g., “Here’s the feature that sets it apart.”).
+5. Content Segment 2: Hands-on demonstration or real-world testing.
+6. Outro: Summary and call-to-action (e.g., “Which feature is your favorite?
+Comment below!”).
+Common Frames:
+● Promise of Value: Create anticipation for the review.
+● Stat Drop: Highlight impressive numbers to build credibility.
+● Teach a Concept: Explain features in a simple, engaging way.
+● Big Reveal: Showcase the product’s standout quality.
+NikkieTutorials (YouTube/Instagram, Beauty and Makeup Tutorials)
+Skeleton:
+1. Hook: Promise of Value (e.g., “This foundation will change your life!”).
+2. Intro: Brief overview of the product or look being demonstrated.
+3. Content Delivery: Step-by-Step Demo of the makeup application.
+4. Rehook: Question Rehook (e.g., “Does it really hold up after 8 hours?”).
+5. Outro: Encourage interaction (e.g., “Let me know what you think in the
+comments!”).
+Common Frames:
+● Promise of Value: Hook viewers with a bold claim.
+● Step-by-Step Demo: Show each part of the process in detail.
+● Question Rehook: Keep viewers curious about the results.
+● Call-to-Action: Prompt engagement.
+Gary Vaynerchuk (Gary Vee) (Instagram/YouTube, Marketing and
+Motivation)
+Skeleton:
+1. Hook: Call Out the Audience (e.g., “Entrepreneurs, listen up!”).
+2. Problem Setup: Highlight a common business challenge (e.g., “Why your
+marketing isn’t working.”).
+3. Teach a Concept: Provide actionable advice (e.g., “Focus on attention, not
+vanity metrics.”).
+4. Rehook: Question Rehook (e.g., “Are you really prioritizing the right things?”).
+5. Outro: Motivational close with a call-to-action (e.g., “Comment below if this
+resonates with you!”).
+Common Frames:
+● Call Out the Audience: Grab attention by directly addressing viewers.
+● Relatable Problem: Engage with common pain points.
+● Teach a Concept: Share insights and strategies.
+● Question Rehook: Keep viewers reflecting on their own actions.
+● Quick Win: Provide a small, actionable takeaway.
+Dude Perfect (YouTube, Trick Shots and Sports Entertainment)
+Skeleton:
+1. Hook: Visual Hook (e.g., an impossible-looking trick shot in the first second).
+2. Challenge Setup: Explain the trick shot or competition rules.
+3. Content Journey: Use Escalation to show attempts and build tension.
+4. Climax: Achieve the trick shot or declare a winner.
+5. Outro: Celebrate the success with humor and encourage engagement (e.g.,
+“Comment your favorite shot!”).
+Common Frames:
+● Visual Hook: Showcase the most exciting moment up front.
+● Stakes Amplifier: Build suspense as the challenge progresses.
+● Triumph Over Adversity: Celebrate the victory or breakthrough.
+● Lighthearted Humor: Keep the tone fun and relatable.
+● Call-to-Action: Engage the audience to share their thoughts.
+Alex Hormozi’s Instagram/TikTok Skeleton
+1. Hook: Direct and value-packed.
+○ Frame: Intriguing Question (e.g., “Here’s why your business isn’t
+growing.”)
+2. Quick Context: Briefly set up the point.
+○ Frame: Relatable Moment (e.g., “I learned this the hard way after failing
+five businesses.”)
+3. Main Value: Deliver the insight or strategy in simple, digestible steps.
+○ Frame: Teach a Concept (e.g., “Focus on this one thing: acquiring
+customers.”)
+4. Punchline/Climax: Summarize the most important takeaway.
+○ Frame: One-Liner Wisdom (e.g., “Focus beats everything else.”)
+5. Call to Action: Direct and confident.
+○ Frame: Take Action Now (e.g., “Try it out, and let me know your results.”
