@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import { SKELETON_UNITS } from './constants';
 import { CustomGptAssistant } from './custom-gpt';
+import { generateContentWithAgent, adaptContentWithAgent } from './agent-service';
 
 const openai = new OpenAI({
   apiKey: import.meta.env.VITE_OPENAI_API_KEY,
@@ -231,13 +232,20 @@ export async function adaptFrameContent(
   answers?: Record<string, string> // Answers to unit-specific questions
 ): Promise<string> {
   try {
-    const frameTypeData = FRAME_TYPE_PROMPTS[frameType] || DEFAULT_FRAME_TYPE;
-    const answersContext = answers 
-      ? `Unit-specific context based on answers:
+    // Use the Agent 2.0 implementation for content adaptation
+    return adaptContentWithAgent(content, tone, filter, unitType);
+  } catch (error) {
+    console.error('Error adapting content with Agent 2.0:', error);
+    
+    // Fallback to the legacy implementation if Agent 2.0 fails
+    try {
+      const frameTypeData = FRAME_TYPE_PROMPTS[frameType] || DEFAULT_FRAME_TYPE;
+      const answersContext = answers 
+        ? `Unit-specific context based on answers:
 ${Object.entries(answers).map(([q, a]) => `- ${q}: ${a}`).join('\n')}`
-      : '';
+        : '';
 
-    const prompt = `
+      const prompt = `
 Original Content: "${content}"
 
 ${answersContext}
@@ -266,33 +274,34 @@ Generate adapted content that:
 
 Response:`;
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [
-        {
-          role: "system",
-          content: "You are an expert content adapter, skilled at maintaining core messages while adjusting tone and style. Your adaptations should feel natural and enhance the original content's impact."
-        },
-        {
-          role: "user",
-          content: prompt
-        }
-      ],
-      temperature: 0.7,
-      max_tokens: 150
-    });
+      const completion = await openai.chat.completions.create({
+        model: "gpt-4",
+        messages: [
+          {
+            role: "system",
+            content: "You are an expert content adapter, skilled at maintaining core messages while adjusting tone and style. Your adaptations should feel natural and enhance the original content's impact."
+          },
+          {
+            role: "user",
+            content: prompt
+          }
+        ],
+        temperature: 0.7,
+        max_tokens: 150
+      });
 
-    const adaptedContent = completion.choices[0].message.content || content;
-    const unitConstraints = UNIT_CONSTRAINTS[unitType] || DEFAULT_CONSTRAINT;
+      const adaptedContent = completion.choices[0].message.content || content;
+      const unitConstraints = UNIT_CONSTRAINTS[unitType] || DEFAULT_CONSTRAINT;
 
-    if (adaptedContent.length > unitConstraints.maxLength) {
-      return adaptedContent.substring(0, unitConstraints.maxLength) + "...";
+      if (adaptedContent.length > unitConstraints.maxLength) {
+        return adaptedContent.substring(0, unitConstraints.maxLength) + "...";
+      }
+
+      return adaptedContent;
+    } catch (fallbackError) {
+      console.error('Error in fallback content adaptation:', fallbackError);
+      return content; // Return original content on error
     }
-
-    return adaptedContent;
-  } catch (error) {
-    console.error('Error adapting content:', error);
-    return content;
   }
 }
 
@@ -304,18 +313,25 @@ export async function generateFrameContent(
   customAssistant?: CustomGptAssistant
 ): Promise<string> {
   try {
-    const frameTypeData = FRAME_TYPE_PROMPTS[frameType] || DEFAULT_FRAME_TYPE;
-    const unitConstraints = UNIT_CONSTRAINTS[unitType] || DEFAULT_CONSTRAINT;
+    // Use the Agent 2.0 implementation for content generation
+    return generateContentWithAgent(frameType, unitType, context, answers, customAssistant);
+  } catch (error) {
+    console.error('Error generating content with Agent 2.0:', error);
+    
+    // Fallback to the legacy implementation if Agent 2.0 fails
+    try {
+      const frameTypeData = FRAME_TYPE_PROMPTS[frameType] || DEFAULT_FRAME_TYPE;
+      const unitConstraints = UNIT_CONSTRAINTS[unitType] || DEFAULT_CONSTRAINT;
 
-    const answersContext = answers 
-      ? `Unit-specific context based on answers:
+      const answersContext = answers 
+        ? `Unit-specific context based on answers:
 ${Object.entries(answers).map(([q, a]) => `- ${q}: ${a}`).join('\n')}`
-      : '';
+        : '';
 
-    if (customAssistant) {
-      return generateContentWithCustomGpt(customAssistant, context, frameType, unitType, answers);
-    } else {
-      const prompt = `
+      if (customAssistant) {
+        return generateContentWithCustomGpt(customAssistant, context, frameType, unitType, answers);
+      } else {
+        const prompt = `
 Video Context: ${context}
 
 ${answersContext}
@@ -330,33 +346,34 @@ Maximum Length: ${unitConstraints.maxLength} characters
 
 Generate the content using the above constraints and context:`;
 
-      const completion = await openai.chat.completions.create({
-        model: "gpt-4",
-        messages: [
-          {
-            role: "system",
-            content: "You are a professional content creation assistant, specializing in creating engaging video content scripts. Your outputs should be concise, impactful, and perfectly tailored to the specific frame type, unit type, and video context."
-          },
-          {
-            role: "user",
-            content: prompt
-          }
-        ],
-        temperature: 0.7,
-        max_tokens: 150
-      });
+        const completion = await openai.chat.completions.create({
+          model: "gpt-4",
+          messages: [
+            {
+              role: "system",
+              content: "You are a professional content creation assistant, specializing in creating engaging video content scripts. Your outputs should be concise, impactful, and perfectly tailored to the specific frame type, unit type, and video context."
+            },
+            {
+              role: "user",
+              content: prompt
+            }
+          ],
+          temperature: 0.7,
+          max_tokens: 150
+        });
 
-      let content = completion.choices[0].message.content || "Could not generate content. Please try again.";
+        let content = completion.choices[0].message.content || "Could not generate content. Please try again.";
 
-      if (content.length > unitConstraints.maxLength) {
-        content = content.substring(0, unitConstraints.maxLength) + "...";
+        if (content.length > unitConstraints.maxLength) {
+          content = content.substring(0, unitConstraints.maxLength) + "...";
+        }
+
+        return content;
       }
-
-      return content;
+    } catch (fallbackError) {
+      console.error('Error in fallback content generation:', fallbackError);
+      throw new Error('Failed to generate content. Please try again.');
     }
-  } catch (error) {
-    console.error('Error generating content:', error);
-    throw new Error('Failed to generate content. Please try again.');
   }
 }
 
