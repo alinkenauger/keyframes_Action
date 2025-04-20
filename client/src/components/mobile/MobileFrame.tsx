@@ -162,7 +162,7 @@ export default function MobileFrame({ frame, onDelete }: MobileFrameProps) {
             unitType: frame.unitType,
             script: frame.script || '' 
           }}
-          skeletonId={frame.skeletonId || ''}
+          skeletonId={(frame as any).skeletonId || ''}
         />
       )}
     </>

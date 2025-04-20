@@ -35,7 +35,7 @@ export default function MobileFrameLibrary() {
 
   // Combine built-in frames with custom frames when displaying
   const displayedFrames = searchQuery
-    ? [...searchFrames(searchQuery), ...customFrames.filter(frame => 
+    ? [...searchFrames(searchQuery).filter(item => 'example' in item), ...customFrames.filter(frame => 
         frame.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         frame.description.toLowerCase().includes(searchQuery.toLowerCase())
       )]
@@ -221,7 +221,7 @@ export default function MobileFrameLibrary() {
                 <div
                   key={frame.id}
                   className="relative border rounded-md p-3 hover:shadow-md transition-shadow cursor-pointer"
-                  onClick={() => addFrame(frame)}
+                  onClick={() => 'example' in frame ? addFrame(frame as FrameTemplate) : null}
                 >
                   <div className={cn(
                     "text-xs font-medium p-1 rounded mb-1",
