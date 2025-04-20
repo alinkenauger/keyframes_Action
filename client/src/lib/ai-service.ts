@@ -4,7 +4,7 @@ import { CustomGptAssistant } from './custom-gpt';
 import { generateContentWithAgent, adaptContentWithAgent } from './agent-service';
 
 const openai = new OpenAI({
-  apiKey: import.meta.env.VITE_OPENAI_API_KEY,
+  apiKey: import.meta.env.VITE_OPENAI_API_KEY as string,
   dangerouslyAllowBrowser: true
 });
 
@@ -166,11 +166,11 @@ export async function generateContentWithCustomGpt(
       for (const example of assistant.examples) {
         messages.push(
           {
-            role: "user" as const,
+            role: "user",
             content: example.input
           },
           {
-            role: "assistant" as const,
+            role: "assistant",
             content: example.output
           }
         );
@@ -179,7 +179,7 @@ export async function generateContentWithCustomGpt(
 
     // Add the actual prompt
     messages.push({
-      role: "user" as const,
+      role: "user",
       content: `
 Video Context: ${context}
 

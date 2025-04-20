@@ -4,7 +4,7 @@ import { CustomGptAssistant } from './custom-gpt';
 
 // Create OpenAI client with API key
 const openai = new OpenAI({
-  apiKey: import.meta.env.VITE_OPENAI_API_KEY,
+  apiKey: import.meta.env.VITE_OPENAI_API_KEY as string,
   dangerouslyAllowBrowser: true
 });
 
@@ -31,7 +31,7 @@ Keep it concise but impactful.`
 // Define content generation tools
 const contentGenerationTools = [
   {
-    type: "function",
+    type: "function" as const,
     function: {
       name: "generate_content",
       description: "Generates content based on the specified parameters",
@@ -118,11 +118,11 @@ ${unitConstraints.guidelines}
       for (const example of customAssistant.examples) {
         messages.push(
           {
-            role: "user" as const,
+            role: "user",
             content: example.input
           },
           {
-            role: "assistant" as const,
+            role: "assistant",
             content: example.output
           }
         );
@@ -131,7 +131,7 @@ ${unitConstraints.guidelines}
 
     // Add the actual prompt
     messages.push({
-      role: "user" as const,
+      role: "user",
       content: userMessage
     });
 
@@ -174,7 +174,7 @@ ${unitConstraints.guidelines}
       // Handle tool calls if required
       if (run.status === "requires_action") {
         const toolCalls = run.required_action?.submit_tool_outputs.tool_calls || [];
-        const toolOutputs = [];
+        const toolOutputs: Array<{tool_call_id: string, output: string}> = [];
         
         for (const toolCall of toolCalls) {
           if (toolCall.function.name === "generate_content") {
