@@ -25,24 +25,29 @@ export default function MobileWorkspace({ onDeleteFrame }: MobileWorkspaceProps)
   const skeletonContainerRef = useRef<HTMLDivElement>(null);
 
   // Group frames by unit type
-  const framesByUnit: Record<string, typeof activeSkeleton.frames> = {};
+  const framesByUnit: Record<string, any[]> = {};
   
   if (activeSkeleton) {
     // Get the skeleton's units or default ones
     const units = activeSkeleton.units || 
       (activeSkeleton.frames.length > 0
-        ? Array.from(new Set(activeSkeleton.frames.map(f => f.unitType)))
+        ? Array.from(new Set(activeSkeleton.frames.map(f => f.unitType).filter(Boolean)))
         : ['Hook', 'Intro', 'Content', 'Rehook', 'Outro']);
     
     // Initialize empty arrays for each unit
     units.forEach(unit => {
-      framesByUnit[unit] = [];
+      if (unit) {
+        framesByUnit[unit] = [];
+      }
     });
     
     // Group frames by unit
     activeSkeleton.frames.forEach(frame => {
       if (frame.unitType && framesByUnit[frame.unitType]) {
-        framesByUnit[frame.unitType].push({ ...frame, skeletonId: activeSkeletonId });
+        framesByUnit[frame.unitType].push({ 
+          ...frame, 
+          skeletonId: activeSkeletonId 
+        });
       }
     });
   }

@@ -22,6 +22,7 @@ export interface CreatorTemplate {
 
 export const FRAME_CATEGORIES = {
   HOOK: 'Hook',
+  INTRO: 'Intro',
   CONTENT: 'Content',
   OUTRO: 'Outro',
   CUSTOM: 'Custom',

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useWorkspace } from '@/lib/store';
 import Workspace from '@/components/workspace/Workspace';
 import Sidebar from '@/components/sidebar/Sidebar';
@@ -12,6 +12,7 @@ import type { FrameTemplate } from '@/lib/frameLibrary';
 import { useKeyboardShortcuts, KeyboardShortcut } from '@/hooks/useKeyboardShortcuts';
 import { KeyboardShortcutsHelp } from '@/components/ui/keyboard-shortcuts-help';
 import { useToast } from '@/hooks/use-toast';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export default function Home() {
   const { toast } = useToast();
@@ -256,6 +257,14 @@ export default function Home() {
     updateFrameOrder(activeSkeleton.id, newFrames);
   };
 
+  // Use mobile detection
+  const mobileCheck = useIsMobile();
+  const isMobile = mobileCheck.isMobile;
+
+  // Import the mobile layout components
+  const MobileLayout = React.lazy(() => import('../components/mobile/MobileLayout'));
+  const SafeAreaProvider = React.lazy(() => import('../components/ui/safe-area').then(m => ({ default: m.SafeAreaProvider })));
+
   return (
     <DndContext 
       sensors={sensors}
@@ -263,46 +272,61 @@ export default function Home() {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <div className="flex flex-col md:flex-row h-[calc(100vh-65px)] overflow-hidden">
-        <Sidebar />
-        <div className="flex-1 flex flex-col overflow-hidden">
-          <div className="p-2 md:p-4 border-b flex flex-wrap justify-between items-center gap-2">
-            <Button 
-              onClick={() => setShowCreateDialog(true)}
-              className="w-full sm:w-auto touch-target"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              New Skeleton
-            </Button>
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={() => setHelpVisible(true)}
-              className="w-full sm:w-auto touch-target"
-            >
-              <Keyboard className="w-4 h-4 mr-2" />
-              Keyboard Shortcuts
-            </Button>
-          </div>
-          <div className="flex-1 overflow-auto">
-            <Workspace 
-              activeId={activeId}
-              activeDragData={activeDragData}
-              onDeleteFrame={deleteFrame}
-              onUpdateFrameAttribute={handleUpdateFrameAttribute}
+      {isMobile ? (
+        // Mobile layout
+        <React.Suspense fallback={<div className="p-4 text-center">Loading mobile view...</div>}>
+          <SafeAreaProvider />
+          <div className="mobile-layout">
+            <MobileLayout onDeleteFrame={deleteFrame} />
+            <CreateSkeletonDialog 
+              open={showCreateDialog} 
+              onOpenChange={setShowCreateDialog}
             />
           </div>
+        </React.Suspense>
+      ) : (
+        // Desktop layout
+        <div className="flex flex-col md:flex-row h-[calc(100vh-65px)] overflow-hidden">
+          <Sidebar />
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <div className="p-2 md:p-4 border-b flex flex-wrap justify-between items-center gap-2">
+              <Button 
+                onClick={() => setShowCreateDialog(true)}
+                className="w-full sm:w-auto touch-target"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                New Skeleton
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setHelpVisible(true)}
+                className="w-full sm:w-auto touch-target"
+              >
+                <Keyboard className="w-4 h-4 mr-2" />
+                Keyboard Shortcuts
+              </Button>
+            </div>
+            <div className="flex-1 overflow-auto">
+              <Workspace 
+                activeId={activeId}
+                activeDragData={activeDragData}
+                onDeleteFrame={deleteFrame}
+                onUpdateFrameAttribute={handleUpdateFrameAttribute}
+              />
+            </div>
+          </div>
+          <CreateSkeletonDialog 
+            open={showCreateDialog} 
+            onOpenChange={setShowCreateDialog}
+          />
+          <KeyboardShortcutsHelp
+            open={helpVisible}
+            onOpenChange={setHelpVisible}
+            shortcutsByCategory={shortcutsByCategory}
+          />
         </div>
-        <CreateSkeletonDialog 
-          open={showCreateDialog} 
-          onOpenChange={setShowCreateDialog}
-        />
-        <KeyboardShortcutsHelp
-          open={helpVisible}
-          onOpenChange={setHelpVisible}
-          shortcutsByCategory={shortcutsByCategory}
-        />
-      </div>
+      )}
     </DndContext>
   );
 }

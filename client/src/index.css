@@ -6,11 +6,95 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --sat: 0px;
+    --sar: 0px;
+    --sab: 0px;
+    --sal: 0px;
+  }
+
   * {
     @apply border-border;
   }
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    /* Prevent bouncing/overscroll on iOS */
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Main app container */
+  #root {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+@layer utilities {
+  /* Safe area utilities */
+  .pt-safe-area {
+    padding-top: var(--sat);
+  }
+  .pr-safe-area {
+    padding-right: var(--sar);
+  }
+  .pb-safe-area {
+    padding-bottom: var(--sab);
+  }
+  .pl-safe-area {
+    padding-left: var(--sal);
+  }
+
+  /* For elements like fixed bottom navs */
+  .mb-safe-area {
+    margin-bottom: var(--sab);
+  }
+
+  /* Height with safe area considerations */
+  .h-screen-safe {
+    height: calc(100vh - var(--sat) - var(--sab));
+  }
+
+  /* Touch target size recommendation (44x44px) */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Prevent text selection during drag operations */
+  .no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  /* For smooth mobile scrolling */
+  .scroll-smooth {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* For horizontal pan gesture support */
+  .touch-pan-x {
+    touch-action: pan-x;
+  }
+  
+  /* For vertical pan gesture support */
+  .touch-pan-y {
+    touch-action: pan-y;
+  }
+
+  /* Create a fixed mobile layout with safe areas */
+  .mobile-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-top: var(--sat);
+    padding-bottom: var(--sab);
   }
 }
