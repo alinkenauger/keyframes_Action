@@ -55,6 +55,12 @@ const contentGenerationTools = [
 
 /**
  * Generate content using OpenAI's API with Agent 2.0 capabilities
+ * 
+ * This enhanced implementation provides:
+ * - Better thread management and error handling
+ * - Support for custom assistants with memory
+ * - Tool-based function calling for structured outputs
+ * - Automatic cleanup of resources
  */
 export async function generateContentWithAgent(
   frameType: string,
@@ -63,6 +69,7 @@ export async function generateContentWithAgent(
   answers?: Record<string, string>,
   customAssistant?: CustomGptAssistant
 ): Promise<string> {
+  console.log(`Generating content with Agent 2.0: ${frameType} for ${unitType}`);
   try {
     // Get unit constraints and frame type data
     const unitConstraints = UNIT_CONSTRAINTS[unitType] || DEFAULT_CONSTRAINT;
@@ -252,6 +259,12 @@ ${unitConstraints.guidelines}
 
 /**
  * Adapt content based on tone and filter using Agent 2.0
+ * 
+ * This enhanced implementation uses the Assistant API to adapt content based on:
+ * - Specific tone requirements (casual, formal, etc.)
+ * - Style filter preferences (storytelling, educational, etc.)
+ * - Content type constraints and guidelines
+ * - Length limitations
  */
 export async function adaptContentWithAgent(
   content: string,
@@ -259,6 +272,7 @@ export async function adaptContentWithAgent(
   filter: string,
   unitType: string
 ): Promise<string> {
+  console.log(`Adapting content with Agent 2.0: ${tone} tone, ${filter} filter for ${unitType}`);
   try {
     const unitConstraints = UNIT_CONSTRAINTS[unitType] || DEFAULT_CONSTRAINT;
     
