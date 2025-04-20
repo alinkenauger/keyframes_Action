@@ -1,5 +1,5 @@
 import { useDroppable } from '@dnd-kit/core';
-import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import Frame from './Frame';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -85,9 +85,9 @@ export default function SkeletonUnit({
         >
           <SortableContext
             items={unitFrames.map(f => f.id)}
-            strategy={horizontalListSortingStrategy}
+            strategy={verticalListSortingStrategy}
           >
-            <div className="flex gap-2 min-w-max">
+            <div className="flex flex-col gap-3">
               {unitFrames.map((frame) => (
                 <Frame 
                   key={frame.id} 
