@@ -10,10 +10,12 @@ import {
   UNIT_CONSTRAINTS, 
   getUnitQuestions 
 } from '@/lib/ai-service';
+import { generateContentWithAgent } from '@/lib/agent-service';
 import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Checkbox } from '@/components/ui/checkbox';
 import { 
   Select,
   SelectContent,
@@ -43,6 +45,7 @@ export default function FrameDialog({ open, onOpenChange, frame, skeletonId }: F
   const [script, setScript] = useState(frame.script || '');
   const [isGenerating, setIsGenerating] = useState(false);
   const [isUsingAgent2, setIsUsingAgent2] = useState(false);
+  const [preferAgent2, setPreferAgent2] = useState(true);
   const [questionAnswers, setQuestionAnswers] = useState<Record<string, string>>({});
   const [selectedAssistantId, setSelectedAssistantId] = useState<string>('');
   const [showCustomGptDialog, setShowCustomGptDialog] = useState(false);
@@ -102,12 +105,62 @@ export default function FrameDialog({ open, onOpenChange, frame, skeletonId }: F
     }
 
     setIsGenerating(true);
+    setIsUsingAgent2(false);
+    
     try {
       let generatedContent = '';
-
-      // If an assistant is selected, use the custom GPT
-      if (selectedAssistantId) {
-        const assistant = getAssistant(selectedAssistantId);
+      const assistant = selectedAssistantId ? getAssistant(selectedAssistantId) : null;
+      
+      // Determine if we should try Agent 2.0 based on user preference
+      if (preferAgent2) {
+        try {
+          // Generate content with Agent 2.0
+          setIsUsingAgent2(true);
+          generatedContent = await generateContentWithAgent(
+            frame.type,
+            frame.unitType,
+            videoContext,
+            questionAnswers,
+            assistant || undefined
+          );
+          
+          // If we got here, Agent 2.0 worked
+          toast({
+            title: "Content Generated with Agent 2.0",
+            description: "Enhanced AI-powered suggestion has been added using OpenAI's latest capabilities!",
+          });
+          
+        } catch (agentError) {
+          console.log('Agent 2.0 generation failed, falling back to standard method', agentError);
+          
+          // On failure, fall back to the classic approach if the user would want that
+          setIsUsingAgent2(false);
+          
+          if (assistant) {
+            generatedContent = await generateContentWithCustomGpt(
+              assistant,
+              videoContext,
+              frame.type,
+              frame.unitType,
+              questionAnswers
+            );
+          } else {
+            generatedContent = await generateFrameContent(
+              frame.type, 
+              frame.unitType, 
+              videoContext,
+              questionAnswers
+            );
+          }
+          
+          toast({
+            title: "Content Generated",
+            description: "AI-powered suggestion has been added using standard methods. Agent 2.0 was unavailable.",
+            variant: "default",
+          });
+        }
+      } else {
+        // User prefers standard generation
         if (assistant) {
           generatedContent = await generateContentWithCustomGpt(
             assistant,
@@ -117,7 +170,6 @@ export default function FrameDialog({ open, onOpenChange, frame, skeletonId }: F
             questionAnswers
           );
         } else {
-          // Fallback to standard generation if assistant not found
           generatedContent = await generateFrameContent(
             frame.type, 
             frame.unitType, 
@@ -125,22 +177,17 @@ export default function FrameDialog({ open, onOpenChange, frame, skeletonId }: F
             questionAnswers
           );
         }
-      } else {
-        // Use standard generation if no assistant selected
-        generatedContent = await generateFrameContent(
-          frame.type, 
-          frame.unitType, 
-          videoContext,
-          questionAnswers
-        );
+        
+        toast({
+          title: "Content Generated",
+          description: "AI-powered suggestion has been added. Feel free to edit it!",
+        });
       }
 
       setScript(generatedContent);
-      toast({
-        title: "Content Generated",
-        description: "AI-powered suggestion has been added. Feel free to edit it!",
-      });
     } catch (error) {
+      console.error('Content generation failed completely:', error);
+      setIsUsingAgent2(false);
       toast({
         title: "Generation Failed",
         description: "Failed to generate content. Please try again.",
@@ -244,9 +291,48 @@ export default function FrameDialog({ open, onOpenChange, frame, skeletonId }: F
             <p className="text-sm text-muted-foreground">
               Maximum length: {unitConstraints.maxLength} characters
             </p>
+            
+            <div className="flex items-center space-x-2 mt-2 pt-2 border-t border-muted-foreground/20">
+              <Checkbox 
+                id="agent2" 
+                checked={preferAgent2}
+                onCheckedChange={(checked) => setPreferAgent2(checked as boolean)}
+              />
+              <div className="grid gap-1.5 leading-none">
+                <label
+                  htmlFor="agent2"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center"
+                >
+                  Use Agent 2.0
+                  <Zap className="h-3 w-3 ml-1 text-yellow-500" />
+                </label>
+                <p className="text-xs text-muted-foreground">
+                  Enhanced content generation using OpenAI's latest capabilities
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div className="flex justify-end mb-2">
+          <div className="flex justify-between items-center mb-2">
+            <div className="flex items-center">
+              {isUsingAgent2 && (
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="flex items-center">
+                        <Badge variant="outline" className="mr-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white border-0">
+                          <Zap className="h-3 w-3 mr-1 text-yellow-300" />
+                          Agent 2.0
+                        </Badge>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="text-xs">Using OpenAI's enhanced Agent 2.0 capabilities for better content generation</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
+            </div>
             <Button
               variant="secondary"
               size="sm"
@@ -262,12 +348,14 @@ export default function FrameDialog({ open, onOpenChange, frame, skeletonId }: F
             </Button>
           </div>
 
-          <Textarea
-            value={script}
-            onChange={(e) => setScript(e.target.value)}
-            placeholder="Enter your content here..."
-            className="min-h-[200px]"
-          />
+          <div className="relative">
+            <Textarea
+              value={script}
+              onChange={(e) => setScript(e.target.value)}
+              placeholder="Enter your content here..."
+              className="min-h-[200px]"
+            />
+          </div>
 
           {script.length > unitConstraints.maxLength && (
             <p className="text-sm text-destructive">

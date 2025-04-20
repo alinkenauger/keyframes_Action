@@ -125,11 +125,11 @@ ${unitConstraints.guidelines}
       for (const example of customAssistant.examples) {
         messages.push(
           {
-            role: "user",
+            role: "user" as const,
             content: example.input
           },
           {
-            role: "assistant",
+            role: "assistant" as const,
             content: example.output
           }
         );
@@ -138,7 +138,7 @@ ${unitConstraints.guidelines}
 
     // Add the actual prompt
     messages.push({
-      role: "user",
+      role: "user" as const,
       content: userMessage
     });
 
