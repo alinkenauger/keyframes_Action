@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { useState, useEffect } from 'react';
 import { useWorkspace } from '@/lib/store';
-import { Loader2, Sparkles, Settings } from 'lucide-react';
+import { Loader2, Sparkles, Settings, Zap } from 'lucide-react';
 import { 
   generateFrameContent, 
   generateContentWithCustomGpt,
@@ -13,6 +13,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { 
   Select,
   SelectContent,
@@ -41,6 +42,7 @@ interface FrameDialogProps {
 export default function FrameDialog({ open, onOpenChange, frame, skeletonId }: FrameDialogProps) {
   const [script, setScript] = useState(frame.script || '');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isUsingAgent2, setIsUsingAgent2] = useState(false);
   const [questionAnswers, setQuestionAnswers] = useState<Record<string, string>>({});
   const [selectedAssistantId, setSelectedAssistantId] = useState<string>('');
   const [showCustomGptDialog, setShowCustomGptDialog] = useState(false);
