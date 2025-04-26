@@ -5,7 +5,20 @@ import Sidebar from '@/components/sidebar/Sidebar';
 import { Button } from '@/components/ui/button';
 import { Plus, Keyboard } from 'lucide-react';
 import CreateSkeletonDialog from '@/components/skeleton/CreateSkeletonDialog';
-import { DndContext, DragStartEvent, DragEndEvent, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { 
+  DndContext, 
+  DragStartEvent, 
+  DragEndEvent, 
+  closestCenter,
+  rectIntersection,
+  pointerWithin,
+  KeyboardSensor, 
+  PointerSensor, 
+  useSensor, 
+  useSensors,
+  CollisionDetection,
+  getFirstCollision
+} from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 import { nanoid } from 'nanoid';
 import type { FrameTemplate } from '@/lib/frameLibrary';
@@ -39,6 +52,36 @@ export default function Home() {
     };
     addSkeleton(skeleton);
   }, []);
+
+  // Create a more forgiving collision detection algorithm
+  const customCollisionDetection: CollisionDetection = args => {
+    // First, try pointerWithin which is more forgiving for unit containers
+    const pointerCollisions = pointerWithin(args);
+    
+    if (pointerCollisions.length > 0) {
+      // Filter collisions to prioritize unit containers when dragging frames
+      if (args.active.data.current?.type === 'frame' || args.active.data.current?.type === 'template') {
+        const unitCollisions = pointerCollisions.filter(
+          collision => collision.data?.current?.type === 'unit'
+        );
+        
+        if (unitCollisions.length > 0) {
+          return unitCollisions;
+        }
+      }
+      return pointerCollisions;
+    }
+    
+    // If no collisions found with pointerWithin, try rectangle intersection
+    const rectCollisions = rectIntersection(args);
+    
+    // If still no collisions, fall back to closestCenter for better precision
+    if (rectCollisions.length === 0) {
+      return closestCenter(args);
+    }
+    
+    return rectCollisions;
+  };
 
   // Define keyboard shortcuts
   const shortcuts: KeyboardShortcut[] = [
@@ -268,7 +311,7 @@ export default function Home() {
   return (
     <DndContext 
       sensors={sensors}
-      collisionDetection={closestCenter}
+      collisionDetection={customCollisionDetection}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
