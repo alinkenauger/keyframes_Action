@@ -78,7 +78,7 @@ export default function SkeletonUnit({
       {/* Frames area */}
       <div 
         className={cn(
-          "flex-1 min-h-[200px] flex flex-col overflow-hidden",
+          "flex-1 min-h-[200px] flex flex-col overflow-hidden relative",
           isOver && "ring-inset ring-2 ring-primary/30 bg-primary/5"
         )}
       >
@@ -93,13 +93,13 @@ export default function SkeletonUnit({
         )}
 
         <ScrollArea 
-          className="flex-1 p-2"
+          className="flex-1 p-2 w-full"
         >
           <SortableContext
             items={unitFrames.map(f => f.id)}
             strategy={verticalListSortingStrategy}
           >
-            <div className="flex flex-col gap-3 min-h-[150px]">
+            <div className="flex flex-col gap-3 min-h-[150px] w-full">
               {unitFrames.map((frame) => (
                 <Frame 
                   key={frame.id} 
