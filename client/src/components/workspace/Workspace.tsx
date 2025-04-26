@@ -278,7 +278,7 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
                   scrollBehavior: 'smooth',
                   paddingBottom: '20px' // Add padding for the horizontal scrollbar
                 }}
-                orientation="both" // Enable both vertical and horizontal scrollbars
+                orientation="both"
               >
                 <div 
                   className={cn(
