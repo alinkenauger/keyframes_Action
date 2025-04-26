@@ -17,9 +17,10 @@ import { useTouchGestures } from '@/hooks/use-touch-gestures';
 interface FrameProps {
   frame: FrameType;
   onDelete?: (id: string) => void;
+  dimmed?: boolean; // Whether to dim the frame (when parent unit is being dragged over)
 }
 
-export default function Frame({ frame, onDelete }: FrameProps) {
+export default function Frame({ frame, onDelete, dimmed = false }: FrameProps) {
   const [showDialog, setShowDialog] = useState(false);
   const { activeSkeletonId, updateFrameContent } = useWorkspace();
   const [isAdapting, setIsAdapting] = useState(false);
@@ -158,10 +159,11 @@ export default function Frame({ frame, onDelete }: FrameProps) {
         style={style}
         className={cn(
           "relative mb-4 hover:shadow-md transition-shadow cursor-move group touch-manipulation",
-          frameTypeColors.text.replace('text-', 'border-l-4 border-l-')
+          frameTypeColors.text.replace('text-', 'border-l-4 border-l-'),
+          dimmed && "opacity-40"
         )}
       >
-        <div {...attributes} {...listeners} className="absolute top-3 left-3">
+        <div {...attributes} {...listeners} className="absolute right-10 top-3 cursor-move">
           <GripHorizontal className="h-4 w-4 text-gray-400" />
         </div>
 

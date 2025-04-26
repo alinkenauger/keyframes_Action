@@ -276,7 +276,9 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
                 style={{
                   WebkitOverflowScrolling: 'touch',
                   scrollBehavior: 'smooth',
+                  paddingBottom: '20px' // Add padding for the horizontal scrollbar
                 }}
+                orientation="both" // Enable both vertical and horizontal scrollbars
               >
                 <div 
                   className={cn(
