@@ -46,7 +46,7 @@ export default function SkeletonUnit({
       ref={setNodeRef}
       className={cn(
         "h-full flex flex-col transition-all duration-200",
-        isOver && "ring-2 ring-primary/20 bg-primary/5"
+        isOver && "ring-2 ring-primary/40 bg-primary/10"
       )}
       data-unit-type={name}
     >
@@ -79,7 +79,7 @@ export default function SkeletonUnit({
       <div 
         className={cn(
           "flex-1 min-h-[200px] flex flex-col overflow-hidden relative",
-          isOver && "ring-inset ring-2 ring-primary/30 bg-primary/5"
+          isOver && "bg-primary/10"
         )}
       >
         {/* Extra drop indicator area when empty */}
@@ -105,6 +105,7 @@ export default function SkeletonUnit({
                   key={frame.id} 
                   frame={frame}
                   onDelete={onDeleteFrame}
+                  dimmed={isOver}
                 />
               ))}
             </div>
