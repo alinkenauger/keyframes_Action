@@ -76,18 +76,30 @@ export default function SkeletonUnit({
       </div>
 
       {/* Frames area */}
-      <div className="flex-1 min-h-[200px] flex flex-col overflow-hidden">
+      <div 
+        className={cn(
+          "flex-1 min-h-[200px] flex flex-col overflow-hidden",
+          isOver && "ring-inset ring-2 ring-primary/30 bg-primary/5"
+        )}
+      >
+        {/* Extra drop indicator area when empty */}
+        {unitFrames.length === 0 && (
+          <div className={cn(
+            "absolute inset-0 flex items-center justify-center text-muted-foreground text-sm pointer-events-none z-0",
+            isOver ? "opacity-100" : "opacity-70"
+          )}>
+            <p className="text-center px-4">Drop frames here</p>
+          </div>
+        )}
+
         <ScrollArea 
-          className={cn(
-            "flex-1 p-2",
-            isOver && "bg-primary/5"
-          )}
+          className="flex-1 p-2"
         >
           <SortableContext
             items={unitFrames.map(f => f.id)}
             strategy={verticalListSortingStrategy}
           >
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 min-h-[150px]">
               {unitFrames.map((frame) => (
                 <Frame 
                   key={frame.id} 
