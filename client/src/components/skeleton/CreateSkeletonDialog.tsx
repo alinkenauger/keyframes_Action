@@ -300,14 +300,13 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                   />
                 </div>
 
-                <div className="flex-1 overflow-hidden">
-                  <DndContext
-                    onDragStart={handleDragStart}
-                    onDragEnd={handleDragEnd}
-                    onDragOver={handleDragOver}
-                    onDragCancel={handleDragCancel}
-                    collisionDetection={closestCenter}
-                  >
+                <DndContext
+                  onDragStart={handleDragStart}
+                  onDragEnd={handleDragEnd}
+                  onDragOver={handleDragOver}
+                  onDragCancel={handleDragCancel}
+                  collisionDetection={closestCenter}
+                >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1 overflow-hidden">
                     <div className="overflow-hidden flex flex-col">
                       <Label>Available Units</Label>
