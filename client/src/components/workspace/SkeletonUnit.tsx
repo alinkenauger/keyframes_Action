@@ -3,9 +3,10 @@ import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import Frame from './Frame';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Copy, Trash2 } from 'lucide-react';
+import { Copy, Trash2, GripVertical } from 'lucide-react';
 import type { Frame as FrameType } from '@/types';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface SkeletonUnitProps {
   id: string;
@@ -41,15 +42,70 @@ export default function SkeletonUnit({
     }
   });
 
+  // Add state for column width with a default of 300px
+  const [width, setWidth] = useState(300);
+  const [isResizing, setIsResizing] = useState(false);
+  const resizeStartX = useRef(0);
+  const resizeStartWidth = useRef(0);
+
+  // Handle starting the resize operation
+  const handleResizeStart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsResizing(true);
+    resizeStartX.current = e.clientX;
+    resizeStartWidth.current = width;
+    
+    // Add event listeners for resize
+    document.addEventListener('mousemove', handleResizeMove);
+    document.addEventListener('mouseup', handleResizeEnd);
+  };
+
+  // Handle resizing while mouse is moving
+  const handleResizeMove = (e: MouseEvent) => {
+    if (!isResizing) return;
+    
+    const delta = e.clientX - resizeStartX.current;
+    const newWidth = Math.max(200, resizeStartWidth.current + delta); // Min width 200px
+    setWidth(newWidth);
+  };
+
+  // Handle ending the resize operation
+  const handleResizeEnd = () => {
+    setIsResizing(false);
+    document.removeEventListener('mousemove', handleResizeMove);
+    document.removeEventListener('mouseup', handleResizeEnd);
+  };
+
+  // Cleanup event listeners when component unmounts
+  useEffect(() => {
+    return () => {
+      document.removeEventListener('mousemove', handleResizeMove);
+      document.removeEventListener('mouseup', handleResizeEnd);
+    };
+  }, []);
+
   return (
     <div 
       ref={setNodeRef}
       className={cn(
-        "h-full flex flex-col transition-all duration-200",
-        isOver && "ring-2 ring-primary/40 bg-primary/10"
+        "h-full flex flex-col transition-all duration-200 relative",
+        isOver && "ring-2 ring-primary/40 bg-primary/10",
+        isResizing && "select-none"
       )}
+      style={{ width: `${width}px` }}
       data-unit-type={name}
     >
+      {/* Resize handle */}
+      <div 
+        className={cn(
+          "absolute right-0 top-0 bottom-0 w-4 cursor-col-resize flex items-center justify-center",
+          "hover:bg-primary/10 active:bg-primary/20 z-10",
+          isResizing && "bg-primary/20"
+        )}
+        onMouseDown={handleResizeStart}
+      >
+        <GripVertical className="h-4 w-4 text-muted-foreground opacity-50" />
+      </div>
       {/* Header */}
       <div className="flex items-center justify-between px-2 py-1 border-b bg-background">
         <h3 className="text-base font-medium">{name}</h3>
@@ -99,13 +155,14 @@ export default function SkeletonUnit({
             items={unitFrames.map(f => f.id)}
             strategy={verticalListSortingStrategy}
           >
-            <div className="flex flex-col gap-3 min-h-[150px] w-full">
+            <div className="flex flex-col gap-3 min-h-[150px] w-full pr-4">
               {unitFrames.map((frame) => (
                 <Frame 
                   key={frame.id} 
                   frame={frame}
                   onDelete={onDeleteFrame}
                   dimmed={isOver}
+                  unitWidth={width}
                 />
               ))}
             </div>
