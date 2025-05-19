@@ -172,9 +172,13 @@ export default function FrameLibrary() {
                 setActiveSubcategory(undefined);
               }}
             >
-              <TabsList className="mb-4">
+              <TabsList className="mb-4 w-full flex-wrap">
                 {Object.values(FRAME_CATEGORIES).map((category) => (
-                  <TabsTrigger key={category} value={category}>
+                  <TabsTrigger 
+                    key={category} 
+                    value={category}
+                    className="min-w-[100px] flex-1"
+                  >
                     {category}
                   </TabsTrigger>
                 ))}
