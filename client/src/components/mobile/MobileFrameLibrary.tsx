@@ -161,11 +161,11 @@ export default function MobileFrameLibrary() {
           >
             <ScrollArea className="whitespace-nowrap pb-2">
               <TabsList className="inline-flex w-max">
-                <TabsTrigger value={FRAME_CATEGORIES.HOOK}>Hook</TabsTrigger>
-                <TabsTrigger value={FRAME_CATEGORIES.INTRO}>Intro</TabsTrigger>
-                <TabsTrigger value={FRAME_CATEGORIES.CONTENT}>Content</TabsTrigger>
-                <TabsTrigger value={FRAME_CATEGORIES.OUTRO}>Outro</TabsTrigger>
-                <TabsTrigger value={FRAME_CATEGORIES.CUSTOM}>Custom</TabsTrigger>
+                <TabsTrigger className="min-w-[80px]" value={FRAME_CATEGORIES.HOOK}>Hook</TabsTrigger>
+                <TabsTrigger className="min-w-[80px]" value={FRAME_CATEGORIES.INTRO}>Intro</TabsTrigger>
+                <TabsTrigger className="min-w-[80px]" value={FRAME_CATEGORIES.CONTENT}>Content</TabsTrigger>
+                <TabsTrigger className="min-w-[80px]" value={FRAME_CATEGORIES.OUTRO}>Outro</TabsTrigger>
+                <TabsTrigger className="min-w-[80px]" value={FRAME_CATEGORIES.CUSTOM}>Custom</TabsTrigger>
               </TabsList>
             </ScrollArea>
 
