@@ -18,6 +18,10 @@ export interface CreatorTemplate {
   creator: string;
   description: string;
   units: string[];
+  frames?: {
+    unitType: string;
+    frameIds: string[];
+  }[];
 }
 
 export const FRAME_CATEGORIES = {
@@ -360,70 +364,278 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     name: 'MrBeast Style',
     creator: 'MrBeast',
     description: 'High-stakes challenge and entertainment content',
-    units: ['Hook', 'Setup', 'Journey', 'Climactic Moment', 'Outro/Resolution', 'Call to Action']
+    units: ['Hook', 'Setup', 'Journey', 'Climactic Moment', 'Outro/Resolution', 'Call to Action'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['shock-value', 'challenge-tease', 'bold-statement']
+      },
+      {
+        unitType: 'Setup',
+        frameIds: ['challenge-rules', 'stakes-reveal', 'time-pressure']
+      },
+      {
+        unitType: 'Journey',
+        frameIds: ['escalation', 'dramatic-moment', 'suspense-builder']
+      },
+      {
+        unitType: 'Climactic Moment',
+        frameIds: ['big-reveal', 'record-breaker', 'emotional-payoff']
+      },
+      {
+        unitType: 'Outro/Resolution',
+        frameIds: ['key-takeaway', 'call-to-action', 'next-challenge-tease']
+      }
+    ]
   },
   {
     id: 'hormozi',
     name: 'Alex Hormozi Style',
     creator: 'Alex Hormozi',
     description: 'Business and entrepreneurship wisdom delivery',
-    units: ['Hook', 'Problem Setup', 'Solution', 'Implementation', 'Results', 'Outro']
+    units: ['Hook', 'Problem Setup', 'Solution', 'Implementation', 'Results', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['bold-statement', 'counter-intuitive', 'intriguing-question']
+      },
+      {
+        unitType: 'Problem Setup',
+        frameIds: ['myth-buster', 'social-proof', 'pain-point']
+      },
+      {
+        unitType: 'Solution',
+        frameIds: ['expert-insight', 'before-after', 'step-by-step']
+      },
+      {
+        unitType: 'Implementation',
+        frameIds: ['framework-intro', 'actionable-tips', 'step-by-step']
+      },
+      {
+        unitType: 'Results',
+        frameIds: ['social-proof', 'transformation', 'success-story']
+      }
+    ]
   },
   {
     id: 'emma-chamberlain',
     name: 'Emma Chamberlain Style',
     creator: 'Emma Chamberlain',
     description: 'Lifestyle and comedy content structure',
-    units: ['Hook', 'Intro', 'Content Journey', 'Rehook', 'Outro']
+    units: ['Hook', 'Intro', 'Content Journey', 'Rehook', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['relatable-moment', 'day-in-life', 'authentic-thought']
+      },
+      {
+        unitType: 'Intro',
+        frameIds: ['personal-update', 'topic-intro', 'context-setting']
+      },
+      {
+        unitType: 'Content Journey',
+        frameIds: ['story-segment', 'humorous-observation', 'behind-the-scenes']
+      },
+      {
+        unitType: 'Rehook',
+        frameIds: ['update-tease', 'suspense-builder', 'mood-switch']
+      }
+    ]
   },
   {
     id: 'charli-damelio',
     name: 'Charli D\'Amelio Style',
     creator: 'Charli D\'Amelio',
     description: 'Short-form dance and lifestyle content',
-    units: ['Visual Hook', 'Content Delivery', 'Outro']
+    units: ['Visual Hook', 'Content Delivery', 'Outro'],
+    frames: [
+      {
+        unitType: 'Visual Hook',
+        frameIds: ['visual-hook', 'trending-sound', 'unexpected-twist']
+      },
+      {
+        unitType: 'Content Delivery',
+        frameIds: ['performance', 'dance-segment', 'transition']
+      },
+      {
+        unitType: 'Outro',
+        frameIds: ['signature-move', 'call-to-action', 'trend-participation']
+      }
+    ]
   },
   {
     id: 'nas-daily',
     name: 'Nas Daily Style',
     creator: 'Nas Daily',
     description: 'Educational storytelling with clear progression',
-    units: ['Hook', 'Story Setup', 'Content Delivery', 'Rehook', 'Outro']
+    units: ['Hook', 'Story Setup', 'Content Delivery', 'Rehook', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['visual-hook', 'counter-intuitive', 'bold-statement']
+      },
+      {
+        unitType: 'Story Setup',
+        frameIds: ['context-setting', 'question-challenge', 'character-introduction']
+      },
+      {
+        unitType: 'Content Delivery',
+        frameIds: ['educational-segment', 'expert-insight', 'behind-the-scenes']
+      },
+      {
+        unitType: 'Rehook',
+        frameIds: ['suspense-builder', 'dramatic-moment', 'question-challenge']
+      },
+      {
+        unitType: 'Outro',
+        frameIds: ['key-takeaway', 'call-to-action', 'inspirational-close']
+      }
+    ]
   },
   {
     id: 'casey-neistat',
     name: 'Casey Neistat Style',
     creator: 'Casey Neistat',
     description: 'Cinematic storytelling with strong narrative arc',
-    units: ['Hook', 'Story Setup', 'Content Journey', 'Climax', 'Reflection', 'Outro']
+    units: ['Hook', 'Story Setup', 'Content Journey', 'Climax', 'Reflection', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['visual-hook', 'location-reveal', 'unexpected-twist']
+      },
+      {
+        unitType: 'Story Setup',
+        frameIds: ['context-setting', 'day-in-life', 'challenge-reveal']
+      },
+      {
+        unitType: 'Content Journey',
+        frameIds: ['travel-segment', 'behind-the-scenes', 'story-segment']
+      },
+      {
+        unitType: 'Climax',
+        frameIds: ['big-reveal', 'dramatic-moment', 'emotional-payoff']
+      },
+      {
+        unitType: 'Reflection',
+        frameIds: ['personal-insight', 'learned-lesson', 'reflective-comment']
+      }
+    ]
   },
   {
     id: 'mkbhd',
     name: 'MKBHD Style',
     creator: 'Marques Brownlee',
     description: 'Tech review and explanation format',
-    units: ['Hook', 'Intro', 'Content Segment 1', 'Rehook', 'Content Segment 2', 'Outro']
+    units: ['Hook', 'Intro', 'Content Segment 1', 'Rehook', 'Content Segment 2', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['visual-hook', 'product-reveal', 'intriguing-question']
+      },
+      {
+        unitType: 'Intro',
+        frameIds: ['topic-intro', 'context-setting', 'objective-statement']
+      },
+      {
+        unitType: 'Content Segment 1',
+        frameIds: ['tech-breakdown', 'comparison', 'feature-highlight']
+      },
+      {
+        unitType: 'Rehook',
+        frameIds: ['question-challenge', 'suspense-builder', 'dramatic-moment']
+      },
+      {
+        unitType: 'Content Segment 2',
+        frameIds: ['use-case', 'performance-analysis', 'tech-breakdown']
+      }
+    ]
   },
   {
     id: 'nikkietutorials',
     name: 'NikkieTutorials Style',
     creator: 'NikkieTutorials',
     description: 'Beauty and transformation content structure',
-    units: ['Hook', 'Intro', 'Content Delivery', 'Rehook', 'Outro']
+    units: ['Hook', 'Intro', 'Content Delivery', 'Rehook', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['shock-value', 'before-after', 'bold-statement']
+      },
+      {
+        unitType: 'Intro',
+        frameIds: ['personal-update', 'product-intro', 'topic-intro']
+      },
+      {
+        unitType: 'Content Delivery',
+        frameIds: ['step-by-step', 'technique-reveal', 'product-demo']
+      },
+      {
+        unitType: 'Rehook',
+        frameIds: ['suspense-builder', 'transformation', 'dramatic-moment']
+      },
+      {
+        unitType: 'Outro',
+        frameIds: ['call-to-action', 'personalized-message', 'next-challenge-tease']
+      }
+    ]
   },
   {
     id: 'garyv',
     name: 'GaryVee Style',
     creator: 'Gary Vaynerchuk',
     description: 'Motivational business content structure',
-    units: ['Hook', 'Problem Setup', 'Teach a Concept', 'Rehook', 'Outro']
+    units: ['Hook', 'Problem Setup', 'Teach a Concept', 'Rehook', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['bold-statement', 'authentic-thought', 'counter-intuitive']
+      },
+      {
+        unitType: 'Problem Setup',
+        frameIds: ['pain-point', 'myth-buster', 'challenge-reveal']
+      },
+      {
+        unitType: 'Teach a Concept',
+        frameIds: ['expert-insight', 'framework-intro', 'actionable-tips']
+      },
+      {
+        unitType: 'Rehook',
+        frameIds: ['dramatic-moment', 'challenge-tease', 'bold-statement']
+      },
+      {
+        unitType: 'Outro',
+        frameIds: ['call-to-action', 'key-takeaway', 'motivational-close']
+      }
+    ]
   },
   {
     id: 'dude-perfect',
     name: 'Dude Perfect Style',
     creator: 'Dude Perfect',
     description: 'Challenge and entertainment content structure',
-    units: ['Hook', 'Challenge Setup', 'Content Journey', 'Climax', 'Outro']
+    units: ['Hook', 'Challenge Setup', 'Content Journey', 'Climax', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['challenge-tease', 'visual-hook', 'shock-value']
+      },
+      {
+        unitType: 'Challenge Setup',
+        frameIds: ['challenge-rules', 'stakes-reveal', 'competition-intro']
+      },
+      {
+        unitType: 'Content Journey',
+        frameIds: ['humorous-observation', 'performance', 'escalation']
+      },
+      {
+        unitType: 'Climax',
+        frameIds: ['big-reveal', 'record-breaker', 'celebration']
+      },
+      {
+        unitType: 'Outro',
+        frameIds: ['recap-summary', 'call-to-action', 'next-challenge-tease']
+      }
+    ]
   }
 ];
 
