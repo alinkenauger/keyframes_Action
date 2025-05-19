@@ -368,23 +368,23 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['shock-value', 'challenge-tease', 'bold-statement']
+        frameIds: ['shock-value', 'bold-statement', 'intriguing-question']
       },
       {
         unitType: 'Setup',
-        frameIds: ['challenge-rules', 'stakes-reveal', 'time-pressure']
+        frameIds: ['conflict-setup', 'viewer-challenge', 'common-struggle']
       },
       {
         unitType: 'Journey',
-        frameIds: ['escalation', 'dramatic-moment', 'suspense-builder']
+        frameIds: ['visual-demo', 'midway-shock', 'what-happens-next']
       },
       {
         unitType: 'Climactic Moment',
-        frameIds: ['big-reveal', 'record-breaker', 'emotional-payoff']
+        frameIds: ['shock-value', 'call-out-audience', 'visual-demo']
       },
       {
         unitType: 'Outro/Resolution',
-        frameIds: ['key-takeaway', 'call-to-action', 'next-challenge-tease']
+        frameIds: ['key-takeaway', 'call-to-action', 'next-steps']
       }
     ]
   },
@@ -397,23 +397,23 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['bold-statement', 'counter-intuitive', 'intriguing-question']
+        frameIds: ['bold-statement', 'myth-buster', 'intriguing-question']
       },
       {
         unitType: 'Problem Setup',
-        frameIds: ['myth-buster', 'social-proof', 'pain-point']
+        frameIds: ['myth-buster', 'common-struggle', 'common-pitfalls']
       },
       {
         unitType: 'Solution',
-        frameIds: ['expert-insight', 'before-after', 'step-by-step']
+        frameIds: ['expert-insight', 'case-study', 'step-by-step']
       },
       {
         unitType: 'Implementation',
-        frameIds: ['framework-intro', 'actionable-tips', 'step-by-step']
+        frameIds: ['step-by-step', 'common-pitfalls', 'expert-insight']
       },
       {
         unitType: 'Results',
-        frameIds: ['social-proof', 'transformation', 'success-story']
+        frameIds: ['testimonial', 'data-story', 'case-study']
       }
     ]
   },
@@ -426,19 +426,19 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['relatable-moment', 'day-in-life', 'authentic-thought']
+        frameIds: ['shock-value', 'intriguing-question', 'personal-connection']
       },
       {
         unitType: 'Intro',
-        frameIds: ['personal-update', 'topic-intro', 'context-setting']
+        frameIds: ['common-struggle', 'heartfelt-confession', 'visual-demo']
       },
       {
         unitType: 'Content Journey',
-        frameIds: ['story-segment', 'humorous-observation', 'behind-the-scenes']
+        frameIds: ['behind-the-scenes', 'common-struggle', 'visual-demo']
       },
       {
         unitType: 'Rehook',
-        frameIds: ['update-tease', 'suspense-builder', 'mood-switch']
+        frameIds: ['teaser-rehook', 'what-happens-next', 'midway-shock']
       }
     ]
   },
@@ -451,15 +451,15 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Visual Hook',
-        frameIds: ['visual-hook', 'trending-sound', 'unexpected-twist']
+        frameIds: ['visual-demo', 'shock-value', 'intriguing-question']
       },
       {
         unitType: 'Content Delivery',
-        frameIds: ['performance', 'dance-segment', 'transition']
+        frameIds: ['visual-demo', 'step-by-step', 'creative-transition']
       },
       {
         unitType: 'Outro',
-        frameIds: ['signature-move', 'call-to-action', 'trend-participation']
+        frameIds: ['call-to-action', 'next-steps', 'viewer-challenge']
       }
     ]
   },
@@ -472,23 +472,23 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['visual-hook', 'counter-intuitive', 'bold-statement']
+        frameIds: ['visual-demo', 'myth-buster', 'bold-statement']
       },
       {
         unitType: 'Story Setup',
-        frameIds: ['context-setting', 'question-challenge', 'character-introduction']
+        frameIds: ['personal-connection', 'thought-experiment', 'common-struggle']
       },
       {
         unitType: 'Content Delivery',
-        frameIds: ['educational-segment', 'expert-insight', 'behind-the-scenes']
+        frameIds: ['teach-concept', 'expert-insight', 'behind-the-scenes']
       },
       {
         unitType: 'Rehook',
-        frameIds: ['suspense-builder', 'dramatic-moment', 'question-challenge']
+        frameIds: ['teaser-rehook', 'midway-shock', 'viewer-challenge']
       },
       {
         unitType: 'Outro',
-        frameIds: ['key-takeaway', 'call-to-action', 'inspirational-close']
+        frameIds: ['key-takeaway', 'call-to-action', 'next-steps']
       }
     ]
   },
@@ -501,23 +501,23 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['visual-hook', 'location-reveal', 'unexpected-twist']
+        frameIds: ['visual-demo', 'shock-value', 'intriguing-question']
       },
       {
         unitType: 'Story Setup',
-        frameIds: ['context-setting', 'day-in-life', 'challenge-reveal']
+        frameIds: ['personal-connection', 'conflict-setup', 'common-struggle']
       },
       {
         unitType: 'Content Journey',
-        frameIds: ['travel-segment', 'behind-the-scenes', 'story-segment']
+        frameIds: ['behind-the-scenes', 'visual-demo', 'creative-transition']
       },
       {
         unitType: 'Climax',
-        frameIds: ['big-reveal', 'dramatic-moment', 'emotional-payoff']
+        frameIds: ['shock-value', 'midway-shock', 'what-happens-next']
       },
       {
         unitType: 'Reflection',
-        frameIds: ['personal-insight', 'learned-lesson', 'reflective-comment']
+        frameIds: ['personal-connection', 'key-takeaway', 'heartfelt-confession']
       }
     ]
   },
