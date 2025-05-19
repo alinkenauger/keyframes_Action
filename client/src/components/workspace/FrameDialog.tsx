@@ -34,6 +34,7 @@ interface FrameDialogProps {
   frame: {
     id: string;
     type: string;
+    name?: string;
     content: string;
     unitType: string;
     script?: string;
