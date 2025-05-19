@@ -228,22 +228,24 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
         <div className="flex-1 overflow-x-auto min-w-max">
           <ResizablePanelGroup 
             direction="horizontal" 
-            className="rounded-lg border bg-background"
+            className="rounded-lg border bg-background h-full"
           >
             {units.map((unit, index) => (
               <DraggableUnit key={unit.id} unit={unit}>
                 <ResizablePanel 
                   defaultSize={100 / units.length}
                   minSize={15}
-                  className="min-w-[300px]"
+                  className="min-w-[300px] h-full"
                 >
-                  <SkeletonUnit 
-                    {...unit} 
-                    onDeleteFrame={onDeleteFrame}
-                    onReorderFrames={onReorderFrames}
-                    onDuplicateUnit={handleDuplicateUnit}
-                    onDeleteUnit={handleDeleteUnit}
-                  />
+                  <div className="h-full flex flex-col">
+                    <SkeletonUnit 
+                      {...unit} 
+                      onDeleteFrame={onDeleteFrame}
+                      onReorderFrames={onReorderFrames}
+                      onDuplicateUnit={handleDuplicateUnit}
+                      onDeleteUnit={handleDeleteUnit}
+                    />
+                  </div>
                 </ResizablePanel>
                 {index < units.length - 1 && <ResizableHandle />}
               </DraggableUnit>
