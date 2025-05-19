@@ -306,7 +306,6 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                   onDragOver={handleDragOver}
                   onDragCancel={handleDragCancel}
                   collisionDetection={closestCenter}
-                  className="flex-1 overflow-hidden"
                 >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1 overflow-hidden">
                     <div className="overflow-hidden flex flex-col">
