@@ -203,55 +203,22 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
             <div className={touchIndicatorClasses}></div>
 
             {frame.content ? (
-              <div style={{ transform: `scale(${contentScale})`, transformOrigin: "0 0", transition: contentScale === 1 ? "transform 0.3s ease-out" : "none" }}>
-                <HoverCard>
-                  <HoverCardTrigger asChild>
-                    <p className="text-sm text-gray-600 line-clamp-3 cursor-pointer hover:text-gray-800">
-                      {frame.content}
-                    </p>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="w-80 p-4 bg-card border shadow-lg">
-                    <div className="space-y-2">
-                      <div>
-                        <span className="font-medium text-primary">
-                          {frame.unitType}: {frame.name || frame.type}
-                        </span>
-                        <div className="flex flex-wrap gap-1 mt-1">
-                          {frame.tone && (
-                            <span className="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">
-                              {frame.tone}
-                            </span>
-                          )}
-                          {frame.filter && (
-                            <span className="text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full">
-                              {frame.filter}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="border-t pt-2">
-                        <p className="text-sm text-gray-700 whitespace-pre-wrap max-h-60 overflow-y-auto">
-                          {frame.script || frame.content}
-                        </p>
-                      </div>
-                      {/* Show a small edit link at the bottom */}
-                      <div className="text-right">
-                        <button 
-                          className="text-xs text-blue-600 hover:text-blue-800"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setShowDialog(true);
-                          }}
-                        >
-                          Edit content
-                        </button>
-                      </div>
-                    </div>
-                  </HoverCardContent>
-                </HoverCard>
+              <div 
+                style={{ transform: `scale(${contentScale})`, transformOrigin: "0 0", transition: contentScale === 1 ? "transform 0.3s ease-out" : "none" }}
+                onClick={() => setShowDialog(true)}
+                className="cursor-pointer"
+              >
+                <p className="text-sm text-gray-600 line-clamp-3 hover:text-gray-800">
+                  {frame.content}
+                </p>
               </div>
             ) : (
-              <p className="text-sm text-gray-400 italic">Click to add content</p>
+              <p 
+                className="text-sm text-gray-400 italic cursor-pointer"
+                onClick={() => setShowDialog(true)}
+              >
+                Click to add content
+              </p>
             )}
           </div>
 

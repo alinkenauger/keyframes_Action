@@ -206,11 +206,11 @@ export default function FrameDialog({ open, onOpenChange, frame, skeletonId }: F
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{frame.type} ({frame.unitType})</DialogTitle>
+          <DialogTitle>{frame.name || frame.type} ({frame.unitType})</DialogTitle>
           <DialogDescription>
-            Edit content for this {frame.unitType} unit or generate AI-powered suggestions
+            View or edit content for this {frame.unitType} unit
           </DialogDescription>
         </DialogHeader>
 
