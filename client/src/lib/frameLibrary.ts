@@ -530,23 +530,23 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['visual-hook', 'product-reveal', 'intriguing-question']
+        frameIds: ['visual-demo', 'intriguing-question', 'bold-statement']
       },
       {
         unitType: 'Intro',
-        frameIds: ['topic-intro', 'context-setting', 'objective-statement']
+        frameIds: ['teach-concept', 'myth-buster', 'expert-insight']
       },
       {
         unitType: 'Content Segment 1',
-        frameIds: ['tech-breakdown', 'comparison', 'feature-highlight']
+        frameIds: ['step-by-step', 'visual-demo', 'data-story']
       },
       {
         unitType: 'Rehook',
-        frameIds: ['question-challenge', 'suspense-builder', 'dramatic-moment']
+        frameIds: ['teaser-rehook', 'midway-shock', 'viewer-challenge']
       },
       {
         unitType: 'Content Segment 2',
-        frameIds: ['use-case', 'performance-analysis', 'tech-breakdown']
+        frameIds: ['case-study', 'step-by-step', 'visual-demo']
       }
     ]
   },
@@ -559,23 +559,23 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['shock-value', 'before-after', 'bold-statement']
+        frameIds: ['shock-value', 'personal-connection', 'bold-statement']
       },
       {
         unitType: 'Intro',
-        frameIds: ['personal-update', 'product-intro', 'topic-intro']
+        frameIds: ['personal-connection', 'common-struggle', 'teach-concept']
       },
       {
         unitType: 'Content Delivery',
-        frameIds: ['step-by-step', 'technique-reveal', 'product-demo']
+        frameIds: ['step-by-step', 'visual-demo', 'expert-insight']
       },
       {
         unitType: 'Rehook',
-        frameIds: ['suspense-builder', 'transformation', 'dramatic-moment']
+        frameIds: ['teaser-rehook', 'midway-shock', 'viewer-challenge']
       },
       {
         unitType: 'Outro',
-        frameIds: ['call-to-action', 'personalized-message', 'next-challenge-tease']
+        frameIds: ['call-to-action', 'heartfelt-confession', 'next-steps']
       }
     ]
   },
@@ -588,23 +588,23 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['bold-statement', 'authentic-thought', 'counter-intuitive']
+        frameIds: ['bold-statement', 'shock-value', 'intriguing-question']
       },
       {
         unitType: 'Problem Setup',
-        frameIds: ['pain-point', 'myth-buster', 'challenge-reveal']
+        frameIds: ['common-struggle', 'myth-buster', 'viewer-challenge']
       },
       {
         unitType: 'Teach a Concept',
-        frameIds: ['expert-insight', 'framework-intro', 'actionable-tips']
+        frameIds: ['expert-insight', 'teach-concept', 'step-by-step']
       },
       {
         unitType: 'Rehook',
-        frameIds: ['dramatic-moment', 'challenge-tease', 'bold-statement']
+        frameIds: ['midway-shock', 'teaser-rehook', 'bold-statement']
       },
       {
         unitType: 'Outro',
-        frameIds: ['call-to-action', 'key-takeaway', 'motivational-close']
+        frameIds: ['call-to-action', 'key-takeaway', 'next-steps']
       }
     ]
   },
@@ -617,23 +617,23 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['challenge-tease', 'visual-hook', 'shock-value']
+        frameIds: ['viewer-challenge', 'visual-demo', 'shock-value']
       },
       {
         unitType: 'Challenge Setup',
-        frameIds: ['challenge-rules', 'stakes-reveal', 'competition-intro']
+        frameIds: ['conflict-setup', 'viewer-challenge', 'common-struggle']
       },
       {
         unitType: 'Content Journey',
-        frameIds: ['humorous-observation', 'performance', 'escalation']
+        frameIds: ['behind-the-scenes', 'step-by-step', 'creative-transition']
       },
       {
         unitType: 'Climax',
-        frameIds: ['big-reveal', 'record-breaker', 'celebration']
+        frameIds: ['shock-value', 'visual-demo', 'midway-shock']
       },
       {
         unitType: 'Outro',
-        frameIds: ['recap-summary', 'call-to-action', 'next-challenge-tease']
+        frameIds: ['recap-summary', 'call-to-action', 'next-steps']
       }
     ]
   }
