@@ -8,7 +8,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card, CardContent } from '@/components/ui/card';
 import { useWorkspace } from '@/lib/store';
-import { CREATOR_TEMPLATES } from '@/lib/frameLibrary';
+import { CREATOR_TEMPLATES, FRAME_TEMPLATES } from '@/lib/frameLibrary';
 import { SKELETON_UNITS } from '@/lib/constants';
 import { DndContext, DragEndEvent, DragStartEvent, closestCenter, DragOverlay, useDroppable, useDraggable } from '@dnd-kit/core';
 import { Textarea } from '@/components/ui/textarea';
@@ -116,19 +116,49 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
     if (selectedCreator) {
       const template = CREATOR_TEMPLATES.find(s => s.id === selectedCreator);
       if (template) {
-        // Create a skeleton with only the structure, but no pre-loaded frames
         const skeletonId = nanoid();
+        
+        // Create frame objects based on the template's frame recommendations
+        const frames = [];
+        
+        // If the template has specific frames, add them to the skeleton
+        if (template.frames) {
+          for (const unitFrames of template.frames) {
+            const unitType = unitFrames.unitType;
+            
+            // Get the specific frames for this unit
+            for (const frameId of unitFrames.frameIds) {
+              // Find the frame template from the library
+              const frameTemplate = FRAME_TEMPLATES.find(f => f.id === frameId);
+              if (frameTemplate) {
+                // Create a new frame object
+                frames.push({
+                  id: nanoid(),
+                  name: frameTemplate.name,
+                  type: frameTemplate.id,
+                  content: frameTemplate.example || '',
+                  unitType: unitType
+                });
+              }
+            }
+          }
+        }
+        
+        // Create the new skeleton with the frames
         const newSkeleton = {
           id: skeletonId,
           name: name || template.name,
-          frames: [], // No pre-loaded frames
+          frames: frames,
+          units: template.units
         };
 
         addSkeleton(newSkeleton);
+        
         // Set the video context in the store
         if (videoContext) {
           setStoreVideoContext(skeletonId, videoContext);
         }
+        
         setActiveSkeletonId(newSkeleton.id);
         resetForm();
         onOpenChange(false);
