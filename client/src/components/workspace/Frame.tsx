@@ -18,9 +18,10 @@ interface FrameProps {
   frame: FrameType;
   onDelete?: (id: string) => void;
   dimmed?: boolean; // Whether to dim the frame (when parent unit is being dragged over)
+  unitWidth?: number; // The width of the parent unit for responsive sizing
 }
 
-export default function Frame({ frame, onDelete, dimmed = false }: FrameProps) {
+export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: FrameProps) {
   const [showDialog, setShowDialog] = useState(false);
   const { activeSkeletonId, updateFrameContent } = useWorkspace();
   const [isAdapting, setIsAdapting] = useState(false);
@@ -156,7 +157,10 @@ export default function Frame({ frame, onDelete, dimmed = false }: FrameProps) {
     <>
       <Card 
         ref={setNodeRef}
-        style={style}
+        style={{
+          ...style,
+          width: unitWidth ? `${unitWidth - 24}px` : 'auto', // Adjust width based on parent unit minus padding
+        }}
         className={cn(
           "relative mb-4 hover:shadow-md transition-shadow cursor-move group touch-manipulation",
           frameTypeColors.text.replace('text-', 'border-l-4 border-l-'),
