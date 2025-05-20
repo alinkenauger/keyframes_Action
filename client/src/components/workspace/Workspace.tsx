@@ -195,8 +195,35 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
 
   if (!activeSkeleton) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <p className="text-gray-500">Select or create a skeleton to begin</p>
+      <div className="flex flex-col items-center justify-center h-full max-w-md mx-auto text-center px-4">
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-4">Welcome to Get More Views!</h2>
+          <p className="text-muted-foreground mb-6">
+            Let's start by creating your content structure. Your workspace is ready for your first skeleton.
+          </p>
+          <Button 
+            onClick={() => {
+              // This will trigger the welcome screen
+              if (setActiveTab) setActiveTab("skeleton");
+              toast({
+                title: "Let's Get Started",
+                description: "Create a new skeleton by clicking the + button in the top right corner",
+              });
+            }}
+            className="bg-primary hover:bg-primary/90 text-white"
+          >
+            Create Your First Content Structure
+          </Button>
+        </div>
+        <div className="text-sm border rounded-md p-4 bg-muted/30">
+          <p className="font-medium mb-2">Quick Tips:</p>
+          <ul className="text-left space-y-2 text-muted-foreground">
+            <li>• Choose from popular creator templates or build your own</li>
+            <li>• Drag and drop frames to organize your content</li>
+            <li>• Customize tones and transitions for each section</li>
+            <li>• Generate a full script when you're ready</li>
+          </ul>
+        </div>
       </div>
     );
   }

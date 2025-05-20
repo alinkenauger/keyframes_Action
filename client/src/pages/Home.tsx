@@ -54,77 +54,8 @@ export default function Home() {
     useSensor(KeyboardSensor)
   );
 
-  useEffect(() => {
-    // Create a skeleton with the Problem-Solution structure
-    const skeletonId = nanoid();
-    
-    // When creating new frames, ensure each one gets a unique ID
-    const createFrame = (name, type, content, unitType) => ({
-      id: nanoid(),
-      name,
-      type,
-      content,
-      unitType,
-      tone: '',
-      filter: ''
-    });
-    
-    // Default units for Problem-Solution framework
-    const units = ['Hook', 'Setup', 'Journey', 'Climactic Moment', 'Outro/Resolution'];
-    
-    // Create initial frames for each unit
-    const frames = [
-      // Hook frames
-      createFrame(
-        'Attention Grabber', 
-        'Pattern Interrupt', 
-        'Did you know 80% of content creators struggle to gain consistent views?', 
-        'Hook'
-      ),
-      
-      // Setup frames
-      createFrame(
-        'Problem Definition', 
-        'Problem Statement', 
-        'Most creators spend hours filming but miss the key structure that makes content go viral.', 
-        'Setup'
-      ),
-      
-      // Journey frames
-      createFrame(
-        'Solution Overview', 
-        'Value Proposition', 
-        'The right video structure can double your views and engagement with the same content.', 
-        'Journey'
-      ),
-      
-      // Climactic Moment frames
-      createFrame(
-        'Big Reveal', 
-        'Reveal', 
-        "I have analyzed over 1,000 viral videos and discovered these 3 key structural elements they all share.", 
-        'Climactic Moment'
-      ),
-      
-      // Outro frames
-      createFrame(
-        'Call To Action', 
-        'Call to Action', 
-        'Let me show you the exact template that top creators use to consistently get millions of views.', 
-        'Outro/Resolution'
-      )
-    ];
-    
-    const skeleton = {
-      id: skeletonId,
-      name: "Content Creator's Framework",
-      frames: frames,
-      units: units
-    };
-    
-    addSkeleton(skeleton);
-    setActiveSkeletonId(skeletonId);
-  }, []);
+  // Instead of auto-creating a skeleton, let's show the welcome screen
+  // to guide users in selecting their first skeleton template
 
   // Create a more forgiving collision detection algorithm
   const customCollisionDetection: CollisionDetection = args => {
