@@ -137,8 +137,8 @@ export default function SkeletonUnit({
       <div 
         className="flex-1 overflow-y-auto overflow-x-hidden scrollbar scrollbar-thumb-gray-400 scrollbar-track-transparent" 
         style={{ 
-          maxHeight: "calc(100vh - 120px)",
-          height: "100%"
+          height: "calc(100vh - 200px)",
+          overflowY: "auto"
         }}
       >
         {unitFrames.length === 0 ? (
