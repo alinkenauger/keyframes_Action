@@ -7,6 +7,7 @@ export interface Frame {
   filter?: string;
   unitType?: string; // For organizing frames under units
   script?: string;   // Added script property for AI-generated content
+  isTemplateExample?: boolean; // Flag to prevent automatic AI adaptation for template examples
 }
 
 export interface Skeleton {
