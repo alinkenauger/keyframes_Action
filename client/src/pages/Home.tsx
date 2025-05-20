@@ -37,6 +37,13 @@ export default function Home() {
   const [hasSeenWelcome, setHasSeenWelcome] = useLocalStorage('has-seen-welcome', false);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [activeDragData, setActiveDragData] = useState<any>(null);
+  
+  // Check if this is the first time user is visiting and show welcome screen
+  useEffect(() => {
+    if (skeletons.length === 0) {
+      setShowWelcomeScreen(true);
+    }
+  }, [skeletons.length]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
