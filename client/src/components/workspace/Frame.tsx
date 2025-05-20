@@ -92,6 +92,12 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
 
       // Only proceed if we have either tone or filter
       if (!frame.tone && !frame.filter) return;
+      
+      // Skip adaptation for template-created frames
+      // We identify them by checking if they're from a creator template
+      // These frames should preserve their original example content
+      const isTemplateFrame = frame.isTemplateExample === true;
+      if (isTemplateFrame) return;
 
       setIsAdapting(true);
       try {
@@ -115,7 +121,7 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
     };
 
     adaptContent();
-  }, [frame.tone, frame.filter, activeSkeletonId, frame.id, frame.content, frame.type, frame.unitType, updateFrameContent]);
+  }, [frame.tone, frame.filter, activeSkeletonId, frame.id, frame.content, frame.type, frame.unitType, updateFrameContent, frame.isTemplateExample]);
 
   const style = {
     transform: CSS.Transform.toString(transform),

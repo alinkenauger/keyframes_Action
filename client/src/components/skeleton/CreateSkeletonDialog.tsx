@@ -148,7 +148,8 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                   name: frameTemplate.name,
                   type: frameTemplate.id,
                   content: content,
-                  unitType: unitType
+                  unitType: unitType,
+                  isTemplateExample: true // Flag to prevent automatic AI adaptation
                 });
               }
             }
