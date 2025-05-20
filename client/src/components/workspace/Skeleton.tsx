@@ -88,10 +88,15 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
       examples: []
     };
 
+    // Filter frames to only those belonging to this unit
+    const unitFrames = skeleton.frames.filter(frame => 
+      frame.unitType && frame.unitType.toLowerCase() === unitName.toLowerCase()
+    );
+
     return {
       id: unitData.type.toLowerCase().replace(/\s+/g, '-'),
       name: unitData.type,
-      frames: skeleton.frames
+      frames: unitFrames
     };
   });
 

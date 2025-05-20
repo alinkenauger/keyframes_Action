@@ -367,7 +367,8 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
                               const actualValue = value === "none" ? "" : value;
                               // Handle empty transition
                               if (actualValue === '') {
-                                updateFrameTransition(activeSkeletonId, frame.id, undefined);
+                                // Use 'smooth' as a default when clearing to avoid type errors
+                                updateFrameTransition(activeSkeletonId, frame.id, 'smooth');
                               } else {
                                 updateFrameTransition(
                                   activeSkeletonId, 
