@@ -32,8 +32,24 @@ export default function Sidebar() {
         "p-4 transition-opacity",
         collapsed ? "opacity-0 invisible" : "opacity-100 visible"
       )}>
-        <h3 className="text-lg font-semibold mb-4">Frames</h3>
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-lg font-semibold">Frames</h3>
+          <Button 
+            onClick={() => setShowCreateDialog(true)}
+            className="h-8 px-2"
+            size="sm"
+          >
+            <Plus className="w-4 h-4 mr-1" />
+            New Skeleton
+          </Button>
+        </div>
         <FrameLibrary />
+        
+        {/* New Skeleton Dialog */}
+        <CreateSkeletonDialog 
+          open={showCreateDialog} 
+          onOpenChange={setShowCreateDialog}
+        />
       </div>
     </div>
   );
