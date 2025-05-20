@@ -27,6 +27,8 @@ import { useCustomGptAssistants } from '@/lib/custom-gpt';
 import CustomGptDialog from '@/components/ai/CustomGptDialog';
 import { Badge } from '@/components/ui/badge';
 import { useLocation } from 'wouter';
+import { TONES, FILTERS } from '@/lib/constants';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface FrameDialogProps {
   open: boolean;
@@ -38,6 +40,9 @@ interface FrameDialogProps {
     content: string;
     unitType: string;
     script?: string;
+    tone?: string;
+    filter?: string;
+    transition?: 'smooth' | 'pattern-interrupt' | 'content-shift';
   };
   skeletonId: string;
 }
@@ -52,7 +57,13 @@ export default function FrameDialog({ open, onOpenChange, frame, skeletonId }: F
   const [showCustomGptDialog, setShowCustomGptDialog] = useState(false);
   const [, navigate] = useLocation();
 
-  const { updateFrameScript, getVideoContext } = useWorkspace();
+  const { 
+    updateFrameScript, 
+    getVideoContext, 
+    updateFrameTone, 
+    updateFrameFilter,
+    updateFrameTransition
+  } = useWorkspace();
   const { toast } = useToast();
   const { 
     assistants,
