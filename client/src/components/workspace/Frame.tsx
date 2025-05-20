@@ -2,17 +2,29 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { GripHorizontal, X, Edit } from 'lucide-react';
+import { GripHorizontal, X, Edit, Settings } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import type { Frame as FrameType } from '@/types';
 import FrameDialog from './FrameDialog';
 import { useWorkspace } from '@/lib/store';
-import { FRAME_CATEGORY_COLORS } from '@/lib/constants';
+import { FRAME_CATEGORY_COLORS, TONES, FILTERS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { useDroppable } from '@dnd-kit/core';
 import { adaptFrameContent } from '@/lib/ai-service';
 import { HoverCard, HoverCardTrigger, HoverCardContent } from '@/components/ui/hover-card';
 import { useTouchGestures } from '@/hooks/use-touch-gestures';
+import { 
+  Popover,
+  PopoverContent,
+  PopoverTrigger 
+} from '@/components/ui/popover';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 interface FrameProps {
   frame: FrameType;
