@@ -58,14 +58,16 @@ export function ContentTypeSelector() {
               >
                 <RadioGroupItem value="longform" id="longform" className="sr-only" />
                 
-                <div className="bg-muted/30 p-2.5 rounded-full mr-3">
-                  <VideoIcon className="h-5 w-5 text-primary" />
-                </div>
-                
-                <div className="flex-1 flex items-center justify-between">
-                  <span className="text-xs bg-muted/30 text-muted-foreground rounded-md px-2 py-0.5 mr-1">
+                <div className="flex flex-col items-center mr-3">
+                  <div className="bg-muted/30 p-2.5 rounded-full mb-1">
+                    <VideoIcon className="h-5 w-5 text-primary" />
+                  </div>
+                  <span className="text-[10px] text-muted-foreground">
                     &lt;20 min
                   </span>
+                </div>
+                
+                <div className="flex-1">
                 </div>
               </Label>
             </div>
@@ -85,14 +87,16 @@ export function ContentTypeSelector() {
               >
                 <RadioGroupItem value="shortform" id="shortform" className="sr-only" />
                 
-                <div className="bg-muted/30 p-2.5 rounded-full mr-3">
-                  <SmartphoneIcon className="h-5 w-5 text-red-500" />
-                </div>
-                
-                <div className="flex-1 flex items-center justify-between">
-                  <span className="text-xs bg-muted/30 text-red-500 rounded-md px-2 py-0.5 mr-1">
+                <div className="flex flex-col items-center mr-3">
+                  <div className="bg-muted/30 p-2.5 rounded-full mb-1">
+                    <SmartphoneIcon className="h-5 w-5 text-red-500" />
+                  </div>
+                  <span className="text-[10px] text-muted-foreground">
                     15s-3 min
                   </span>
+                </div>
+                
+                <div className="flex-1">
                 </div>
               </Label>
             </div>
