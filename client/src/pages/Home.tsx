@@ -46,52 +46,67 @@ export default function Home() {
   useEffect(() => {
     // Create a skeleton with the Problem-Solution structure
     const skeletonId = nanoid();
+    
+    // When creating new frames, ensure each one gets a unique ID
+    const createFrame = (name, type, content, unitType) => ({
+      id: nanoid(),
+      name,
+      type,
+      content,
+      unitType,
+      tone: '',
+      filter: ''
+    });
+    
     // Default units for Problem-Solution framework
-    const units = ['Hook', 'Problem Setup', 'Solution', 'Implement'];
+    const units = ['Hook', 'Setup', 'Journey', 'Climactic Moment', 'Outro/Resolution'];
     
     // Create initial frames for each unit
     const frames = [
-      {
-        id: nanoid(),
-        name: 'Attention Grabber',
-        type: 'Pattern Interrupt',
-        content: 'Did you know 80% of content creators struggle to gain consistent views?',
-        unitType: 'Hook',
-        tone: '',
-        filter: ''
-      },
-      {
-        id: nanoid(),
-        name: 'Problem Frame',
-        type: 'Problem Statement',
-        content: 'Most creators spend hours filming but miss the key structure that makes content go viral.',
-        unitType: 'Problem Setup',
-        tone: '',
-        filter: ''
-      },
-      {
-        id: nanoid(),
-        name: 'Solution Overview',
-        type: 'Value Proposition',
-        content: 'The right video structure can double your views and engagement with the same content.',
-        unitType: 'Solution',
-        tone: '',
-        filter: ''
-      },
-      {
-        id: nanoid(),
-        name: 'Action Step',
-        type: 'Call to Action',
-        content: 'Let me show you the exact template that top creators use to consistently get millions of views.',
-        unitType: 'Implement',
-        tone: '',
-        filter: ''
-      }
+      // Hook frames
+      createFrame(
+        'Attention Grabber', 
+        'Pattern Interrupt', 
+        'Did you know 80% of content creators struggle to gain consistent views?', 
+        'Hook'
+      ),
+      
+      // Setup frames
+      createFrame(
+        'Problem Definition', 
+        'Problem Statement', 
+        'Most creators spend hours filming but miss the key structure that makes content go viral.', 
+        'Setup'
+      ),
+      
+      // Journey frames
+      createFrame(
+        'Solution Overview', 
+        'Value Proposition', 
+        'The right video structure can double your views and engagement with the same content.', 
+        'Journey'
+      ),
+      
+      // Climactic Moment frames
+      createFrame(
+        'Big Reveal', 
+        'Reveal', 
+        "I have analyzed over 1,000 viral videos and discovered these 3 key structural elements they all share.", 
+        'Climactic Moment'
+      ),
+      
+      // Outro frames
+      createFrame(
+        'Call To Action', 
+        'Call to Action', 
+        'Let me show you the exact template that top creators use to consistently get millions of views.', 
+        'Outro/Resolution'
+      )
     ];
     
     const skeleton = {
       id: skeletonId,
-      name: "Problem-Solution Framework",
+      name: "Content Creator's Framework",
       frames: frames,
       units: units
     };
