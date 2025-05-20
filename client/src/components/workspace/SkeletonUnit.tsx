@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Copy, Trash2, GripVertical } from 'lucide-react';
 import type { Frame as FrameType } from '@/types';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import React, { useState, useEffect, useRef } from 'react';
 
 interface SkeletonUnitProps {
@@ -38,44 +37,41 @@ export default function SkeletonUnit({
       type: 'unit',
       accepts: ['frame', 'template'],
       name,
-      unitType: name
     }
   });
 
-  // Add state for column width with a default of 300px
+  // Width management state
   const [width, setWidth] = useState(300);
   const [isResizing, setIsResizing] = useState(false);
-  const resizeStartX = useRef(0);
-  const resizeStartWidth = useRef(0);
-
+  const containerRef = useRef<HTMLDivElement>(null);
+  
   // Handle starting the resize operation
   const handleResizeStart = (e: React.MouseEvent) => {
     e.preventDefault();
     setIsResizing(true);
-    resizeStartX.current = e.clientX;
-    resizeStartWidth.current = width;
     
-    // Add event listeners for resize
     document.addEventListener('mousemove', handleResizeMove);
     document.addEventListener('mouseup', handleResizeEnd);
   };
-
-  // Handle resizing while mouse is moving
+  
+  // Handle the resize movement
   const handleResizeMove = (e: MouseEvent) => {
-    if (!isResizing) return;
+    if (!isResizing || !containerRef.current) return;
     
-    const delta = e.clientX - resizeStartX.current;
-    const newWidth = Math.max(200, resizeStartWidth.current + delta); // Min width 200px
-    setWidth(newWidth);
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const newWidth = e.clientX - containerRect.left;
+    
+    // Set minimum width to prevent column from getting too small
+    setWidth(Math.max(200, newWidth));
   };
-
+  
   // Handle ending the resize operation
   const handleResizeEnd = () => {
     setIsResizing(false);
     document.removeEventListener('mousemove', handleResizeMove);
     document.removeEventListener('mouseup', handleResizeEnd);
   };
-
+  
   // Cleanup event listeners when component unmounts
   useEffect(() => {
     return () => {
@@ -106,6 +102,7 @@ export default function SkeletonUnit({
       >
         <GripVertical className="h-4 w-4 text-muted-foreground opacity-50" />
       </div>
+      
       {/* Header */}
       <div className="flex items-center justify-between px-2 py-1 border-b bg-background">
         <h3 className="text-base font-medium">{name}</h3>
@@ -131,46 +128,38 @@ export default function SkeletonUnit({
         </div>
       </div>
 
-      {/* Frames area */}
+      {/* Frames area with proper scrolling */}
       <div 
-        className={cn(
-          "flex-1 overflow-y-auto min-h-[200px] flex flex-col relative",
-          isOver && "bg-primary/10"
-        )}
+        className="flex-1 overflow-auto" 
         style={{ maxHeight: "calc(100vh - 150px)" }}
       >
-        {/* Extra drop indicator area when empty */}
-        {unitFrames.length === 0 && (
+        {unitFrames.length === 0 ? (
           <div className={cn(
-            "absolute inset-0 flex items-center justify-center text-muted-foreground text-sm pointer-events-none z-0",
+            "flex items-center justify-center h-full text-muted-foreground text-sm",
             isOver ? "opacity-100" : "opacity-70"
           )}>
             <p className="text-center px-4">Drop frames here</p>
           </div>
+        ) : (
+          <div className="p-2">
+            <SortableContext
+              items={unitFrames.map(f => f.id)}
+              strategy={verticalListSortingStrategy}
+            >
+              <div className="flex flex-col gap-3">
+                {unitFrames.map((frame) => (
+                  <Frame 
+                    key={frame.id} 
+                    frame={frame}
+                    onDelete={onDeleteFrame}
+                    dimmed={isOver}
+                    unitWidth={width}
+                  />
+                ))}
+              </div>
+            </SortableContext>
+          </div>
         )}
-
-        <ScrollArea 
-          className="flex-1 p-2 w-full h-full"
-          type="always"
-          scrollHideDelay={0}
-        >
-          <SortableContext
-            items={unitFrames.map(f => f.id)}
-            strategy={verticalListSortingStrategy}
-          >
-            <div className="flex flex-col gap-3 min-h-[150px] w-full pr-4">
-              {unitFrames.map((frame) => (
-                <Frame 
-                  key={frame.id} 
-                  frame={frame}
-                  onDelete={onDeleteFrame}
-                  dimmed={isOver}
-                  unitWidth={width}
-                />
-              ))}
-            </div>
-          </SortableContext>
-        </ScrollArea>
       </div>
     </div>
   );
