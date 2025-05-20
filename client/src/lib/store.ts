@@ -99,6 +99,19 @@ export const useWorkspace = create<WorkspaceState>((set, get) => ({
         : skeleton
     ),
   })),
+  
+  updateFrameTransition: (skeletonId: string, frameId: string, transition: 'smooth' | 'pattern-interrupt' | 'content-shift') => set((state) => ({
+    skeletons: state.skeletons.map((skeleton) =>
+      skeleton.id === skeletonId
+        ? {
+            ...skeleton,
+            frames: skeleton.frames.map((frame) =>
+              frame.id === frameId ? { ...frame, transition } : frame
+            ),
+          }
+        : skeleton
+    ),
+  })),
 
   // New function to update the units array of a skeleton
   updateSkeletonUnits: (skeletonId: string, units: string[]) => set((state) => ({
