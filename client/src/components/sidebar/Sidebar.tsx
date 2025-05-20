@@ -21,7 +21,7 @@ export default function Sidebar() {
       <Button 
         variant="ghost" 
         size="sm" 
-        className="absolute -right-3 top-2 h-6 w-6 rounded-full border bg-background shadow-sm p-0 z-10"
+        className="absolute -right-3 top-16 h-6 w-6 rounded-full border bg-background shadow-sm p-0 z-10"
         onClick={() => setCollapsed(!collapsed)}
         aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
       >
