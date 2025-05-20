@@ -86,13 +86,13 @@ export default function SkeletonUnit({
     <div 
       ref={setNodeRef}
       className={cn(
-        "h-full flex flex-col transition-all duration-200 relative",
+        "h-full flex flex-col transition-all duration-200 relative max-h-full",
         isOver && "ring-2 ring-primary/40 bg-primary/10",
         isResizing && "select-none"
       )}
       style={{ 
         width: `${width}px`,
-        height: "100%" 
+        height: "100%"
       }}
       data-unit-type={name}
     >
@@ -134,7 +134,13 @@ export default function SkeletonUnit({
       </div>
 
       {/* Frames area with explicit scrollbars */}
-      <div className="flex-1 overflow-y-auto overflow-x-hidden h-full scrollbar-thin scrollbar-thumb-rounded-md scrollbar-thumb-gray-400 scrollbar-track-transparent">
+      <div 
+        className="flex-1 overflow-y-auto overflow-x-hidden scrollbar scrollbar-thumb-gray-400 scrollbar-track-transparent" 
+        style={{ 
+          maxHeight: "calc(100vh - 120px)",
+          height: "100%"
+        }}
+      >
         {unitFrames.length === 0 ? (
           <div className={cn(
             "flex items-center justify-center h-full text-muted-foreground text-sm",
