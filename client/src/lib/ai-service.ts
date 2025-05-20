@@ -231,9 +231,14 @@ export async function adaptFrameContent(
   unitType: string,
   answers?: Record<string, string> // Answers to unit-specific questions
 ): Promise<string> {
+  // First, check if we have content to adapt
+  if (!content || content.trim() === '') {
+    throw new Error('No content provided to adapt');
+  }
+
   try {
     // Use the Agent 2.0 implementation for content adaptation
-    return adaptContentWithAgent(content, tone, filter, unitType);
+    return await adaptContentWithAgent(content, tone, filter, unitType);
   } catch (error) {
     console.error('Error adapting content with Agent 2.0:', error);
     

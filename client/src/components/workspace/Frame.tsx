@@ -13,6 +13,7 @@ import { useDroppable } from '@dnd-kit/core';
 import { adaptFrameContent } from '@/lib/ai-service';
 import { HoverCard, HoverCardTrigger, HoverCardContent } from '@/components/ui/hover-card';
 import { useTouchGestures } from '@/hooks/use-touch-gestures';
+import { useToast } from '@/hooks/use-toast';
 import { 
   Popover,
   PopoverContent,
@@ -36,12 +37,14 @@ interface FrameProps {
 export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: FrameProps) {
   const [showDialog, setShowDialog] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const { toast } = useToast();
   const { 
     activeSkeletonId, 
     updateFrameContent, 
     updateFrameTone, 
     updateFrameFilter,
-    updateFrameTransition
+    updateFrameTransition,
+    getVideoContext
   } = useWorkspace();
   const [isAdapting, setIsAdapting] = useState(false);
   const [contentScale, setContentScale] = useState(1);
@@ -404,6 +407,17 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
                         onClick={async () => {
                           if (!activeSkeletonId || !frame.tone || !frame.filter) return;
                           
+                          // Check if we have video context information
+                          const videoContext = getVideoContext(activeSkeletonId);
+                          if (!videoContext) {
+                            toast({
+                              title: "Missing Video Context",
+                              description: "Please add context about your video in the skeleton settings first.",
+                              variant: "destructive"
+                            });
+                            return;
+                          }
+                          
                           setIsAdapting(true);
                           try {
                             const adaptedContent = await adaptFrameContent(
@@ -416,9 +430,18 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
                             
                             if (adaptedContent) {
                               updateFrameContent(activeSkeletonId, frame.id, adaptedContent);
+                              toast({
+                                title: "Content Enhanced",
+                                description: `Applied ${frame.tone} tone and ${frame.filter} filter to your content.`
+                              });
                             }
                           } catch (error) {
                             console.error("Error adapting content:", error);
+                            toast({
+                              title: "Enhancement Failed",
+                              description: "There was an issue enhancing your content. Please try again.",
+                              variant: "destructive"
+                            });
                           } finally {
                             setIsAdapting(false);
                           }
