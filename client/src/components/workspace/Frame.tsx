@@ -168,7 +168,8 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
     }
   }
 
-  if (!activeSkeletonId) return null;
+  // Only try to use activeSkeletonId for actions that require it, but not for component rendering
+  // This allows frames to show even when no skeleton is active
 
   // Custom CSS for touch feedback
   const touchIndicatorClasses = cn(
