@@ -110,7 +110,7 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
   // GAMING CATEGORY
   {
     id: 'lilsimsie',
-    name: 'lilsimsie Style',
+    name: 'Lilsimsie Style',
     creator: 'lilsimsie',
     category: 'Gaming',
     contentTypes: ['long'],
@@ -191,7 +191,7 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
   },
   {
     id: 'iam-ilb',
-    name: 'iaM ILb Style',
+    name: 'IaM ILb Style',
     creator: 'iaM ILb',
     category: 'Gaming',
     contentTypes: ['long'],
@@ -755,9 +755,145 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
     ]
   },
 
+  // LIFESTYLE CATEGORY
+  {
+    id: 'charli-damelio',
+    name: 'Charli D\'Amelio Style',
+    creator: 'Charli D\'Amelio',
+    category: 'Lifestyle',
+    contentTypes: ['short'],
+    description: 'TikTok-style quick entertainment with trendy music and transitions',
+    units: ['Hook', 'Intro', 'Performance', 'Call To Action'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['visual-demo', 'pattern-interrupt'],
+        examples: [
+          {
+            frameId: 'visual-demo',
+            content: "Here's a dance move you've never seen before! #trending"
+          }
+        ]
+      },
+      {
+        unitType: 'Intro',
+        frameIds: ['quick-introduction', 'topic-overview'],
+        examples: [
+          {
+            frameId: 'quick-introduction',
+            content: "Today I'm showing you how to do the viral hand dance everyone's talking about."
+          }
+        ]
+      },
+      {
+        unitType: 'Performance',
+        frameIds: ['step-by-step', 'behind-the-scenes'],
+        examples: [
+          {
+            frameId: 'step-by-step',
+            content: "First position: hands here. Second: cross over. Third: double tap and flip!"
+          }
+        ]
+      },
+      {
+        unitType: 'Call To Action',
+        frameIds: ['audience-question', 'subscribe-cta'],
+        examples: [
+          {
+            frameId: 'audience-question',
+            content: "Tag me if you try this! What song should I dance to next?"
+          }
+        ]
+      }
+    ]
+  },
+
+  // BUSINESS CATEGORY
+  {
+    id: 'alex-hormozi',
+    name: 'Alex Hormozi Style',
+    creator: 'Alex Hormozi',
+    category: 'Business',
+    contentTypes: ['long', 'short'],
+    description: 'Direct, actionable business advice with contrarian principles',
+    units: ['Hook', 'Intro', 'Content Delivery', 'Proof', 'Action Plan', 'Reflection', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['bold-statement', 'urgency-creator'],
+        examples: [
+          {
+            frameId: 'bold-statement',
+            content: "The one mistake costing you 90% of your potential profit - and why almost every entrepreneur makes it."
+          }
+        ]
+      },
+      {
+        unitType: 'Intro',
+        frameIds: ['establish-credibility', 'contrarian-perspective'],
+        examples: [
+          {
+            frameId: 'establish-credibility',
+            content: "I've built and sold multiple 8-figure businesses using this exact framework that no one talks about."
+          }
+        ]
+      },
+      {
+        unitType: 'Content Delivery',
+        frameIds: ['conceptual-framework', 'myth-buster'],
+        examples: [
+          {
+            frameId: 'conceptual-framework',
+            content: "There are four levers that control all business growth: more leads, higher conversion, greater AOV, and increased frequency."
+          }
+        ]
+      },
+      {
+        unitType: 'Proof',
+        frameIds: ['case-study', 'data-story'],
+        examples: [
+          {
+            frameId: 'case-study', 
+            content: "When we applied this to a failing gym, their revenue went from $40k to $175k per month in just 90 days."
+          }
+        ]
+      },
+      {
+        unitType: 'Action Plan',
+        frameIds: ['step-by-step', 'risk-management'],
+        examples: [
+          {
+            frameId: 'step-by-step',
+            content: "First, restructure your offer using the value equation: dream outcome divided by perceived likelihood of achievement times perceived time delay and effort and sacrifice."
+          }
+        ]
+      },
+      {
+        unitType: 'Reflection',
+        frameIds: ['philosophical-principle', 'contrarian-perspective'],
+        examples: [
+          {
+            frameId: 'philosophical-principle',
+            content: "The irony is that giving too many options actually decreases sales - constraint creates clarity."
+          }
+        ]
+      },
+      {
+        unitType: 'Outro',
+        frameIds: ['call-to-action', 'next-steps'],
+        examples: [
+          {
+            frameId: 'call-to-action',
+            content: "Implement just one of these principles this week, and let me know what results you get."
+          }
+        ]
+      }
+    ]
+  },
+
   // Add more templates here...
 
-  // We'll add a shortened version as an example, with more to be added separately
+  // ENTERTAINMENT CATEGORY continued
   {
     id: 'mrbeast',
     name: 'MrBeast Style',
