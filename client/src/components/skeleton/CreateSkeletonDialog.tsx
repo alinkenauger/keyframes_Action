@@ -131,12 +131,23 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
               // Find the frame template from the library
               const frameTemplate = FRAME_TEMPLATES.find(f => f.id === frameId);
               if (frameTemplate) {
+                // Check if we have a specific example for this frame in the creator template
+                let content = frameTemplate.example || '';
+                
+                // Look for example content from the creator template
+                if (unitFrames.examples) {
+                  const example = unitFrames.examples.find(e => e.frameId === frameId);
+                  if (example && example.content) {
+                    content = example.content;
+                  }
+                }
+                
                 // Create a new frame object
                 frames.push({
                   id: nanoid(),
                   name: frameTemplate.name,
                   type: frameTemplate.id,
-                  content: frameTemplate.example || '',
+                  content: content,
                   unitType: unitType
                 });
               }
