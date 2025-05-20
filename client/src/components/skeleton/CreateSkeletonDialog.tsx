@@ -9,6 +9,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card, CardContent } from '@/components/ui/card';
 import { useWorkspace } from '@/lib/store';
 import { CREATOR_TEMPLATES, FRAME_TEMPLATES } from '@/lib/frameLibrary';
+import { CREATOR_TEMPLATES_BY_CATEGORY, getAllCategories, getTemplatesByCategory, CategoryCreatorTemplate, TemplateCategory } from '@/lib/creatorTemplates';
 import { SKELETON_UNITS } from '@/lib/constants';
 import { DndContext, DragEndEvent, DragStartEvent, closestCenter, DragOverlay, useDroppable, useDraggable } from '@dnd-kit/core';
 import { Textarea } from '@/components/ui/textarea';
