@@ -5,7 +5,7 @@ import type { Skeleton as SkeletonType } from '@/types';
 import { SKELETON_UNITS } from '@/lib/constants';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
+import { Plus, Wand2 } from 'lucide-react';
 import { adaptFrameContent } from '@/lib/ai-service';
 import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -186,6 +186,9 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
     unit => !templateUnits.includes(unit.type)
   );
 
+  // Initialize toast
+  const { toast } = useToast();
+  
   return (
     <div className="h-full flex flex-col">
       <div className="flex items-center justify-between mb-2 px-2">
@@ -195,7 +198,7 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
             size="sm" 
             variant="secondary"
             onClick={() => {
-              // Global enhance functionality will be implemented here
+              // Global enhance functionality
               toast({
                 title: "Enhancing all content",
                 description: "Upgrading all frames with their selected tones and filters...",
@@ -216,7 +219,8 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
                   );
                   
                   if (adaptedContent) {
-                    updateFrameContent(skeleton.id, frame.id, adaptedContent);
+                    // Use the store's updateFrameContent method
+                    get().updateFrameContent(skeleton.id, frame.id, adaptedContent);
                   }
                 } catch (error) {
                   console.error(`Error enhancing frame ${frame.id}:`, error);
@@ -241,30 +245,31 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-72 p-4">
-            <div className="space-y-4">
-              <h3 className="font-medium">Add New Unit</h3>
-              <Select value={selectedUnit} onValueChange={setSelectedUnit}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a unit type" />
-                </SelectTrigger>
-                <SelectContent>
-                  {availableUnits.map(unit => (
-                    <SelectItem key={unit.type} value={unit.type}>
-                      {unit.type}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Button 
-                onClick={handleAddUnit} 
-                disabled={!selectedUnit}
-                className="w-full"
-              >
-                Add Unit
-              </Button>
-            </div>
-          </PopoverContent>
-        </Popover>
+              <div className="space-y-4">
+                <h3 className="font-medium">Add New Unit</h3>
+                <Select value={selectedUnit} onValueChange={setSelectedUnit}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a unit type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availableUnits.map(unit => (
+                      <SelectItem key={unit.type} value={unit.type}>
+                        {unit.type}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Button 
+                  onClick={handleAddUnit} 
+                  disabled={!selectedUnit}
+                  className="w-full"
+                >
+                  Add Unit
+                </Button>
+              </div>
+            </PopoverContent>
+          </Popover>
+        </div>
       </div>
 
       <SortableContext 
