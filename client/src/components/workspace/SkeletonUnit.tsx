@@ -131,20 +131,17 @@ export default function SkeletonUnit({
         </div>
       </div>
 
-      {/* Frames area with proper scrolling */}
-      <div className="flex-1 relative">
+      {/* Frames area with simple vertical scrolling */}
+      <div className="flex-1 overflow-y-auto h-full">
         {unitFrames.length === 0 ? (
           <div className={cn(
-            "absolute inset-0 flex items-center justify-center text-muted-foreground text-sm",
+            "flex items-center justify-center h-full text-muted-foreground text-sm",
             isOver ? "opacity-100" : "opacity-70"
           )}>
             <p className="text-center px-4">Drop frames here</p>
           </div>
         ) : (
-          <div 
-            className="absolute inset-0 overflow-y-auto px-2 py-2"
-            style={{ maxHeight: "100%" }}
-          >
+          <div className="p-2">
             <SortableContext
               items={unitFrames.map(f => f.id)}
               strategy={verticalListSortingStrategy}
