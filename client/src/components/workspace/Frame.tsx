@@ -269,15 +269,17 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
                           value={frame.tone || ""}
                           onValueChange={async (value) => {
                             if (activeSkeletonId) {
-                              updateFrameTone(activeSkeletonId, frame.id, value);
+                              // Handle the "none" case by setting tone to empty string
+                              const actualValue = value === "none" ? "" : value;
+                              updateFrameTone(activeSkeletonId, frame.id, actualValue);
                               
                               // Only adapt content if both tone and filter are present
-                              if (value && frame.filter) {
+                              if (actualValue && frame.filter) {
                                 setIsAdapting(true);
                                 try {
                                   const adaptedContent = await adaptFrameContent(
                                     frame.content || '',
-                                    value,
+                                    actualValue,
                                     frame.filter,
                                     frame.type || '',
                                     frame.unitType || '',
@@ -299,7 +301,7 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
                             <SelectValue placeholder="Select tone" />
                           </SelectTrigger>
                           <SelectContent>
-                            {frame.tone && <SelectItem value="">None</SelectItem>}
+                            {frame.tone && <SelectItem value="none">None</SelectItem>}
                             {TONES.map(tone => (
                               <SelectItem key={tone} value={tone}>{tone}</SelectItem>
                             ))}
@@ -314,16 +316,18 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
                           value={frame.filter || ""}
                           onValueChange={async (value) => {
                             if (activeSkeletonId) {
-                              updateFrameFilter(activeSkeletonId, frame.id, value);
+                              // Handle the "none" case by setting filter to empty string
+                              const actualValue = value === "none" ? "" : value;
+                              updateFrameFilter(activeSkeletonId, frame.id, actualValue);
                               
                               // Only adapt content if both tone and filter are present
-                              if (value && frame.tone) {
+                              if (actualValue && frame.tone) {
                                 setIsAdapting(true);
                                 try {
                                   const adaptedContent = await adaptFrameContent(
                                     frame.content || '',
                                     frame.tone,
-                                    value,
+                                    actualValue,
                                     frame.type || '',
                                     frame.unitType || '',
                                   );
@@ -344,7 +348,7 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
                             <SelectValue placeholder="Select filter" />
                           </SelectTrigger>
                           <SelectContent>
-                            {frame.filter && <SelectItem value="">None</SelectItem>}
+                            {frame.filter && <SelectItem value="none">None</SelectItem>}
                             {FILTERS.map(filter => (
                               <SelectItem key={filter} value={filter}>{filter}</SelectItem>
                             ))}
@@ -359,10 +363,12 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
                           value={frame.transition || ""}
                           onValueChange={(value) => {
                             if (activeSkeletonId) {
+                              // Handle the "none" case by setting transition to empty string
+                              const actualValue = value === "none" ? "" : value;
                               updateFrameTransition(
                                 activeSkeletonId, 
                                 frame.id, 
-                                value as 'smooth' | 'pattern-interrupt' | 'content-shift'
+                                actualValue as '' | 'smooth' | 'pattern-interrupt' | 'content-shift'
                               );
                             }
                           }}
@@ -371,7 +377,7 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
                             <SelectValue placeholder="Select transition" />
                           </SelectTrigger>
                           <SelectContent>
-                            {frame.transition && <SelectItem value="">None</SelectItem>}
+                            {frame.transition && <SelectItem value="none">None</SelectItem>}
                             <SelectItem value="smooth">Smooth / Natural</SelectItem>
                             <SelectItem value="pattern-interrupt">Pattern Interrupt</SelectItem>
                             <SelectItem value="content-shift">Content Shift</SelectItem>
