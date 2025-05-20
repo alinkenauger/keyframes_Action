@@ -32,6 +32,7 @@ export interface WorkspaceState {
   updateFrameOrder: (skeletonId: string, frames: Frame[]) => void;
   updateFrameTone: (skeletonId: string, frameId: string, tone: string) => void;
   updateFrameFilter: (skeletonId: string, frameId: string, filter: string) => void;
+  updateFrameTransition: (skeletonId: string, frameId: string, transition: 'smooth' | 'pattern-interrupt' | 'content-shift') => void;
   setActiveSkeletonId: (id: string | null) => void;
   updateSkeletonUnits: (skeletonId: string, units: string[]) => void; // New action for unit reordering
 
