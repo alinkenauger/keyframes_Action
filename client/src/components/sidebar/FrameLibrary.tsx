@@ -136,16 +136,51 @@ export default function FrameLibrary() {
         </Tabs>
       )}
 
-      {/* Frame Cards */}
+      {/* Frame Cards - with improved visual organization */}
       <ScrollArea className="flex-1">
-        <div className="grid grid-cols-1 gap-4 p-1">
-          {displayedFrames.map((frame) => (
-            <DraggableFrame 
-              key={frame.id} 
-              frame={frame} 
-              onDelete={frame.isCustom ? handleDeleteCustomFrame : undefined}
-            />
-          ))}
+        <div className="space-y-6 p-2">
+          {/* Group frames by type for better organization */}
+          {displayedFrames.length > 0 && (
+            <>
+              {/* Display current category as a heading */}
+              <div className="bg-muted/50 px-3 py-2 rounded-md mb-3">
+                <h3 className="text-sm font-medium">
+                  {searchQuery 
+                    ? `Search Results: ${displayedFrames.length} frames`
+                    : activeCategory === FRAME_CATEGORIES.HOOK 
+                      ? `${activeHookType === 'initial' ? 'Initial' : 'Re'} Hooks (${displayedFrames.length})`
+                      : `${activeCategory} Frames (${displayedFrames.length})`
+                  }
+                </h3>
+              </div>
+              
+              {/* Display the frames in a visually appealing grid with alternating colors */}
+              <div className="grid grid-cols-1 gap-3">
+                {displayedFrames.map((frame, index) => (
+                  <div key={frame.id} className={cn(
+                    "transition-all duration-200 hover:scale-[1.01]",
+                    index % 2 === 0 ? "pl-1" : "pl-3" // Create visual rhythm with alternating indentation
+                  )}>
+                    <DraggableFrame 
+                      frame={frame} 
+                      onDelete={frame.isCustom ? handleDeleteCustomFrame : undefined}
+                    />
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+          
+          {/* Empty state */}
+          {displayedFrames.length === 0 && (
+            <div className="flex flex-col items-center justify-center py-10 text-center text-muted-foreground">
+              <div className="bg-muted rounded-full p-3 mb-4">
+                <Search className="h-6 w-6" />
+              </div>
+              <h3 className="text-sm font-medium mb-1">No frames found</h3>
+              <p className="text-xs">Try adjusting your search or category filter</p>
+            </div>
+          )}
         </div>
       </ScrollArea>
 
