@@ -1110,23 +1110,93 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['bold-statement', 'shock-value', 'intriguing-question']
+        frameIds: ['bold-statement', 'shock-value', 'intriguing-question'],
+        examples: [
+          {
+            frameId: 'bold-statement',
+            content: "I'm about to save 99% of you YEARS of wasted time and money by telling you what nobody in the business world wants you to hear."
+          },
+          {
+            frameId: 'shock-value',
+            content: "You're working 80 hours a week building someone else's dream while your own business idea collects dust. WAKE UP."
+          },
+          {
+            frameId: 'intriguing-question',
+            content: "What if I told you the number one thing stopping you from making real money has nothing to do with the economy, your background, or your skills?"
+          }
+        ]
       },
       {
         unitType: 'Problem Setup',
-        frameIds: ['common-struggle', 'myth-buster', 'viewer-challenge']
+        frameIds: ['common-struggle', 'myth-buster', 'viewer-challenge'],
+        examples: [
+          {
+            frameId: 'common-struggle',
+            content: "So many of you are paralyzed by fear of failure. You're waiting for the 'perfect time' to start your business, which is absolute nonsense because that time will NEVER come."
+          },
+          {
+            frameId: 'myth-buster',
+            content: "Everybody's telling you that you need fancy degrees and connections to succeed. WRONG. What you need is to stop making excuses and start executing TODAY."
+          },
+          {
+            frameId: 'viewer-challenge',
+            content: "I challenge you right now to write down why you haven't started. Be honest with yourself. Is it fear? Laziness? What's the real reason?"
+          }
+        ]
       },
       {
         unitType: 'Teach a Concept',
-        frameIds: ['expert-insight', 'teach-concept', 'step-by-step']
+        frameIds: ['expert-insight', 'teach-concept', 'step-by-step'],
+        examples: [
+          {
+            frameId: 'expert-insight',
+            content: "After building multiple 9-figure businesses, I can tell you with absolute certainty that patience and micro-speed is the unbeatable combination. Patient strategy, aggressive execution."
+          },
+          {
+            frameId: 'teach-concept',
+            content: "Your personal brand is the greatest leverage point in today's economy. It's not just some Instagram photos. It's building trust at scale that converts to real business opportunities."
+          },
+          {
+            frameId: 'step-by-step',
+            content: "Step one: Pick the platform where your customers actually are. Step two: Create daily content for 12 months without expecting results. Step three: Double down on what's working and cut everything else."
+          }
+        ]
       },
       {
         unitType: 'Rehook',
-        frameIds: ['midway-shock', 'teaser-rehook', 'bold-statement']
+        frameIds: ['midway-shock', 'teaser-rehook', 'bold-statement'],
+        examples: [
+          {
+            frameId: 'midway-shock',
+            content: "Here's what's crazy - 95% of you watching will nod your heads, agree with everything I'm saying, and then do ABSOLUTELY NOTHING with this information."
+          },
+          {
+            frameId: 'teaser-rehook',
+            content: "But I haven't even told you the most important part yet - the one strategy that completely changed the game for me when I was dead broke and just starting out."
+          },
+          {
+            frameId: 'bold-statement',
+            content: "Stop overthinking and start doing. Your excuses are costing you millions while others are out there building empires with less talent and resources than you have."
+          }
+        ]
       },
       {
         unitType: 'Outro',
-        frameIds: ['call-to-action', 'key-takeaway', 'next-steps']
+        frameIds: ['call-to-action', 'key-takeaway', 'next-steps'],
+        examples: [
+          {
+            frameId: 'call-to-action',
+            content: "If this resonated with you, smash that subscribe button right now and turn on notifications. We're dropping tactical business advice every single day."
+          },
+          {
+            frameId: 'key-takeaway',
+            content: "Remember this: the market doesn't care about your feelings, your background, or your excuses. It only rewards value and execution. That's it."
+          },
+          {
+            frameId: 'next-steps',
+            content: "Your homework: spend the next hour mapping out your content strategy for the next 90 days. No excuses. DM me your plan if you're serious."
+          }
+        ]
       }
     ]
   },
@@ -1139,23 +1209,93 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['viewer-challenge', 'visual-demo', 'shock-value']
+        frameIds: ['viewer-challenge', 'visual-demo', 'shock-value'],
+        examples: [
+          {
+            frameId: 'viewer-challenge',
+            content: "Today we're going to attempt the world's longest basketball shot from the top of this 400-foot tower. Can we do it?"
+          },
+          {
+            frameId: 'visual-demo',
+            content: "Check out this crazy new obstacle course we built! Last person to complete it wins $10,000."
+          },
+          {
+            frameId: 'shock-value',
+            content: "We filled our entire office with 1 million ping pong balls overnight. Wait until you see our coworkers' reactions!"
+          }
+        ]
       },
       {
         unitType: 'Challenge Setup',
-        frameIds: ['conflict-setup', 'viewer-challenge', 'common-struggle']
+        frameIds: ['conflict-setup', 'viewer-challenge', 'common-struggle'],
+        examples: [
+          {
+            frameId: 'conflict-setup',
+            content: "The rules are simple: each person gets 5 attempts. Closest to the bullseye advances to the next round. Last person standing wins the championship belt."
+          },
+          {
+            frameId: 'viewer-challenge',
+            content: "Think you can do better? Try this at home and tag us with #DudePerfectChallenge - we'll feature the best attempts in our next video!"
+          },
+          {
+            frameId: 'common-struggle',
+            content: "Let's be honest, we've all tried trick shots at home and failed miserably. It took us 347 attempts to make this shot!"
+          }
+        ]
       },
       {
         unitType: 'Content Journey',
-        frameIds: ['behind-the-scenes', 'step-by-step', 'creative-transition']
+        frameIds: ['behind-the-scenes', 'step-by-step', 'creative-transition'],
+        examples: [
+          {
+            frameId: 'behind-the-scenes',
+            content: "What you don't see is how we spent two full days setting up these dominoes. Ty knocked them over twice and we had to restart!"
+          },
+          {
+            frameId: 'step-by-step',
+            content: "First, we'll attempt the basketball shot. Then, we'll move to the frisbee challenge. Finally, the winner gets to attempt the impossible water bottle flip."
+          },
+          {
+            frameId: 'creative-transition',
+            content: "Now let's head outside where Cody has prepared something absolutely insane for the next part of this challenge."
+          }
+        ]
       },
       {
         unitType: 'Climax',
-        frameIds: ['shock-value', 'visual-demo', 'midway-shock']
+        frameIds: ['shock-value', 'visual-demo', 'midway-shock'],
+        examples: [
+          {
+            frameId: 'shock-value',
+            content: "NO WAY HE JUST MADE THAT! First try! That's never happened in Dude Perfect history!"
+          },
+          {
+            frameId: 'visual-demo',
+            content: "Watch this in slow motion - the ball travels over 200 feet, bounces three times, and somehow goes perfectly into the target."
+          },
+          {
+            frameId: 'midway-shock',
+            content: "We did NOT expect the wind to be this strong up here. This just got 10 times harder!"
+          }
+        ]
       },
       {
         unitType: 'Outro',
-        frameIds: ['recap-summary', 'call-to-action', 'next-steps']
+        frameIds: ['recap-summary', 'call-to-action', 'next-steps'],
+        examples: [
+          {
+            frameId: 'recap-summary',
+            content: "What an incredible battle today! Garrett took home the trophy with that unbelievable final shot. Let's see that one more time in super slow motion."
+          },
+          {
+            frameId: 'call-to-action',
+            content: "If you enjoyed this video, hit that subscribe button and notification bell so you don't miss our next crazy challenge!"
+          },
+          {
+            frameId: 'next-steps',
+            content: "Next week, we're attempting to break a world record with the help of a special guest. You won't want to miss it!"
+          }
+        ]
       }
     ]
   }
