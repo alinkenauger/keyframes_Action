@@ -148,7 +148,7 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
   }, [frame.tone, frame.filter, activeSkeletonId, frame.id, frame.content, frame.type, frame.unitType, updateFrameContent, frame.isTemplateExample]);
 
   // Determine drop position for visual indicators
-  const [dropPosition, setDropPosition] = useState<'top' | 'bottom' | null>(null);
+  const [dropPosition, setDropPosition] = useState<'top' | 'bottom' | 'middle' | null>(null);
   
   // Update drop position when dragging over this frame
   useEffect(() => {
@@ -157,15 +157,27 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
       return;
     }
     
-    // Calculate if the cursor is in the top or bottom half of the frame
+    // Calculate if the cursor is in the top, middle, or bottom section of the frame
     const overData = over.data.current;
     if (overData && overData.type === 'frame') {
       const rect = document.getElementById(frame.id)?.getBoundingClientRect();
       if (rect) {
         // Get mouse position from event - this is approximate since we don't have direct access to mouse position
         const mouseY = (over as any).rect?.top || 0;
-        const frameMiddleY = rect.top + rect.height / 2;
-        setDropPosition(mouseY < frameMiddleY ? 'top' : 'bottom');
+        const frameTop = rect.top;
+        const frameHeight = rect.height;
+        
+        // Define three sections: top 30%, middle 40%, bottom 30%
+        const topThreshold = frameTop + frameHeight * 0.3;
+        const bottomThreshold = frameTop + frameHeight * 0.7;
+        
+        if (mouseY < topThreshold) {
+          setDropPosition('top');
+        } else if (mouseY > bottomThreshold) {
+          setDropPosition('bottom');
+        } else {
+          setDropPosition('middle');
+        }
       }
     }
   }, [over, frame.id, isDragging]);
