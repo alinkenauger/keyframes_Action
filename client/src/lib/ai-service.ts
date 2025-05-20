@@ -381,3 +381,8 @@ Generate the content using the above constraints and context:`;
 export function getUnitQuestions(unitType: string): string[] {
   return UNIT_SPECIFIC_QUESTIONS[unitType] || DEFAULT_UNIT_QUESTIONS;
 }
+
+// Combined method to get all unit type questions together
+export function getAllUnitQuestions(): Record<string, string[]> {
+  return UNIT_SPECIFIC_QUESTIONS;
+}
