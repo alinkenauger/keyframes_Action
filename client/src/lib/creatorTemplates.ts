@@ -27,7 +27,7 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
   // COOKING CATEGORY
   {
     id: 'joshua-weissman',
-    name: 'Joshua Weissman Template',
+    name: 'Joshua Weissman Style',
     creator: 'Joshua Weissman',
     category: 'Cooking',
     contentTypes: ['long'],
@@ -110,7 +110,7 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
   // GAMING CATEGORY
   {
     id: 'lilsimsie',
-    name: 'lilsimsie Template',
+    name: 'lilsimsie Style',
     creator: 'lilsimsie',
     category: 'Gaming',
     contentTypes: ['long'],
@@ -191,7 +191,7 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
   },
   {
     id: 'iam-ilb',
-    name: 'iaM ILb Template',
+    name: 'iaM ILb Style',
     creator: 'iaM ILb',
     category: 'Gaming',
     contentTypes: ['long'],
@@ -264,7 +264,7 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
   // SPORTS/EDUCATION CATEGORY
   {
     id: 'danny-maude',
-    name: 'Danny Maude Template',
+    name: 'Danny Maude Style',
     creator: 'Danny Maude',
     category: 'Sports',
     contentTypes: ['long'],
@@ -347,7 +347,7 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
   // FINANCE CATEGORY
   {
     id: 'humphrey-yang',
-    name: 'Humphrey Yang Template',
+    name: 'Humphrey Yang Style',
     creator: 'Humphrey Yang',
     category: 'Finance',
     contentTypes: ['long', 'short'],
@@ -428,7 +428,7 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
   },
   {
     id: 'graham-stephan',
-    name: 'Graham Stephan Template',
+    name: 'Graham Stephan Style',
     creator: 'Graham Stephan',
     category: 'Finance',
     contentTypes: ['long'],
@@ -511,7 +511,7 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
   // BUSINESS CATEGORY
   {
     id: 'alex-becker',
-    name: 'Alex Becker Template',
+    name: 'Alex Becker Style',
     creator: 'Alex Becker',
     category: 'Business',
     contentTypes: ['long'],
@@ -592,7 +592,7 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
   },
   {
     id: 'iman-gadzhi',
-    name: 'Iman Gadzhi Template',
+    name: 'Iman Gadzhi Style',
     creator: 'Iman Gadzhi',
     category: 'Business',
     contentTypes: ['long'],
@@ -675,7 +675,7 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
   // ENTERTAINMENT CATEGORY
   {
     id: 'ryan-trahan',
-    name: 'Ryan Trahan Template',
+    name: 'Ryan Trahan Style',
     creator: 'Ryan Trahan',
     category: 'Entertainment',
     contentTypes: ['long'],
