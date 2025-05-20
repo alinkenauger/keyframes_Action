@@ -21,6 +21,10 @@ export interface CreatorTemplate {
   frames?: {
     unitType: string;
     frameIds: string[];
+    examples?: {
+      frameId: string;
+      content: string;
+    }[];
   }[];
 }
 
@@ -368,23 +372,93 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['shock-value', 'bold-statement', 'intriguing-question']
+        frameIds: ['shock-value', 'bold-statement', 'intriguing-question'],
+        examples: [
+          {
+            frameId: 'shock-value',
+            content: "Did you know your phone is dirtier than a toilet seat? Today, I'm giving $10,000 to whoever has the cleanest phone in this mall."
+          },
+          {
+            frameId: 'bold-statement',
+            content: "I'm going to buy everything in this store for 100 random subscribers. No limits, no budget."
+          },
+          {
+            frameId: 'intriguing-question',
+            content: "What would you do if I handed you $100,000 right now, but you only had 10 minutes to spend it all?"
+          }
+        ]
       },
       {
         unitType: 'Setup',
-        frameIds: ['conflict-setup', 'viewer-challenge', 'common-struggle']
+        frameIds: ['conflict-setup', 'viewer-challenge', 'common-struggle'],
+        examples: [
+          {
+            frameId: 'conflict-setup',
+            content: "These 100 people will compete in increasingly difficult challenges. Last person to leave the circle wins $500,000."
+          },
+          {
+            frameId: 'viewer-challenge',
+            content: "I challenge you to try this technique every day for a week. The results have been insane for everyone who's stuck with it."
+          },
+          {
+            frameId: 'common-struggle',
+            content: "Most people struggle with staying consistent. Here's why, and how we're going to test it with this crazy experiment."
+          }
+        ]
       },
       {
         unitType: 'Journey',
-        frameIds: ['visual-demo', 'midway-shock', 'what-happens-next']
+        frameIds: ['visual-demo', 'midway-shock', 'what-happens-next'],
+        examples: [
+          {
+            frameId: 'visual-demo',
+            content: "Watch as I transform this basic video into a cinematic masterpiece. The difference is all in these three techniques."
+          },
+          {
+            frameId: 'midway-shock',
+            content: "And here's the part nobody talks about... we're doubling the prize money right now! Everyone still in the competition just went from competing for $50,000 to $100,000!"
+          },
+          {
+            frameId: 'what-happens-next',
+            content: "Now that we've narrowed it down to 10 contestants, it's time to reveal the final challenge that nobody saw coming."
+          }
+        ]
       },
       {
         unitType: 'Climactic Moment',
-        frameIds: ['shock-value', 'call-out-audience', 'visual-demo']
+        frameIds: ['shock-value', 'call-out-audience', 'visual-demo'],
+        examples: [
+          {
+            frameId: 'shock-value',
+            content: "Did you know your phone is dirtier than a toilet seat? After testing all 100 contestants' phones, we found something that will shock you!"
+          },
+          {
+            frameId: 'call-out-audience',
+            content: "Hey content creators, this is for you! The winner of today's challenge is going to teach you exactly how they did it."
+          },
+          {
+            frameId: 'visual-demo',
+            content: "Look at the difference between the first attempt and the final result. This is why persistence is everything in this challenge."
+          }
+        ]
       },
       {
         unitType: 'Outro/Resolution',
-        frameIds: ['key-takeaway', 'call-to-action', 'next-steps']
+        frameIds: ['key-takeaway', 'call-to-action', 'next-steps'],
+        examples: [
+          {
+            frameId: 'key-takeaway',
+            content: "The most important lesson from today's challenge? Consistency beats talent every single time, and we just proved it."
+          },
+          {
+            frameId: 'call-to-action',
+            content: "Make sure you're subscribed because next week we're giving away a Tesla to a random subscriber who comments below."
+          },
+          {
+            frameId: 'next-steps',
+            content: "Want to participate in our next challenge? Download our app and register now. We're selecting contestants this Friday!"
+          }
+        ]
       }
     ]
   },
@@ -397,23 +471,93 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['bold-statement', 'myth-buster', 'intriguing-question']
+        frameIds: ['bold-statement', 'myth-buster', 'intriguing-question'],
+        examples: [
+          {
+            frameId: 'bold-statement',
+            content: "The number one reason most businesses fail isn't what you think. And fixing it doesn't require more work—it requires the opposite."
+          },
+          {
+            frameId: 'myth-buster',
+            content: "Everyone tells you to focus on social media marketing, but they're dead wrong. Here's what actually drives business growth."
+          },
+          {
+            frameId: 'intriguing-question',
+            content: "What if I told you that the top 1% of entrepreneurs do the exact opposite of what business gurus teach?"
+          }
+        ]
       },
       {
         unitType: 'Problem Setup',
-        frameIds: ['myth-buster', 'common-struggle', 'common-pitfalls']
+        frameIds: ['myth-buster', 'common-struggle', 'common-pitfalls'],
+        examples: [
+          {
+            frameId: 'myth-buster',
+            content: "You've been taught that more clients equals more revenue. This fallacy is killing your profit margins and here's why."
+          },
+          {
+            frameId: 'common-struggle',
+            content: "Most business owners work 80-hour weeks thinking hustle equals success. The reality? You're working yourself into mediocrity."
+          },
+          {
+            frameId: 'common-pitfalls',
+            content: "The three critical mistakes almost every service business makes that guarantee they'll stay small forever."
+          }
+        ]
       },
       {
         unitType: 'Solution',
-        frameIds: ['expert-insight', 'case-study', 'step-by-step']
+        frameIds: ['expert-insight', 'case-study', 'step-by-step'],
+        examples: [
+          {
+            frameId: 'expert-insight',
+            content: "After working with over 4,000 businesses, I discovered this counterintuitive truth: Raising your prices actually increases demand when done correctly."
+          },
+          {
+            frameId: 'case-study',
+            content: "My client Sarah was charging $50 per hour and working nonstop. Within 60 days, she restructured to $5,000 packages and now works half as much while making triple the revenue."
+          },
+          {
+            frameId: 'step-by-step',
+            content: "Here's the exact three-step process we use with our clients to engineer irresistible high-ticket offers that convert at 40%."
+          }
+        ]
       },
       {
         unitType: 'Implementation',
-        frameIds: ['step-by-step', 'common-pitfalls', 'expert-insight']
+        frameIds: ['step-by-step', 'common-pitfalls', 'expert-insight'],
+        examples: [
+          {
+            frameId: 'step-by-step',
+            content: "Step 1: Identify your highest-value deliverable. Step 2: Create a proprietary framework around it. Step 3: Restructure your pricing to reflect the outcome, not the hours worked."
+          },
+          {
+            frameId: 'common-pitfalls',
+            content: "When implementing this strategy, avoid these three deadly mistakes that cause even the best offers to fail."
+          },
+          {
+            frameId: 'expert-insight',
+            content: "The key to implementation is speed. I've found that businesses who execute this framework within 7 days see conversion rates 3X higher than those who wait."
+          }
+        ]
       },
       {
         unitType: 'Results',
-        frameIds: ['testimonial', 'data-story', 'case-study']
+        frameIds: ['testimonial', 'data-story', 'case-study'],
+        examples: [
+          {
+            frameId: 'testimonial',
+            content: "\"I was skeptical at first, but after implementing Alex's framework, we went from $30K to $300K per month in less than 90 days with the exact same team size.\" - Mark R., Agency Owner"
+          },
+          {
+            frameId: 'data-story',
+            content: "Across our portfolio of 4,327 businesses, the average increase in profit margin is 62% within the first quarter of implementation, while decreasing fulfillment time by 47%."
+          },
+          {
+            frameId: 'case-study',
+            content: "Let me walk you through exactly how Jennifer transformed her struggling fitness business from earning $7K per month to consistently bringing in $92K monthly with better clients and fewer headaches."
+          }
+        ]
       }
     ]
   },
@@ -426,19 +570,75 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['shock-value', 'intriguing-question', 'personal-connection']
+        frameIds: ['shock-value', 'intriguing-question', 'personal-connection'],
+        examples: [
+          {
+            frameId: 'shock-value',
+            content: "I literally haven't washed my hair in two weeks and you guys... it actually looks better than ever? I'm so confused."
+          },
+          {
+            frameId: 'intriguing-question',
+            content: "Have you ever wondered what actually happens when you drink three espressos and then try to meditate for the first time? Because I did that yesterday."
+          },
+          {
+            frameId: 'personal-connection',
+            content: "So I moved to a new apartment and I've been having the weirdest interactions with my neighbors that I just need to talk about."
+          }
+        ]
       },
       {
         unitType: 'Intro',
-        frameIds: ['common-struggle', 'heartfelt-confession', 'visual-demo']
+        frameIds: ['common-struggle', 'heartfelt-confession', 'visual-demo'],
+        examples: [
+          {
+            frameId: 'common-struggle',
+            content: "Does anyone else feel completely overwhelmed by their email inbox? Like, I open it and immediately want to throw my laptop out the window."
+          },
+          {
+            frameId: 'heartfelt-confession',
+            content: "I've been feeling really anxious about social situations lately, which is weird because I used to think I was somewhat of an extrovert? I don't know, maybe I'm changing."
+          },
+          {
+            frameId: 'visual-demo',
+            content: "Okay so I'm going to show you my morning routine, but like, the REAL one. Not the aesthetic TikTok version where I'm drinking lemon water at 5am."
+          }
+        ]
       },
       {
         unitType: 'Content Journey',
-        frameIds: ['behind-the-scenes', 'common-struggle', 'visual-demo']
+        frameIds: ['behind-the-scenes', 'common-struggle', 'visual-demo'],
+        examples: [
+          {
+            frameId: 'behind-the-scenes',
+            content: "So when I was at this coffee shop, off camera, the barista told me something that completely changed how I think about my daily routine..."
+          },
+          {
+            frameId: 'common-struggle',
+            content: "Trying to film this part was actually a disaster. My camera kept dying, I spilled coffee TWICE, and then it started raining out of nowhere."
+          },
+          {
+            frameId: 'visual-demo',
+            content: "Watch what happens when I try this weird face mask that's apparently made from snail mucus. I'm kind of terrified but also intrigued?"
+          }
+        ]
       },
       {
         unitType: 'Rehook',
-        frameIds: ['teaser-rehook', 'what-happens-next', 'midway-shock']
+        frameIds: ['teaser-rehook', 'what-happens-next', 'midway-shock'],
+        examples: [
+          {
+            frameId: 'teaser-rehook',
+            content: "But wait until you see what happened after I left the store... I was NOT expecting that reaction from everyone."
+          },
+          {
+            frameId: 'what-happens-next',
+            content: "So now I'm standing in my kitchen at 3am about to try this recipe that supposedly changes your life? I don't know if this is a good idea."
+          },
+          {
+            frameId: 'midway-shock',
+            content: "Guys. I just checked the price of this thing I've been using for MONTHS and it's actually insanely expensive. I had no idea!"
+          }
+        ]
       }
     ]
   },
@@ -451,15 +651,57 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Visual Hook',
-        frameIds: ['visual-demo', 'shock-value', 'intriguing-question']
+        frameIds: ['visual-demo', 'shock-value', 'intriguing-question'],
+        examples: [
+          {
+            frameId: 'visual-demo',
+            content: "Watch how I create this trending transition in just three simple movements. #transition #dancetutorial"
+          },
+          {
+            frameId: 'shock-value',
+            content: "I learned this dance in 10 minutes... wait for the ending! 😱 #fastlearner"
+          },
+          {
+            frameId: 'intriguing-question',
+            content: "Ever wonder how dancers hit those perfect moves every time? Let me show you the secret..."
+          }
+        ]
       },
       {
         unitType: 'Content Delivery',
-        frameIds: ['visual-demo', 'step-by-step', 'creative-transition']
+        frameIds: ['visual-demo', 'step-by-step', 'creative-transition'],
+        examples: [
+          {
+            frameId: 'visual-demo',
+            content: "Break it down like this: arm, hip, step, turn. Watch me demonstrate at half-speed first. #dancetutorial"
+          },
+          {
+            frameId: 'step-by-step',
+            content: "Step 1: Start with feet together. Step 2: Shift weight to your right foot. Step 3: Now for the tricky part..."
+          },
+          {
+            frameId: 'creative-transition',
+            content: "Now watch as I blend this move into the next sequence for a seamless flow that looks professional. #dancetips"
+          }
+        ]
       },
       {
         unitType: 'Outro',
-        frameIds: ['call-to-action', 'next-steps', 'viewer-challenge']
+        frameIds: ['call-to-action', 'next-steps', 'viewer-challenge'],
+        examples: [
+          {
+            frameId: 'call-to-action',
+            content: "Follow for a new dance tutorial every day this week! Tag me in your attempts! #learntodance"
+          },
+          {
+            frameId: 'next-steps',
+            content: "If you mastered this move, check out my advanced tutorial dropping tomorrow for the full choreography!"
+          },
+          {
+            frameId: 'viewer-challenge',
+            content: "I challenge you to try this dance and post it with #CharlisChallenge - I'll be featuring my favorites!"
+          }
+        ]
       }
     ]
   },
@@ -472,23 +714,93 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['visual-demo', 'myth-buster', 'bold-statement']
+        frameIds: ['visual-demo', 'myth-buster', 'bold-statement'],
+        examples: [
+          {
+            frameId: 'visual-demo',
+            content: "This is Singapore, and this is why it's the most expensive city in the world. Let me show you what makes it unique in just 1 minute!"
+          },
+          {
+            frameId: 'myth-buster',
+            content: "Everything you think you know about renewable energy is wrong. These three countries prove it - and the results will surprise you."
+          },
+          {
+            frameId: 'bold-statement',
+            content: "This small country invented a system that completely eliminated poverty in just one generation. And the world needs to know about it."
+          }
+        ]
       },
       {
         unitType: 'Story Setup',
-        frameIds: ['personal-connection', 'thought-experiment', 'common-struggle']
+        frameIds: ['personal-connection', 'thought-experiment', 'common-struggle'],
+        examples: [
+          {
+            frameId: 'personal-connection',
+            content: "When I arrived in Japan last year, I couldn't understand why their streets were so clean until I discovered this incredible cultural practice."
+          },
+          {
+            frameId: 'thought-experiment',
+            content: "Imagine a world where electricity is free for everyone. Crazy, right? But this company in Denmark is making it possible with this innovation."
+          },
+          {
+            frameId: 'common-struggle',
+            content: "We all struggle to stay productive in our busy lives. But this ancient technique practiced in Bali is changing how people work forever."
+          }
+        ]
       },
       {
         unitType: 'Content Delivery',
-        frameIds: ['teach-concept', 'expert-insight', 'behind-the-scenes']
+        frameIds: ['teach-concept', 'expert-insight', 'behind-the-scenes'],
+        examples: [
+          {
+            frameId: 'teach-concept',
+            content: "Here's how this incredible system works: First, they collect rainwater from every building. Second, they filter it through these special membranes. Third, they redistribute it throughout the entire city."
+          },
+          {
+            frameId: 'expert-insight',
+            content: "I interviewed the woman who invented this technology, and she told me something that changed my perspective completely: \"Innovation doesn't require new resources, just new thinking.\""
+          },
+          {
+            frameId: 'behind-the-scenes',
+            content: "What you don't see on social media is how this community spends 3 hours every morning preparing for just 5 minutes of this incredible ritual."
+          }
+        ]
       },
       {
         unitType: 'Rehook',
-        frameIds: ['teaser-rehook', 'midway-shock', 'viewer-challenge']
+        frameIds: ['teaser-rehook', 'midway-shock', 'viewer-challenge'],
+        examples: [
+          {
+            frameId: 'teaser-rehook',
+            content: "But that's not even the most amazing part. Wait until you see what happens when they apply this technique to schools!"
+          },
+          {
+            frameId: 'midway-shock',
+            content: "This is where things get mind-blowing. The system was actually created by a 14-year-old student who was failing in school!"
+          },
+          {
+            frameId: 'viewer-challenge',
+            content: "I challenge you to try this practice for just one week. Message me your results - I guarantee you'll see a difference."
+          }
+        ]
       },
       {
         unitType: 'Outro',
-        frameIds: ['key-takeaway', 'call-to-action', 'next-steps']
+        frameIds: ['key-takeaway', 'call-to-action', 'next-steps'],
+        examples: [
+          {
+            frameId: 'key-takeaway',
+            content: "The big lesson here? Innovation often comes from the places we least expect it. This is why we need to keep exploring and sharing these stories."
+          },
+          {
+            frameId: 'call-to-action',
+            content: "If you want to learn more about incredible innovations around the world, follow me! One-minute videos, every day."
+          },
+          {
+            frameId: 'next-steps',
+            content: "Tomorrow, I'll show you how a small village in Africa completely transformed their economy with one simple change. Don't miss it!"
+          }
+        ]
       }
     ]
   },
@@ -501,23 +813,93 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['visual-demo', 'shock-value', 'intriguing-question']
+        frameIds: ['visual-demo', 'shock-value', 'intriguing-question'],
+        examples: [
+          {
+            frameId: 'visual-demo',
+            content: "[Fast-paced aerial shots of New York City] The city looks calm from up here, but what happens when you try to deliver a package across Manhattan during rush hour?"
+          },
+          {
+            frameId: 'shock-value',
+            content: "My flight was canceled, so I'm attempting to travel 300 miles in 24 hours using nothing but electric scooters. Is it even possible?"
+          },
+          {
+            frameId: 'intriguing-question',
+            content: "What would happen if you gave a filmmaker a brand new camera and just 3 hours to create something meaningful?"
+          }
+        ]
       },
       {
         unitType: 'Story Setup',
-        frameIds: ['personal-connection', 'conflict-setup', 'common-struggle']
+        frameIds: ['personal-connection', 'conflict-setup', 'common-struggle'],
+        examples: [
+          {
+            frameId: 'personal-connection',
+            content: "I've been fascinated with drones since I first saw one five years ago. Today, I'm going to attempt something that's never been done with consumer drones before."
+          },
+          {
+            frameId: 'conflict-setup',
+            content: "Here's the challenge: I need to get from downtown to the airport during the biggest parade of the year. All roads are closed, and I have exactly 90 minutes before my flight."
+          },
+          {
+            frameId: 'common-struggle',
+            content: "We've all experienced that moment when technology fails at the worst possible time. Today it happened to me in the middle of nowhere, and here's how it unfolded."
+          }
+        ]
       },
       {
         unitType: 'Content Journey',
-        frameIds: ['behind-the-scenes', 'visual-demo', 'creative-transition']
+        frameIds: ['behind-the-scenes', 'visual-demo', 'creative-transition'],
+        examples: [
+          {
+            frameId: 'behind-the-scenes',
+            content: "What you don't see is that it took us 15 attempts to get this shot right. The drone crashed twice, and we had to navigate through some seriously questionable legal territory."
+          },
+          {
+            frameId: 'visual-demo',
+            content: "[Time-lapse of city streets with narrator running through crowds] This is what happens when you try to cross Times Square during New Year's Eve preparations."
+          },
+          {
+            frameId: 'creative-transition',
+            content: "[Fast cut from subway to rooftop with continuous narration] Sometimes you have to go underground before you can rise above the chaos and see things clearly."
+          }
+        ]
       },
       {
         unitType: 'Climax',
-        frameIds: ['shock-value', 'midway-shock', 'what-happens-next']
+        frameIds: ['shock-value', 'midway-shock', 'what-happens-next'],
+        examples: [
+          {
+            frameId: 'shock-value',
+            content: "After six hours of trying, we finally made it to the top... only to discover that the entire event had been canceled due to weather conditions they never announced."
+          },
+          {
+            frameId: 'midway-shock',
+            content: "Just when I thought we had figured it all out, the battery died completely. No warning, no backup plan, stranded 15 miles from civilization."
+          },
+          {
+            frameId: 'what-happens-next',
+            content: "So what do you do when you're standing on the edge of a building with $10,000 worth of equipment and suddenly security shows up? Here's what happened next..."
+          }
+        ]
       },
       {
         unitType: 'Reflection',
-        frameIds: ['personal-connection', 'key-takeaway', 'heartfelt-confession']
+        frameIds: ['personal-connection', 'key-takeaway', 'heartfelt-confession'],
+        examples: [
+          {
+            frameId: 'personal-connection',
+            content: "Days like these remind me why I started making videos in the first place. It's not about the destination; it's about documenting the journey, regardless of how it turns out."
+          },
+          {
+            frameId: 'key-takeaway',
+            content: "The lesson I keep relearning: preparation matters, but being able to adapt when everything falls apart matters more. That's not just filmmaking; that's life."
+          },
+          {
+            frameId: 'heartfelt-confession',
+            content: "If I'm being completely honest, there were moments today when I wanted to give up entirely. Sometimes persisting through that feeling is what separates a good story from no story at all."
+          }
+        ]
       }
     ]
   },
@@ -530,23 +912,93 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['visual-demo', 'intriguing-question', 'bold-statement']
+        frameIds: ['visual-demo', 'intriguing-question', 'bold-statement'],
+        examples: [
+          {
+            frameId: 'visual-demo',
+            content: "[Clean product shot of smartphone] This is the new Pixel 8 Pro, and after using it for two weeks, it's changing how I think about smartphone cameras entirely."
+          },
+          {
+            frameId: 'intriguing-question',
+            content: "What if I told you the most important feature of this $1,200 smartphone isn't even mentioned in the marketing materials?"
+          },
+          {
+            frameId: 'bold-statement',
+            content: "This is the most important tech purchase decision you'll make in 2025, and almost everyone gets it wrong for one simple reason."
+          }
+        ]
       },
       {
         unitType: 'Intro',
-        frameIds: ['teach-concept', 'myth-buster', 'expert-insight']
+        frameIds: ['teach-concept', 'myth-buster', 'expert-insight'],
+        examples: [
+          {
+            frameId: 'teach-concept',
+            content: "Let's talk about processing power versus optimization. In smartphones, it's not about how much power you have, but how efficiently the software uses it."
+          },
+          {
+            frameId: 'myth-buster',
+            content: "People think more megapixels always means better photos. That's completely wrong, and here's why computational photography changes everything."
+          },
+          {
+            frameId: 'expert-insight',
+            content: "After testing over 50 smartphones this year, I've noticed that battery technology hasn't fundamentally changed - what's changed is how we manage power consumption."
+          }
+        ]
       },
       {
         unitType: 'Content Segment 1',
-        frameIds: ['step-by-step', 'visual-demo', 'data-story']
+        frameIds: ['step-by-step', 'visual-demo', 'data-story'],
+        examples: [
+          {
+            frameId: 'step-by-step',
+            content: "First, let's look at the display. Then, we'll test the camera in various lighting conditions. Finally, we'll stress-test the battery under typical daily usage."
+          },
+          {
+            frameId: 'visual-demo',
+            content: "[Side-by-side comparison footage] Watch how this phone handles 4K video recording compared to last year's model. Notice the difference in stabilization and color accuracy."
+          },
+          {
+            frameId: 'data-story',
+            content: "Our benchmark tests show this processor performing 22% better than last generation while consuming 15% less power. That's the power efficiency curve we've been waiting for."
+          }
+        ]
       },
       {
         unitType: 'Rehook',
-        frameIds: ['teaser-rehook', 'midway-shock', 'viewer-challenge']
+        frameIds: ['teaser-rehook', 'midway-shock', 'viewer-challenge'],
+        examples: [
+          {
+            frameId: 'teaser-rehook',
+            content: "But the real test comes when we push this camera to its limits in extreme low light - and the results might surprise you."
+          },
+          {
+            frameId: 'midway-shock',
+            content: "Here's where things get interesting: we discovered a hidden setting that completely transforms the performance, something not mentioned in any review guide."
+          },
+          {
+            frameId: 'viewer-challenge',
+            content: "I challenge you to try this simple test on your current phone - I guarantee it will reveal whether you actually need to upgrade this year."
+          }
+        ]
       },
       {
         unitType: 'Content Segment 2',
-        frameIds: ['case-study', 'step-by-step', 'visual-demo']
+        frameIds: ['case-study', 'step-by-step', 'visual-demo'],
+        examples: [
+          {
+            frameId: 'case-study',
+            content: "Last month we took this exact phone on a trip through the Grand Canyon, using it as our only camera. Let me show you the actual unedited footage we captured."
+          },
+          {
+            frameId: 'step-by-step',
+            content: "If you do purchase this device, here are the three settings you should immediately change for optimal performance and battery life."
+          },
+          {
+            frameId: 'visual-demo',
+            content: "[Slow motion detailed footage] Look at the precision of these animations and transitions. That's the advantage of having dedicated GPU resources for UI rendering."
+          }
+        ]
       }
     ]
   },
@@ -559,23 +1011,93 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['shock-value', 'personal-connection', 'bold-statement']
+        frameIds: ['shock-value', 'personal-connection', 'bold-statement'],
+        examples: [
+          {
+            frameId: 'shock-value',
+            content: "I tried the viral foundation that's all over TikTok... and I was SHOCKED at what it did to my skin after 8 hours!"
+          },
+          {
+            frameId: 'personal-connection',
+            content: "You guys have been asking for months about my skincare routine, so today I'm finally spilling ALL my secrets!"
+          },
+          {
+            frameId: 'bold-statement',
+            content: "This is the ONE product that completely transformed my makeup routine, and it's not what you think."
+          }
+        ]
       },
       {
         unitType: 'Intro',
-        frameIds: ['personal-connection', 'common-struggle', 'teach-concept']
+        frameIds: ['personal-connection', 'common-struggle', 'teach-concept'],
+        examples: [
+          {
+            frameId: 'personal-connection',
+            content: "When I was younger, I struggled so much with acne that I wouldn't leave the house without a full face of makeup. That's why today's video means so much to me."
+          },
+          {
+            frameId: 'common-struggle',
+            content: "We've all been there - spending hundreds on products that promise miracles but deliver disappointment. Let's talk about what actually works."
+          },
+          {
+            frameId: 'teach-concept',
+            content: "Before we dive in, let's understand the difference between dewy, matte, and satin finishes, because this will change how you approach your entire makeup routine."
+          }
+        ]
       },
       {
         unitType: 'Content Delivery',
-        frameIds: ['step-by-step', 'visual-demo', 'expert-insight']
+        frameIds: ['step-by-step', 'visual-demo', 'expert-insight'],
+        examples: [
+          {
+            frameId: 'step-by-step',
+            content: "Start by prepping your skin with this hydrating primer, focusing on your T-zone. Then take a pea-sized amount of foundation and apply it in thin layers using a damp beauty blender."
+          },
+          {
+            frameId: 'visual-demo',
+            content: "Look at the difference between applying with a brush versus a sponge - do you see how the sponge gives a much more natural, skin-like finish?"
+          },
+          {
+            frameId: 'expert-insight',
+            content: "Having worked with celebrity makeup artists for years, I've learned that the secret to flawless foundation isn't the product itself - it's how you layer different formulas for your specific skin type."
+          }
+        ]
       },
       {
         unitType: 'Rehook',
-        frameIds: ['teaser-rehook', 'midway-shock', 'viewer-challenge']
+        frameIds: ['teaser-rehook', 'midway-shock', 'viewer-challenge'],
+        examples: [
+          {
+            frameId: 'teaser-rehook',
+            content: "But wait until you see the final result after setting spray... this is where the magic really happens!"
+          },
+          {
+            frameId: 'midway-shock',
+            content: "I was NOT expecting this color to work for me at all, but look at how it completely transformed the entire look!"
+          },
+          {
+            frameId: 'viewer-challenge',
+            content: "I challenge you to try this technique with products you already own before buying anything new - tag me if you do!"
+          }
+        ]
       },
       {
         unitType: 'Outro',
-        frameIds: ['call-to-action', 'heartfelt-confession', 'next-steps']
+        frameIds: ['call-to-action', 'heartfelt-confession', 'next-steps'],
+        examples: [
+          {
+            frameId: 'call-to-action',
+            content: "If you enjoyed this tutorial, please give it a thumbs up and subscribe for new videos every week! All products are linked in the description."
+          },
+          {
+            frameId: 'heartfelt-confession',
+            content: "Being completely honest with you, it took me years to feel confident enough to show my bare skin on camera. Your support means everything to me."
+          },
+          {
+            frameId: 'next-steps',
+            content: "Next week I'll be reviewing the most requested drugstore dupes for luxury makeup, so leave your suggestions in the comments!"
+          }
+        ]
       }
     ]
   },
