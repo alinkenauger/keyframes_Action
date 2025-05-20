@@ -155,14 +155,15 @@ export default function SkeletonUnit({
               strategy={verticalListSortingStrategy}
             >
               <div className="flex flex-col gap-3 pb-8">
-                {unitFrames.map((frame) => (
-                  <Frame 
-                    key={frame.id} 
-                    frame={frame}
-                    onDelete={onDeleteFrame}
-                    dimmed={isOver}
-                    unitWidth={width}
-                  />
+                {unitFrames.map((frame, index) => (
+                  <div key={frame.id} className="relative">
+                    <Frame 
+                      frame={frame}
+                      onDelete={onDeleteFrame}
+                      dimmed={isOver}
+                      unitWidth={width}
+                    />
+                  </div>
                 ))}
               </div>
             </SortableContext>

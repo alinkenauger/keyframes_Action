@@ -26,6 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import FrameDropIndicator from './FrameDropIndicator';
 
 interface FrameProps {
   frame: FrameType;
@@ -57,7 +58,8 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
     setNodeRef,
     transform,
     transition,
-    isDragging
+    isDragging,
+    over
   } = useSortable({ 
     id: frame.id,
     data: {
@@ -145,10 +147,34 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
     adaptContent();
   }, [frame.tone, frame.filter, activeSkeletonId, frame.id, frame.content, frame.type, frame.unitType, updateFrameContent, frame.isTemplateExample]);
 
+  // Determine drop position for visual indicators
+  const [dropPosition, setDropPosition] = useState<'top' | 'bottom' | null>(null);
+  
+  // Update drop position when dragging over this frame
+  useEffect(() => {
+    if (!over || over.id !== frame.id || isDragging) {
+      setDropPosition(null);
+      return;
+    }
+    
+    // Calculate if the cursor is in the top or bottom half of the frame
+    const overData = over.data.current;
+    if (overData && overData.type === 'frame') {
+      const rect = document.getElementById(frame.id)?.getBoundingClientRect();
+      if (rect) {
+        // Get mouse position from event - this is approximate since we don't have direct access to mouse position
+        const mouseY = (over as any).rect?.top || 0;
+        const frameMiddleY = rect.top + rect.height / 2;
+        setDropPosition(mouseY < frameMiddleY ? 'top' : 'bottom');
+      }
+    }
+  }, [over, frame.id, isDragging]);
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
+    position: 'relative' as const,
   };
 
   // We need to handle frame type color mapping differently
