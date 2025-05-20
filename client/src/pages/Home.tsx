@@ -419,6 +419,14 @@ export default function Home() {
             open={showCreateDialog} 
             onOpenChange={setShowCreateDialog}
           />
+          <WelcomeScreen
+            open={showWelcomeScreen}
+            onOpenChange={setShowWelcomeScreen}
+            onShowSkeletonCreator={() => {
+              setShowWelcomeScreen(false);
+              setShowCreateDialog(true);
+            }}
+          />
           <KeyboardShortcutsHelp
             open={helpVisible}
             onOpenChange={setHelpVisible}
