@@ -329,7 +329,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                       className="pb-16" // Extra padding at bottom to ensure visibility on mobile
                     >
                       {/* Show GMV Foundation Template first */}
-                      {CREATOR_TEMPLATES.map((template) => (
+                      {CREATOR_TEMPLATES.filter(t => t.id !== 'mrbeast').map((template) => (
                         <div key={template.id} className="flex items-center space-x-2 mb-4 touch-target border-b pb-3">
                           <RadioGroupItem 
                             value={template.id} 
