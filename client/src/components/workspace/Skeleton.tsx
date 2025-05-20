@@ -6,6 +6,7 @@ import { SKELETON_UNITS } from '@/lib/constants';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
+import { adaptFrameContent } from '@/lib/ai-service';
 import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { cn } from '@/lib/utils';
@@ -189,13 +190,57 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
     <div className="h-full flex flex-col">
       <div className="flex items-center justify-between mb-2 px-2">
         <h2 className="text-xl font-bold">{skeleton.name}</h2>
-        <Popover open={showAddUnitPopover} onOpenChange={setShowAddUnitPopover}>
-          <PopoverTrigger asChild>
-            <Button size="sm" variant="outline">
-              <Plus className="h-4 w-4 mr-1" /> Add Unit
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-72 p-4">
+        <div className="flex gap-2">
+          <Button 
+            size="sm" 
+            variant="secondary"
+            onClick={() => {
+              // Global enhance functionality will be implemented here
+              toast({
+                title: "Enhancing all content",
+                description: "Upgrading all frames with their selected tones and filters...",
+              });
+              
+              // Find all frames with both tone and filter set
+              const framesToEnhance = skeleton.frames.filter(frame => frame.tone && frame.filter);
+              
+              // For each frame, adapt the content
+              framesToEnhance.forEach(async (frame) => {
+                try {
+                  const adaptedContent = await adaptFrameContent(
+                    frame.content || '',
+                    frame.tone || '',
+                    frame.filter || '',
+                    frame.type || '',
+                    frame.unitType || ''
+                  );
+                  
+                  if (adaptedContent) {
+                    updateFrameContent(skeleton.id, frame.id, adaptedContent);
+                  }
+                } catch (error) {
+                  console.error(`Error enhancing frame ${frame.id}:`, error);
+                }
+              });
+              
+              // Show completion message after 2 seconds
+              setTimeout(() => {
+                toast({
+                  title: "Enhancement complete",
+                  description: `Enhanced ${framesToEnhance.length} frames with AI`,
+                });
+              }, 2000);
+            }}
+          >
+            <span className="text-lg mr-1">🪄</span> Enhance All
+          </Button>
+          <Popover open={showAddUnitPopover} onOpenChange={setShowAddUnitPopover}>
+            <PopoverTrigger asChild>
+              <Button size="sm" variant="outline">
+                <Plus className="h-4 w-4 mr-1" /> Add Unit
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-72 p-4">
             <div className="space-y-4">
               <h3 className="font-medium">Add New Unit</h3>
               <Select value={selectedUnit} onValueChange={setSelectedUnit}>
