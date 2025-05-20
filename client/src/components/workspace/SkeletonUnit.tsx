@@ -86,13 +86,15 @@ export default function SkeletonUnit({
     <div 
       ref={setNodeRef}
       className={cn(
-        "h-full flex flex-col transition-all duration-200 relative max-h-full",
+        "flex flex-col transition-all duration-200 relative max-h-full",
         isOver && "ring-2 ring-primary/40 bg-primary/10",
         isResizing && "select-none"
       )}
       style={{ 
         width: `${width}px`,
-        height: "100%"
+        height: "100%",
+        display: "flex",
+        flexDirection: "column"
       }}
       data-unit-type={name}
     >
@@ -133,14 +135,8 @@ export default function SkeletonUnit({
         </div>
       </div>
 
-      {/* Frames area with explicit scrollbars */}
-      <div 
-        className="flex-1 overflow-y-auto overflow-x-hidden scrollbar scrollbar-thumb-gray-400 scrollbar-track-transparent" 
-        style={{ 
-          height: "calc(100vh - 200px)",
-          overflowY: "auto"
-        }}
-      >
+      {/* Completely redesigned scrollable frames area */}
+      <div className="flex-grow flex flex-col overflow-hidden" style={{minHeight: "300px"}}>
         {unitFrames.length === 0 ? (
           <div className={cn(
             "flex items-center justify-center h-full text-muted-foreground text-sm",
@@ -149,12 +145,12 @@ export default function SkeletonUnit({
             <p className="text-center px-4">Drop frames here</p>
           </div>
         ) : (
-          <div className="p-2">
+          <div className="overflow-y-auto h-full p-2" style={{overscrollBehavior: "contain"}}>
             <SortableContext
               items={unitFrames.map(f => f.id)}
               strategy={verticalListSortingStrategy}
             >
-              <div className="flex flex-col gap-3 pb-4">
+              <div className="flex flex-col gap-3 pb-8">
                 {unitFrames.map((frame) => (
                   <Frame 
                     key={frame.id} 
