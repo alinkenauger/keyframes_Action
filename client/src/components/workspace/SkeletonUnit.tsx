@@ -15,6 +15,7 @@ interface SkeletonUnitProps {
   onReorderFrames?: (fromId: string, toId: string, unitType: string) => void;
   onDuplicateUnit?: (unitName: string) => void;
   onDeleteUnit?: (unitName: string) => void;
+  activeDragOver?: boolean; // Whether a frame is being dragged over this unit
 }
 
 export default function SkeletonUnit({ 
