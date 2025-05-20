@@ -135,8 +135,8 @@ export default function SkeletonUnit({
         </div>
       </div>
 
-      {/* Completely redesigned scrollable frames area */}
-      <div className="flex-grow flex flex-col overflow-hidden" style={{minHeight: "300px"}}>
+      {/* Improved scrollable frames area with better overflow handling */}
+      <div className="flex-grow flex flex-col overflow-auto" style={{minHeight: "300px"}}>
         {unitFrames.length === 0 ? (
           <div className={cn(
             "flex items-center justify-center h-full text-muted-foreground text-sm",
@@ -145,7 +145,11 @@ export default function SkeletonUnit({
             <p className="text-center px-4">Drop frames here</p>
           </div>
         ) : (
-          <div className="overflow-y-auto h-full p-2" style={{overscrollBehavior: "contain"}}>
+          <div className="overflow-y-auto overflow-x-hidden h-full p-2" style={{
+            overscrollBehavior: "contain", 
+            maxHeight: "100%",
+            display: "block" 
+          }}>
             <SortableContext
               items={unitFrames.map(f => f.id)}
               strategy={verticalListSortingStrategy}

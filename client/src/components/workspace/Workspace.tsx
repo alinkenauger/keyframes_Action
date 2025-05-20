@@ -247,7 +247,7 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
               <ScrollArea
                 ref={skeletonContainerRef}
                 className={cn(
-                  "w-full overflow-x-auto overscroll-x-contain touch-pan-x",
+                  "w-full overflow-x-auto overflow-y-auto overscroll-x-contain touch-pan-x",
                   "scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent hover:scrollbar-thumb-gray-400",
                   "scroll-smooth",
                   previewMode === 'mobile' && !isMobile ? "max-w-[425px] mx-auto border border-dashed rounded-md" : ""
@@ -255,7 +255,8 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
                 style={{
                   WebkitOverflowScrolling: 'touch',
                   scrollBehavior: 'smooth',
-                  paddingBottom: '20px' // Add padding for the horizontal scrollbar
+                  paddingBottom: '20px', // Add padding for the horizontal scrollbar
+                  height: 'calc(100vh - 180px)' // Set a fixed height to ensure scrolling works
                 }}
                 orientation="both"
               >
