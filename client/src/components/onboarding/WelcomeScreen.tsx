@@ -90,7 +90,7 @@ export default function WelcomeScreen({ open, onOpenChange, onShowSkeletonCreato
                   <PlayCircle className="w-8 h-8 text-primary mr-3" />
                   <div>
                     <h4 className="font-medium text-lg">GMV Foundation Template</h4>
-                    <p className="text-muted-foreground">Use our recommended structure for high retention</p>
+                    <p className="text-muted-foreground">New To KeyFrames? Try our Foundational Structure for increased retention to get started!</p>
                   </div>
                 </div>
                 <div className="text-sm text-muted-foreground pl-11">
