@@ -6,11 +6,15 @@ import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import CreateSkeletonDialog from '@/components/skeleton/CreateSkeletonDialog';
+import { ContentTypeSelector } from './ContentTypeSelector';
+import { useWorkspace } from '@/lib/store';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 export default function Sidebar() {
   const mobileCheck = useIsMobile();
   const [collapsed, setCollapsed] = useState(mobileCheck.isMobile);
   const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const { activeSkeletonId } = useWorkspace();
 
   return (
     <div className={cn(
@@ -29,27 +33,35 @@ export default function Sidebar() {
       </Button>
 
       <div className={cn(
-        "p-4 transition-opacity",
+        "h-full transition-opacity",
         collapsed ? "opacity-0 invisible" : "opacity-100 visible"
       )}>
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-semibold">Frames</h3>
-          <Button 
-            onClick={() => setShowCreateDialog(true)}
-            className="h-8 px-2"
-            size="sm"
-          >
-            <Plus className="w-4 h-4 mr-1" />
-            New Skeleton
-          </Button>
-        </div>
-        <FrameLibrary />
-        
-        {/* New Skeleton Dialog */}
-        <CreateSkeletonDialog 
-          open={showCreateDialog} 
-          onOpenChange={setShowCreateDialog}
-        />
+        <ScrollArea className="h-full">
+          <div className="p-4">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-semibold">Frames</h3>
+              <Button 
+                onClick={() => setShowCreateDialog(true)}
+                className="h-8 px-2"
+                size="sm"
+              >
+                <Plus className="w-4 h-4 mr-1" />
+                New Skeleton
+              </Button>
+            </div>
+            
+            {/* Content Type Selector - only show when a skeleton is active */}
+            {activeSkeletonId && <ContentTypeSelector />}
+            
+            <FrameLibrary />
+            
+            {/* New Skeleton Dialog */}
+            <CreateSkeletonDialog 
+              open={showCreateDialog} 
+              onOpenChange={setShowCreateDialog}
+            />
+          </div>
+        </ScrollArea>
       </div>
     </div>
   );
