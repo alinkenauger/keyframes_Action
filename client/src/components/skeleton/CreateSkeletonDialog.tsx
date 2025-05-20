@@ -82,6 +82,8 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
   const [selectedUnits, setSelectedUnits] = useState<string[]>([]);
   const [draggedUnit, setDraggedUnit] = useState<typeof SKELETON_UNITS[0] | null>(null);
   const [isDropAreaOver, setIsDropAreaOver] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<TemplateCategory | 'all'>('all');
+  const [contentType, setContentType] = useState<'short' | 'long'>('long');
   const { addSkeleton, setActiveSkeletonId, setVideoContext: setStoreVideoContext } = useWorkspace();
 
   const handleDragStart = (event: DragStartEvent) => {
@@ -116,7 +118,12 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
     e.preventDefault();
 
     if (selectedCreator) {
-      const template = CREATOR_TEMPLATES.find(s => s.id === selectedCreator);
+      // Try to find the selected template in either the standard templates or category templates
+      const standardTemplate = CREATOR_TEMPLATES.find(s => s.id === selectedCreator);
+      const categoryTemplate = CREATOR_TEMPLATES_BY_CATEGORY.find(s => s.id === selectedCreator);
+      
+      const template = standardTemplate || categoryTemplate;
+      
       if (template) {
         const skeletonId = nanoid();
         
@@ -163,7 +170,8 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
           id: skeletonId,
           name: name || template.name,
           frames: frames,
-          units: template.units
+          units: template.units,
+          contentType: categoryTemplate ? (contentType as 'short' | 'long') : undefined
         };
 
         addSkeleton(newSkeleton);
@@ -251,15 +259,78 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                 </div>
 
                 <div className="grid gap-2 flex-1 overflow-hidden">
-                  <Label>Choose a Creator Template</Label>
+                  <div className="flex justify-between items-center">
+                    <Label>Choose a Creator Template</Label>
+                    <div className="flex items-center gap-2">
+                      <Label htmlFor="content-type" className="text-xs">Content:</Label>
+                      <div className="flex border rounded-md overflow-hidden">
+                        <button
+                          type="button"
+                          onClick={() => setContentType('short')}
+                          className={cn(
+                            "px-2 py-1 text-xs",
+                            contentType === 'short'
+                              ? "bg-primary text-primary-foreground"
+                              : "bg-background hover:bg-muted"
+                          )}
+                        >
+                          Short
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setContentType('long')}
+                          className={cn(
+                            "px-2 py-1 text-xs",
+                            contentType === 'long'
+                              ? "bg-primary text-primary-foreground"
+                              : "bg-background hover:bg-muted"
+                          )}
+                        >
+                          Long
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedCategory('all')}
+                      className={cn(
+                        "px-2 py-1 text-xs rounded-full",
+                        selectedCategory === 'all'
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-muted hover:bg-muted/80"
+                      )}
+                    >
+                      All Categories
+                    </button>
+                    {getAllCategories().map((category) => (
+                      <button
+                        key={category}
+                        type="button"
+                        onClick={() => setSelectedCategory(category)}
+                        className={cn(
+                          "px-2 py-1 text-xs rounded-full",
+                          selectedCategory === category
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-muted hover:bg-muted/80"
+                        )}
+                      >
+                        {category}
+                      </button>
+                    ))}
+                  </div>
+                  
                   <ScrollArea className="flex-1 rounded-md border p-4 touch-pan-y">
                     <RadioGroup
                       value={selectedCreator || ''}
                       onValueChange={setSelectedCreator}
                       className="pb-16" // Extra padding at bottom to ensure visibility on mobile
                     >
+                      {/* Show GMV Foundation Template first */}
                       {CREATOR_TEMPLATES.map((template) => (
-                        <div key={template.id} className="flex items-center space-x-2 mb-4 touch-target">
+                        <div key={template.id} className="flex items-center space-x-2 mb-4 touch-target border-b pb-3">
                           <RadioGroupItem 
                             value={template.id} 
                             id={template.id} 
@@ -277,6 +348,59 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                           </div>
                         </div>
                       ))}
+                      
+                      {/* Categorized Templates */}
+                      {selectedCategory === 'all' 
+                        ? CREATOR_TEMPLATES_BY_CATEGORY.filter(template => template.contentTypes.includes(contentType)).map((template) => (
+                          <div key={template.id} className="flex items-center space-x-2 mb-4 touch-target">
+                            <RadioGroupItem 
+                              value={template.id} 
+                              id={template.id} 
+                              className="h-5 w-5"
+                            />
+                            <div className="grid gap-1.5">
+                              <div className="flex items-center gap-2">
+                                <Label htmlFor={template.id} className="font-medium">
+                                  {template.name}
+                                </Label>
+                                <span className="text-xs px-1.5 py-0.5 rounded-full bg-muted text-muted-foreground">
+                                  {template.category}
+                                </span>
+                              </div>
+                              <p className="text-sm text-muted-foreground">
+                                {template.description}
+                              </p>
+                              <p className="text-xs text-muted-foreground">
+                                {template.units.length} units - {
+                                  template.units.join(' → ')
+                                }
+                              </p>
+                            </div>
+                          </div>
+                        ))
+                        : getTemplatesByCategory(selectedCategory).filter(template => template.contentTypes.includes(contentType)).map((template) => (
+                          <div key={template.id} className="flex items-center space-x-2 mb-4 touch-target">
+                            <RadioGroupItem 
+                              value={template.id} 
+                              id={template.id} 
+                              className="h-5 w-5"
+                            />
+                            <div className="grid gap-1.5">
+                              <Label htmlFor={template.id} className="font-medium">
+                                {template.name}
+                              </Label>
+                              <p className="text-sm text-muted-foreground">
+                                {template.description}
+                              </p>
+                              <p className="text-xs text-muted-foreground">
+                                {template.units.length} units - {
+                                  template.units.join(' → ')
+                                }
+                              </p>
+                            </div>
+                          </div>
+                        ))
+                      }
                     </RadioGroup>
                   </ScrollArea>
                 </div>
