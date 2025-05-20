@@ -247,26 +247,55 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
             )}
           </div>
 
-          {/* Display indicators for selected attributes */}
-          <div className="mt-2 flex flex-wrap gap-1">
-            {frame.tone && (
-              <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
-                {frame.tone}
-              </span>
-            )}
-            {frame.filter && (
-              <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">
-                {frame.filter}
-              </span>
-            )}
-            {frame.transition && (
+          {/* Tone and Filter dropdowns directly on the card */}
+          <div className="mt-2 flex space-x-2">
+            <Select
+              value={frame.tone || ""}
+              onValueChange={(value) => {
+                if (activeSkeletonId && value) {
+                  updateFrameTone(activeSkeletonId, frame.id, value);
+                }
+              }}
+            >
+              <SelectTrigger className="w-full h-8 text-xs">
+                <SelectValue placeholder="Select tone" />
+              </SelectTrigger>
+              <SelectContent>
+                {TONES.map(tone => (
+                  <SelectItem key={tone} value={tone}>{tone}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            
+            <Select
+              value={frame.filter || ""}
+              onValueChange={(value) => {
+                if (activeSkeletonId && value) {
+                  updateFrameFilter(activeSkeletonId, frame.id, value);
+                }
+              }}
+            >
+              <SelectTrigger className="w-full h-8 text-xs">
+                <SelectValue placeholder="Select filter" />
+              </SelectTrigger>
+              <SelectContent>
+                {FILTERS.map(filter => (
+                  <SelectItem key={filter} value={filter}>{filter}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          
+          {/* Display transition if selected */}
+          {frame.transition && (
+            <div className="mt-2">
               <span className="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded">
-                {frame.transition === 'smooth' ? 'Smooth' : 
+                {frame.transition === 'smooth' ? 'Smooth Transition' : 
                 frame.transition === 'pattern-interrupt' ? 'Pattern Interrupt' : 
                 'Content Shift'}
               </span>
-            )}
-          </div>
+            </div>
+          )}
           
           {/* Hidden drop areas for compatibility */}
           <div ref={setToneRef} className="hidden" />
