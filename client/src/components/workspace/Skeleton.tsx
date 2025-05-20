@@ -5,9 +5,10 @@ import type { Skeleton as SkeletonType } from '@/types';
 import { SKELETON_UNITS } from '@/lib/constants';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Plus, Wand2 } from 'lucide-react';
+import { Plus, Wand2, VideoIcon } from 'lucide-react';
 import { adaptFrameContent } from '@/lib/ai-service';
 import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import GenerateScriptButton from '../script/GenerateScriptButton';
 import { CSS } from '@dnd-kit/utilities';
 import { cn } from '@/lib/utils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -241,6 +242,9 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
           >
             <span className="text-lg mr-1">🪄</span> Enhance All
           </Button>
+          
+          {/* Script Generation Button */}
+          <GenerateScriptButton />
           <Popover open={showAddUnitPopover} onOpenChange={setShowAddUnitPopover}>
             <PopoverTrigger asChild>
               <Button size="sm" variant="outline">
