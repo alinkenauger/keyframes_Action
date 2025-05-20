@@ -193,7 +193,11 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
           dimmed && "opacity-40"
         )}
       >
-        <div {...attributes} {...listeners} className="absolute right-10 top-3 cursor-move">
+        <div 
+          {...attributes} 
+          {...listeners} 
+          className="absolute left-1/2 top-1 -translate-x-1/2 cursor-move p-1 rounded-md hover:bg-gray-100 transition-colors"
+        >
           <GripHorizontal className="h-4 w-4 text-gray-400" />
         </div>
 
