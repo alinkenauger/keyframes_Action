@@ -282,7 +282,7 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
         <div className="flex-1 overflow-x-auto min-w-max">
           <ResizablePanelGroup 
             direction="horizontal" 
-            className="rounded-lg border bg-background h-full"
+            className="rounded-lg border bg-background h-[calc(100vh-180px)]"
           >
             {units.map((unit, index) => (
               <DraggableUnit key={unit.id} unit={unit}>
