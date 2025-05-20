@@ -75,13 +75,20 @@ export default function FrameLibrary() {
             defaultValue={FRAME_CATEGORIES.HOOK} 
             onValueChange={handleTabChange}
           >
-            <TabsList className="mb-4 w-full">
-              {Object.values(FRAME_CATEGORIES).map((category) => (
-                <TabsTrigger key={category} value={category} className="flex-1 text-xs">
-                  {category}
-                </TabsTrigger>
-              ))}
-            </TabsList>
+            <div className="mb-4">
+              <div className="grid grid-cols-2 gap-2">
+                {Object.values(FRAME_CATEGORIES).map((category, index) => (
+                  <TabsTrigger 
+                    key={category} 
+                    value={category} 
+                    className="w-full text-xs py-1.5"
+                    onClick={() => handleTabChange(category)}
+                  >
+                    {category}
+                  </TabsTrigger>
+                ))}
+              </div>
+            </div>
 
             {/* Hook Type Filter */}
             {activeCategory === FRAME_CATEGORIES.HOOK && (
