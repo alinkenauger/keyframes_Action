@@ -53,7 +53,7 @@ export function ContentTypeSelector() {
                   <span className="font-medium">Long Form</span>
                 </div>
                 <span className="rounded-md bg-primary/10 px-1.5 py-0.5 text-xs text-primary">
-                  5-20 min
+                  &lt;20 min
                 </span>
               </div>
               <div className="text-xs text-muted-foreground">
@@ -72,7 +72,7 @@ export function ContentTypeSelector() {
                   <span className="font-medium">Short Form</span>
                 </div>
                 <span className="rounded-md bg-red-500/10 px-1.5 py-0.5 text-xs text-red-500">
-                  15-60 sec
+                  15s-3 min
                 </span>
               </div>
               <div className="text-xs text-muted-foreground">
