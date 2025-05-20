@@ -247,55 +247,116 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
             )}
           </div>
 
-          {/* Tone and Filter dropdowns directly on the card */}
-          <div className="mt-2 flex space-x-2">
-            <Select
-              value={frame.tone || ""}
-              onValueChange={(value) => {
-                if (activeSkeletonId && value) {
-                  updateFrameTone(activeSkeletonId, frame.id, value);
-                }
-              }}
-            >
-              <SelectTrigger className="w-full h-8 text-xs">
-                <SelectValue placeholder="Select tone" />
-              </SelectTrigger>
-              <SelectContent>
-                {TONES.map(tone => (
-                  <SelectItem key={tone} value={tone}>{tone}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          {/* Magic wand dropdown for settings with indicators for selected attributes */}
+          <div className="mt-2 flex items-center">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="ghost" size="sm" className="px-2 py-1 h-8">
+                  <span className="text-lg mr-1">✨</span>
+                  <span className="text-xs">Enhance</span>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-72 p-3" onClick={(e) => e.stopPropagation()}>
+                <div className="space-y-3">
+                  <h4 className="font-medium text-xs">Enhance your content</h4>
+                  
+                  {/* Tone selector */}
+                  <div className="space-y-1">
+                    <label className="text-xs">Tone</label>
+                    <Select
+                      value={frame.tone || ""}
+                      onValueChange={(value) => {
+                        if (activeSkeletonId) {
+                          updateFrameTone(activeSkeletonId, frame.id, value);
+                        }
+                      }}
+                    >
+                      <SelectTrigger className="w-full h-8 text-xs">
+                        <SelectValue placeholder="Select tone" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem key="none" value="">None</SelectItem>
+                        {TONES.map(tone => (
+                          <SelectItem key={tone} value={tone}>{tone}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  {/* Filter selector */}
+                  <div className="space-y-1">
+                    <label className="text-xs">Filter</label>
+                    <Select
+                      value={frame.filter || ""}
+                      onValueChange={(value) => {
+                        if (activeSkeletonId) {
+                          updateFrameFilter(activeSkeletonId, frame.id, value);
+                        }
+                      }}
+                    >
+                      <SelectTrigger className="w-full h-8 text-xs">
+                        <SelectValue placeholder="Select filter" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem key="none" value="">None</SelectItem>
+                        {FILTERS.map(filter => (
+                          <SelectItem key={filter} value={filter}>{filter}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  {/* Transition selector */}
+                  <div className="space-y-1">
+                    <label className="text-xs">Transition</label>
+                    <Select
+                      value={frame.transition || ""}
+                      onValueChange={(value) => {
+                        if (activeSkeletonId) {
+                          updateFrameTransition(
+                            activeSkeletonId, 
+                            frame.id, 
+                            value as 'smooth' | 'pattern-interrupt' | 'content-shift'
+                          );
+                        }
+                      }}
+                    >
+                      <SelectTrigger className="w-full h-8 text-xs">
+                        <SelectValue placeholder="Select transition" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem key="none" value="">None</SelectItem>
+                        <SelectItem value="smooth">Smooth / Natural</SelectItem>
+                        <SelectItem value="pattern-interrupt">Pattern Interrupt</SelectItem>
+                        <SelectItem value="content-shift">Content Shift</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </PopoverContent>
+            </Popover>
             
-            <Select
-              value={frame.filter || ""}
-              onValueChange={(value) => {
-                if (activeSkeletonId && value) {
-                  updateFrameFilter(activeSkeletonId, frame.id, value);
-                }
-              }}
-            >
-              <SelectTrigger className="w-full h-8 text-xs">
-                <SelectValue placeholder="Select filter" />
-              </SelectTrigger>
-              <SelectContent>
-                {FILTERS.map(filter => (
-                  <SelectItem key={filter} value={filter}>{filter}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          
-          {/* Display transition if selected */}
-          {frame.transition && (
-            <div className="mt-2">
-              <span className="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded">
-                {frame.transition === 'smooth' ? 'Smooth Transition' : 
-                frame.transition === 'pattern-interrupt' ? 'Pattern Interrupt' : 
-                'Content Shift'}
-              </span>
+            {/* Display indicators for selected attributes */}
+            <div className="flex flex-wrap gap-1 ml-2">
+              {frame.tone && (
+                <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                  {frame.tone}
+                </span>
+              )}
+              {frame.filter && (
+                <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">
+                  {frame.filter}
+                </span>
+              )}
+              {frame.transition && (
+                <span className="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded">
+                  {frame.transition === 'smooth' ? 'Smooth' : 
+                  frame.transition === 'pattern-interrupt' ? 'Pattern Interrupt' : 
+                  'Content Shift'}
+                </span>
+              )}
             </div>
-          )}
+          </div>
           
           {/* Hidden drop areas for compatibility */}
           <div ref={setToneRef} className="hidden" />
