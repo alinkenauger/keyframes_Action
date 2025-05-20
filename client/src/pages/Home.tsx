@@ -228,7 +228,7 @@ export default function Home() {
 
     const newFrames = [...activeSkeleton.frames];
 
-    // Handle frame reordering within the same unit
+    // Handle frame reordering within the same unit with enhanced positioning
     if (active.data.current?.type === 'frame' && over.data.current?.type === 'frame') {
       const activeFrame = newFrames.find(f => f.id === active.id);
       const overFrame = newFrames.find(f => f.id === over.id);
@@ -238,13 +238,39 @@ export default function Home() {
         const activeIndex = newFrames.findIndex(f => f.id === active.id);
         const overIndex = newFrames.findIndex(f => f.id === over.id);
 
-        // Use arrayMove from dnd-kit to reorder the frames
-        const reorderedFrames = arrayMove(newFrames, activeIndex, overIndex);
-        updateFrameOrder(activeSkeleton.id, reorderedFrames);
+        // Determine if we should place the frame above or below the target frame
+        // Get approximate mouse position relative to the over frame
+        const overRect = document.getElementById(over.id as string)?.getBoundingClientRect();
+        if (overRect) {
+          // If mouse is in the top half of the target frame, place before; otherwise, place after
+          const mouseY = (over as any).rect?.top || 0;
+          const frameMiddleY = overRect.top + overRect.height / 2;
+          
+          // If in top half and dragging from below, or in bottom half and dragging from above
+          if ((mouseY < frameMiddleY && activeIndex > overIndex) || 
+              (mouseY >= frameMiddleY && activeIndex < overIndex)) {
+            // Use arrayMove from dnd-kit to reorder the frames
+            const reorderedFrames = arrayMove(newFrames, activeIndex, overIndex);
+            updateFrameOrder(activeSkeleton.id, reorderedFrames);
+          } else {
+            // If in top half and dragging from above, place at overIndex - 1
+            // If in bottom half and dragging from below, place at overIndex + 1
+            const targetIndex = mouseY < frameMiddleY ? 
+              Math.max(0, overIndex) : 
+              Math.min(newFrames.length - 1, overIndex + 1);
+            
+            const reorderedFrames = arrayMove(newFrames, activeIndex, targetIndex);
+            updateFrameOrder(activeSkeleton.id, reorderedFrames);
+          }
+        } else {
+          // Fallback to default behavior if we can't get rect information
+          const reorderedFrames = arrayMove(newFrames, activeIndex, overIndex);
+          updateFrameOrder(activeSkeleton.id, reorderedFrames);
+        }
 
         // Show a toast notification
         toast({
-          title: 'Frame Reordered',
+          title: 'Frame Repositioned',
           description: `Frame reordered within ${activeFrame.unitType}`,
         });
         return;

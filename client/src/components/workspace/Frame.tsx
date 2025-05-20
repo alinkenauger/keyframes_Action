@@ -223,9 +223,14 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
           frameTypeColors.text.replace('text-', 'border-l-4 border-l-'),
           dimmed && "opacity-40",
           isDragging && "shadow-lg ring-2 ring-blue-400",
+          !isDragging && over && over.id === frame.id ? "ring-2 ring-primary shadow-md" : "",
           "hover:border hover:border-blue-300"
         )}
       >
+        {/* Drop position indicator */}
+        {!isDragging && over && over.id === frame.id && (
+          <FrameDropIndicator position={dropPosition} />
+        )}
         <div 
           className="absolute left-1/2 top-1 -translate-x-1/2 p-1 rounded-md bg-gray-100 z-10"
         >
