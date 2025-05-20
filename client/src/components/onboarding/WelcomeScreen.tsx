@@ -89,7 +89,7 @@ export default function WelcomeScreen({ open, onOpenChange, onShowSkeletonCreato
                 <div className="flex items-start mb-4">
                   <PlayCircle className="w-8 h-8 text-primary mr-3" />
                   <div>
-                    <h4 className="font-medium text-lg">Quick Start</h4>
+                    <h4 className="font-medium text-lg">GMV Foundation Template</h4>
                     <p className="text-muted-foreground">Use our recommended structure for high retention</p>
                   </div>
                 </div>
