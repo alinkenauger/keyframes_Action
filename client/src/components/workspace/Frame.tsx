@@ -267,10 +267,31 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
                         <label className="text-xs">Tone</label>
                         <Select
                           value={frame.tone || ""}
-                          onValueChange={(value) => {
+                          onValueChange={async (value) => {
                             if (activeSkeletonId) {
                               updateFrameTone(activeSkeletonId, frame.id, value);
-                              // If content should adapt to tone, add that logic here
+                              
+                              // Only adapt content if both tone and filter are present
+                              if (value && frame.filter) {
+                                setIsAdapting(true);
+                                try {
+                                  const adaptedContent = await adaptFrameContent(
+                                    frame.content || '',
+                                    value,
+                                    frame.filter,
+                                    frame.type || '',
+                                    frame.unitType || '',
+                                  );
+                                  
+                                  if (adaptedContent) {
+                                    updateFrameContent(activeSkeletonId, frame.id, adaptedContent);
+                                  }
+                                } catch (error) {
+                                  console.error("Error adapting content:", error);
+                                } finally {
+                                  setIsAdapting(false);
+                                }
+                              }
                             }
                           }}
                         >
@@ -291,10 +312,31 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
                         <label className="text-xs">Filter</label>
                         <Select
                           value={frame.filter || ""}
-                          onValueChange={(value) => {
+                          onValueChange={async (value) => {
                             if (activeSkeletonId) {
                               updateFrameFilter(activeSkeletonId, frame.id, value);
-                              // If content should adapt to filter, add that logic here
+                              
+                              // Only adapt content if both tone and filter are present
+                              if (value && frame.tone) {
+                                setIsAdapting(true);
+                                try {
+                                  const adaptedContent = await adaptFrameContent(
+                                    frame.content || '',
+                                    frame.tone,
+                                    value,
+                                    frame.type || '',
+                                    frame.unitType || '',
+                                  );
+                                  
+                                  if (adaptedContent) {
+                                    updateFrameContent(activeSkeletonId, frame.id, adaptedContent);
+                                  }
+                                } catch (error) {
+                                  console.error("Error adapting content:", error);
+                                } finally {
+                                  setIsAdapting(false);
+                                }
+                              }
                             }
                           }}
                         >
@@ -341,12 +383,31 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
                       <Button 
                         className="w-full mt-2" 
                         size="sm"
-                        onClick={() => {
-                          // Placeholder for AI adaptation function
-                          console.log("Adapting content to match tone and filter");
+                        disabled={isAdapting || !frame.tone || !frame.filter}
+                        onClick={async () => {
+                          if (!activeSkeletonId || !frame.tone || !frame.filter) return;
+                          
+                          setIsAdapting(true);
+                          try {
+                            const adaptedContent = await adaptFrameContent(
+                              frame.content || '',
+                              frame.tone,
+                              frame.filter,
+                              frame.type || '',
+                              frame.unitType || '',
+                            );
+                            
+                            if (adaptedContent) {
+                              updateFrameContent(activeSkeletonId, frame.id, adaptedContent);
+                            }
+                          } catch (error) {
+                            console.error("Error adapting content:", error);
+                          } finally {
+                            setIsAdapting(false);
+                          }
                         }}
                       >
-                        Adapt Content with AI
+                        {isAdapting ? "Adapting..." : "Adapt Content with AI"}
                       </Button>
                     </div>
                   </PopoverContent>
