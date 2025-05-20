@@ -76,7 +76,7 @@ export default function FrameLibrary() {
             onValueChange={handleTabChange}
           >
             <div className="mb-4">
-              <div className="grid grid-cols-2 gap-2">
+              <TabsList className="grid grid-cols-2 gap-2">
                 {Object.values(FRAME_CATEGORIES).map((category, index) => (
                   <TabsTrigger 
                     key={category} 
@@ -87,7 +87,7 @@ export default function FrameLibrary() {
                     {category}
                   </TabsTrigger>
                 ))}
-              </div>
+              </TabsList>
             </div>
 
             {/* Hook Type Filter */}
