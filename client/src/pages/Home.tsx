@@ -394,15 +394,9 @@ export default function Home() {
         <div className="flex flex-col md:flex-row h-[calc(100vh-65px)] overflow-hidden">
           <Sidebar />
           <div className="flex-1 flex flex-col overflow-hidden">
-            <div className="p-2 md:p-4 border-b flex flex-wrap justify-between items-center gap-2">
-              <Button 
-                onClick={() => setShowCreateDialog(true)}
-                className="w-full sm:w-auto touch-target"
-              >
-                <Plus className="w-4 h-4 mr-2" />
-                New Skeleton
-              </Button>
-
+            {/* Top bar - empty now that we moved buttons to sidebar */}
+            <div className="p-2 md:p-2 border-b flex flex-wrap justify-between items-center gap-2">
+              {/* Content removed - New Skeleton button moved to sidebar */}
             </div>
             <div className="flex-1 overflow-auto">
               <Workspace 
