@@ -35,7 +35,14 @@ interface FrameProps {
 
 export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: FrameProps) {
   const [showDialog, setShowDialog] = useState(false);
-  const { activeSkeletonId, updateFrameContent } = useWorkspace();
+  const [showSettings, setShowSettings] = useState(false);
+  const { 
+    activeSkeletonId, 
+    updateFrameContent, 
+    updateFrameTone, 
+    updateFrameFilter,
+    updateFrameTransition
+  } = useWorkspace();
   const [isAdapting, setIsAdapting] = useState(false);
   const [contentScale, setContentScale] = useState(1);
   const [isZoomed, setIsZoomed] = useState(false);
@@ -240,43 +247,127 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
             )}
           </div>
 
-          {/* Tone Drop Area */}
-          <div
-            ref={setToneRef}
-            className={cn(
-              "mt-2 min-h-[28px] rounded border border-dashed transition-colors",
-              isToneOver ? "border-blue-500 bg-blue-50" : "border-gray-200",
-              !frame.tone && "p-2"
-            )}
-            onClick={e => e.stopPropagation()}
-          >
-            {frame.tone ? (
-              <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
-                {frame.tone}
-              </span>
-            ) : (
-              <p className="text-xs text-gray-400 text-center">Drop tone here</p>
-            )}
-          </div>
+          {/* Frame Settings */}
+          <div className="mt-2 flex items-center">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="mr-2 p-1 h-8 flex items-center gap-1"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  <Settings className="h-4 w-4" />
+                  <span className="text-xs">Settings</span>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-72 p-4" onClick={(e) => e.stopPropagation()}>
+                <div className="space-y-3">
+                  <h4 className="font-medium text-sm">Frame Settings</h4>
+                  
+                  {/* Tone Selector */}
+                  <div className="space-y-1">
+                    <label className="text-xs font-medium">Tone</label>
+                    <Select
+                      value={frame.tone || ''}
+                      onValueChange={(value) => {
+                        if (activeSkeletonId) {
+                          updateFrameTone(activeSkeletonId, frame.id, value);
+                        }
+                      }}
+                    >
+                      <SelectTrigger className="w-full h-8 text-xs">
+                        <SelectValue placeholder="Select a tone" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="">None</SelectItem>
+                        {TONES.map(tone => (
+                          <SelectItem key={tone} value={tone}>{tone}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  {/* Filter Selector */}
+                  <div className="space-y-1">
+                    <label className="text-xs font-medium">Filter</label>
+                    <Select
+                      value={frame.filter || ''}
+                      onValueChange={(value) => {
+                        if (activeSkeletonId) {
+                          updateFrameFilter(activeSkeletonId, frame.id, value);
+                        }
+                      }}
+                    >
+                      <SelectTrigger className="w-full h-8 text-xs">
+                        <SelectValue placeholder="Select a filter" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="">None</SelectItem>
+                        {FILTERS.map(filter => (
+                          <SelectItem key={filter} value={filter}>{filter}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  {/* Transition Type */}
+                  <div className="space-y-1">
+                    <label className="text-xs font-medium">Transition</label>
+                    <Select
+                      value={frame.transition || ''}
+                      onValueChange={(value) => {
+                        if (activeSkeletonId && value) {
+                          updateFrameTransition(
+                            activeSkeletonId, 
+                            frame.id, 
+                            value as 'smooth' | 'pattern-interrupt' | 'content-shift'
+                          );
+                        }
+                      }}
+                    >
+                      <SelectTrigger className="w-full h-8 text-xs">
+                        <SelectValue placeholder="Select transition type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="">None</SelectItem>
+                        <SelectItem value="smooth">Smooth / Natural</SelectItem>
+                        <SelectItem value="pattern-interrupt">Pattern Interrupt</SelectItem>
+                        <SelectItem value="content-shift">Content Shift</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </PopoverContent>
+            </Popover>
 
-          {/* Filter Drop Area */}
-          <div
-            ref={setFilterRef}
-            className={cn(
-              "mt-2 min-h-[28px] rounded border border-dashed transition-colors",
-              isFilterOver ? "border-purple-500 bg-purple-50" : "border-gray-200",
-              !frame.filter && "p-2"
-            )}
-            onClick={e => e.stopPropagation()}
-          >
-            {frame.filter ? (
-              <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">
-                {frame.filter}
-              </span>
-            ) : (
-              <p className="text-xs text-gray-400 text-center">Drop filter here</p>
-            )}
+            {/* Display indicators for selected attributes */}
+            <div className="flex flex-wrap gap-1">
+              {frame.tone && (
+                <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                  {frame.tone}
+                </span>
+              )}
+              {frame.filter && (
+                <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">
+                  {frame.filter}
+                </span>
+              )}
+              {frame.transition && (
+                <span className="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded">
+                  {frame.transition === 'smooth' ? 'Smooth' : 
+                  frame.transition === 'pattern-interrupt' ? 'Pattern Interrupt' : 
+                  'Content Shift'}
+                </span>
+              )}
+            </div>
           </div>
+          
+          {/* Hidden drop areas for compatibility */}
+          <div ref={setToneRef} className="hidden" />
+          <div ref={setFilterRef} className="hidden" />
 
           <Button
             variant="ghost"
