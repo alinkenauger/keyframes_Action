@@ -203,12 +203,16 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
           </p>
           <Button 
             onClick={() => {
-              // This will trigger the welcome screen
-              if (setActiveTab) setActiveTab("skeleton");
-              toast({
-                title: "Let's Get Started",
-                description: "Create a new skeleton by clicking the + button in the top right corner",
-              });
+              // Open the Create Skeleton dialog directly
+              const newSkeletonButton = document.querySelector('button:has(.plus-icon), button.new-skeleton-button');
+              if (newSkeletonButton) {
+                (newSkeletonButton as HTMLButtonElement).click();
+              } else {
+                toast({
+                  title: "Create New Skeleton",
+                  description: "Look for the 'New Skeleton' button in the sidebar to get started",
+                });
+              }
             }}
             className="bg-primary hover:bg-primary/90 text-white"
           >
