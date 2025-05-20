@@ -760,7 +760,7 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
   // We'll add a shortened version as an example, with more to be added separately
   {
     id: 'mrbeast',
-    name: 'MrBeast Template',
+    name: 'MrBeast Style',
     creator: 'MrBeast',
     category: 'Entertainment',
     contentTypes: ['long'],
