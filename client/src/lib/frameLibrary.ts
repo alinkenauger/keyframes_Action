@@ -33,6 +33,7 @@ export const FRAME_CATEGORIES = {
   INTRO: 'Intro',
   CONTENT: 'Content',
   OUTRO: 'Outro',
+  CTA: 'Call To Action',
   CUSTOM: 'Custom',
 } as const;
 
@@ -417,6 +418,64 @@ export const FRAME_TEMPLATES: FrameTemplate[] = [
     example: "Thank you for being part of this journey with me. Your support means the world.",
     category: FRAME_CATEGORIES.OUTRO,
     popularUse: 'Building community and deepening audience connection.'
+  },
+  
+  // Call To Action Frames
+  {
+    id: 'subscribe-cta',
+    name: 'Subscribe CTA',
+    description: 'Direct call to subscribe with clear benefits.',
+    example: "If you want more content like this, hit that subscribe button and the notification bell so you never miss an upload.",
+    category: FRAME_CATEGORIES.CTA,
+    popularUse: 'Growing channel subscriber count and watch time.'
+  },
+  {
+    id: 'comment-prompt',
+    name: 'Comment Prompt',
+    description: 'Encourages viewers to engage in the comments section.',
+    example: "What's your biggest takeaway from this video? Let me know in the comments below!",
+    category: FRAME_CATEGORIES.CTA,
+    popularUse: 'Boosting engagement metrics and building community.'
+  },
+  {
+    id: 'like-share-cta',
+    name: 'Like & Share CTA',
+    description: 'Asks viewers to like and share the content.',
+    example: "If you found this helpful, give it a thumbs up and share it with someone who needs to see this.",
+    category: FRAME_CATEGORIES.CTA,
+    popularUse: 'Increasing engagement and expanding reach.'
+  },
+  {
+    id: 'link-cta',
+    name: 'Link in Bio/Description',
+    description: 'Directs viewers to external resources.',
+    example: "I've put together a free checklist to help you implement everything we covered today. Grab it through the link in my bio.",
+    category: FRAME_CATEGORIES.CTA,
+    popularUse: 'Driving traffic to landing pages or products.'
+  },
+  {
+    id: 'follow-social-cta',
+    name: 'Follow on Social',
+    description: 'Promotes other social platforms.',
+    example: "Want more behind-the-scenes content? Follow me on Instagram @username where I share daily tips and updates.",
+    category: FRAME_CATEGORIES.CTA,
+    popularUse: 'Cross-platform audience building.'
+  },
+  {
+    id: 'next-video-cta',
+    name: 'Watch Next Video',
+    description: 'Suggests another video to watch.',
+    example: "If you enjoyed this, you'll definitely want to check out my video on [related topic] which appears right here.",
+    category: FRAME_CATEGORIES.CTA,
+    popularUse: 'Increasing session watch time and retention.'
+  },
+  {
+    id: 'exclusive-offer-cta',
+    name: 'Exclusive Offer',
+    description: 'Presents a limited-time offer or discount.',
+    example: "For the next 48 hours, use code VIDEO20 for 20% off my complete course that teaches you everything you need to know about [topic].",
+    category: FRAME_CATEGORIES.CTA,
+    popularUse: 'Converting viewers to customers.'
   }
 ];
 
