@@ -393,6 +393,30 @@ export const FRAME_TEMPLATES: FrameTemplate[] = [
     example: 'Ready to dive deeper? Check out my free workshop linked below.',
     category: FRAME_CATEGORIES.OUTRO,
     popularUse: 'Strong calls-to-action at the end of content.'
+  },
+  {
+    id: 'subscribe-reminder',
+    name: 'Subscribe Reminder',
+    description: 'Reminds viewers to subscribe, like or follow.',
+    example: "If you found this helpful, don't forget to hit that subscribe button and turn on notifications!",
+    category: FRAME_CATEGORIES.OUTRO,
+    popularUse: 'Growing channel subscribers and engagement.'
+  },
+  {
+    id: 'coming-soon',
+    name: 'Coming Soon',
+    description: 'Teases upcoming content to maintain audience interest.',
+    example: "Next week, I'll be sharing my complete step-by-step process for getting your first 1,000 subscribers.",
+    category: FRAME_CATEGORIES.OUTRO,
+    popularUse: 'Building anticipation for future content.'
+  },
+  {
+    id: 'personal-note',
+    name: 'Personal Note',
+    description: 'Ends with a heartfelt message to connect with viewers.',
+    example: "Thank you for being part of this journey with me. Your support means the world.",
+    category: FRAME_CATEGORIES.OUTRO,
+    popularUse: 'Building community and deepening audience connection.'
   }
 ];
 
