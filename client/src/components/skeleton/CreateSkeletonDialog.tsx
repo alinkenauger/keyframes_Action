@@ -96,7 +96,8 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
     setDraggedUnit(null);
     setIsDropAreaOver(false);
 
-    if (over && over.id === 'skeleton-drop-area' && !selectedUnits.includes(active.id as string)) {
+    if (over && over.id === 'skeleton-drop-area') {
+      // Allow adding the same unit type multiple times
       setSelectedUnits([...selectedUnits, active.id as string]);
     }
   };
@@ -322,8 +323,8 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1 overflow-hidden">
                     <div className="overflow-hidden flex flex-col">
                       <Label>Available Units</Label>
-                      <ScrollArea className="flex-1 rounded-md border p-4 touch-pan-y">
-                        <div className="space-y-2">
+                      <ScrollArea className="h-[400px] rounded-md border p-4 touch-pan-y">
+                        <div className="space-y-2 pb-8">
                           {SKELETON_UNITS.map((unit) => (
                             <DraggableUnit key={unit.type} unit={unit} />
                           ))}
