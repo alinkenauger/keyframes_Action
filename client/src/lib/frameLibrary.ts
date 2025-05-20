@@ -126,6 +126,40 @@ export const FRAME_TEMPLATES: FrameTemplate[] = [
     popularUse: 'Transitioning to the most impactful segment.'
   },
 
+  // Intro Frames
+  {
+    id: 'quick-introduction',
+    name: 'Quick Introduction',
+    description: 'Provides a brief introduction to the topic or yourself.',
+    example: "Today I'm going to show you three simple ways to improve your productivity.",
+    category: FRAME_CATEGORIES.INTRO,
+    popularUse: 'Setting expectations for the video content.'
+  },
+  {
+    id: 'foreshadow-whats-to-come',
+    name: 'Foreshadow What\'s To Come',
+    description: 'Creates anticipation by hinting at what will be covered later.',
+    example: "By the end of this video, you'll know exactly how to create a viral video in under 5 minutes.",
+    category: FRAME_CATEGORIES.INTRO,
+    popularUse: 'Building anticipation and increasing watch time.'
+  },
+  {
+    id: 'establish-credibility',
+    name: 'Establish Credibility',
+    description: 'Shows why you\'re qualified to speak on this topic.',
+    example: "I've been in the industry for over 10 years and have helped hundreds of creators grow their channels.",
+    category: FRAME_CATEGORIES.INTRO,
+    popularUse: 'Building trust with new viewers.'
+  },
+  {
+    id: 'topic-overview',
+    name: 'Topic Overview',
+    description: 'Outlines what will be covered in the video.',
+    example: "In this video, I'll cover the basics of SEO, how to find the right keywords, and how to optimize your content.",
+    category: FRAME_CATEGORIES.INTRO,
+    popularUse: 'Organizing longer content and setting expectations.'
+  },
+
   // Content - Informational
   {
     id: 'teach-concept',
