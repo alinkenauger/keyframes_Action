@@ -480,6 +480,86 @@ export const FRAME_TEMPLATES: FrameTemplate[] = [
 ];
 
 export const CREATOR_TEMPLATES: CreatorTemplate[] = [
+  // Added custom template with Hook → Intro → Content → Rehook → Content → CTA → Outro structure
+  {
+    id: 'standard-structure',
+    name: 'Standard Content Structure',
+    creator: 'Custom',
+    description: 'Versatile format with strategic rehook to maintain viewer retention',
+    units: ['Hook', 'Intro', 'Content Delivery', 'Rehook', 'Content Delivery', 'Call To Action', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['curiosity-gap', 'intriguing-question'],
+        examples: [
+          {
+            frameId: 'curiosity-gap',
+            content: 'The one thing most creators miss that would double their views...'
+          }
+        ]
+      },
+      {
+        unitType: 'Intro',
+        frameIds: ['quick-introduction', 'establish-credibility'],
+        examples: [
+          {
+            frameId: 'quick-introduction',
+            content: 'In this video, I\'ll show you exactly how to structure your content for maximum engagement.'
+          }
+        ]
+      },
+      {
+        unitType: 'Content Delivery',
+        frameIds: ['step-by-step', 'expert-insight'],
+        examples: [
+          {
+            frameId: 'step-by-step',
+            content: 'First, let\'s break down the three key elements of high-performing content...'
+          }
+        ]
+      },
+      {
+        unitType: 'Rehook',
+        frameIds: ['midway-shock', 'teaser-rehook'],
+        examples: [
+          {
+            frameId: 'midway-shock',
+            content: 'But here\'s where things get interesting - what worked last year won\'t work anymore, and here\'s why...'
+          }
+        ]
+      },
+      {
+        unitType: 'Content Delivery',
+        frameIds: ['common-pitfalls', 'quick-win'],
+        examples: [
+          {
+            frameId: 'common-pitfalls',
+            content: 'Now I\'ll show you the exact formula I use that consistently gets my videos over 100,000 views...'
+          }
+        ]
+      },
+      {
+        unitType: 'Call To Action',
+        frameIds: ['comment-prompt', 'subscribe-cta'],
+        examples: [
+          {
+            frameId: 'comment-prompt',
+            content: 'Let me know in the comments which of these strategies you\'re going to try first!'
+          }
+        ]
+      },
+      {
+        unitType: 'Outro',
+        frameIds: ['key-takeaway', 'coming-soon'],
+        examples: [
+          {
+            frameId: 'key-takeaway',
+            content: 'Remember, consistency and structure are key to building a loyal audience. Thanks for watching!'
+          }
+        ]
+      }
+    ]
+  },
   {
     id: 'mr-beast',
     name: 'MrBeast Style',
