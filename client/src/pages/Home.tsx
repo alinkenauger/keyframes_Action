@@ -44,13 +44,60 @@ export default function Home() {
   );
 
   useEffect(() => {
-    // Create an empty default skeleton with no pre-loaded frames
+    // Create a skeleton with the Problem-Solution structure
+    const skeletonId = nanoid();
+    // Default units for Problem-Solution framework
+    const units = ['Hook', 'Problem Setup', 'Solution', 'Implement'];
+    
+    // Create initial frames for each unit
+    const frames = [
+      {
+        id: nanoid(),
+        name: 'Attention Grabber',
+        type: 'Pattern Interrupt',
+        content: 'Did you know 80% of content creators struggle to gain consistent views?',
+        unitType: 'Hook',
+        tone: '',
+        filter: ''
+      },
+      {
+        id: nanoid(),
+        name: 'Problem Frame',
+        type: 'Problem Statement',
+        content: 'Most creators spend hours filming but miss the key structure that makes content go viral.',
+        unitType: 'Problem Setup',
+        tone: '',
+        filter: ''
+      },
+      {
+        id: nanoid(),
+        name: 'Solution Overview',
+        type: 'Value Proposition',
+        content: 'The right video structure can double your views and engagement with the same content.',
+        unitType: 'Solution',
+        tone: '',
+        filter: ''
+      },
+      {
+        id: nanoid(),
+        name: 'Action Step',
+        type: 'Call to Action',
+        content: 'Let me show you the exact template that top creators use to consistently get millions of views.',
+        unitType: 'Implement',
+        tone: '',
+        filter: ''
+      }
+    ];
+    
     const skeleton = {
-      id: nanoid(),
-      name: "Emma Chamberlain's Lifestyle & Comedy",
-      frames: [], // Empty frames array - no pre-loaded frames
+      id: skeletonId,
+      name: "Problem-Solution Framework",
+      frames: frames,
+      units: units
     };
+    
     addSkeleton(skeleton);
+    setActiveSkeletonId(skeletonId);
   }, []);
 
   // Create a more forgiving collision detection algorithm
