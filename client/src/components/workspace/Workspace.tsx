@@ -223,6 +223,7 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
           <p className="font-medium mb-2">Quick Tips:</p>
           <ul className="text-left space-y-2 text-muted-foreground">
             <li>• Choose from popular creator templates or build your own</li>
+            <li>• Write your script or let our AI bots do it for you</li>
             <li>• Drag and drop frames to organize your content</li>
             <li>• Customize tones and transitions for each section</li>
             <li>• Generate a full script when you're ready</li>
