@@ -3,12 +3,14 @@ import FrameLibrary from './FrameLibrary';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import CreateSkeletonDialog from '@/components/skeleton/CreateSkeletonDialog';
 
 export default function Sidebar() {
-  const isMobile = useIsMobile();
-  const [collapsed, setCollapsed] = useState(isMobile);
+  const mobileCheck = useIsMobile();
+  const [collapsed, setCollapsed] = useState(mobileCheck.isMobile);
+  const [showCreateDialog, setShowCreateDialog] = useState(false);
 
   return (
     <div className={cn(
