@@ -1,0 +1,1210 @@
+YouTube Channel KeyFrames Analysis
+Research Methodology
+Due to browser compatibility limitations, I'm using search tools to research each YouTube channel's most popular videos, content structure, and recurring patterns. For each channel, I'll analyze:
+Most popular videos and series
+Content structure and format
+Recurring elements that align with the KeyFrames system
+Skeleton and Frame patterns
+Channel 1: Joshua Weissman
+Niche: Cooking/Food Content
+Popular Series:
+"But Better" series - recreating fast food dishes with gourmet techniques
+"But Cheaper" series - budget-friendly versions of popular dishes
+Content Structure Analysis (Based on available information):
+From the research gathered so far, Joshua Weissman's videos, particularly in his popular "But Better" series, appear to follow a consistent structure:
+Long-Form Skeleton Template:
+Hook Unit
+Visual Hook Frame (showing final dish or dramatic cooking moment)
+Challenge Setup Frame (explaining what dish he's recreating/improving)
+Intro Unit
+Relatable Problem Frame (discussing issues with the original dish)
+Promise of Value Frame (explaining how he'll make it better)
+Content Delivery Unit
+Step-by-Step Demo Frames (showing cooking process)
+Educational Frames (explaining techniques and ingredients)
+Behind-the-Scenes Frames (showing preparation process)
+Escalation Unit
+Stakes Amplifier Frames (building anticipation for the final result)
+Comparison Frames (comparing his version to the original)
+Reveal Unit
+Big Reveal Frame (showing completed dish)
+Taste Test Frame (reaction to tasting the food)
+Reflection Unit
+Success Formula Frame (summarizing what makes his version better)
+One-Liner Wisdom Frame (key takeaway about cooking technique)
+Outro Unit
+Call-to-Action Frame (asking viewers to subscribe, like, etc.)
+Channel 2: lilsimsie
+Niche: Gaming/The Sims 4 Content
+Popular Content Types:
+The Sims 4 building videos
+Custom content creation
+Challenge gameplay
+Legacy challenges
+Content Structure Analysis (Based on available information):
+From the research gathered, lilsimsie's videos appear to follow a consistent structure focused on Sims 4 gameplay and building:
+Long-Form Skeleton Template:
+Hook Unit
+Visual Hook Frame (showing interesting Sims creation or build)
+Challenge Setup Frame (explaining what she's building/creating/playing)
+Intro Unit
+Relatable Problem Frame (discussing challenges in Sims gameplay or building)
+Promise of Value Frame (explaining what she'll create or demonstrate)
+Content Journey Unit
+Step-by-Step Demo Frames (showing building or gameplay process)
+Educational Frames (explaining Sims 4 techniques and features)
+Humor Frames (adding comedic commentary throughout)
+Rehook Unit
+Question Rehook Frames (posing questions about next steps)
+Midway Shock Frames (unexpected gameplay moments)
+Reveal Unit
+Big Reveal Frame (showing completed build or character)
+Reaction Frame (personal reaction to the creation)
+Engagement Trigger Unit
+Ask a Question Frame (soliciting viewer opinions)
+Call-to-Action Frame (asking viewers to subscribe, follow on Twitch)
+Channel 3: iaM ILb
+Niche: Gaming/Roblox Content
+Popular Content Types:
+Roblox game tutorials and guides
+Game updates and codes
+Tips and tricks for specific Roblox games (Demon Fall, AOT Revolution, Solo Leveling)
+Content Structure Analysis (Based on available information):
+From the research gathered, iaM ILb's videos appear to follow a consistent structure focused on Roblox gameplay guides:
+Long-Form Skeleton Template:
+Hook Unit
+Visual Hook Frame (showing gameplay highlight or reward)
+Challenge Setup Frame (explaining what technique/strategy will be covered)
+Intro Unit
+Problem Setup Frame (discussing common challenges in the game)
+Promise of Value Frame (explaining what viewers will learn)
+Content Delivery Unit
+Step-by-Step Demo Frames (showing gameplay techniques)
+Educational Frames (explaining game mechanics)
+Tool Recommendation Frames (sharing codes, items, or strategies)
+Rehook Unit
+Midway Shock Frames (revealing unexpected tips or rewards)
+Question Rehook Frames (addressing common player questions)
+Reflection Unit
+Success Formula Frame (summarizing the strategy)
+Quick Win Frame (highlighting immediate benefits)
+Outro Unit
+Call-to-Action Frame (asking viewers to subscribe, like, comment)
+Channel 4: Danny Maude
+Niche: Golf Instruction/Coaching
+Popular Content Types:
+Golf swing tutorials
+Technique improvement videos
+Live golf lessons
+Problem-solving for common golf issues (topping the ball, slicing, etc.)
+Content Structure Analysis (Based on available information):
+From the research gathered, Danny Maude's videos follow a consistent instructional structure:
+Long-Form Skeleton Template:
+Hook Unit
+Problem Statement Frame (identifying common golf issue)
+Promise of Solution Frame (teasing the technique that will solve it)
+Intro Unit
+Credibility Establishment Frame (explaining why this technique works)
+Relatable Problem Frame (showing or discussing common mistakes)
+Content Delivery Unit
+Conceptual Explanation Frames (explaining the mechanics/theory)
+Visual Demonstration Frames (showing proper technique)
+Comparison Frames (contrasting right vs. wrong approaches)
+Practical Application Unit
+Step-by-Step Instruction Frames (breaking down the technique)
+Drill Introduction Frames (showing practice exercises)
+Common Mistake Warning Frames (highlighting pitfalls to avoid)
+Proof Unit
+Student Success Frame (showing before/after with real students)
+Results Validation Frame (demonstrating improved performance)
+Reflection Unit
+Key Takeaway Frame (summarizing the main technique)
+Encouragement Frame (motivating viewers to practice)
+Outro Unit
+Call-to-Action Frame (asking viewers to subscribe, like, comment)
+Additional Resource Frame (directing to website, courses, etc.)
+Channel 5: Humphrey Yang
+Niche: Personal Finance/Financial Education
+Popular Content Types:
+Financial literacy education
+Budgeting methods and techniques
+Investment strategies
+Wealth-building advice
+Content Structure Analysis (Based on available information):
+From the research gathered, Humphrey Yang's videos follow a consistent educational structure:
+Long-Form Skeleton Template:
+Hook Unit
+Problem Statement Frame (identifying common financial issue)
+Curiosity Hook Frame (teasing an unexpected solution or insight)
+Intro Unit
+Credibility Establishment Frame (sharing personal experience or expertise)
+Relatable Problem Frame (discussing common financial struggles)
+Content Delivery Unit
+Conceptual Explanation Frames (explaining financial concepts)
+Visual Aid Frames (using props, graphics, or analogies to illustrate points)
+Myth-Busting Frames (correcting common financial misconceptions)
+Practical Application Unit
+Step-by-Step Method Frames (breaking down financial techniques)
+Tool Introduction Frames (showing apps, spreadsheets, or resources)
+Real-World Example Frames (applying concepts to everyday scenarios)
+Proof Unit
+Data Validation Frame (showing numbers or results)
+Personal Experience Frame (sharing own financial journey)
+Reflection Unit
+Key Takeaway Frame (summarizing the main financial lesson)
+Future Projection Frame (explaining long-term benefits)
+Outro Unit
+Call-to-Action Frame (asking viewers to subscribe, download resources)
+Community Question Frame (soliciting viewer experiences or questions)
+Channel 6: Graham Stephan
+Niche: Personal Finance/Real Estate Investment
+Popular Content Types:
+Financial advice and education
+Real estate investment strategies
+Income reports and transparency
+Wealth-building blueprints
+Content Structure Analysis (Based on available information):
+From the research gathered, Graham Stephan's videos follow a consistent educational structure with a focus on actionable financial advice:
+Long-Form Skeleton Template:
+Hook Unit
+Shocking Statement Frame (presenting surprising financial fact/figure)
+Problem Identification Frame (highlighting common financial mistake)
+Intro Unit
+Credibility Establishment Frame (sharing personal success or experience)
+Contrarian Perspective Frame (challenging conventional financial wisdom)
+Content Delivery Unit
+Data-Driven Explanation Frames (presenting financial statistics/research)
+Step-by-Step Strategy Frames (breaking down investment approaches)
+Transparency Frames (sharing personal numbers and results)
+Practical Application Unit
+Real-World Example Frames (showing how concepts apply in practice)
+Tool/Resource Recommendation Frames (suggesting apps, platforms, services)
+Common Mistake Warning Frames (highlighting pitfalls to avoid)
+Proof Unit
+Personal Results Frame (showing own financial outcomes)
+Case Study Frame (analyzing success stories)
+Reflection Unit
+Key Principle Frame (summarizing the core financial concept)
+Long-Term Impact Frame (explaining compound effects over time)
+Outro Unit
+Call-to-Action Frame (asking viewers to subscribe, join courses/programs)
+Community Building Frame (encouraging comments and discussion)
+Channel 7: Alex Becker
+Niche: Cryptocurrency/Business/Marketing
+Popular Content Types:
+Cryptocurrency investment strategies
+Business building advice
+Marketing techniques
+Wealth creation methods
+Content Structure Analysis (Based on available information):
+From the research gathered, Alex Becker's videos follow a high-energy, direct structure focused on cryptocurrency and business insights:
+Long-Form Skeleton Template:
+Hook Unit
+Urgency Hook Frame (creating time-sensitive opportunity feeling)
+Bold Claim Frame (making attention-grabbing statement about crypto/business)
+Intro Unit
+Authority Establishment Frame (highlighting personal success/credentials)
+Market Analysis Frame (breaking down current crypto/business landscape)
+Content Delivery Unit
+Contrarian Insight Frames (presenting against-the-grain perspectives)
+Strategic Explanation Frames (detailing investment/business approaches)
+Prediction Frames (forecasting market movements or business trends)
+Proof Unit
+Personal Results Frame (showing own portfolio/business performance)
+Historical Pattern Frame (referencing past market cycles/business trends)
+Action Plan Unit
+Step-by-Step Strategy Frames (outlining exactly what viewers should do)
+Risk Management Frames (discussing potential downsides and protections)
+Reflection Unit
+Philosophical Principle Frame (connecting strategy to broader success principles)
+Mindset Emphasis Frame (stressing psychological aspects of success)
+Outro Unit
+Call-to-Action Frame (directing to courses, communities, or resources)
+Urgency Reminder Frame (reinforcing time-sensitive nature of opportunity)
+Channel 8: Iman Gadzhi
+Niche: Business/Entrepreneurship/Agency Building
+Popular Content Types:
+Agency building strategies
+Business advice for young entrepreneurs
+Marketing techniques
+Wealth creation methods
+Content Structure Analysis (Based on available information):
+From the research gathered, Iman Gadzhi's videos follow a structured, direct approach focused on business advice and entrepreneurship:
+Long-Form Skeleton Template:
+Hook Unit
+Pattern Interrupt Frame (making unexpected or bold statement)
+Problem Identification Frame (highlighting common business struggle)
+Intro Unit
+Authority Establishment Frame (referencing personal business success)
+Contrarian Wisdom Frame (challenging conventional business advice)
+Content Delivery Unit
+Conceptual Framework Frames (explaining business principles)
+Strategic Breakdown Frames (detailing specific business approaches)
+Common Mistake Highlight Frames (identifying errors entrepreneurs make)
+Practical Application Unit
+Step-by-Step Implementation Frames (providing actionable instructions)
+Resource Recommendation Frames (suggesting tools, platforms, services)
+Real-World Example Frames (showing application in actual businesses)
+Proof Unit
+Personal Journey Frame (sharing own business evolution)
+Client Success Frame (highlighting results from students/clients)
+Reflection Unit
+Philosophical Principle Frame (connecting tactics to broader success principles)
+Future Projection Frame (discussing long-term business evolution)
+Outro Unit
+Call-to-Action Frame (directing to courses, programs, or resources)
+Exclusivity Frame (emphasizing limited access to advanced training)
+Channel 9: Ryan Trahan
+Niche: Challenge/Entertainment/Storytelling
+Popular Content Types:
+Challenge videos (survival challenges, penny challenges)
+Storytelling adventures
+Social experiments
+Creative concepts
+Content Structure Analysis (Based on available information):
+From the research gathered, Ryan Trahan's videos follow a highly narrative structure with strong storytelling elements:
+Long-Form Skeleton Template:
+Hook Unit
+Challenge Statement Frame (presenting the core challenge/concept)
+Stakes Establishment Frame (explaining what's at risk or to be gained)
+Intro Unit
+Hero's Journey Setup Frame (positioning himself as the protagonist)
+Obstacle Preview Frame (highlighting potential difficulties ahead)
+Journey Unit
+Milestone Achievement Frames (marking progress through the challenge)
+Unexpected Obstacle Frames (documenting surprises and complications)
+Character Introduction Frames (meeting people along the journey)
+Tension Unit
+Conflict Escalation Frames (showing increasing difficulty)
+Emotional Response Frames (sharing authentic reactions to challenges)
+Suspense Building Frames (creating uncertainty about outcomes)
+Resolution Unit
+Challenge Completion Frame (showing final achievement)
+Reflection Frame (discussing what was learned)
+Meaning Unit
+Broader Message Frame (connecting challenge to life lessons)
+Gratitude Frame (acknowledging supporters and participants)
+Outro Unit
+Next Adventure Tease Frame (hinting at future content)
+Call-to-Action Frame (asking viewers to subscribe, like, comment)
+Channel 10: Tati
+Niche: Beauty/Makeup Reviews
+Popular Content Types:
+Makeup product reviews
+Drugstore vs. high-end comparisons
+Beauty favorites and recommendations
+Tutorial and "Get Ready With Me" videos
+Content Structure Analysis (Based on available information):
+From the research gathered, Tati's videos follow a structured beauty content format:
+Long-Form Skeleton Template:
+Hook Unit
+Product Display Frame (showing featured makeup items)
+Promise of Value Frame (explaining what viewers will learn about products)
+Intro Unit
+Credibility Establishment Frame (referencing beauty expertise)
+Context Setting Frame (explaining video concept/theme)
+Content Delivery Unit
+Product Introduction Frames (showcasing each item)
+Application Demo Frames (showing how products apply)
+First Impression Frames (sharing immediate reactions)
+Evaluation Unit
+Performance Analysis Frames (discussing how products wear)
+Comparison Frames (contrasting with similar products)
+Price-Value Assessment Frames (discussing if products are worth the cost)
+Wear Test Unit
+Time-Lapse Check-In Frames (showing how makeup wears throughout day)
+Close-Up Detail Frames (zooming in on specific makeup effects)
+Reflection Unit
+Final Verdict Frame (summarizing overall thoughts)
+Recommendation Frame (advising who should buy/skip products)
+Outro Unit
+Product Links Frame (mentioning where to find items)
+Call-to-Action Frame (asking viewers to subscribe, join mailing list)
+Channel 11: The Sorry Girls
+Niche: DIY/Home Decor/Renovation
+Popular Content Types:
+Room makeovers and renovations
+DIY home decor projects
+Thrifting and upcycling content
+Home improvement tutorials
+Content Structure Analysis (Based on available information):
+From the research gathered, The Sorry Girls' videos follow a structured DIY/renovation format:
+Long-Form Skeleton Template:
+Hook Unit
+Before State Frame (showing space before renovation)
+Vision Statement Frame (explaining renovation concept/goals)
+Intro Unit
+Problem Identification Frame (discussing issues with current space)
+Design Plan Frame (outlining renovation approach and aesthetic)
+Process Unit
+Demolition/Preparation Frames (showing removal of old elements)
+Step-by-Step DIY Frames (demonstrating renovation techniques)
+Materials Showcase Frames (highlighting products and tools used)
+Challenge Unit
+Unexpected Problem Frames (documenting renovation obstacles)
+Problem-Solving Frames (showing how issues were overcome)
+Budget Management Frames (discussing cost-saving approaches)
+Progress Unit
+Milestone Achievement Frames (showing key stages of completion)
+Detail Work Frames (focusing on finishing touches)
+Styling Frames (adding decor elements to completed space)
+Reveal Unit
+Dramatic Reveal Frame (showing completed space transformation)
+Before/After Comparison Frame (contrasting with original state)
+Feature Highlight Frames (showcasing specific elements of design)
+Reflection Unit
+Lessons Learned Frame (discussing what worked/didn't work)
+Budget Breakdown Frame (sharing costs of renovation)
+Call-to-Action Frame (encouraging viewers to subscribe, try projects)
+Note: This is a preliminary analysis based on available information. I'll continue researching additional channels and refine this analysis as I gather more data.
+YouTube Channel KeyFrames Analysis
+Research Methodology
+Due to browser compatibility limitations, I'm using search tools to research each YouTube channel's most popular videos, content structure, and recurring patterns. For each channel, I'll analyze:
+Most popular videos and series
+Content structure and format
+Recurring elements that align with the KeyFrames system
+Skeleton and Frame patterns
+Channel 1: Joshua Weissman
+Niche: Cooking/Food Content
+Popular Series:
+"But Better" series - recreating fast food dishes with gourmet techniques
+"But Cheaper" series - budget-friendly versions of popular dishes
+Content Structure Analysis (Based on available information):
+From the research gathered so far, Joshua Weissman's videos, particularly in his popular "But Better" series, appear to follow a consistent structure:
+Long-Form Skeleton Template:
+Hook Unit
+Visual Hook Frame (showing final dish or dramatic cooking moment)
+Challenge Setup Frame (explaining what dish he's recreating/improving)
+Intro Unit
+Relatable Problem Frame (discussing issues with the original dish)
+Promise of Value Frame (explaining how he'll make it better)
+Content Delivery Unit
+Step-by-Step Demo Frames (showing cooking process)
+Educational Frames (explaining techniques and ingredients)
+Behind-the-Scenes Frames (showing preparation process)
+Escalation Unit
+Stakes Amplifier Frames (building anticipation for the final result)
+Comparison Frames (comparing his version to the original)
+Reveal Unit
+Big Reveal Frame (showing completed dish)
+Taste Test Frame (reaction to tasting the food)
+Reflection Unit
+Success Formula Frame (summarizing what makes his version better)
+One-Liner Wisdom Frame (key takeaway about cooking technique)
+Outro Unit
+Call-to-Action Frame (asking viewers to subscribe, like, etc.)
+Channel 2: lilsimsie
+Niche: Gaming/The Sims 4 Content
+Popular Content Types:
+The Sims 4 building videos
+Custom content creation
+Challenge gameplay
+Legacy challenges
+Content Structure Analysis (Based on available information):
+From the research gathered, lilsimsie's videos appear to follow a consistent structure focused on Sims 4 gameplay and building:
+Long-Form Skeleton Template:
+Hook Unit
+Visual Hook Frame (showing interesting Sims creation or build)
+Challenge Setup Frame (explaining what she's building/creating/playing)
+Intro Unit
+Relatable Problem Frame (discussing challenges in Sims gameplay or building)
+Promise of Value Frame (explaining what she'll create or demonstrate)
+Content Journey Unit
+Step-by-Step Demo Frames (showing building or gameplay process)
+Educational Frames (explaining Sims 4 techniques and features)
+Humor Frames (adding comedic commentary throughout)
+Rehook Unit
+Question Rehook Frames (posing questions about next steps)
+Midway Shock Frames (unexpected gameplay moments)
+Reveal Unit
+Big Reveal Frame (showing completed build or character)
+Reaction Frame (personal reaction to the creation)
+Engagement Trigger Unit
+Ask a Question Frame (soliciting viewer opinions)
+Call-to-Action Frame (asking viewers to subscribe, follow on Twitch)
+Channel 3: iaM ILb
+Niche: Gaming/Roblox Content
+Popular Content Types:
+Roblox game tutorials and guides
+Game updates and codes
+Tips and tricks for specific Roblox games (Demon Fall, AOT Revolution, Solo Leveling)
+Content Structure Analysis (Based on available information):
+From the research gathered, iaM ILb's videos appear to follow a consistent structure focused on Roblox gameplay guides:
+Long-Form Skeleton Template:
+Hook Unit
+Visual Hook Frame (showing gameplay highlight or reward)
+Challenge Setup Frame (explaining what technique/strategy will be covered)
+Intro Unit
+Problem Setup Frame (discussing common challenges in the game)
+Promise of Value Frame (explaining what viewers will learn)
+Content Delivery Unit
+Step-by-Step Demo Frames (showing gameplay techniques)
+Educational Frames (explaining game mechanics)
+Tool Recommendation Frames (sharing codes, items, or strategies)
+Rehook Unit
+Midway Shock Frames (revealing unexpected tips or rewards)
+Question Rehook Frames (addressing common player questions)
+Reflection Unit
+Success Formula Frame (summarizing the strategy)
+Quick Win Frame (highlighting immediate benefits)
+Outro Unit
+Call-to-Action Frame (asking viewers to subscribe, like, comment)
+Channel 4: Danny Maude
+Niche: Golf Instruction/Coaching
+Popular Content Types:
+Golf swing tutorials
+Technique improvement videos
+Live golf lessons
+Problem-solving for common golf issues (topping the ball, slicing, etc.)
+Content Structure Analysis (Based on available information):
+From the research gathered, Danny Maude's videos follow a consistent instructional structure:
+Long-Form Skeleton Template:
+Hook Unit
+Problem Statement Frame (identifying common golf issue)
+Promise of Solution Frame (teasing the technique that will solve it)
+Intro Unit
+Credibility Establishment Frame (explaining why this technique works)
+Relatable Problem Frame (showing or discussing common mistakes)
+Content Delivery Unit
+Conceptual Explanation Frames (explaining the mechanics/theory)
+Visual Demonstration Frames (showing proper technique)
+Comparison Frames (contrasting right vs. wrong approaches)
+Practical Application Unit
+Step-by-Step Instruction Frames (breaking down the technique)
+Drill Introduction Frames (showing practice exercises)
+Common Mistake Warning Frames (highlighting pitfalls to avoid)
+Proof Unit
+Student Success Frame (showing before/after with real students)
+Results Validation Frame (demonstrating improved performance)
+Reflection Unit
+Key Takeaway Frame (summarizing the main technique)
+Encouragement Frame (motivating viewers to practice)
+Outro Unit
+Call-to-Action Frame (asking viewers to subscribe, like, comment)
+Additional Resource Frame (directing to website, courses, etc.)
+Channel 5: Humphrey Yang
+Niche: Personal Finance/Financial Education
+Popular Content Types:
+Financial literacy education
+Budgeting methods and techniques
+Investment strategies
+Wealth-building advice
+Content Structure Analysis (Based on available information):
+From the research gathered, Humphrey Yang's videos follow a consistent educational structure:
+Long-Form Skeleton Template:
+Hook Unit
+Problem Statement Frame (identifying common financial issue)
+Curiosity Hook Frame (teasing an unexpected solution or insight)
+Intro Unit
+Credibility Establishment Frame (sharing personal experience or expertise)
+Relatable Problem Frame (discussing common financial struggles)
+Content Delivery Unit
+Conceptual Explanation Frames (explaining financial concepts)
+Visual Aid Frames (using props, graphics, or analogies to illustrate points)
+Myth-Busting Frames (correcting common financial misconceptions)
+Practical Application Unit
+Step-by-Step Method Frames (breaking down financial techniques)
+Tool Introduction Frames (showing apps, spreadsheets, or resources)
+Real-World Example Frames (applying concepts to everyday scenarios)
+Proof Unit
+Data Validation Frame (showing numbers or results)
+Personal Experience Frame (sharing own financial journey)
+Reflection Unit
+Key Takeaway Frame (summarizing the main financial lesson)
+Future Projection Frame (explaining long-term benefits)
+Outro Unit
+Call-to-Action Frame (asking viewers to subscribe, download resources)
+Community Question Frame (soliciting viewer experiences or questions)
+Channel 6: Graham Stephan
+Niche: Personal Finance/Real Estate Investment
+Popular Content Types:
+Financial advice and education
+Real estate investment strategies
+Income reports and transparency
+Wealth-building blueprints
+Content Structure Analysis (Based on available information):
+From the research gathered, Graham Stephan's videos follow a consistent educational structure with a focus on actionable financial advice:
+Long-Form Skeleton Template:
+Hook Unit
+Shocking Statement Frame (presenting surprising financial fact/figure)
+Problem Identification Frame (highlighting common financial mistake)
+Intro Unit
+Credibility Establishment Frame (sharing personal success or experience)
+Contrarian Perspective Frame (challenging conventional financial wisdom)
+Content Delivery Unit
+Data-Driven Explanation Frames (presenting financial statistics/research)
+Step-by-Step Strategy Frames (breaking down investment approaches)
+Transparency Frames (sharing personal numbers and results)
+Practical Application Unit
+Real-World Example Frames (showing how concepts apply in practice)
+Tool/Resource Recommendation Frames (suggesting apps, platforms, services)
+Common Mistake Warning Frames (highlighting pitfalls to avoid)
+Proof Unit
+Personal Results Frame (showing own financial outcomes)
+Case Study Frame (analyzing success stories)
+Reflection Unit
+Key Principle Frame (summarizing the core financial concept)
+Long-Term Impact Frame (explaining compound effects over time)
+Outro Unit
+Call-to-Action Frame (asking viewers to subscribe, join courses/programs)
+Community Building Frame (encouraging comments and discussion)
+Channel 7: Alex Becker
+Niche: Cryptocurrency/Business/Marketing
+Popular Content Types:
+Cryptocurrency investment strategies
+Business building advice
+Marketing techniques
+Wealth creation methods
+Content Structure Analysis (Based on available information):
+From the research gathered, Alex Becker's videos follow a high-energy, direct structure focused on cryptocurrency and business insights:
+Long-Form Skeleton Template:
+Hook Unit
+Urgency Hook Frame (creating time-sensitive opportunity feeling)
+Bold Claim Frame (making attention-grabbing statement about crypto/business)
+Intro Unit
+Authority Establishment Frame (highlighting personal success/credentials)
+Market Analysis Frame (breaking down current crypto/business landscape)
+Content Delivery Unit
+Contrarian Insight Frames (presenting against-the-grain perspectives)
+Strategic Explanation Frames (detailing investment/business approaches)
+Prediction Frames (forecasting market movements or business trends)
+Proof Unit
+Personal Results Frame (showing own portfolio/business performance)
+Historical Pattern Frame (referencing past market cycles/business trends)
+Action Plan Unit
+Step-by-Step Strategy Frames (outlining exactly what viewers should do)
+Risk Management Frames (discussing potential downsides and protections)
+Reflection Unit
+Philosophical Principle Frame (connecting strategy to broader success principles)
+Mindset Emphasis Frame (stressing psychological aspects of success)
+Outro Unit
+Call-to-Action Frame (directing to courses, communities, or resources)
+Urgency Reminder Frame (reinforcing time-sensitive nature of opportunity)
+Channel 8: Iman Gadzhi
+Niche: Business/Entrepreneurship/Agency Building
+Popular Content Types:
+Agency building strategies
+Business advice for young entrepreneurs
+Marketing techniques
+Wealth creation methods
+Content Structure Analysis (Based on available information):
+From the research gathered, Iman Gadzhi's videos follow a structured, direct approach focused on business advice and entrepreneurship:
+Long-Form Skeleton Template:
+Hook Unit
+Pattern Interrupt Frame (making unexpected or bold statement)
+Problem Identification Frame (highlighting common business struggle)
+Intro Unit
+Authority Establishment Frame (referencing personal business success)
+Contrarian Wisdom Frame (challenging conventional business advice)
+Content Delivery Unit
+Conceptual Framework Frames (explaining business principles)
+Strategic Breakdown Frames (detailing specific business approaches)
+Common Mistake Highlight Frames (identifying errors entrepreneurs make)
+Practical Application Unit
+Step-by-Step Implementation Frames (providing actionable instructions)
+Resource Recommendation Frames (suggesting tools, platforms, services)
+Real-World Example Frames (showing application in actual businesses)
+Proof Unit
+Personal Journey Frame (sharing own business evolution)
+Client Success Frame (highlighting results from students/clients)
+Reflection Unit
+Philosophical Principle Frame (connecting tactics to broader success principles)
+Future Projection Frame (discussing long-term business evolution)
+Outro Unit
+Call-to-Action Frame (directing to courses, programs, or resources)
+Exclusivity Frame (emphasizing limited access to advanced training)
+Channel 9: Ryan Trahan
+Niche: Challenge/Entertainment/Storytelling
+Popular Content Types:
+Challenge videos (survival challenges, penny challenges)
+Storytelling adventures
+Social experiments
+Creative concepts
+Content Structure Analysis (Based on available information):
+From the research gathered, Ryan Trahan's videos follow a highly narrative structure with strong storytelling elements:
+Long-Form Skeleton Template:
+Hook Unit
+Challenge Statement Frame (presenting the core challenge/concept)
+Stakes Establishment Frame (explaining what's at risk or to be gained)
+Intro Unit
+Hero's Journey Setup Frame (positioning himself as the protagonist)
+Obstacle Preview Frame (highlighting potential difficulties ahead)
+Journey Unit
+Milestone Achievement Frames (marking progress through the challenge)
+Unexpected Obstacle Frames (documenting surprises and complications)
+Character Introduction Frames (meeting people along the journey)
+Tension Unit
+Conflict Escalation Frames (showing increasing difficulty)
+Emotional Response Frames (sharing authentic reactions to challenges)
+Suspense Building Frames (creating uncertainty about outcomes)
+Resolution Unit
+Challenge Completion Frame (showing final achievement)
+Reflection Frame (discussing what was learned)
+Meaning Unit
+Broader Message Frame (connecting challenge to life lessons)
+Gratitude Frame (acknowledging supporters and participants)
+Outro Unit
+Next Adventure Tease Frame (hinting at future content)
+Call-to-Action Frame (asking viewers to subscribe, like, comment)
+Channel 10: Tati
+Niche: Beauty/Makeup Reviews
+Popular Content Types:
+Makeup product reviews
+Drugstore vs. high-end comparisons
+Beauty favorites and recommendations
+Tutorial and "Get Ready With Me" videos
+Content Structure Analysis (Based on available information):
+From the research gathered, Tati's videos follow a structured beauty content format:
+Long-Form Skeleton Template:
+Hook Unit
+Product Display Frame (showing featured makeup items)
+Promise of Value Frame (explaining what viewers will learn about products)
+Intro Unit
+Credibility Establishment Frame (referencing beauty expertise)
+Context Setting Frame (explaining video concept/theme)
+Content Delivery Unit
+Product Introduction Frames (showcasing each item)
+Application Demo Frames (showing how products apply)
+First Impression Frames (sharing immediate reactions)
+Evaluation Unit
+Performance Analysis Frames (discussing how products wear)
+Comparison Frames (contrasting with similar products)
+Price-Value Assessment Frames (discussing if products are worth the cost)
+Wear Test Unit
+Time-Lapse Check-In Frames (showing how makeup wears throughout day)
+Close-Up Detail Frames (zooming in on specific makeup effects)
+Reflection Unit
+Final Verdict Frame (summarizing overall thoughts)
+Recommendation Frame (advising who should buy/skip products)
+Outro Unit
+Product Links Frame (mentioning where to find items)
+Call-to-Action Frame (asking viewers to subscribe, join mailing list)
+Channel 11: The Sorry Girls
+Niche: DIY/Home Decor/Renovation
+Popular Content Types:
+Room makeovers and renovations
+DIY home decor projects
+Thrifting and upcycling content
+Home improvement tutorials
+Content Structure Analysis (Based on available information):
+From the research gathered, The Sorry Girls' videos follow a structured DIY/renovation format:
+Long-Form Skeleton Template:
+Hook Unit
+Before State Frame (showing space before renovation)
+Vision Statement Frame (explaining renovation concept/goals)
+Intro Unit
+Problem Identification Frame (discussing issues with current space)
+Design Plan Frame (outlining renovation approach and aesthetic)
+Process Unit
+Demolition/Preparation Frames (showing removal of old elements)
+Step-by-Step DIY Frames (demonstrating renovation techniques)
+Materials Showcase Frames (highlighting products and tools used)
+Challenge Unit
+Unexpected Problem Frames (documenting renovation obstacles)
+Problem-Solving Frames (showing how issues were overcome)
+Budget Management Frames (discussing cost-saving approaches)
+Progress Unit
+Milestone Achievement Frames (showing key stages of completion)
+Detail Work Frames (focusing on finishing touches)
+Styling Frames (adding decor elements to completed space)
+Reveal Unit
+Dramatic Reveal Frame (showing completed space transformation)
+Before/After Comparison Frame (contrasting with original state)
+Feature Highlight Frames (showcasing specific elements of design)
+Reflection Unit
+Lessons Learned Frame (discussing what worked/didn't work)
+Budget Breakdown Frame (sharing costs of renovation)
+Call-to-Action Frame (encouraging viewers to subscribe, try projects)
+Channel 12: Paul Cuffaro
+Niche: Aquarium/Pond/Fishing Content
+Popular Content Types:
+Aquarium setup and maintenance
+Pond building and stocking
+Exotic fish collection and care
+Fishing adventures and challenges
+Content Structure Analysis (Based on available information):
+From the research gathered, Paul Cuffaro's videos follow a consistent structure focused on aquatic pets and environments:
+Long-Form Skeleton Template:
+Hook Unit
+Visual Hook Frame (showing exotic fish or impressive aquarium/pond)
+Challenge Statement Frame (explaining what he's building/adding/catching)
+Intro Unit
+Project Overview Frame (explaining the day's goal)
+Excitement Building Frame (expressing enthusiasm for the new addition/build)
+Journey Unit
+Location Transition Frames (traveling to fish stores/fishing spots)
+Shopping/Selection Frames (choosing fish or equipment)
+Expert Consultation Frames (getting advice from store staff or specialists)
+Process Unit
+Step-by-Step Demo Frames (showing setup/building process)
+Educational Frames (explaining fish care requirements or pond technology)
+Problem-Solving Frames (addressing challenges in the build/setup)
+Reveal Unit
+First Look Frame (initial reaction to completed setup)
+Fish Introduction Frame (adding fish to new environment)
+Behavior Observation Frame (watching how fish adapt to new home)
+Reflection Unit
+Success Assessment Frame (evaluating how the project turned out)
+Future Plans Frame (discussing next steps or additions)
+Outro Unit
+Call-to-Action Frame (asking viewers to subscribe, like, comment)
+Next Video Tease Frame (hinting at upcoming projects)
+Shorts Template:
+Hook Unit
+Immediate Visual Impact Frame (showing most impressive fish/moment)
+Question Hook Frame (posing intriguing question about aquatic pets)
+Quick Demo Unit
+Fast-Paced Explanation Frame (giving quick facts about fish/setup)
+Highlight Moment Frame (showing key part of build or fish behavior)
+Outro Unit
+Quick Tip Frame (offering one actionable piece of advice)
+Follow Prompt Frame (encouraging viewers to follow for more content)
+Channel 13: The Trench Family
+Niche: Family Vlogging/Lifestyle Content
+Popular Content Types:
+Family adventures and activities
+Home renovation and decoration
+Parenting content
+Holiday and special occasion celebrations
+Content Structure Analysis (Based on available information):
+From the research gathered, The Trench Family's videos follow a family-focused vlogging structure:
+Long-Form Skeleton Template:
+Hook Unit
+Family Activity Preview Frame (showing exciting moment from the day)
+Day Introduction Frame (explaining what the family will be doing)
+Intro Unit
+Family Check-In Frame (showing family members and current situation)
+Plan Overview Frame (explaining the day's activities or goals)
+Journey Unit
+Morning Routine Frames (showing how the day begins)
+Activity Transition Frames (moving between different parts of the day)
+Family Interaction Frames (capturing authentic moments between family members)
+Challenge/Activity Unit
+Activity Setup Frames (explaining rules or context of family activities)
+Participation Frames (showing each family member engaging)
+Reaction Frames (capturing genuine responses to experiences)
+Emotional Connection Unit
+Heartfelt Moment Frames (highlighting meaningful family interactions)
+Learning Experience Frames (showing children discovering or growing)
+Parenting Insight Frames (sharing thoughts on family dynamics)
+Reflection Unit
+Day Summary Frame (recapping the day's events)
+Gratitude Expression Frame (sharing appreciation for experiences/each other)
+Outro Unit
+Family Sign-Off Frame (entire family saying goodbye)
+Next Day Tease Frame (hinting at upcoming content)
+Call-to-Action Frame (encouraging subscription and engagement)
+Channel 14: Hope Scope
+Niche: Fashion/Product Reviews/Comparison Content
+Popular Content Types:
+Fashion hauls and reviews
+Comparison videos (same item at different price points)
+Celebrity/influencer brand reviews
+Viral product testing
+Content Structure Analysis (Based on available information):
+From the research gathered, Hope Scope's videos follow a structured review and comparison format:
+Long-Form Skeleton Template:
+Hook Unit
+Visual Comparison Frame (showing products side by side)
+Bold Claim Frame (making attention-grabbing statement about products)
+Intro Unit
+Context Setting Frame (explaining the comparison concept)
+Expectation Setting Frame (outlining what viewers will learn)
+Product Introduction Unit
+Product Showcase Frames (displaying each item)
+Price Point Highlight Frames (emphasizing cost differences)
+First Impression Frames (sharing initial reactions)
+Testing Unit
+Hands-On Trial Frames (showing products in use)
+Quality Assessment Frames (examining materials and construction)
+Fit/Function Evaluation Frames (testing how products perform)
+Comparison Unit
+Side-by-Side Analysis Frames (directly comparing similar features)
+Value Assessment Frames (discussing price-to-quality ratio)
+Expectation vs. Reality Frames (comparing marketing to actual product)
+Verdict Unit
+Winner Declaration Frame (identifying best option)
+Recommendation Frame (advising who should buy which product)
+Surprise Finding Frame (highlighting unexpected discoveries)
+Outro Unit
+Summary Frame (recapping key points)
+Call-to-Action Frame (encouraging likes, comments, subscriptions)
+Next Video Tease Frame (previewing upcoming content)
+Shorts Template:
+Hook Unit
+Shocking Comparison Frame (showing dramatic difference between products)
+Question Hook Frame (posing intriguing question about value or quality)
+Quick Demo Unit
+Rapid Test Frame (showing condensed product trial)
+Price Reveal Frame (highlighting cost difference for impact)
+Verdict Unit
+Quick Recommendation Frame (giving fast buying advice)
+Follow Prompt Frame (encouraging viewers to follow for more reviews)
+Channel 15: Jesser
+Niche: Basketball/Sports Entertainment Content
+Popular Content Types:
+Basketball challenges and competitions
+Product testing and reviews (basketball gear)
+Tournament formats with prizes
+NBA-related content and reactions
+Content Structure Analysis (Based on available information):
+From the research gathered, Jesser's videos follow a high-energy challenge and competition format:
+Long-Form Skeleton Template:
+Hook Unit
+Challenge Statement Frame (explaining the competition/challenge)
+Stakes Establishment Frame (revealing prize or consequence)
+Intro Unit
+Rules Explanation Frame (detailing how the challenge works)
+Participant Introduction Frame (showcasing friends/competitors)
+Challenge Setup Unit
+Equipment Showcase Frames (highlighting basketball gear being used)
+Location Setup Frames (showing the basketball court/environment)
+Excitement Building Frames (creating anticipation for the challenge)
+Competition Unit
+Round-by-Round Progression Frames (showing each stage of the challenge)
+Reaction Frames (capturing authentic responses to success/failure)
+Scorekeeping Frames (tracking progress throughout competition)
+Escalation Unit
+Difficulty Increase Frames (showing challenges getting harder)
+Dramatic Moment Frames (highlighting close calls or impressive shots)
+Commentary Frames (providing play-by-play reactions)
+Resolution Unit
+Winner Announcement Frame (revealing who succeeded)
+Prize Delivery Frame (showing reward being given)
+Celebration/Defeat Frames (capturing emotional reactions)
+Outro Unit
+Challenge Reflection Frame (discussing the experience)
+Next Challenge Tease Frame (hinting at upcoming content)
+Call-to-Action Frame (encouraging subscription and engagement)
+Shorts Template:
+Hook Unit
+Impossible Shot Frame (showing an amazing basketball trick)
+Challenge Snippet Frame (condensing the core concept into seconds)
+Action Unit
+Quick Attempt Frame (showing rapid-fire challenge attempts)
+Reaction Frame (capturing genuine surprise or excitement)
+Resolution Unit
+Success/Fail Moment Frame (showing the outcome)
+Follow Prompt Frame (encouraging viewers to see more challenges)
+Channel 16: Ali Abdaal
+Niche: Productivity/Self-Improvement/Educational Content
+Popular Content Types:
+Productivity systems and techniques
+Book summaries and recommendations
+Study and learning strategies
+Career advice and personal development
+Technology and tools for efficiency
+Content Structure Analysis (Based on available information):
+From the research gathered, Ali Abdaal's videos follow a structured, educational format with clear takeaways:
+Long-Form Skeleton Template:
+Hook Unit
+Problem Statement Frame (identifying common productivity challenge)
+Promise of Value Frame (explaining what viewers will learn)
+Intro Unit
+Personal Experience Frame (sharing relevant personal story)
+Credibility Establishment Frame (referencing research or expertise)
+Content Overview Unit
+Structure Preview Frame (outlining what will be covered)
+Key Concept Introduction Frame (explaining core principles)
+Main Content Unit
+Step-by-Step Explanation Frames (breaking down concepts methodically)
+Research-Backed Evidence Frames (citing studies or expert opinions)
+Visual Aid Frames (using diagrams, slides, or on-screen text)
+Practical Application Unit
+Real-World Example Frames (showing concepts in practice)
+Tool Demonstration Frames (showcasing apps, systems, or methods)
+Common Mistake Warning Frames (highlighting pitfalls to avoid)
+Reflection Unit
+Key Takeaway Frame (summarizing main points)
+Personal Implementation Frame (sharing how he applies concepts)
+Nuance Addition Frame (addressing exceptions or variations)
+Outro Unit
+Resource Recommendation Frame (suggesting books, apps, or courses)
+Call-to-Action Frame (encouraging subscription and engagement)
+Next Topic Tease Frame (previewing related content)
+Shorts Template:
+Hook Unit
+Quick Tip Frame (offering immediate actionable advice)
+Curiosity Gap Frame (posing intriguing productivity question)
+Core Concept Unit
+Single Insight Frame (focusing on one key productivity principle)
+Visual Demonstration Frame (showing technique in action)
+Application Unit
+Quick Implementation Frame (explaining how to apply immediately)
+Follow Prompt Frame (directing to full video for more details)
+Channel 17: Cleetus McFarland
+Niche: Automotive/Motorsports Content
+Popular Content Types:
+Car builds and modifications
+Drag racing and motorsports events
+Freedom Factory (racetrack) content
+Automotive challenges and competitions
+Project car updates and restorations
+Content Structure Analysis (Based on available information):
+From the research gathered, Cleetus McFarland's videos follow an automotive project/event format:
+Long-Form Skeleton Template:
+Hook Unit
+Action Teaser Frame (showing exciting moment from later in video)
+Project Introduction Frame (explaining what's happening with the car/event)
+Intro Unit
+Location Setup Frame (showing garage/track/event setting)
+Team Introduction Frame (featuring friends/crew members)
+Goal Statement Frame (explaining what they hope to accomplish)
+Process Unit
+Problem Identification Frames (discussing mechanical issues or challenges)
+Technical Explanation Frames (breaking down automotive concepts)
+Hands-On Work Frames (showing actual wrenching/building/driving)
+Challenge Unit
+Unexpected Obstacle Frames (documenting surprises or complications)
+Problem-Solving Frames (showing how issues are addressed)
+Team Collaboration Frames (capturing group effort and dynamics)
+Testing/Racing Unit
+First Start/Test Frames (showing initial results of work)
+Performance Evaluation Frames (discussing how the vehicle performs)
+Competition Frames (showing racing or comparison with other vehicles)
+Result Unit
+Outcome Reveal Frame (showing final performance or completion)
+Celebration/Reaction Frames (capturing authentic responses)
+Future Plans Frame (discussing next steps for the project/vehicle)
+Outro Unit
+Merch Promotion Frame (showcasing branded merchandise)
+Event Announcement Frame (promoting upcoming races/meets)
+Call-to-Action Frame (encouraging subscription and engagement)
+Shorts Template:
+Hook Unit
+Engine Sound/Burnout Frame (showing dramatic automotive moment)
+Quick Problem Frame (highlighting an interesting car issue)
+Action Unit
+Fast-Paced Work Frame (showing rapid mechanical work)
+Test Drive Frame (capturing vehicle performance in condensed form)
+Result Unit
+Success/Failure Moment Frame (showing outcome)
+Follow Prompt Frame (directing to main channel for full content)
+Channel 18: Peter McKinnon
+Niche: Photography/Filmmaking/Creative Tutorials
+Popular Content Types:
+Photography tutorials and techniques
+Filmmaking and video editing guides
+Camera gear reviews and recommendations
+Creative challenges and inspiration
+Behind-the-scenes of professional shoots
+Content Structure Analysis (Based on available information):
+From the research gathered, Peter McKinnon's videos follow a polished, educational format with high production value:
+Long-Form Skeleton Template:
+Hook Unit
+Visual Showcase Frame (displaying impressive photo/video result)
+Problem Statement Frame (identifying creative challenge to solve)
+Intro Unit
+Personal Connection Frame (relating to viewer's creative journey)
+Value Promise Frame (explaining what viewers will learn)
+Equipment/Setup Unit
+Gear Showcase Frames (highlighting relevant equipment)
+Technical Setup Frames (showing camera settings/software configuration)
+Behind-the-Scenes Frames (revealing shooting environment)
+Tutorial Unit
+Step-by-Step Demonstration Frames (breaking down techniques)
+Common Mistake Warning Frames (highlighting pitfalls to avoid)
+Pro Tip Frames (sharing insider knowledge)
+Creative Process Unit
+Thought Process Frames (explaining creative decisions)
+Before/After Comparison Frames (showing transformation)
+Alternative Approach Frames (offering different techniques)
+Result Unit
+Final Product Showcase Frame (displaying completed work)
+Artistic Analysis Frame (discussing what makes it effective)
+Inspiration Frame (encouraging viewer creativity)
+Outro Unit
+Key Takeaway Frame (summarizing main lessons)
+Community Engagement Frame (asking for viewer projects)
+Call-to-Action Frame (encouraging subscription and social follows)
+Shorts Template:
+Hook Unit
+Quick Tip Frame (offering immediate actionable advice)
+Before/After Frame (showing dramatic transformation)
+Technique Unit
+Single Technique Focus Frame (demonstrating one specific skill)
+Fast-Motion Demonstration Frame (showing process quickly)
+Result Unit
+Final Image/Footage Frame (showing impressive outcome)
+Follow Prompt Frame (directing to full tutorials)
+Channel 19: Garden Answer
+Niche: Gardening/Plant Care/Outdoor DIY
+Popular Content Types:
+Garden tours and transformations
+Plant selection and care tutorials
+Seasonal gardening projects
+Container and landscape design
+Garden tool reviews and demonstrations
+Content Structure Analysis (Based on available information):
+From the research gathered, Garden Answer's videos follow a practical, instructional format with a personal touch:
+Long-Form Skeleton Template:
+Hook Unit
+Garden Beauty Frame (showcasing stunning garden areas)
+Project Introduction Frame (explaining what will be planted/created)
+Intro Unit
+Location Context Frame (showing the garden area to be worked on)
+Plant/Material Showcase Frame (displaying plants and supplies)
+Goal Statement Frame (explaining the desired outcome)
+Planning Unit
+Design Explanation Frames (discussing layout and plant selection)
+Plant Information Frames (sharing growing requirements and characteristics)
+Color/Texture Consideration Frames (explaining aesthetic choices)
+Process Unit
+Step-by-Step Demonstration Frames (showing planting/building techniques)
+Tool Usage Frames (demonstrating proper gardening tools)
+Practical Tip Frames (sharing insider gardening knowledge)
+Challenge Unit
+Problem Identification Frames (addressing common gardening issues)
+Solution Demonstration Frames (showing how to overcome challenges)
+Seasonal Consideration Frames (discussing weather/timing factors)
+Result Unit
+Finished Project Frame (displaying completed garden area)
+Before/After Comparison Frame (contrasting with starting point)
+Future Growth Projection Frame (explaining how plants will develop)
+Outro Unit
+Care Instruction Frame (explaining maintenance requirements)
+Next Project Tease Frame (hinting at upcoming garden work)
+Call-to-Action Frame (encouraging subscription and social follows)
+Shorts Template:
+Hook Unit
+Quick Plant Showcase Frame (highlighting beautiful specimen)
+Gardening Tip Teaser Frame (offering immediate value)
+Technique Unit
+Single Gardening Tip Frame (focusing on one specific technique)
+Quick Demonstration Frame (showing process in condensed form)
+Result Unit
+Garden Beauty Frame (showing satisfying outcome)
+Seasonal Reminder Frame (noting timely gardening tasks)
+Follow Prompt Frame (directing to full tutorials)
+Channel 20: Therapy in a Nutshell
+Niche: Mental Health/Therapy/Psychology Education
+Popular Content Types:
+Mental health education and explanations
+Therapy techniques and coping strategies
+Anxiety and depression management
+Trauma recovery resources
+Emotional processing guides
+Content Structure Analysis (Based on available information):
+From the research gathered, Therapy in a Nutshell's videos follow an educational, therapeutic format:
+Long-Form Skeleton Template:
+Hook Unit
+Problem Identification Frame (highlighting common mental health challenge)
+Empathy Building Frame (acknowledging viewer struggles)
+Intro Unit
+Credibility Establishment Frame (referencing professional expertise)
+Value Promise Frame (explaining therapeutic benefits viewers will gain)
+Educational Unit
+Concept Explanation Frames (breaking down psychological principles)
+Neuroscience Frames (explaining brain mechanisms behind behaviors)
+Research-Backed Evidence Frames (citing studies and expert opinions)
+Practical Application Unit
+Step-by-Step Technique Frames (demonstrating therapeutic exercises)
+Real-World Example Frames (illustrating concepts with scenarios)
+Common Pitfall Warning Frames (highlighting challenges in implementation)
+Nuance Unit
+Individual Variation Frames (acknowledging different experiences)
+Complexity Acknowledgment Frames (addressing limitations of simplified explanations)
+Professional Support Frames (discussing when to seek additional help)
+Reflection Unit
+Key Takeaway Frame (summarizing main therapeutic concepts)
+Encouragement Frame (offering hope and motivation)
+Integration Frame (explaining how to incorporate skills into daily life)
+Outro Unit
+Resource Recommendation Frame (suggesting additional materials)
+Call-to-Action Frame (encouraging subscription and course enrollment)
+Disclaimer Frame (clarifying video is educational, not replacement for therapy)
+Shorts Template:
+Hook Unit
+Quick Mental Health Tip Frame (offering immediate actionable advice)
+Relatable Struggle Frame (connecting with common experiences)
+Technique Unit
+Single Coping Strategy Frame (focusing on one specific skill)
+Visual Demonstration Frame (showing technique in practice)
+Implementation Unit
+Quick Application Frame (explaining how to use immediately)
+Follow Prompt Frame (directing to full resources for more help)
+Channel 21: Goal_90
+Niche: Soccer/Football Skills and Training
+Popular Content Types:
+Soccer skill tutorials
+Training drills and exercises
+Professional technique analysis
+Freestyle football tricks
+Player improvement guides
+Content Structure Analysis (Based on available information):
+From the research gathered, Goal_90's videos follow a sports training and skill development format:
+Long-Form Skeleton Template:
+Hook Unit
+Skill Showcase Frame (displaying impressive soccer technique)
+Challenge Statement Frame (presenting skill to be learned)
+Intro Unit
+Skill Importance Frame (explaining why technique matters)
+Learning Progression Frame (outlining skill development path)
+Breakdown Unit
+Technique Analysis Frames (breaking down movement mechanics)
+Common Mistake Identification Frames (highlighting errors to avoid)
+Professional Example Frames (showing elite players using the skill)
+Training Unit
+Step-by-Step Instruction Frames (demonstrating technique components)
+Drill Introduction Frames (showing practice exercises)
+Progression Frames (showing how to advance from basic to complex)
+Practice Unit
+Repetition Emphasis Frames (stressing importance of consistent practice)
+Game Situation Frames (showing when/how to apply skill in matches)
+Troubleshooting Frames (addressing common learning obstacles)
+Mastery Unit
+Advanced Variation Frames (showing skill modifications)
+Combination Play Frames (integrating with other techniques)
+Performance Evaluation Frames (discussing how to assess improvement)
+Outro Unit
+Motivation Frame (encouraging continued practice)
+Next Skill Tease Frame (previewing related techniques)
+Call-to-Action Frame (encouraging subscription and engagement)
+Shorts Template:
+Hook Unit
+Quick Skill Demonstration Frame (showing impressive technique)
+Challenge Frame (posing "can you do this?" question)
+Technique Unit
+Key Movement Focus Frame (highlighting critical technique element)
+Quick Tip Frame (offering one crucial piece of advice)
+Practice Unit
+Simple Drill Frame (showing condensed practice method)
+Follow Prompt Frame (directing to full tutorial)
+Channel 22: Science Max
+Niche: Science Education/Experiments/STEM Content
+Popular Content Types:
+Science experiments scaled up to large size
+Scientific concept explanations
+DIY science projects
+Physics and chemistry demonstrations
+STEM challenges and solutions
+Content Structure Analysis (Based on available information):
+From the research gathered, Science Max's videos follow an educational, experiment-based format:
+Long-Form Skeleton Template:
+Hook Unit
+Experiment Teaser Frame (showing exciting result preview)
+Curiosity Trigger Frame (posing intriguing scientific question)
+Intro Unit
+Small-Scale Demo Frame (showing experiment at normal size)
+Scale-Up Challenge Frame (proposing to make experiment bigger)
+Scientific Principle Frame (introducing core concept to be explored)
+Planning Unit
+Materials Introduction Frames (showcasing supplies needed)
+Hypothesis Formation Frames (predicting what might happen)
+Safety Consideration Frames (addressing precautions)
+Experiment Unit
+Step-by-Step Process Frames (showing experiment construction)
+Trial and Error Frames (documenting challenges and adjustments)
+Scientific Explanation Frames (explaining phenomena as they occur)
+Results Unit
+Big Reveal Frame (showing final experiment outcome)
+Expectation vs. Reality Frame (comparing hypothesis to results)
+Slow-Motion Analysis Frame (examining results in detail)
+Learning Unit
+Scientific Principle Explanation Frame (connecting to broader concepts)
+Real-World Application Frame (relating to everyday phenomena)
+Follow-Up Question Frame (encouraging critical thinking)
+Outro Unit
+Experiment Variation Frame (suggesting modifications to try)
+Next Challenge Tease Frame (previewing upcoming experiments)
+Call-to-Action Frame (encouraging subscription and engagement)
