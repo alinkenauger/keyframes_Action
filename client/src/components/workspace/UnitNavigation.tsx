@@ -26,20 +26,23 @@ export function UnitNavigation({
 
   return (
     <div className={cn("space-y-2", className)}>
-      {/* First row of units */}
+      {/* First row of units - Use regular buttons instead of TabsTrigger to avoid Radix UI issues */}
       <div className="grid grid-cols-2 gap-2">
         {firstRow.map((unit) => (
-          <TabsTrigger
+          <button
             key={unit}
-            value={unit}
             onClick={() => onUnitChange(unit)}
             className={cn(
-              "w-full",
-              activeUnit === unit ? "bg-primary/10" : ""
+              "w-full px-3 py-1.5 rounded-sm text-sm font-medium transition-colors",
+              "inline-flex items-center justify-center",
+              "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+              activeUnit === unit 
+                ? "bg-background text-foreground shadow-sm" 
+                : "text-muted-foreground hover:bg-muted/50"
             )}
           >
             {unit}
-          </TabsTrigger>
+          </button>
         ))}
       </div>
       
@@ -47,22 +50,23 @@ export function UnitNavigation({
       {secondRow.length > 0 && (
         <div className={cn(
           "grid gap-2",
-          secondRow.length === 1 ? "grid-cols-1" : 
-          secondRow.length === 2 ? "grid-cols-2" : 
-          "grid-cols-2"
+          secondRow.length === 1 ? "grid-cols-1" : "grid-cols-2"
         )}>
           {secondRow.map((unit) => (
-            <TabsTrigger
+            <button
               key={unit}
-              value={unit}
               onClick={() => onUnitChange(unit)}
               className={cn(
-                "w-full",
-                activeUnit === unit ? "bg-primary/10" : ""
+                "w-full px-3 py-1.5 rounded-sm text-sm font-medium transition-colors",
+                "inline-flex items-center justify-center",
+                "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+                activeUnit === unit 
+                  ? "bg-background text-foreground shadow-sm" 
+                  : "text-muted-foreground hover:bg-muted/50"
               )}
             >
               {unit}
-            </TabsTrigger>
+            </button>
           ))}
         </div>
       )}
