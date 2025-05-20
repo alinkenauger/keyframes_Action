@@ -343,6 +343,7 @@ export default function Home() {
                 activeDragData={activeDragData}
                 onDeleteFrame={deleteFrame}
                 onUpdateFrameAttribute={handleUpdateFrameAttribute}
+                onOpenCreateDialog={() => setShowCreateDialog(true)}
               />
             </div>
           </div>

@@ -18,9 +18,10 @@ interface WorkspaceProps {
   activeDragData: any;
   onDeleteFrame: (frameId: string) => void;
   onUpdateFrameAttribute: (frameId: string, type: 'tone' | 'filter', value: string) => void;
+  onOpenCreateDialog?: () => void; // Add this to allow opening the New Skeleton dialog
 }
 
-export default function Workspace({ activeId, activeDragData, onDeleteFrame, onUpdateFrameAttribute }: WorkspaceProps) {
+export default function Workspace({ activeId, activeDragData, onDeleteFrame, onUpdateFrameAttribute, onOpenCreateDialog }: WorkspaceProps) {
   const { toast } = useToast();
   const { skeletons, activeSkeletonId, updateFrameOrder, updateSkeletonUnits } = useWorkspace();
   const activeSkeleton = skeletons.find((s) => s.id === activeSkeletonId);
@@ -204,9 +205,8 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
           <Button 
             onClick={() => {
               // Open the Create Skeleton dialog directly
-              const newSkeletonButton = document.querySelector('button:has(.plus-icon), button.new-skeleton-button');
-              if (newSkeletonButton) {
-                (newSkeletonButton as HTMLButtonElement).click();
+              if (onOpenCreateDialog) {
+                onOpenCreateDialog();
               } else {
                 toast({
                   title: "Create New Skeleton",
