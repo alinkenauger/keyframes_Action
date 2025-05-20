@@ -134,9 +134,10 @@ export default function SkeletonUnit({
       {/* Frames area */}
       <div 
         className={cn(
-          "flex-1 min-h-[200px] flex flex-col relative",
+          "flex-1 overflow-y-auto min-h-[200px] flex flex-col relative",
           isOver && "bg-primary/10"
         )}
+        style={{ maxHeight: "calc(100vh - 150px)" }}
       >
         {/* Extra drop indicator area when empty */}
         {unitFrames.length === 0 && (
@@ -151,6 +152,7 @@ export default function SkeletonUnit({
         <ScrollArea 
           className="flex-1 p-2 w-full h-full"
           type="always"
+          scrollHideDelay={0}
         >
           <SortableContext
             items={unitFrames.map(f => f.id)}
