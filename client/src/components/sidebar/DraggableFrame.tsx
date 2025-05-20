@@ -8,13 +8,15 @@ import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 import { useState } from 'react';
 import { HoverCard, HoverCardTrigger, HoverCardContent } from '@/components/ui/hover-card';
+import { Badge } from '@/components/ui/badge';
 
 interface DraggableFrameProps {
   frame: FrameTemplate;
   onDelete?: (id: string) => void;
+  compact?: boolean; // Whether to use a compact display style
 }
 
-export default function DraggableFrame({ frame, onDelete }: DraggableFrameProps) {
+export default function DraggableFrame({ frame, onDelete, compact = false }: DraggableFrameProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: `template-${frame.id}`,
