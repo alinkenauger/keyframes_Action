@@ -123,7 +123,7 @@ export async function generateVideoScript(skeleton: Skeleton): Promise<VideoScri
     
     ${scriptContext.contentType === 'shortform' ? `
     SHORT FORM GUIDELINES:
-    - Create a fast-paced, visually-oriented script for a 15-60 second video
+    - Create a fast-paced, visually-oriented script for a 15 second to 3 minute video
     - Emphasize a strong hook in the first 2-3 seconds that captures attention immediately
     - Focus on visual storytelling - what viewers SEE is more important than what they hear
     - Use simple, direct language with high emotional impact
@@ -133,7 +133,7 @@ export async function generateVideoScript(skeleton: Skeleton): Promise<VideoScri
     - End with a clear call-to-action or loop back to the beginning
     ` : `
     LONG FORM GUIDELINES:
-    - Create a well-paced, engaging script for a ${scriptContext.videoTitle.includes('tutorial') || scriptContext.videoTitle.includes('how') ? '7-15' : '8-20'} minute video
+    - Create a well-paced, engaging script for a video under 20 minutes in length
     - Balance storytelling with educational content and value delivery
     - Include pattern interrupts every 2-3 minutes to maintain engagement
     - Use transitions that feel natural but keep attention
@@ -150,7 +150,7 @@ export async function generateVideoScript(skeleton: Skeleton): Promise<VideoScri
     Also provide:
     - An optimized title for the video
     - A compelling description
-    - Target duration (${scriptContext.contentType === 'shortform' ? 'recommended natural length between 15-60 seconds' : 'recommended natural length between 5-20 minutes'})
+    - Target duration (${scriptContext.contentType === 'shortform' ? 'recommended natural length between 15 seconds and 3 minutes' : 'recommended natural length under 20 minutes'})
     - 3 thumbnail suggestions
     - 3 title variations
     
