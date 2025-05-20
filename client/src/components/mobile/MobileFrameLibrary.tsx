@@ -160,14 +160,87 @@ export default function MobileFrameLibrary() {
             className="w-full"
           >
             <div className="pb-2">
-              <div className="grid grid-cols-2 gap-2 mb-2">
-                <TabsTrigger className="w-full" value={FRAME_CATEGORIES.HOOK}>Hook</TabsTrigger>
-                <TabsTrigger className="w-full" value={FRAME_CATEGORIES.INTRO}>Intro</TabsTrigger>
-              </div>
-              <div className="grid grid-cols-3 gap-2">
-                <TabsTrigger className="w-full" value={FRAME_CATEGORIES.CONTENT}>Content</TabsTrigger>
-                <TabsTrigger className="w-full" value={FRAME_CATEGORIES.OUTRO}>Outro</TabsTrigger>
-                <TabsTrigger className="w-full" value={FRAME_CATEGORIES.CUSTOM}>Custom</TabsTrigger>
+              {/* Use 2-row grid for better spacing */}
+              <div className="space-y-2">
+                {/* First row */}
+                <div className="grid grid-cols-3 gap-2">
+                  <button 
+                    className={cn(
+                      "w-full px-3 py-1.5 text-sm rounded-sm",
+                      "transition-colors",
+                      activeCategory === FRAME_CATEGORIES.HOOK 
+                        ? "bg-background text-foreground shadow-sm" 
+                        : "text-muted-foreground bg-muted hover:bg-muted/70"
+                    )}
+                    onClick={() => setActiveCategory(FRAME_CATEGORIES.HOOK)}
+                  >
+                    Hook
+                  </button>
+                  <button 
+                    className={cn(
+                      "w-full px-3 py-1.5 text-sm rounded-sm",
+                      "transition-colors",
+                      activeCategory === FRAME_CATEGORIES.INTRO 
+                        ? "bg-background text-foreground shadow-sm" 
+                        : "text-muted-foreground bg-muted hover:bg-muted/70"
+                    )}
+                    onClick={() => setActiveCategory(FRAME_CATEGORIES.INTRO)}
+                  >
+                    Intro
+                  </button>
+                  <button 
+                    className={cn(
+                      "w-full px-3 py-1.5 text-sm rounded-sm",
+                      "transition-colors",
+                      activeCategory === FRAME_CATEGORIES.CONTENT 
+                        ? "bg-background text-foreground shadow-sm" 
+                        : "text-muted-foreground bg-muted hover:bg-muted/70"
+                    )}
+                    onClick={() => setActiveCategory(FRAME_CATEGORIES.CONTENT)}
+                  >
+                    Content
+                  </button>
+                </div>
+                
+                {/* Second row */}
+                <div className="grid grid-cols-3 gap-2">
+                  <button 
+                    className={cn(
+                      "w-full px-3 py-1.5 text-sm rounded-sm",
+                      "transition-colors",
+                      activeCategory === FRAME_CATEGORIES.OUTRO 
+                        ? "bg-background text-foreground shadow-sm" 
+                        : "text-muted-foreground bg-muted hover:bg-muted/70"
+                    )}
+                    onClick={() => setActiveCategory(FRAME_CATEGORIES.OUTRO)}
+                  >
+                    Outro
+                  </button>
+                  <button 
+                    className={cn(
+                      "w-full px-3 py-1.5 text-sm rounded-sm",
+                      "transition-colors",
+                      activeCategory === FRAME_CATEGORIES.CTA 
+                        ? "bg-background text-foreground shadow-sm" 
+                        : "text-muted-foreground bg-muted hover:bg-muted/70"
+                    )}
+                    onClick={() => setActiveCategory(FRAME_CATEGORIES.CTA)}
+                  >
+                    CTA
+                  </button>
+                  <button 
+                    className={cn(
+                      "w-full px-3 py-1.5 text-sm rounded-sm",
+                      "transition-colors",
+                      activeCategory === FRAME_CATEGORIES.CUSTOM 
+                        ? "bg-background text-foreground shadow-sm" 
+                        : "text-muted-foreground bg-muted hover:bg-muted/70"
+                    )}
+                    onClick={() => setActiveCategory(FRAME_CATEGORIES.CUSTOM)}
+                  >
+                    Custom
+                  </button>
+                </div>
               </div>
             </div>
 

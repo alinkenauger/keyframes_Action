@@ -4,6 +4,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Search, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import {
   FRAME_CATEGORIES,
   CONTENT_SUBCATEGORIES,
@@ -76,18 +77,88 @@ export default function FrameLibrary() {
             onValueChange={handleTabChange}
           >
             <div className="mb-4">
-              <TabsList className="grid grid-cols-2 gap-2">
-                {Object.values(FRAME_CATEGORIES).map((category, index) => (
-                  <TabsTrigger 
-                    key={category} 
-                    value={category} 
-                    className="w-full text-xs py-1.5"
-                    onClick={() => handleTabChange(category)}
+              {/* Use regular buttons instead of TabsTrigger to avoid Radix UI issues */}
+              <div className="space-y-2">
+                {/* First row - 3 categories */}
+                <div className="grid grid-cols-3 gap-2">
+                  <button
+                    onClick={() => handleTabChange(FRAME_CATEGORIES.HOOK)}
+                    className={cn(
+                      "w-full px-3 py-1.5 text-xs rounded-sm",
+                      "transition-colors",
+                      activeCategory === FRAME_CATEGORIES.HOOK 
+                        ? "bg-background text-foreground shadow-sm" 
+                        : "text-muted-foreground hover:bg-muted/50 bg-muted"
+                    )}
                   >
-                    {category}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
+                    Hook
+                  </button>
+                  <button
+                    onClick={() => handleTabChange(FRAME_CATEGORIES.INTRO)}
+                    className={cn(
+                      "w-full px-3 py-1.5 text-xs rounded-sm",
+                      "transition-colors",
+                      activeCategory === FRAME_CATEGORIES.INTRO 
+                        ? "bg-background text-foreground shadow-sm" 
+                        : "text-muted-foreground hover:bg-muted/50 bg-muted"
+                    )}
+                  >
+                    Intro
+                  </button>
+                  <button
+                    onClick={() => handleTabChange(FRAME_CATEGORIES.CONTENT)}
+                    className={cn(
+                      "w-full px-3 py-1.5 text-xs rounded-sm",
+                      "transition-colors",
+                      activeCategory === FRAME_CATEGORIES.CONTENT 
+                        ? "bg-background text-foreground shadow-sm" 
+                        : "text-muted-foreground hover:bg-muted/50 bg-muted"
+                    )}
+                  >
+                    Content
+                  </button>
+                </div>
+                
+                {/* Second row - 3 categories */}
+                <div className="grid grid-cols-3 gap-2">
+                  <button
+                    onClick={() => handleTabChange(FRAME_CATEGORIES.OUTRO)}
+                    className={cn(
+                      "w-full px-3 py-1.5 text-xs rounded-sm",
+                      "transition-colors",
+                      activeCategory === FRAME_CATEGORIES.OUTRO 
+                        ? "bg-background text-foreground shadow-sm" 
+                        : "text-muted-foreground hover:bg-muted/50 bg-muted"
+                    )}
+                  >
+                    Outro
+                  </button>
+                  <button
+                    onClick={() => handleTabChange(FRAME_CATEGORIES.CTA)}
+                    className={cn(
+                      "w-full px-3 py-1.5 text-xs rounded-sm",
+                      "transition-colors",
+                      activeCategory === FRAME_CATEGORIES.CTA
+                        ? "bg-background text-foreground shadow-sm" 
+                        : "text-muted-foreground hover:bg-muted/50 bg-muted"
+                    )}
+                  >
+                    Call To Action
+                  </button>
+                  <button
+                    onClick={() => handleTabChange(FRAME_CATEGORIES.CUSTOM)}
+                    className={cn(
+                      "w-full px-3 py-1.5 text-xs rounded-sm",
+                      "transition-colors",
+                      activeCategory === FRAME_CATEGORIES.CUSTOM
+                        ? "bg-background text-foreground shadow-sm" 
+                        : "text-muted-foreground hover:bg-muted/50 bg-muted"
+                    )}
+                  >
+                    Custom
+                  </button>
+                </div>
+              </div>
             </div>
 
             {/* Hook Type Filter */}
