@@ -84,7 +84,7 @@ export default function WelcomeScreen({ open, onOpenChange, onShowSkeletonCreato
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Standard Content Structure */}
             <Card className="cursor-pointer hover:border-primary transition-colors" 
-              onClick={() => handleSelectTemplate('standard-structure')}>
+              onClick={() => onShowSkeletonCreator()}>
               <CardContent className="p-6">
                 <div className="flex items-start mb-4">
                   <PlayCircle className="w-8 h-8 text-primary mr-3" />
@@ -101,7 +101,10 @@ export default function WelcomeScreen({ open, onOpenChange, onShowSkeletonCreato
                     <li>Optimized for both short and long-form content</li>
                   </ul>
                 </div>
-                <Button variant="outline" className="mt-4 w-full">
+                <Button variant="outline" className="mt-4 w-full" onClick={(e) => {
+                  e.stopPropagation(); // Prevent the card click event from firing
+                  onShowSkeletonCreator();
+                }}>
                   Use This Template <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </CardContent>
