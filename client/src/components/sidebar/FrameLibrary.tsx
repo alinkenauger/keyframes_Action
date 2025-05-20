@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Search, Plus, ChevronRight, ChevronDown } from 'lucide-react';
+import { Search, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   FRAME_CATEGORIES,
@@ -12,7 +12,6 @@ import {
   FRAME_TEMPLATES,
   type FrameTemplate
 } from '@/lib/frameLibrary';
-import { cn } from '@/lib/utils';
 import DraggableFrame from './DraggableFrame';
 import CreateCustomFrameDialog from '@/components/frame/CreateCustomFrameDialog';
 import { useLocalStorage } from '@/hooks/use-local-storage';
@@ -25,7 +24,6 @@ export default function FrameLibrary() {
   const [activeHookType, setActiveHookType] = useState<'initial' | 'rehook'>('initial');
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [customFrames, setCustomFrames] = useLocalStorage<FrameTemplate[]>('custom-frames', []);
-  const [expandedSubcategories, setExpandedSubcategories] = useState<string[]>([]);
 
   // Combine built-in frames with custom frames when displaying
   const displayedFrames = searchQuery
@@ -60,11 +58,11 @@ export default function FrameLibrary() {
     setCustomFrames(customFrames.filter(frame => frame.id !== frameId));
   };
 
-  const toggleSubcategory = (subcategory: string) => {
-    if (expandedSubcategories.includes(subcategory)) {
-      setExpandedSubcategories(expandedSubcategories.filter(s => s !== subcategory));
-    } else {
-      setExpandedSubcategories([...expandedSubcategories, subcategory]);
+  const handleTabChange = (value: string) => {
+    setActiveCategory(value);
+    setActiveSubcategory(undefined);
+    if (value === FRAME_CATEGORIES.HOOK) {
+      setActiveHookType('initial');
     }
   };
 
@@ -75,17 +73,11 @@ export default function FrameLibrary() {
         {!searchQuery && (
           <Tabs 
             defaultValue={FRAME_CATEGORIES.HOOK} 
-            onValueChange={(value) => {
-              setActiveCategory(value);
-              setActiveSubcategory(undefined);
-              if (value === FRAME_CATEGORIES.HOOK) {
-                setActiveHookType('initial');
-              }
-            }}
+            onValueChange={handleTabChange}
           >
             <TabsList className="mb-4 w-full">
               {Object.values(FRAME_CATEGORIES).map((category) => (
-                <TabsTrigger key={category} value={category} className="flex-1">
+                <TabsTrigger key={category} value={category} className="flex-1 text-xs">
                   {category}
                 </TabsTrigger>
               ))}
@@ -132,83 +124,84 @@ export default function FrameLibrary() {
         <div className="pr-4">
           {/* Content Subcategories */}
           {!searchQuery && activeCategory === FRAME_CATEGORIES.CONTENT && (
-                <div className="mb-4">
-                  <Accordion type="multiple" className="w-full">
-                    {Object.values(CONTENT_SUBCATEGORIES).map((subcategory) => {
-                      const frames = contentFramesBySubcategory[subcategory] || [];
-                      return (
-                        <AccordionItem key={subcategory} value={subcategory} className="border-b-0">
-                          <AccordionTrigger className="py-2 px-3 text-sm hover:no-underline bg-muted/30 rounded-md hover:bg-muted/60">
-                            <span className="flex items-center">
-                              {subcategory}
-                              <span className="ml-2 text-xs text-muted-foreground">({frames.length})</span>
-                            </span>
-                          </AccordionTrigger>
-                          <AccordionContent className="pt-2 pb-0">
-                            <div className="grid grid-cols-1 gap-2 pl-2">
-                              {frames.map((frame) => (
-                                <DraggableFrame 
-                                  key={frame.id}
-                                  frame={frame} 
-                                  compact={true}
-                                />
-                              ))}
-                            </div>
-                          </AccordionContent>
-                        </AccordionItem>
-                      );
-                    })}
-                  </Accordion>
-                </div>
-              )}
+            <div className="mb-4">
+              <Accordion type="multiple" className="w-full">
+                {Object.values(CONTENT_SUBCATEGORIES).map((subcategory) => {
+                  const frames = contentFramesBySubcategory[subcategory] || [];
+                  return (
+                    <AccordionItem key={subcategory} value={subcategory} className="border-b-0">
+                      <AccordionTrigger className="py-2 px-3 text-sm hover:no-underline bg-muted/30 rounded-md hover:bg-muted/60">
+                        <span className="flex items-center">
+                          {subcategory}
+                          <span className="ml-2 text-xs text-muted-foreground">({frames.length})</span>
+                        </span>
+                      </AccordionTrigger>
+                      <AccordionContent className="pt-2 pb-0">
+                        <div className="grid grid-cols-1 gap-2 pl-2">
+                          {frames.map((frame) => (
+                            <DraggableFrame 
+                              key={frame.id}
+                              frame={frame} 
+                              compact={true}
+                            />
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  );
+                })}
+              </Accordion>
+            </div>
+          )}
 
-              {/* For Hook, Intro and Outro categories, show frames directly */}
-              {(activeCategory === FRAME_CATEGORIES.HOOK || 
-                activeCategory === FRAME_CATEGORIES.INTRO || 
-                activeCategory === FRAME_CATEGORIES.OUTRO) && (
-                <div className="space-y-2 mb-4">
-                  {displayedFrames.map((frame) => (
+          {/* For categories that show frames directly (Hook, Intro, Outro, CTA) */}
+          {!searchQuery && (
+            activeCategory === FRAME_CATEGORIES.HOOK || 
+            activeCategory === FRAME_CATEGORIES.INTRO || 
+            activeCategory === FRAME_CATEGORIES.OUTRO ||
+            activeCategory === FRAME_CATEGORIES.CTA
+          ) && (
+            <div className="space-y-2 mb-4">
+              {displayedFrames.map((frame) => (
+                <DraggableFrame 
+                  key={frame.id}
+                  frame={frame} 
+                  onDelete={frame.isCustom ? handleDeleteCustomFrame : undefined}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Custom Frames Section */}
+          {!searchQuery && activeCategory === FRAME_CATEGORIES.CUSTOM && (
+            <div className="mb-4">
+              <Button 
+                variant="outline" 
+                className="w-full mb-4"
+                onClick={() => setShowCreateDialog(true)}
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Create Custom Frame
+              </Button>
+              
+              <div className="space-y-2">
+                {customFrames.length === 0 ? (
+                  <div className="text-center text-muted-foreground py-4">
+                    <p className="text-sm">No custom frames yet</p>
+                    <p className="text-xs mt-1">Create your first custom frame!</p>
+                  </div>
+                ) : (
+                  customFrames.map((frame) => (
                     <DraggableFrame 
                       key={frame.id}
                       frame={frame} 
-                      onDelete={frame.isCustom ? handleDeleteCustomFrame : undefined}
+                      onDelete={handleDeleteCustomFrame}
                     />
-                  ))}
-                </div>
-              )}
-
-              {/* Custom Frames Section */}
-              {activeCategory === FRAME_CATEGORIES.CUSTOM && (
-                <div className="mb-4">
-                  <Button 
-                    variant="outline" 
-                    className="w-full mb-4"
-                    onClick={() => setShowCreateDialog(true)}
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Create Custom Frame
-                  </Button>
-                  
-                  <div className="space-y-2">
-                    {customFrames.length === 0 ? (
-                      <div className="text-center text-muted-foreground py-4">
-                        <p className="text-sm">No custom frames yet</p>
-                        <p className="text-xs mt-1">Create your first custom frame!</p>
-                      </div>
-                    ) : (
-                      customFrames.map((frame) => (
-                        <DraggableFrame 
-                          key={frame.id}
-                          frame={frame} 
-                          onDelete={handleDeleteCustomFrame}
-                        />
-                      ))
-                    )}
-                  </div>
-                </div>
-              )}
-          </div>
-        )}
+                  ))
+                )}
+              </div>
+            </div>
+          )}
 
           {/* Search Results */}
           {searchQuery && (
@@ -225,7 +218,7 @@ export default function FrameLibrary() {
                   
                   {/* Display the frames in a visually appealing grid with alternating colors */}
                   <div className="grid grid-cols-1 gap-3">
-                    {displayedFrames.map((frame, index) => (
+                    {displayedFrames.map((frame) => (
                       <div key={frame.id} className="transition-all duration-200 hover:scale-[1.01]">
                         <DraggableFrame 
                           frame={frame} 
