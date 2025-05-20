@@ -483,7 +483,7 @@ export const CREATOR_TEMPLATES: CreatorTemplate[] = [
   // Added custom template with Hook → Intro → Content → Rehook → Content → CTA → Outro structure
   {
     id: 'standard-structure',
-    name: 'Standard Content Structure',
+    name: 'GMV Foundation Template',
     creator: 'Custom',
     description: 'Versatile format with strategic rehook to maintain viewer retention',
     units: ['Hook', 'Intro', 'Content Delivery', 'Rehook', 'Content Delivery', 'Call To Action', 'Outro'],
