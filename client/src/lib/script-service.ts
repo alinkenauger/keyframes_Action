@@ -96,6 +96,7 @@ export async function generateVideoScript(skeleton: Skeleton): Promise<VideoScri
       videoTitle: skeleton.name,
       videoTone: skeleton.tone || "Conversational",
       videoFilter: skeleton.filter || "Educational",
+      contentType: skeleton.contentType || "longform", // Include the content type
       units: Object.entries(framesByUnit).map(([unitType, frames]) => ({
         type: unitType,
         frames: frames.map(frame => ({
@@ -112,22 +113,44 @@ export async function generateVideoScript(skeleton: Skeleton): Promise<VideoScri
 
     // Prompt for the AI to generate the script
     const prompt = `
-    You are an expert YouTube scriptwriter with experience in creating engaging, professional video scripts.
+    You are an expert YouTube and social media scriptwriter with experience in creating engaging, professional video scripts for both long-form and short-form content.
     
     I need you to create a complete video script based on this content structure:
     
     ${JSON.stringify(scriptContext, null, 2)}
     
+    The content type is: ${scriptContext.contentType}
+    
+    ${scriptContext.contentType === 'shortform' ? `
+    SHORT FORM GUIDELINES:
+    - Create a fast-paced, visually-oriented script for a 15-60 second video
+    - Emphasize a strong hook in the first 2-3 seconds that captures attention immediately
+    - Focus on visual storytelling - what viewers SEE is more important than what they hear
+    - Use simple, direct language with high emotional impact
+    - Eliminate all unnecessary words/explanations
+    - Create a tight, single-focused narrative with clear visual cues
+    - Recommend visually striking b-roll that works without sound
+    - End with a clear call-to-action or loop back to the beginning
+    ` : `
+    LONG FORM GUIDELINES:
+    - Create a well-paced, engaging script for a ${scriptContext.videoTitle.includes('tutorial') || scriptContext.videoTitle.includes('how') ? '7-15' : '8-20'} minute video
+    - Balance storytelling with educational content and value delivery
+    - Include pattern interrupts every 2-3 minutes to maintain engagement
+    - Use transitions that feel natural but keep attention
+    - Recommend complementary b-roll that enhances the narrative
+    - Build a complete journey with a satisfying conclusion
+    `}
+    
     For each frame, provide:
     1. Natural-sounding dialogue that fits the tone/filter
     2. Voice direction (emotion, pace, emphasis)
-    3. 2-3 B-roll recommendations with timing
+    3. ${scriptContext.contentType === 'shortform' ? '1-2' : '2-3'} B-roll recommendations with timing
     4. Smooth transitions between frames based on the transition type
     
     Also provide:
     - An optimized title for the video
     - A compelling description
-    - Target duration (recommended natural length between 5-20 minutes)
+    - Target duration (${scriptContext.contentType === 'shortform' ? 'recommended natural length between 15-60 seconds' : 'recommended natural length between 5-20 minutes'})
     - 3 thumbnail suggestions
     - 3 title variations
     

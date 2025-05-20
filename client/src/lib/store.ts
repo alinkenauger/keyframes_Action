@@ -73,6 +73,14 @@ export const useWorkspace = create<WorkspaceState>((set, get) => ({
         : skeleton
     ),
   })),
+  
+  updateContentType: (skeletonId, contentType) => set((state) => ({
+    skeletons: state.skeletons.map((skeleton) =>
+      skeleton.id === skeletonId
+        ? { ...skeleton, contentType }
+        : skeleton
+    ),
+  })),
 
   updateFrameScript: (skeletonId: string, frameId: string, script: string) => set((state) => ({
     skeletons: state.skeletons.map((skeleton) =>
