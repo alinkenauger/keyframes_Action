@@ -46,58 +46,70 @@ export function ContentTypeSelector() {
             {/* Long Form Option */}
             <div 
               className={cn(
-                "relative rounded-md border transition-all h-12 flex items-center",
+                "relative rounded-md border transition-all h-16 flex items-center justify-center cursor-pointer",
                 activeSkeleton.contentType === 'longform' 
                   ? "border-primary bg-primary/5" 
                   : "border-muted bg-card hover:bg-muted/10"
               )}
+              onClick={() => handleContentTypeChange('longform')}
             >
               <Label 
                 htmlFor="longform"
-                className="cursor-pointer w-full h-full flex items-center px-2"
+                className="cursor-pointer w-full h-full flex flex-col items-center justify-center px-2"
               >
                 <RadioGroupItem value="longform" id="longform" className="sr-only" />
                 
-                <div className="flex flex-col items-center mr-3">
-                  <div className="bg-muted/30 p-2.5 rounded-full mb-1">
-                    <VideoIcon className="h-5 w-5 text-primary" />
-                  </div>
-                  <span className="text-[10px] text-muted-foreground">
-                    &lt;20 min
-                  </span>
+                <div className={cn(
+                  "p-2 rounded-full",
+                  activeSkeleton.contentType === 'longform' 
+                    ? "bg-primary/20" 
+                    : "bg-muted/30"
+                )}>
+                  <VideoIcon className={cn(
+                    "h-5 w-5",
+                    activeSkeleton.contentType === 'longform' 
+                      ? "text-primary" 
+                      : "text-muted-foreground"
+                  )} />
                 </div>
-                
-                <div className="flex-1">
-                </div>
+                <span className="text-xs text-muted-foreground mt-1 whitespace-nowrap text-center">
+                  &lt;20 min
+                </span>
               </Label>
             </div>
             
             {/* Short Form Option */}
             <div 
               className={cn(
-                "relative rounded-md border transition-all h-12 flex items-center",
+                "relative rounded-md border transition-all h-16 flex items-center justify-center cursor-pointer",
                 activeSkeleton.contentType === 'shortform' 
-                  ? "border-red-500 bg-red-500/5" 
+                  ? "border-primary bg-primary/5" 
                   : "border-muted bg-card hover:bg-muted/10"
               )}
+              onClick={() => handleContentTypeChange('shortform')}
             >
               <Label 
                 htmlFor="shortform"
-                className="cursor-pointer w-full h-full flex items-center px-2"
+                className="cursor-pointer w-full h-full flex flex-col items-center justify-center px-2"
               >
                 <RadioGroupItem value="shortform" id="shortform" className="sr-only" />
                 
-                <div className="flex flex-col items-center mr-3">
-                  <div className="bg-muted/30 p-2.5 rounded-full mb-1">
-                    <SmartphoneIcon className="h-5 w-5 text-red-500" />
-                  </div>
-                  <span className="text-[10px] text-muted-foreground">
-                    15s-3 min
-                  </span>
+                <div className={cn(
+                  "p-2 rounded-full",
+                  activeSkeleton.contentType === 'shortform' 
+                    ? "bg-primary/20" 
+                    : "bg-muted/30"
+                )}>
+                  <SmartphoneIcon className={cn(
+                    "h-5 w-5",
+                    activeSkeleton.contentType === 'shortform' 
+                      ? "text-primary" 
+                      : "text-muted-foreground"
+                  )} />
                 </div>
-                
-                <div className="flex-1">
-                </div>
+                <span className="text-xs text-muted-foreground mt-1 whitespace-nowrap text-center">
+                  15s-3 min
+                </span>
               </Label>
             </div>
           </RadioGroup>
