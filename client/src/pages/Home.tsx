@@ -5,6 +5,8 @@ import Sidebar from '@/components/sidebar/Sidebar';
 import { Button } from '@/components/ui/button';
 import { Plus, Keyboard } from 'lucide-react';
 import CreateSkeletonDialog from '@/components/skeleton/CreateSkeletonDialog';
+import WelcomeScreen from '@/components/onboarding/WelcomeScreen';
+import { useLocalStorage } from '@/hooks/use-local-storage';
 import { 
   DndContext, 
   DragStartEvent, 
@@ -31,6 +33,8 @@ export default function Home() {
   const { toast } = useToast();
   const { addSkeleton, setActiveSkeletonId, updateFrameOrder, skeletons, activeSkeletonId, updateFrameTone, updateFrameFilter, updateSkeletonUnits } = useWorkspace();
   const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const [showWelcomeScreen, setShowWelcomeScreen] = useState(false);
+  const [hasSeenWelcome, setHasSeenWelcome] = useLocalStorage('has-seen-welcome', false);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [activeDragData, setActiveDragData] = useState<any>(null);
 
