@@ -58,8 +58,8 @@ export function ContentTypeSelector() {
               >
                 <RadioGroupItem value="longform" id="longform" className="sr-only" />
                 
-                <div className="bg-muted/30 p-1.5 rounded-full mr-2">
-                  <VideoIcon className="h-4 w-4 text-primary" />
+                <div className="bg-muted/30 p-2.5 rounded-full mr-3">
+                  <VideoIcon className="h-5 w-5 text-primary" />
                 </div>
                 
                 <div className="flex-1 flex items-center justify-between">
@@ -85,8 +85,8 @@ export function ContentTypeSelector() {
               >
                 <RadioGroupItem value="shortform" id="shortform" className="sr-only" />
                 
-                <div className="bg-muted/30 p-1.5 rounded-full mr-2">
-                  <SmartphoneIcon className="h-4 w-4 text-red-500" />
+                <div className="bg-muted/30 p-2.5 rounded-full mr-3">
+                  <SmartphoneIcon className="h-5 w-5 text-red-500" />
                 </div>
                 
                 <div className="flex-1 flex items-center justify-between">
