@@ -70,6 +70,52 @@ export default function FrameLibrary() {
 
   return (
     <div className="h-full flex flex-col">
+      {/* Frame Categories */}
+      <div className="mb-4">
+        {!searchQuery && (
+          <Tabs 
+            defaultValue={FRAME_CATEGORIES.HOOK} 
+            onValueChange={(value) => {
+              setActiveCategory(value);
+              setActiveSubcategory(undefined);
+              if (value === FRAME_CATEGORIES.HOOK) {
+                setActiveHookType('initial');
+              }
+            }}
+          >
+            <TabsList className="mb-4 w-full">
+              {Object.values(FRAME_CATEGORIES).map((category) => (
+                <TabsTrigger key={category} value={category} className="flex-1">
+                  {category}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+
+            {/* Hook Type Filter */}
+            {activeCategory === FRAME_CATEGORIES.HOOK && (
+              <div className="mb-4 flex gap-2">
+                <Button
+                  variant={activeHookType === 'initial' ? 'secondary' : 'outline'}
+                  size="sm"
+                  onClick={() => setActiveHookType('initial')}
+                  className="flex-1"
+                >
+                  Initial Hooks
+                </Button>
+                <Button
+                  variant={activeHookType === 'rehook' ? 'secondary' : 'outline'}
+                  size="sm"
+                  onClick={() => setActiveHookType('rehook')}
+                  className="flex-1"
+                >
+                  Rehooks
+                </Button>
+              </div>
+            )}
+          </Tabs>
+        )}
+      </div>
+
       {/* Search Bar */}
       <div className="relative mb-4">
         <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -84,51 +130,8 @@ export default function FrameLibrary() {
       {/* Scrollable container for the entire content */}
       <ScrollArea className="flex-1">
         <div className="pr-4">
-          {/* Frame Categories */}
-          {!searchQuery && (
-            <Tabs 
-              defaultValue={FRAME_CATEGORIES.HOOK} 
-              onValueChange={(value) => {
-                setActiveCategory(value);
-                setActiveSubcategory(undefined);
-                if (value === FRAME_CATEGORIES.HOOK) {
-                  setActiveHookType('initial');
-                }
-              }}
-              className="mb-4"
-            >
-              <TabsList className="mb-4 w-full">
-                {Object.values(FRAME_CATEGORIES).map((category) => (
-                  <TabsTrigger key={category} value={category} className="flex-1">
-                    {category}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-
-              {/* Hook Type Filter */}
-              {activeCategory === FRAME_CATEGORIES.HOOK && (
-                <div className="mb-4 flex gap-2">
-                  <Button
-                    variant={activeHookType === 'initial' ? 'secondary' : 'outline'}
-                    size="sm"
-                    onClick={() => setActiveHookType('initial')}
-                    className="flex-1"
-                  >
-                    Initial Hooks
-                  </Button>
-                  <Button
-                    variant={activeHookType === 'rehook' ? 'secondary' : 'outline'}
-                    size="sm"
-                    onClick={() => setActiveHookType('rehook')}
-                    className="flex-1"
-                  >
-                    Rehooks
-                  </Button>
-                </div>
-              )}
-
-              {/* Content Subcategories - Improved Compact Version */}
-              {activeCategory === FRAME_CATEGORIES.CONTENT && (
+          {/* Content Subcategories */}
+          {!searchQuery && activeCategory === FRAME_CATEGORIES.CONTENT && (
                 <div className="mb-4">
                   <Accordion type="multiple" className="w-full">
                     {Object.values(CONTENT_SUBCATEGORIES).map((subcategory) => {
@@ -204,8 +207,8 @@ export default function FrameLibrary() {
                   </div>
                 </div>
               )}
-            </Tabs>
-          )}
+          </div>
+        )}
 
           {/* Search Results */}
           {searchQuery && (

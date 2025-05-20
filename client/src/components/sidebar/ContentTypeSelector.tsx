@@ -63,7 +63,6 @@ export function ContentTypeSelector() {
                 </div>
                 
                 <div className="flex-1 flex items-center justify-between">
-                  <span className="text-sm font-medium">Long Form</span>
                   <span className="text-xs bg-muted/30 text-muted-foreground rounded-md px-2 py-0.5 mr-1">
                     &lt;20 min
                   </span>
@@ -91,7 +90,6 @@ export function ContentTypeSelector() {
                 </div>
                 
                 <div className="flex-1 flex items-center justify-between">
-                  <span className="text-sm font-medium">Short Form</span>
                   <span className="text-xs bg-muted/30 text-red-500 rounded-md px-2 py-0.5 mr-1">
                     15s-3 min
                   </span>
