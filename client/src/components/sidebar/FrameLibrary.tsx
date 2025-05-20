@@ -83,7 +83,7 @@ export default function FrameLibrary() {
                 <div className="grid grid-cols-3 gap-2">
                   <TabsList className="flex p-0 bg-transparent">
                     <TabsTrigger
-                      className="w-full text-xs py-1.5"
+                      className="w-full text-xs py-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:font-semibold data-[state=active]:shadow-md"
                       value={FRAME_CATEGORIES.HOOK}
                     >
                       Hook
@@ -92,7 +92,7 @@ export default function FrameLibrary() {
                   
                   <TabsList className="flex p-0 bg-transparent">
                     <TabsTrigger
-                      className="w-full text-xs py-1.5"
+                      className="w-full text-xs py-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:font-semibold data-[state=active]:shadow-md"
                       value={FRAME_CATEGORIES.INTRO}
                     >
                       Intro
@@ -101,7 +101,7 @@ export default function FrameLibrary() {
                   
                   <TabsList className="flex p-0 bg-transparent">
                     <TabsTrigger
-                      className="w-full text-xs py-1.5"
+                      className="w-full text-xs py-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:font-semibold data-[state=active]:shadow-md"
                       value={FRAME_CATEGORIES.CONTENT}
                     >
                       Content
@@ -113,7 +113,7 @@ export default function FrameLibrary() {
                 <div className="grid grid-cols-3 gap-2">
                   <TabsList className="flex p-0 bg-transparent">
                     <TabsTrigger
-                      className="w-full text-xs py-1.5"
+                      className="w-full text-xs py-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:font-semibold data-[state=active]:shadow-md"
                       value={FRAME_CATEGORIES.OUTRO}
                     >
                       Outro
@@ -122,7 +122,7 @@ export default function FrameLibrary() {
                   
                   <TabsList className="flex p-0 bg-transparent">
                     <TabsTrigger
-                      className="w-full text-xs py-1.5"
+                      className="w-full text-xs py-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:font-semibold data-[state=active]:shadow-md"
                       value={FRAME_CATEGORIES.CTA}
                     >
                       CTA
@@ -131,7 +131,7 @@ export default function FrameLibrary() {
                   
                   <TabsList className="flex p-0 bg-transparent">
                     <TabsTrigger
-                      className="w-full text-xs py-1.5"
+                      className="w-full text-xs py-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:font-semibold data-[state=active]:shadow-md"
                       value={FRAME_CATEGORIES.CUSTOM}
                     >
                       Custom
