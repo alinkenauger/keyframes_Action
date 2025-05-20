@@ -402,15 +402,7 @@ export default function Home() {
                 <Plus className="w-4 h-4 mr-2" />
                 New Skeleton
               </Button>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={() => setHelpVisible(true)}
-                className="w-full sm:w-auto touch-target"
-              >
-                <Keyboard className="w-4 h-4 mr-2" />
-                Keyboard Shortcuts
-              </Button>
+
             </div>
             <div className="flex-1 overflow-auto">
               <Workspace 
