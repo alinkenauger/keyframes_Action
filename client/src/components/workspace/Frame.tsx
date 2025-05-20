@@ -186,22 +186,24 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
     <>
       <Card 
         ref={setNodeRef}
+        {...attributes}
+        {...listeners}
         style={{
           ...style,
           width: unitWidth ? `${unitWidth - 24}px` : '100%', // Ensure cards are visible
         }}
         className={cn(
-          "relative mb-4 hover:shadow-md transition-shadow cursor-move group touch-manipulation min-h-[80px]",
+          "relative mb-4 hover:shadow-md transition-shadow cursor-grab active:cursor-grabbing group touch-manipulation min-h-[80px]",
           frameTypeColors.text.replace('text-', 'border-l-4 border-l-'),
-          dimmed && "opacity-40"
+          dimmed && "opacity-40",
+          isDragging && "shadow-lg ring-2 ring-blue-400",
+          "hover:border hover:border-blue-300"
         )}
       >
         <div 
-          {...attributes} 
-          {...listeners} 
-          className="absolute left-1/2 top-1 -translate-x-1/2 cursor-move p-1 rounded-md hover:bg-gray-100 transition-colors"
+          className="absolute left-1/2 top-1 -translate-x-1/2 p-1 rounded-md bg-gray-100 z-10"
         >
-          <GripHorizontal className="h-4 w-4 text-gray-400" />
+          <GripHorizontal className="h-4 w-4 text-gray-500" />
         </div>
 
         {onDelete && (
