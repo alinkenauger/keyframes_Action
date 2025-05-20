@@ -159,15 +159,17 @@ export default function MobileFrameLibrary() {
             onValueChange={setActiveCategory}
             className="w-full"
           >
-            <ScrollArea className="whitespace-nowrap pb-2">
-              <TabsList className="inline-flex w-max">
-                <TabsTrigger className="min-w-[80px]" value={FRAME_CATEGORIES.HOOK}>Hook</TabsTrigger>
-                <TabsTrigger className="min-w-[80px]" value={FRAME_CATEGORIES.INTRO}>Intro</TabsTrigger>
-                <TabsTrigger className="min-w-[80px]" value={FRAME_CATEGORIES.CONTENT}>Content</TabsTrigger>
-                <TabsTrigger className="min-w-[80px]" value={FRAME_CATEGORIES.OUTRO}>Outro</TabsTrigger>
-                <TabsTrigger className="min-w-[80px]" value={FRAME_CATEGORIES.CUSTOM}>Custom</TabsTrigger>
-              </TabsList>
-            </ScrollArea>
+            <div className="pb-2">
+              <div className="grid grid-cols-2 gap-2 mb-2">
+                <TabsTrigger className="w-full" value={FRAME_CATEGORIES.HOOK}>Hook</TabsTrigger>
+                <TabsTrigger className="w-full" value={FRAME_CATEGORIES.INTRO}>Intro</TabsTrigger>
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                <TabsTrigger className="w-full" value={FRAME_CATEGORIES.CONTENT}>Content</TabsTrigger>
+                <TabsTrigger className="w-full" value={FRAME_CATEGORIES.OUTRO}>Outro</TabsTrigger>
+                <TabsTrigger className="w-full" value={FRAME_CATEGORIES.CUSTOM}>Custom</TabsTrigger>
+              </div>
+            </div>
 
             {/* Hook Subcategories */}
             <TabsContent value={FRAME_CATEGORIES.HOOK} className="mt-4">
