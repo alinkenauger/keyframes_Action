@@ -11,12 +11,15 @@ export interface Frame {
   transition?: 'smooth' | 'pattern-interrupt' | 'content-shift'; // Added transition type between frames
 }
 
+export type ContentType = 'longform' | 'shortform';
+
 export interface Skeleton {
   id: string;
   name: string;
   frames: Frame[];
   tone?: string;
   filter?: string;
+  contentType?: ContentType; // Long Form or Short Form video type
   units?: string[]; // Added units property to store the unit order
 }
 
@@ -33,6 +36,7 @@ export interface WorkspaceState {
   updateFrameTone: (skeletonId: string, frameId: string, tone: string) => void;
   updateFrameFilter: (skeletonId: string, frameId: string, filter: string) => void;
   updateFrameTransition: (skeletonId: string, frameId: string, transition: 'smooth' | 'pattern-interrupt' | 'content-shift') => void;
+  updateContentType: (skeletonId: string, contentType: ContentType) => void; // Add action for updating content type
   setActiveSkeletonId: (id: string | null) => void;
   updateSkeletonUnits: (skeletonId: string, units: string[]) => void; // New action for unit reordering
 
