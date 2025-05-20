@@ -72,7 +72,8 @@ function DraggableUnit({ unit, children }: { unit: any, children: React.ReactNod
 
 export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onReorderUnits }: SkeletonProps) {
   const { toast } = useToast();
-  const { updateSkeletonUnits, updateFrameOrder } = useWorkspace();
+  const { updateSkeletonUnits, updateFrameOrder, updateFrameContent } = useWorkspace();
+  const [enhancing, setEnhancing] = useState(false);
   const [showAddUnitPopover, setShowAddUnitPopover] = useState(false);
   const [selectedUnit, setSelectedUnit] = useState<string>("");
 
@@ -186,9 +187,6 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
     unit => !templateUnits.includes(unit.type)
   );
 
-  // Initialize toast
-  const { toast } = useToast();
-  
   return (
     <div className="h-full flex flex-col">
       <div className="flex items-center justify-between mb-2 px-2">
@@ -220,7 +218,7 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
                   
                   if (adaptedContent) {
                     // Use the store's updateFrameContent method
-                    get().updateFrameContent(skeleton.id, frame.id, adaptedContent);
+                    updateFrameContent(skeleton.id, frame.id, adaptedContent);
                   }
                 } catch (error) {
                   console.error(`Error enhancing frame ${frame.id}:`, error);
