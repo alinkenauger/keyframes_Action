@@ -185,10 +185,10 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
         ref={setNodeRef}
         style={{
           ...style,
-          width: unitWidth ? `${unitWidth - 24}px` : 'auto', // Adjust width based on parent unit minus padding
+          width: unitWidth ? `${unitWidth - 24}px` : '100%', // Ensure cards are visible
         }}
         className={cn(
-          "relative mb-4 hover:shadow-md transition-shadow cursor-move group touch-manipulation",
+          "relative mb-4 hover:shadow-md transition-shadow cursor-move group touch-manipulation min-h-[80px]",
           frameTypeColors.text.replace('text-', 'border-l-4 border-l-'),
           dimmed && "opacity-40"
         )}
@@ -486,7 +486,7 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
             unitType: frame.unitType,
             script: frame.script || '' 
           }}
-          skeletonId={activeSkeletonId}
+          skeletonId={activeSkeletonId || ''}
         />
       )}
     </>

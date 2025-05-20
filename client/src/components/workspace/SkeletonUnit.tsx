@@ -26,15 +26,10 @@ export default function SkeletonUnit({
   onDuplicateUnit,
   onDeleteUnit 
 }: SkeletonUnitProps) {
-  // Add debugging to see what frames we have
-  console.log(`SkeletonUnit ${name} received frames:`, frames);
-  
   const unitFrames = frames.filter(frame => {
     return frame.unitType && 
            frame.unitType.toLowerCase().trim() === name.toLowerCase().trim();
   });
-  
-  console.log(`Filtered frames for ${name}:`, unitFrames);
 
   const { setNodeRef, isOver } = useDroppable({
     id: name,
