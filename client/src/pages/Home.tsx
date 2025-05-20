@@ -394,10 +394,7 @@ export default function Home() {
         <div className="flex flex-col md:flex-row h-[calc(100vh-65px)] overflow-hidden">
           <Sidebar />
           <div className="flex-1 flex flex-col overflow-hidden">
-            {/* Top bar - empty now that we moved buttons to sidebar */}
-            <div className="p-2 md:p-2 border-b flex flex-wrap justify-between items-center gap-2">
-              {/* Content removed - New Skeleton button moved to sidebar */}
-            </div>
+
             <div className="flex-1 overflow-auto">
               <Workspace 
                 activeId={activeId}
