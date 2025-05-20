@@ -37,7 +37,9 @@ export default function SkeletonUnit({
       type: 'unit',
       accepts: ['frame', 'template'],
       name,
-    }
+    },
+    // Make sure the droppable area is active - needed for cross-unit drag and drop
+    disabled: false
   });
 
   // Width management state
@@ -131,8 +133,8 @@ export default function SkeletonUnit({
         </div>
       </div>
 
-      {/* Frames area with simple vertical scrolling */}
-      <div className="flex-1 overflow-y-auto h-full">
+      {/* Frames area with explicit scrollbars */}
+      <div className="flex-1 overflow-y-auto overflow-x-hidden h-full scrollbar-thin scrollbar-thumb-rounded-md scrollbar-thumb-gray-400 scrollbar-track-transparent">
         {unitFrames.length === 0 ? (
           <div className={cn(
             "flex items-center justify-center h-full text-muted-foreground text-sm",
