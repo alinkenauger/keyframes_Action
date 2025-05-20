@@ -211,28 +211,7 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
           </p>
         </div>
 
-        {/* Mobile/Desktop view toggle */}
-        <div className="flex justify-end mb-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={toggleMobilePreview}
-            className="hidden md:flex items-center"
-            aria-label={`Switch to ${previewMode === 'desktop' ? 'mobile' : 'desktop'} preview`}
-          >
-            {previewMode === 'desktop' ? (
-              <>
-                <Smartphone className="h-4 w-4 mr-2" />
-                Mobile Preview
-              </>
-            ) : (
-              <>
-                <Monitor className="h-4 w-4 mr-2" />
-                Desktop Preview
-              </>
-            )}
-          </Button>
-        </div>
+        {/* Preview button removed as requested */}
 
         <div className="mb-4 flex justify-end space-x-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
