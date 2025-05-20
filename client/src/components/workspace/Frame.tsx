@@ -236,6 +236,10 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
           dimmed && "opacity-40",
           isDragging && "shadow-lg ring-2 ring-blue-400",
           !isDragging && over && over.id === frame.id ? "ring-2 ring-primary shadow-md" : "",
+          // Add background highlight based on drop position
+          !isDragging && over && over.id === frame.id && dropPosition === 'top' && "bg-gradient-to-b from-primary/20 to-transparent",
+          !isDragging && over && over.id === frame.id && dropPosition === 'bottom' && "bg-gradient-to-t from-primary/20 to-transparent",
+          !isDragging && over && over.id === frame.id && dropPosition === 'middle' && "bg-primary/10",
           "hover:border hover:border-blue-300"
         )}
       >
