@@ -88,7 +88,10 @@ export default function SkeletonUnit({
         isOver && "ring-2 ring-primary/40 bg-primary/10",
         isResizing && "select-none"
       )}
-      style={{ width: `${width}px` }}
+      style={{ 
+        width: `${width}px`,
+        height: "100%" 
+      }}
       data-unit-type={name}
     >
       {/* Resize handle */}
@@ -129,24 +132,24 @@ export default function SkeletonUnit({
       </div>
 
       {/* Frames area with proper scrolling */}
-      <div 
-        className="flex-1 overflow-auto" 
-        style={{ maxHeight: "calc(100vh - 150px)" }}
-      >
+      <div className="flex-1 relative">
         {unitFrames.length === 0 ? (
           <div className={cn(
-            "flex items-center justify-center h-full text-muted-foreground text-sm",
+            "absolute inset-0 flex items-center justify-center text-muted-foreground text-sm",
             isOver ? "opacity-100" : "opacity-70"
           )}>
             <p className="text-center px-4">Drop frames here</p>
           </div>
         ) : (
-          <div className="p-2">
+          <div 
+            className="absolute inset-0 overflow-y-auto px-2 py-2"
+            style={{ maxHeight: "100%" }}
+          >
             <SortableContext
               items={unitFrames.map(f => f.id)}
               strategy={verticalListSortingStrategy}
             >
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 pb-4">
                 {unitFrames.map((frame) => (
                   <Frame 
                     key={frame.id} 
