@@ -365,11 +365,16 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
                             if (activeSkeletonId) {
                               // Handle the "none" case by setting transition to empty string
                               const actualValue = value === "none" ? "" : value;
-                              updateFrameTransition(
-                                activeSkeletonId, 
-                                frame.id, 
-                                actualValue as '' | 'smooth' | 'pattern-interrupt' | 'content-shift'
-                              );
+                              // Handle empty transition
+                              if (actualValue === '') {
+                                updateFrameTransition(activeSkeletonId, frame.id, undefined);
+                              } else {
+                                updateFrameTransition(
+                                  activeSkeletonId, 
+                                  frame.id, 
+                                  actualValue as 'smooth' | 'pattern-interrupt' | 'content-shift'
+                                );
+                              }
                             }
                           }}
                         >
@@ -420,7 +425,7 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
                 </Popover>
               </div>
               
-              {/* Display indicators for selected attributes at the bottom */}
+              {/* Display indicators for selected attributes */}
               <div className="flex flex-wrap gap-1 mt-2">
                 {frame.tone && (
                   <span className="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded">
@@ -432,15 +437,22 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
                     {frame.filter}
                   </span>
                 )}
-                {frame.transition && (
-                  <span className="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded">
-                    {frame.transition === 'smooth' ? 'Smooth' : 
-                    frame.transition === 'pattern-interrupt' ? 'Pattern Interrupt' : 
-                    'Content Shift'}
-                  </span>
-                )}
               </div>
             </div>
+            
+            {/* Show transition as a full-width bar at the bottom */}
+            {frame.transition && (
+              <div className={cn(
+                "mt-2 w-full rounded-b-md py-1 text-center text-xs font-medium",
+                frame.transition === 'smooth' ? 'bg-amber-100 text-amber-800' : 
+                frame.transition === 'pattern-interrupt' ? 'bg-blue-100 text-blue-800' : 
+                'bg-purple-100 text-purple-800'
+              )}>
+                {frame.transition === 'smooth' ? 'Smooth' : 
+                 frame.transition === 'pattern-interrupt' ? 'Pattern Interrupt' : 
+                 'Content Shift'} Transition
+              </div>
+            )}
           </div>
           
           {/* Hidden drop areas for compatibility */}
