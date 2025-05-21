@@ -1,0 +1,468 @@
+Complete List of KeyFrames Creator Templates and Frameworks
+This document provides a comprehensive list of all creator templates and their frameworks that we've developed, organized by platform and content type.
+
+
+1. Casey Neistat (Vlogging/Filmmaking)
+Skeleton:
+Hook: Visual Hook (dramatic aerial shots, cinematic moments)
+Story Setup: Introduce theme/mission with personal angle
+Content Journey: Conflict Setup + Relatable Moment
+Climax: Resolution or inspiring insight
+Reflection: Takeaway or moral lesson
+Outro: Journey reflection with subtle call-to-action
+Key Frames:
+Visual Hook: Stunning cinematography to draw viewers in
+Conflict Setup: Introduce a challenge or obstacle
+Relatable Moment: Ground the story in personal experience
+Big Reveal: End with an impactful takeaway
+One-Liner Wisdom: Philosophical insight or life lesson
+Call-to-Action: Subtle encouragement for viewer engagement
+
+2. Emma Chamberlain (Lifestyle/Comedy)
+Skeleton:
+Hook: Relatable Problem
+Intro: Lighthearted Humor
+Content Journey: Relatable Moment + Unfiltered Confession
+Rehook: Humor Rehook
+Outro: Comedic punchline or relatable reflection
+Key Frames:
+Relatable Problem: Connect with audience's everyday struggles
+Lighthearted Humor: Playful, engaging tone
+Unfiltered Confession: Vulnerability to build trust
+Humor Rehook: Unexpected joke or quip to refresh attention
+Comedic Punchline: Self-deprecating or observational humor
+
+3. Dude Perfect (Sports Entertainment/Challenges)
+Skeleton:
+Hook: Visual Hook (impossible-looking trick shot)
+Challenge Setup: Explain rules/competition
+Content Journey: Escalation to build tension
+Climax: Trick shot achievement or winner declaration
+Outro: Celebration with humor and engagement prompt
+Key Frames:
+Visual Hook: Showcase exciting moment upfront
+Stakes Amplifier: Build suspense as challenge progresses
+Triumph Over Adversity: Celebrate victory/breakthrough
+Lighthearted Humor: Fun, relatable tone
+Call-to-Action: Engage audience to share thoughts
+
+4. Marques Brownlee (MKBHD) (Tech Reviews)
+Skeleton:
+Hook: Promise of Value
+Intro: Brief product overview
+Content Segment 1: Stat Drop + Teach a Concept
+Rehook: Big Reveal
+Content Segment 2: Hands-on demonstration/testing
+Outro: Summary and call-to-action
+Key Frames:
+Promise of Value: Create anticipation for review
+Stat Drop: Highlight impressive numbers for credibility
+Teach a Concept: Simple, engaging feature explanation
+Big Reveal: Showcase standout product quality
+Hands-on Demonstration: Real-world usage examples
+Summary: Balanced conclusion with recommendations
+
+5. Nas Daily (Short Educational Videos)
+Skeleton:
+Hook: Intriguing Question
+Story Setup: Brief teaser intro (under 10 seconds)
+Content Delivery: Teach a Concept + Data Story
+Rehook: Big Reveal
+Outro: Call-to-action
+Key Frames:
+Intriguing Question: Curiosity-driven opening
+Teach a Concept: Clear, concise educational insights
+Data Story: Statistics for credibility and interest
+Big Reveal: Surprising information to maintain curiosity
+Call-to-Action: Direct engagement prompt
+
+6. NikkieTutorials (Beauty/Makeup)
+Skeleton:
+Hook: Promise of Value
+Intro: Brief product/look overview
+Content Delivery: Step-by-Step Demo
+Rehook: Question Rehook
+Outro: Engagement encouragement
+Key Frames:
+Promise of Value: Bold claim to hook viewers
+Step-by-Step Demo: Detailed process breakdown
+Question Rehook: Curiosity maintenance about results
+Call-to-Action: Direct engagement prompt
+First Impression: Authentic reaction to products
+
+7. Gary Vaynerchuk (GaryV) (Marketing/Motivation)
+Skeleton:
+Hook: Call Out the Audience
+Problem Setup: Common business challenge
+Teach a Concept: Actionable advice
+Rehook: Question Rehook
+Outro: Motivational close with call-to-action
+Key Frames:
+Call Out the Audience: Direct viewer addressing
+Relatable Problem: Common pain point engagement
+Teach a Concept: Strategic insight sharing
+Question Rehook: Reflection prompting
+Quick Win: Small, actionable takeaway
+Motivational Close: Energetic, inspiring conclusion
+
+8. Joshua Weissman (Cooking/Food)
+Skeleton:
+Hook Unit: Visual Hook + Challenge Setup
+Intro Unit: Relatable Problem + Promise of Value
+Content Delivery Unit: Step-by-Step Demo + Educational + Behind-the-Scenes
+Escalation Unit: Stakes Amplifier + Comparison
+Reveal Unit: Big Reveal + Taste Test
+Reflection Unit: Success Formula + One-Liner Wisdom
+Outro Unit: Call-to-Action
+Key Frames:
+Visual Hook: Appetizing food cinematography
+Challenge Setup: Framing the cooking challenge
+Relatable Problem: Issues with common/fast food
+Promise of Value: Better version commitment
+Step-by-Step Demo: Detailed cooking process
+Educational: Technique and ingredient explanation
+Comparison: Side-by-side with original version
+Taste Test: Dramatic reaction to final product
+Success Formula: Key improvements summary
+
+9. lilsimsie (Gaming/Sims 4)
+Skeleton:
+Hook Unit: Visual Hook + Challenge Setup
+Intro Unit: Relatable Problem + Promise of Value
+Content Journey Unit: Step-by-Step Demo + Educational + Humor
+Rehook Unit: Question Rehook + Midway Shock
+Reveal Unit: Big Reveal + Reaction
+Engagement Trigger Unit: Ask a Question + Call-to-Action
+Key Frames:
+Visual Hook: Interesting Sims creation/build
+Challenge Setup: Building/gameplay goal explanation
+Relatable Problem: Common Sims challenges
+Step-by-Step Demo: Building/gameplay process
+Humor: Comedic commentary throughout
+Midway Shock: Unexpected gameplay moments
+Big Reveal: Completed build/character showcase
+Ask a Question: Direct viewer opinion solicitation
+
+10. Danny Maude (Golf Instruction)
+Skeleton:
+Hook Unit: Problem Statement + Promise of Solution
+Intro Unit: Credibility Establishment + Relatable Problem
+Content Delivery Unit: Conceptual Explanation + Visual Demonstration + Comparison
+Practical Application Unit: Step-by-Step Instruction + Drill Introduction + Common Mistake Warning
+Proof Unit: Student Success + Results Validation
+Reflection Unit: Key Takeaway + Encouragement
+Outro Unit: Call-to-Action + Additional Resource
+Key Frames:
+Problem Statement: Common golf issue identification
+Promise of Solution: Technique teaser
+Credibility Establishment: Experience/expertise sharing
+Conceptual Explanation: Mechanics/theory breakdown
+Visual Demonstration: Proper technique showcase
+Step-by-Step Instruction: Technique breakdown
+Drill Introduction: Practice exercise demonstration
+Student Success: Before/after with real students
+Key Takeaway: Main technique summary
+Encouragement: Motivational practice prompt
+
+11. Graham Stephan (Personal Finance/Real Estate)
+Skeleton:
+Hook Unit: Shocking Statement + Problem Identification
+Intro Unit: Credibility Establishment + Contrarian Perspective
+Content Delivery Unit: Data-Driven Explanation + Step-by-Step Strategy + Transparency
+Practical Application Unit: Real-World Example + Tool/Resource Recommendation + Common Mistake Warning
+Proof Unit: Personal Results + Case Study
+Reflection Unit: Key Principle + Long-Term Impact
+Outro Unit: Call-to-Action + Community Building
+Key Frames:
+Shocking Statement: Surprising financial fact/figure
+Problem Identification: Common financial mistake
+Credibility Establishment: Personal success sharing
+Contrarian Perspective: Challenging conventional wisdom
+Data-Driven Explanation: Financial statistics/research
+Transparency: Personal numbers and results
+Real-World Example: Practical application demonstration
+Personal Results: Own financial outcomes
+Key Principle: Core financial concept summary
+Community Building: Comment/discussion encouragement
+
+12. Ryan Trahan (Challenge/Entertainment)
+Skeleton:
+Hook Unit: Challenge Statement + Stakes Establishment
+Intro Unit: Hero's Journey Setup + Obstacle Preview
+Journey Unit: Milestone Achievement + Unexpected Obstacle + Character Introduction
+Tension Unit: Conflict Escalation + Emotional Response + Suspense Building
+Resolution Unit: Challenge Completion + Reflection
+Meaning Unit: Broader Message + Gratitude
+Outro Unit: Next Adventure Tease + Call-to-Action
+Key Frames:
+Challenge Statement: Core challenge/concept presentation
+Stakes Establishment: Risk/reward explanation
+Hero's Journey Setup: Protagonist positioning
+Milestone Achievement: Progress marking
+Unexpected Obstacle: Surprises and complications
+Character Introduction: People encountered during journey
+Conflict Escalation: Increasing difficulty
+Challenge Completion: Final achievement showcase
+Broader Message: Life lesson connection
+Next Adventure Tease: Future content hinting
+
+13. Tati (Beauty/Makeup Reviews)
+Skeleton:
+Hook Unit: Product Display + Promise of Value
+Intro Unit: Credibility Establishment + Context Setting
+Content Delivery Unit: Product Introduction + Application Demo + First Impression
+Evaluation Unit: Performance Analysis + Comparison + Price-Value Assessment
+Wear Test Unit: Time-Lapse Check-In + Close-Up Detail
+Reflection Unit: Final Verdict + Recommendation
+Outro Unit: Product Links + Call-to-Action
+Key Frames:
+Product Display: Featured makeup items showcase
+Credibility Establishment: Beauty expertise reference
+Product Introduction: Item showcasing
+Application Demo: Product application demonstration
+Performance Analysis: Product wear discussion
+Comparison: Similar product contrasting
+Final Verdict: Overall thoughts summary
+Recommendation: Buy/skip advice
+
+14. The Sorry Girls (DIY/Home Decor)
+Skeleton:
+Hook Unit: Before State + Vision Statement
+Intro Unit: Problem Identification + Design Plan
+Process Unit: Demolition/Preparation + Step-by-Step DIY + Materials Showcase
+Challenge Unit: Unexpected Problem + Problem-Solving + Budget Management
+Progress Unit: Milestone Achievement + Detail Work + Styling
+Reveal Unit: Dramatic Reveal + Before/After Comparison + Feature Highlight
+Reflection Unit: Lessons Learned + Budget Breakdown + Call-to-Action
+Key Frames:
+Before State: Pre-renovation space showing
+Vision Statement: Renovation concept/goals
+Problem Identification: Current space issues
+Step-by-Step DIY: Renovation technique demonstration
+Materials Showcase: Products and tools highlighting
+Unexpected Problem: Renovation obstacle documentation
+Dramatic Reveal: Completed transformation showcase
+Before/After Comparison: Original state contrasting
+Budget Breakdown: Renovation cost sharing
+
+15. Paul Cuffaro (Aquarium/Pond/Fishing)
+Skeleton:
+Hook Unit: Visual Hook + Challenge Statement
+Intro Unit: Project Overview + Excitement Building
+Journey Unit: Location Transition + Shopping/Selection + Expert Consultation
+Process Unit: Step-by-Step Demo + Educational + Problem-Solving
+Reveal Unit: First Look + Fish/Animal Introduction + Feature Showcase
+Maintenance Unit: Care Routine + Feeding Demonstration + Update on Previous Projects
+Outro Unit: Future Plans + Call-to-Action
+Key Frames:
+Visual Hook: Exotic fish or impressive aquarium/pond
+Challenge Statement: Building/adding/catching goal
+Project Overview: Day's goal explanation
+Step-by-Step Demo: Setup/building process
+Educational: Fish care requirements explanation
+First Look: Initial reaction to completed setup
+Fish/Animal Introduction: New additions showcase
+Future Plans: Upcoming project teasing
+
+16. Hope Scope (Fashion/Style)
+Skeleton:
+Hook Unit: Visual Showcase + Promise of Value
+Intro Unit: Context Setting + Personal Connection
+Try-On Unit: First Impression + Fit Analysis + Styling Options
+Comparison Unit: Brand Comparison + Price-Value Assessment + Quality Examination
+Recommendation Unit: Body Type Guidance + Occasion Recommendation + Alternatives Suggestion
+Reflection Unit: Final Verdict + Personal Favorites
+Outro Unit: Sizing Summary + Call-to-Action
+Key Frames:
+Visual Showcase: Featured clothing items display
+Promise of Value: Review benefit explanation
+First Impression: Initial reaction to items
+Fit Analysis: Sizing and fit assessment
+Brand Comparison: Different brands contrasting
+Price-Value Assessment: Cost vs. quality evaluation
+Body Type Guidance: Different figure recommendations
+Final Verdict: Overall assessment summary
+Sizing Summary: Size selection guidance
+
+17. Jesser (Basketball/Entertainment)
+Skeleton:
+Hook Unit: Challenge Announcement + Visual Demonstration
+Intro Unit: Rules Explanation + Stakes Setting
+Competition Unit: Progressive Difficulty + Reaction Capture + Score Tracking
+Highlight Unit: Impressive Moments + Failure Compilation + Slow-Motion Replay
+Climax Unit: Final Challenge + Victory Celebration/Defeat Reaction
+Consequence Unit: Reward/Punishment Implementation + Reaction
+Outro Unit: Challenge Reflection + Next Video Teaser
+Key Frames:
+Challenge Announcement: Basketball challenge introduction
+Rules Explanation: Competition parameters clarification
+Stakes Setting: Rewards/consequences establishment
+Progressive Difficulty: Increasingly challenging shots
+Reaction Capture: Authentic emotional responses
+Impressive Moments: Successful trick shots highlighting
+Final Challenge: Decisive moment showcase
+Victory Celebration: Winner recognition
+Next Video Teaser: Upcoming content preview
+
+18. Ali Abdaal (Productivity/Education)
+Skeleton:
+Hook Unit: Problem Statement + Promise of Solution
+Intro Unit: Personal Experience + Content Overview
+Content Delivery Unit: Research-Backed Insight + Personal Application + Step-by-Step Method
+Practical Application Unit: Tool Demonstration + Habit Formation Strategy + Common Pitfall Warning
+Case Study Unit: Success Story + Failure Analysis
+Reflection Unit: Key Principles + Implementation Timeline
+Outro Unit: Resource Recommendation + Call-to-Action
+Key Frames:
+Problem Statement: Common productivity challenge
+Promise of Solution: Productivity improvement preview
+Research-Backed Insight: Scientific evidence presentation
+Personal Application: Own experience sharing
+Step-by-Step Method: Actionable process breakdown
+Tool Demonstration: Productivity app/system showcase
+Key Principles: Core concept distillation
+Resource Recommendation: Books/courses/tools suggestion
+
+19. Cleetus McFarland (Automotive/Racing)
+Skeleton:
+Hook Unit: Project Introduction + Goal Statement
+Intro Unit: Vehicle History + Modification Plan
+Process Unit: Technical Explanation + Installation Demonstration + Problem Encounter
+Testing Unit: Initial Test + Performance Analysis + Adjustment
+Event Unit: Competition Preparation + Race/Event Footage + Result Reaction
+Reflection Unit: Performance Assessment + Future Improvements
+Outro Unit: Next Steps + Call-to-Action
+Key Frames:
+Project Introduction: Featured vehicle/build showcase
+Goal Statement: Performance target explanation
+Technical Explanation: Mechanical/engineering breakdown
+Installation Demonstration: Modification process
+Problem Encounter: Unexpected issues documentation
+Performance Analysis: Results evaluation
+Race/Event Footage: Competition showcase
+Next Steps: Upcoming modifications preview
+
+20. Peter McKinnon (Photography/Filmmaking)
+Skeleton:
+Hook Unit: Visual Showcase + Problem Statement
+Intro Unit: Technique Overview + Equipment Introduction
+Tutorial Unit: Step-by-Step Instruction + Technical Explanation + Common Mistake Warning
+Demonstration Unit: Real-World Application + Before/After Comparison + Creative Variation
+Advanced Unit: Pro-Level Technique + Gear Optimization + Post-Processing
+Reflection Unit: Key Takeaway + Personal Workflow
+Outro Unit: Challenge Assignment + Call-to-Action
+Key Frames:
+Visual Showcase: Stunning photography/footage
+Technique Overview: Method summary
+Equipment Introduction: Gear showcase
+Step-by-Step Instruction: Process breakdown
+Technical Explanation: Settings/parameters clarification
+Real-World Application: On-location demonstration
+Before/After Comparison: Results contrasting
+Pro-Level Technique: Advanced method sharing
+Challenge Assignment: Viewer practice prompt
+
+21. Garden Answer (Gardening/Plants)
+Skeleton:
+Hook Unit: Project Introduction + Garden Problem
+Intro Unit: Plant Selection + Design Plan
+Process Unit: Site Preparation + Planting Demonstration + Tool Showcase
+Education Unit: Plant Care Instructions + Seasonal Considerations + Pest Management
+Styling Unit: Arrangement Techniques + Accessory Addition + Final Touches
+Reveal Unit: Completed Project + Before/After Comparison
+Outro Unit: Maintenance Tips + Call-to-Action
+Key Frames:
+Project Introduction: Garden area/container showcase
+Plant Selection: Featured plants introduction
+Design Plan: Layout/arrangement explanation
+Planting Demonstration: Proper technique showcase
+Tool Showcase: Gardening equipment highlighting
+Plant Care Instructions: Watering/fertilizing guidance
+Arrangement Techniques: Aesthetic design principles
+Completed Project: Finished garden area reveal
+Maintenance Tips: Long-term care guidance
+
+22. Therapy in a Nutshell (Mental Health/Psychology)
+Skeleton:
+Hook Unit: Problem Identification + Solution Preview
+Intro Unit: Scientific Context + Personal Relevance
+Education Unit: Concept Explanation + Research Evidence + Misconception Correction
+Application Unit: Practical Exercise + Real-Life Example + Adaptation Options
+Demonstration Unit: Technique Modeling + Common Reaction + Troubleshooting
+Reflection Unit: Benefit Summary + Implementation Timeline
+Outro Unit: Additional Resource + Call-to-Action
+Key Frames:
+Problem Identification: Common mental health challenge
+Scientific Context: Psychological research foundation
+Concept Explanation: Mental health principle clarification
+Research Evidence: Study findings presentation
+Practical Exercise: Actionable technique demonstration
+Technique Modeling: Therapist-guided example
+Benefit Summary: Positive outcome explanation
+Implementation Timeline: Realistic progress expectation
+
+
+1. Charli D'Amelio (TikTok/Dance)
+Skeleton:
+Hook: Visual Hook
+Content Delivery: Trending dance/choreography
+Outro: Subtle call-to-action
+Key Frames:
+Visual Hook: Instant attention capture
+Transformative Visual: Creative choreography/effects
+Call-to-Action: Subtle audience interaction encouragement
+
+2. Alex Hormozi (Instagram/TikTok/Business)
+Skeleton:
+Hook: Direct and value-packed
+Quick Context: Brief point setup
+Main Value: Simple, digestible strategy steps
+Punchline/Climax: Important takeaway summary
+Call to Action: Direct and confident
+Key Frames:
+Intriguing Question: Business growth obstacle identification
+Relatable Moment: Personal failure/learning reference
+Teach a Concept: Customer acquisition focus
+One-Liner Wisdom: Memorable business principle
+Take Action Now: Implementation encouragement
+
+
+1. MrBeast (YouTube/Various Challenges)
+Skeleton:
+Hook Unit: Challenge Announcement + Prize Reveal
+Setup Unit: Rules Explanation + Participant Introduction
+Progress Unit: Milestone Achievement + Elimination Rounds + Unexpected Twist
+Human Element Unit: Emotional Reaction + Contestant Backstory + Interpersonal Dynamics
+Climax Unit: Final Challenge + Winner Determination
+Resolution Unit: Prize Delivery + Life Impact
+Outro Unit: Next Challenge Teaser + Call-to-Action
+
+Key Frames:
+Challenge Announcement: Attention-grabbing premise
+Prize Reveal: High-stakes reward showcase
+Participant Introduction: Contestant diversity
+Unexpected Twist: Rule/challenge modification
+Emotional Reaction: Authentic human moments
+Winner Determination: Dramatic final outcome
+Prize Delivery: Life-changing moment capture
+Next Challenge Teaser: Future content preview
+
+2. Kurzgesagt (YouTube/Educational Animation)
+Skeleton:
+Hook Unit: Existential Question + Visual Metaphor
+Context Unit: Historical Background + Scale Perspective
+Explanation Unit: Scientific Concept + Visual Breakdown + Analogy
+Implication Unit: Human Impact + Future Scenario + Ethical Question
+Nuance Unit: Counter-Argument + Limitation Acknowledgment + Research Frontier
+Reflection Unit: Philosophical Takeaway + Practical Consideration
+Outro Unit: Question Prompt + Call-to-Action
+Key Frames:
+Existential Question: Thought-provoking opener
+Visual Metaphor: Complex concept simplification
+Scientific Concept: Research-based explanation
+Visual Breakdown: Animation-assisted understanding
+Analogy: Relatable comparison for clarity
+Human Impact: Personal relevance connection
+Philosophical Takeaway: Broader meaning extraction
+Question Prompt: Viewer contemplation encouragement
+This comprehensive list includes all 26 creator templates and their frameworks that we've developed, providing a complete reference for the KeyFrames system across different platforms and content niches.
