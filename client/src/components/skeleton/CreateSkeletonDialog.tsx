@@ -285,7 +285,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
               <DialogFooter className="mt-4 sticky bottom-0 pt-2 bg-background z-10 border-t">
                 <Button 
                   type="submit" 
-                  disabled={!selectedCreator || !videoContext} 
+                  disabled={!selectedCreator} 
                   className="w-full sm:w-auto"
                 >
                   Create From Template
