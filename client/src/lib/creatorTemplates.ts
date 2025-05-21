@@ -116,75 +116,101 @@ export const creatorTemplates: CategoryCreatorTemplate[] = [
     category: 'Lifestyle',
     contentTypes: ['long'],
     description: 'High-energy, story-driven lifestyle vlogs',
-    units: ['Hook', 'Intro', 'Story Setup', 'Adventure', 'Challenge', 'Reflection', 'Outro'],
+    units: ['Hook', 'Story Setup', 'Content Journey', 'Rehook', 'Escalation', 'Climax', 'Reflection', 'Outro'],
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['visual-hook', 'bold-statement'],
+        frameIds: ['visual-hook', 'voiceover-intro'],
         examples: [
           {
             frameId: 'visual-hook',
-            content: "I rode my boosted board through Times Square at 3AM during a snowstorm, and something unexpected happened."
-          }
-        ]
-      },
-      {
-        unitType: 'Intro',
-        frameIds: ['quick-introduction', 'daily-begin'],
-        examples: [
-          {
-            frameId: 'quick-introduction',
-            content: "So the idea was simple: see if I could cross Manhattan faster on my electric skateboard than my buddy could in a taxi during rush hour."
+            content: "New York City. 8 million stories. Today, I'm looking for just one."
           }
         ]
       },
       {
         unitType: 'Story Setup',
-        frameIds: ['set-the-scene', 'establish-problem'],
+        frameIds: ['personal-connection', 'goal-statement'],
         examples: [
           {
-            frameId: 'set-the-scene',
-            content: "It's 8:30 AM in New York City. The streets are packed, taxis everywhere, and we need to get from downtown to midtown for a meeting in 30 minutes."
+            frameId: 'personal-connection',
+            content: "I've been feeling creatively stuck lately. It happens to everyone, but as a creator, it's terrifying. So today, I'm doing what I always do when I need inspiration - I'm hitting the streets."
+          },
+          {
+            frameId: 'goal-statement',
+            content: "The mission: visit five neighborhoods in one day, talk to local artists, and find something that sparks a new idea."
           }
         ]
       },
       {
-        unitType: 'Adventure',
-        frameIds: ['action-sequence', 'overcoming-obstacle'],
+        unitType: 'Content Journey',
+        frameIds: ['conflict-setup', 'relatable-moment', 'behind-the-scenes'],
         examples: [
           {
-            frameId: 'action-sequence',
-            content: "I'm weaving through traffic, dodging pedestrians, nearly getting doored by a parked car, while my GoPro captures everything from this crazy angle."
+            frameId: 'conflict-setup',
+            content: "Of course, nothing in New York is ever simple. Subway's delayed, it's starting to rain, and I'm already behind schedule."
+          },
+          {
+            frameId: 'relatable-moment',
+            content: "Sometimes the best moments happen when plans fall apart. This coffee shop wasn't on my list, but look what I found..."
+          },
+          {
+            frameId: 'behind-the-scenes',
+            content: "We showcase a different local artist every week. The woman who did these pieces actually works just down the block."
           }
         ]
       },
       {
-        unitType: 'Challenge',
-        frameIds: ['unexpected-obstacle', 'moment-of-truth'],
+        unitType: 'Rehook',
+        frameIds: ['question-rehook', 'midway-insight'],
         examples: [
           {
-            frameId: 'unexpected-obstacle',
-            content: "Then it started raining. The streets got slick, the board started slipping, and I had to make a split-second decision."
+            frameId: 'question-rehook',
+            content: "What if inspiration isn't something you find? What if it's something that finds you when you're busy looking elsewhere?"
+          }
+        ]
+      },
+      {
+        unitType: 'Escalation',
+        frameIds: ['stakes-amplifier', 'unexpected-discovery'],
+        examples: [
+          {
+            frameId: 'stakes-amplifier',
+            content: "With only four hours of daylight left, I'm determined to visit every neighborhood on my list. The clock is ticking."
+          },
+          {
+            frameId: 'unexpected-discovery',
+            content: "Sometimes the city just hands you a gift. This wasn't planned. This wasn't on the map. But this is exactly what I was looking for."
+          }
+        ]
+      },
+      {
+        unitType: 'Climax',
+        frameIds: ['triumph-over-adversity', 'action-sequence'],
+        examples: [
+          {
+            frameId: 'triumph-over-adversity',
+            content: "Five neighborhoods. Seven artists. Countless moments of inspiration. Despite the rain, the delays, and the chaos - or maybe because of them - today was exactly what I needed."
           }
         ]
       },
       {
         unitType: 'Reflection',
-        frameIds: ['lesson-learned', 'life-philosophy'],
+        frameIds: ['one-liner-wisdom', 'life-philosophy'],
         examples: [
           {
-            frameId: 'lesson-learned',
-            content: "Sometimes the biggest risk is not taking one. Life isn't about waiting for perfect conditions - it's about making the most of the conditions you're given."
+            frameId: 'one-liner-wisdom',
+            content: "Creativity isn't found in perfect conditions. It's found in the messy, unpredictable moments when you're open to seeing the world differently."
           }
         ]
       },
       {
         unitType: 'Outro',
-        frameIds: ['visual-closure', 'next-steps'],
+        frameIds: ['call-to-action', 'signature-close'],
         examples: [
           {
-            frameId: 'visual-closure',
-            content: "So, did I beat the taxi? Well... [reveals result with dramatic time comparison] ... and that's why I'll never take a cab during rush hour again."
+            frameId: 'call-to-action',
+            content: "Where do you find inspiration when you're stuck? Let me know in the comments. See you tomorrow."
           }
         ]
       }
