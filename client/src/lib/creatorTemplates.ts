@@ -907,71 +907,107 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['bold-statement', 'problem-solution'],
+        frameIds: ['problem-statement', 'promise-of-solution'],
         examples: [
           {
-            frameId: 'bold-statement',
-            content: "This one simple move will add 30 yards to your drives instantly - and it's the opposite of what most golfers try to do."
+            frameId: 'problem-statement',
+            content: "If you're struggling with a slice that sends your ball sailing into the trees on the right, you're not alone. This is the number one problem I see with amateur golfers, and it can be incredibly frustrating. But what if I told you there's a simple technique that could fix your slice forever?"
+          },
+          {
+            frameId: 'promise-of-solution',
+            content: "In today's video, I'm going to share a breakthrough approach that has helped thousands of my students eliminate their slice and start hitting beautiful draws like this one. And the best part? It doesn't require changing your entire swing or hours of practice. Stay with me, because this could be the most important golf tip you ever receive."
           }
         ]
       },
       {
         unitType: 'Intro',
-        frameIds: ['establish-credibility', 'topic-overview'],
+        frameIds: ['credibility-establishment', 'relatable-problem'],
         examples: [
           {
-            frameId: 'establish-credibility',
-            content: "After teaching thousands of students, I've discovered that most amateurs struggle with their drives because of this one fundamental mistake."
+            frameId: 'credibility-establishment',
+            content: "I've been teaching golf for over 20 years, and in that time, I've helped players of all levels fix their slice. What I've discovered is that most instructors make this far too complicated. They focus on positions and angles that are difficult to replicate. But I've developed a simple, feel-based approach that works for everyone, regardless of age, flexibility, or athletic ability."
+          },
+          {
+            frameId: 'relatable-problem',
+            content: "Here's what typically happens. You set up to the ball, feeling confident. You make your backswing, and as you come down, something goes wrong. The clubface stays open, your path moves out-to-in, and suddenly your ball is sailing off to the right, losing distance and accuracy. You've probably been told to strengthen your grip, to 'release' the club more, or to change your swing path. And if you're like most golfers, these tips might work briefly but then the slice returns. It's maddening, isn't it?"
           }
         ]
       },
       {
         unitType: 'Content Delivery',
-        frameIds: ['expert-insight', 'myth-buster'],
+        frameIds: ['conceptual-explanation', 'visual-demonstration', 'comparison'],
         examples: [
           {
-            frameId: 'expert-insight',
-            content: "The key isn't trying to hit the ball harder - it's actually about creating the right sequence of motion starting from the ground up."
+            frameId: 'conceptual-explanation',
+            content: "To understand why you slice, we need to understand two key factors: clubface and path. A slice happens when your clubface is open relative to your swing path at impact. Most golfers try to fix this by manipulating their hands, but that's actually making things worse. The real solution isn't in your hands - it's in how you use your body. When your body moves correctly, the club naturally falls into the right position. It's about working with physics, not against it."
+          },
+          {
+            frameId: 'visual-demonstration',
+            content: "Here's the technique. Instead of focusing on your hands, I want you to feel like your trail shoulder is moving down and through toward the target as you start your downswing. Like this. Notice how when I do this, my arms naturally drop into the right slot, the clubface squares up, and my path naturally shifts more in-to-out. I'm not manipulating anything with my hands - it's all coming from this shoulder movement."
+          },
+          {
+            frameId: 'comparison',
+            content: "Let's compare. On the left is the typical slice motion, where the upper body stalls and the arms throw out away from the body. See how that opens the clubface and creates that out-to-in path? Now look at our new technique on the right. The shoulder moves down and through, the arms stay connected to the body, and everything syncs up perfectly at impact. It's a completely different result from one simple change in feel."
           }
         ]
       },
       {
         unitType: 'Practical Application',
-        frameIds: ['step-by-step', 'common-pitfalls'],
+        frameIds: ['step-by-step-instruction', 'drill-introduction', 'common-mistake-warning'],
         examples: [
           {
-            frameId: 'step-by-step',
-            content: "Here's a simple drill you can practice at home with just a towel to ingrain this feeling."
+            frameId: 'step-by-step-instruction',
+            content: "Let's break this down into a simple drill you can practice anywhere. Start without a club, and place your trail hand on your lead shoulder. Now, make a backswing, and as you start down, feel your trail shoulder moving down and toward the target. Once you've got that feeling, grab a club and make some slow-motion swings, focusing only on that shoulder movement. Don't worry about hitting the ball yet - just groove this new movement pattern."
+          },
+          {
+            frameId: 'drill-introduction',
+            content: "Here's a fantastic drill to reinforce this movement. Take an alignment stick and place it along your trail shoulder, tucking it under your arm. Now, make swings focusing on pointing that stick toward the target as you come through impact. If you're doing it correctly, the stick will point at the target after impact. If you're reverting to your slice pattern, the stick will point well right of target. This immediate feedback is invaluable."
+          },
+          {
+            frameId: 'common-mistake-warning',
+            content: "Now, there are two common mistakes I see when people try this technique. First, they confuse moving the shoulder down and through with simply dipping the shoulder down. That actually makes things worse. The second mistake is trying to force the new movement while still consciously manipulating the hands. You need to trust that the correct hand action will happen naturally when your body moves correctly. Let go of those hand-focused swing thoughts."
           }
         ]
       },
       {
         unitType: 'Proof',
-        frameIds: ['case-study', 'testimonial'],
+        frameIds: ['student-success', 'results-validation'],
         examples: [
           {
-            frameId: 'case-study', 
-            content: "Here's John, one of my students who gained 45 yards after just one lesson focusing on this technique."
+            frameId: 'student-success', 
+            content: "Here's John, who came to me with a severe slice. He'd been struggling with it for years despite taking numerous lessons. After just 30 minutes of working on this shoulder movement, look at the difference. He's not thinking about his hands or the clubface - he's simply focused on that shoulder movement, and everything else falls into place."
+          },
+          {
+            frameId: 'results-validation',
+            content: "And John isn't an isolated case. In my Academy, we've helped hundreds of golfers fix their slice using this exact technique. Here are the TrackMan numbers showing the average improvements: 15 yards more distance, 58% reduction in side spin, and 72% more fairways hit. The data doesn't lie - this approach works."
           }
         ]
       },
       {
         unitType: 'Reflection',
-        frameIds: ['key-takeaway', 'quick-win'],
+        frameIds: ['big-picture-perspective', 'key-takeaway'],
         examples: [
           {
+            frameId: 'big-picture-perspective',
+            content: "What I love about this approach is that it's not just a band-aid fix - it addresses the root cause of your slice. And because it's based on a natural movement pattern, it's much easier to maintain than trying to consciously control your hands through impact. This is how the best players in the world swing - they use their body to deliver the club, not their hands."
+          },
+          {
             frameId: 'key-takeaway',
-            content: "Remember, it's not about swinging harder, it's about swinging smarter by using your body's natural power sequence."
+            content: "Remember, golf doesn't have to be complicated. Often the simplest solutions are the most effective. Focus on this shoulder movement, trust the process, and I promise you'll see a dramatic improvement in your ball flight. And the best part? This same movement pattern will help with all your clubs, not just the driver."
           }
         ]
       },
       {
         unitType: 'Outro',
-        frameIds: ['subscribe-reminder', 'next-steps'],
+        frameIds: ['follow-up-invitation', 'call-to-action'],
         examples: [
           {
-            frameId: 'subscribe-reminder',
-            content: "If you found this helpful, make sure to subscribe for more simple golf tips that actually work in the real world."
+            frameId: 'follow-up-invitation',
+            content: "If you have any questions about this technique, leave them in the comments below. I read every comment and do my best to help you further. You can also visit my website for more in-depth tutorials and lesson opportunities."
+          },
+          {
+            frameId: 'call-to-action',
+            content: "If you found this helpful, please give the video a thumbs up and subscribe to my channel for more simple, effective golf tips. And if you know someone who struggles with a slice, share this video with them - you might just save them years of frustration. Happy golfing, and I'll see you in the next video!"
           }
         ]
       }
