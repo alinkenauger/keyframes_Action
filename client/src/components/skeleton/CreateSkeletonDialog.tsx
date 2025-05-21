@@ -177,20 +177,54 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                     </div>
                   </div>
                   
-                  <div className="space-y-3 mb-3">
-                    <div className="grid grid-cols-2 gap-1.5">
+                  <div className="space-y-2 mb-2">
+                    <div className="flex justify-between items-center">
+                      <div className="flex gap-1.5">
+                        <div className="flex items-center border rounded-md overflow-hidden">
+                          <button
+                            type="button"
+                            onClick={() => setContentType('short')}
+                            className={cn(
+                              "flex items-center gap-1 px-2 py-1 text-xs",
+                              contentType === 'short'
+                                ? "bg-primary text-primary-foreground"
+                                : "bg-background hover:bg-muted"
+                            )}
+                          >
+                            <Smartphone size={12} />
+                            <span>Short</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setContentType('long')}
+                            className={cn(
+                              "flex items-center gap-1 px-2 py-1 text-xs",
+                              contentType === 'long'
+                                ? "bg-primary text-primary-foreground"
+                                : "bg-background hover:bg-muted"
+                            )}
+                          >
+                            <Video size={12} />
+                            <span>Long</span>
+                          </button>
+                        </div>
+                      </div>
+                      <Label className="text-xs text-muted-foreground">Filter by category:</Label>
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-1">
                       <button
                         type="button"
                         onClick={() => setSelectedCategory('all')}
                         className={cn(
-                          "flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-all",
+                          "flex items-center gap-1 px-2 py-1 text-xs rounded-full transition-all",
                           selectedCategory === 'all'
                             ? "bg-primary text-primary-foreground shadow-sm"
-                            : "bg-background border border-input hover:bg-accent hover:text-accent-foreground"
+                            : "bg-muted text-muted-foreground hover:bg-muted/80"
                         )}
                       >
-                        <ShoppingBag size={18} />
-                        <span>All Templates</span>
+                        <ShoppingBag size={12} />
+                        <span>All</span>
                       </button>
                       
                       {categories.map((category) => (
@@ -199,10 +233,10 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                           type="button"
                           onClick={() => setSelectedCategory(category)}
                           className={cn(
-                            "flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-all",
+                            "flex items-center gap-1 px-2 py-1 text-xs rounded-full transition-all",
                             selectedCategory === category
                               ? "bg-primary text-primary-foreground shadow-sm" 
-                              : "bg-background border border-input hover:bg-accent hover:text-accent-foreground"
+                              : "bg-muted text-muted-foreground hover:bg-muted/80"
                           )}
                         >
                           {getCategoryIcon(category)}
@@ -210,45 +244,13 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                         </button>
                       ))}
                     </div>
-                    
-                    <div className="flex items-center justify-end gap-2">
-                      <Label htmlFor="content-type" className="text-xs">Content Type:</Label>
-                      <div className="flex items-center border rounded-md overflow-hidden">
-                        <button
-                          type="button"
-                          onClick={() => setContentType('short')}
-                          className={cn(
-                            "flex items-center gap-1 px-3 py-1.5 text-xs",
-                            contentType === 'short'
-                              ? "bg-primary text-primary-foreground"
-                              : "bg-background hover:bg-muted"
-                          )}
-                        >
-                          <Smartphone size={14} />
-                          <span>Short</span>
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setContentType('long')}
-                          className={cn(
-                            "flex items-center gap-1 px-3 py-1.5 text-xs",
-                            contentType === 'long'
-                              ? "bg-primary text-primary-foreground"
-                              : "bg-background hover:bg-muted"
-                          )}
-                        >
-                          <Video size={14} />
-                          <span>Long</span>
-                        </button>
-                      </div>
-                    </div>
                   </div>
                   
                   <div className="h-[450px] border rounded-md p-4 overflow-auto">
                     <RadioGroup
                       value={selectedCreator || ''}
                       onValueChange={setSelectedCreator}
-                      className="pb-16 grid gap-4"
+                      className="pb-16 grid gap-3"
                     >
                       {(selectedCategory === 'all' 
                         ? creatorTemplates 
@@ -257,45 +259,45 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                         <div 
                           key={template.id} 
                           className={cn(
-                            "relative border rounded-lg p-4 transition-all hover:shadow-md",
+                            "relative border rounded-lg p-2 transition-all hover:shadow-sm",
                             selectedCreator === template.id 
                               ? "border-primary bg-primary/5" 
                               : "border-border hover:border-primary/30"
                           )}
                         >
-                          <div className="flex items-start gap-3">
+                          <div className="flex items-start gap-2">
                             <RadioGroupItem 
                               value={template.id} 
                               id={template.id} 
-                              className="mt-1.5"
+                              className="mt-1"
                             />
-                            <div className="flex-1">
-                              <div className="flex items-center justify-between mb-1">
-                                <Label htmlFor={template.id} className="text-base font-medium cursor-pointer">
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between mb-0.5">
+                                <Label htmlFor={template.id} className="text-sm font-medium cursor-pointer truncate mr-1.5">
                                   {template.name}
                                 </Label>
-                                <div className="flex items-center gap-1.5">
-                                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs bg-muted text-muted-foreground">
+                                <div className="flex-shrink-0 flex items-center">
+                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] bg-muted text-muted-foreground">
                                     {getCategoryIcon(template.category)}
-                                    <span className="ml-1">{template.category}</span>
+                                    <span className="ml-0.5 truncate max-w-[60px]">{template.category}</span>
                                   </span>
                                 </div>
                               </div>
                               
-                              <p className="text-sm text-muted-foreground">
+                              <p className="text-xs text-muted-foreground line-clamp-2">
                                 {template.description}
                               </p>
                               
-                              <div className="mt-3 flex flex-wrap items-center text-xs">
-                                <span className="font-medium text-foreground/80 mr-1.5">{template.units.length} units:</span>
-                                <span className="text-muted-foreground">{template.units.join(' → ')}</span>
+                              <div className="mt-1.5 flex flex-wrap items-center text-[10px]">
+                                <span className="font-medium text-foreground/80 mr-1">{template.units.length} units:</span>
+                                <span className="text-muted-foreground truncate">{template.units.join(' → ')}</span>
                               </div>
                               
                               {template.frames && template.frames[0]?.examples && template.frames[0].examples[0] && (
-                                <div className="mt-3 p-2 bg-muted/50 rounded-md text-xs text-muted-foreground border border-border/50">
-                                  <span className="block text-[11px] font-medium text-foreground/70 mb-1">Example ({template.frames[0].unitType}):</span>
-                                  "{template.frames[0].examples[0].content.substring(0, 100)}
-                                  {template.frames[0].examples[0].content.length > 100 ? '...' : ''}"
+                                <div className="mt-1.5 p-1.5 bg-muted/50 rounded-md text-[10px] text-muted-foreground border border-border/50">
+                                  <span className="inline-block font-medium text-foreground/70 mr-1">Example:</span>
+                                  <span className="line-clamp-2">"{template.frames[0].examples[0].content.substring(0, 75)}
+                                  {template.frames[0].examples[0].content.length > 75 ? '...' : ''}"</span>
                                 </div>
                               )}
                             </div>
