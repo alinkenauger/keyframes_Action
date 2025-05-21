@@ -341,7 +341,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                       const frames = [];
                       
                       // Find complete template with frames
-                      const completeTemplate = CREATOR_TEMPLATES.find(t => t.id === selectedCreator);
+                      const completeTemplate = selectedTemplate;
                       
                       // If the template has specific frames, add them to the skeleton
                       if (completeTemplate && completeTemplate.frames) {
