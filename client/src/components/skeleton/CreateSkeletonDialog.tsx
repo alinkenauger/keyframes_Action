@@ -248,27 +248,57 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                     <RadioGroup
                       value={selectedCreator || ''}
                       onValueChange={setSelectedCreator}
-                      className="pb-16"
+                      className="pb-16 grid gap-4"
                     >
                       {(selectedCategory === 'all' 
                         ? creatorTemplates 
                         : creatorTemplates.filter((t: CategoryCreatorTemplate) => t.category === selectedCategory)
-                      ).filter((t: CategoryCreatorTemplate) => t.id !== 'mrbeast').map((template: CategoryCreatorTemplate) => (
-                        <div key={template.id} className="flex items-center space-x-2 mb-4 touch-target border-b pb-3">
-                          <RadioGroupItem 
-                            value={template.id} 
-                            id={template.id} 
-                            className="h-5 w-5"
-                          />
-                          <div className="grid gap-1.5">
-                            <Label htmlFor={template.id} className="font-medium">
-                              {template.name}
-                            </Label>
-                            <p className="text-sm text-muted-foreground">
-                              {template.units.length} units - {
-                                template.units.join(' → ')
-                              }
-                            </p>
+                      ).filter((t: CategoryCreatorTemplate) => t.contentTypes.includes(contentType)).map((template: CategoryCreatorTemplate) => (
+                        <div 
+                          key={template.id} 
+                          className={cn(
+                            "relative border rounded-lg p-4 transition-all hover:shadow-md",
+                            selectedCreator === template.id 
+                              ? "border-primary bg-primary/5" 
+                              : "border-border hover:border-primary/30"
+                          )}
+                        >
+                          <div className="flex items-start gap-3">
+                            <RadioGroupItem 
+                              value={template.id} 
+                              id={template.id} 
+                              className="mt-1.5"
+                            />
+                            <div className="flex-1">
+                              <div className="flex items-center justify-between mb-1">
+                                <Label htmlFor={template.id} className="text-base font-medium cursor-pointer">
+                                  {template.name}
+                                </Label>
+                                <div className="flex items-center gap-1.5">
+                                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs bg-muted text-muted-foreground">
+                                    {getCategoryIcon(template.category)}
+                                    <span className="ml-1">{template.category}</span>
+                                  </span>
+                                </div>
+                              </div>
+                              
+                              <p className="text-sm text-muted-foreground">
+                                {template.description}
+                              </p>
+                              
+                              <div className="mt-3 flex flex-wrap items-center text-xs">
+                                <span className="font-medium text-foreground/80 mr-1.5">{template.units.length} units:</span>
+                                <span className="text-muted-foreground">{template.units.join(' → ')}</span>
+                              </div>
+                              
+                              {template.frames && template.frames[0]?.examples && template.frames[0].examples[0] && (
+                                <div className="mt-3 p-2 bg-muted/50 rounded-md text-xs text-muted-foreground border border-border/50">
+                                  <span className="block text-[11px] font-medium text-foreground/70 mb-1">Example ({template.frames[0].unitType}):</span>
+                                  "{template.frames[0].examples[0].content.substring(0, 100)}
+                                  {template.frames[0].examples[0].content.length > 100 ? '...' : ''}"
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
                       ))}
