@@ -322,7 +322,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                     ))}
                   </div>
                   
-                  <ScrollArea className="flex-1 rounded-md border p-4 touch-pan-y">
+                  <ScrollArea className="h-[400px] rounded-md border p-4 touch-pan-y">
                     <RadioGroup
                       value={selectedCreator || ''}
                       onValueChange={setSelectedCreator}
