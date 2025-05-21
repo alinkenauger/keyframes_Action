@@ -45,6 +45,23 @@ function DraggableAttribute({ id, type, children }: DraggableAttributeProps) {
   );
 }
 
+// Group TONES by category
+const TONE_CATEGORIES = {
+  'Emotional': TONES.slice(0, 10),
+  'Stylistic': TONES.slice(10, 20),
+  'Audience-Specific': TONES.slice(20, 28),
+  'Original': TONES.slice(28)
+};
+
+// Group FILTERS by category
+const FILTER_CATEGORIES = {
+  'Visual': FILTERS.slice(0, 10),
+  'Pacing': FILTERS.slice(10, 19),
+  'Audio': FILTERS.slice(19, 28),
+  'Structural': FILTERS.slice(28, 38),
+  'Original': FILTERS.slice(38)
+};
+
 export default function AttributesLibrary() {
   return (
     <Card className="h-full">
@@ -57,11 +74,16 @@ export default function AttributesLibrary() {
           
           <TabsContent value="tones">
             <ScrollArea className="h-[calc(100vh-200px)]">
-              <div className="space-y-2">
-                {TONES.map((tone) => (
-                  <DraggableAttribute key={tone} id={tone} type="tone">
-                    {tone}
-                  </DraggableAttribute>
+              <div className="space-y-6">
+                {Object.entries(TONE_CATEGORIES).map(([category, tones]) => (
+                  <div key={category} className="space-y-2">
+                    <h3 className="text-sm font-medium text-muted-foreground mb-2">{category} Tones</h3>
+                    {tones.map((tone) => (
+                      <DraggableAttribute key={tone} id={tone} type="tone">
+                        {tone}
+                      </DraggableAttribute>
+                    ))}
+                  </div>
                 ))}
               </div>
             </ScrollArea>
@@ -69,11 +91,16 @@ export default function AttributesLibrary() {
 
           <TabsContent value="filters">
             <ScrollArea className="h-[calc(100vh-200px)]">
-              <div className="space-y-2">
-                {FILTERS.map((filter) => (
-                  <DraggableAttribute key={filter} id={filter} type="filter">
-                    {filter}
-                  </DraggableAttribute>
+              <div className="space-y-6">
+                {Object.entries(FILTER_CATEGORIES).map(([category, filters]) => (
+                  <div key={category} className="space-y-2">
+                    <h3 className="text-sm font-medium text-muted-foreground mb-2">{category} Filters</h3>
+                    {filters.map((filter) => (
+                      <DraggableAttribute key={filter} id={filter} type="filter">
+                        {filter}
+                      </DraggableAttribute>
+                    ))}
+                  </div>
                 ))}
               </div>
             </ScrollArea>
