@@ -164,7 +164,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
           </TabsList>
 
           <TabsContent value="template" className="flex-1 overflow-hidden flex flex-col">
-            <form onSubmit={handleTemplateSubmit} className="space-y-4 flex-1 overflow-hidden flex flex-col">
+            <div className="space-y-4 flex-1 overflow-hidden flex flex-col">
               <div className="grid gap-4 flex-1 overflow-hidden">
                 <div className="grid gap-2">
                   <Label htmlFor="name">Name (Optional)</Label>
@@ -324,15 +324,84 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
               </div>
               <DialogFooter className="mt-4 sticky bottom-0 pt-2 bg-background z-10 border-t">
                 <Button 
-                  type="submit" 
+                  type="button" 
                   disabled={!selectedCreator} 
                   className="w-full sm:w-auto"
-                  onClick={handleTemplateSubmit}
+                  onClick={() => {
+                    // Find the selected template
+                    const selectedTemplate = creatorTemplates.find(template => template.id === selectedCreator);
+                    if (!selectedTemplate) {
+                      console.error("No template selected");
+                      return;
+                    }
+
+                    try {
+                      // Create a new skeleton based on the selected template
+                      const skeletonId = nanoid();
+                      const frames = [];
+                      
+                      // Find complete template with frames
+                      const completeTemplate = CREATOR_TEMPLATES.find(t => t.id === selectedCreator);
+                      
+                      // If the template has specific frames, add them to the skeleton
+                      if (completeTemplate && completeTemplate.frames) {
+                        for (const unitFrames of completeTemplate.frames) {
+                          const unitType = unitFrames.unitType;
+                          
+                          // Get the specific frames for this unit
+                          for (const frameId of unitFrames.frameIds) {
+                            // Find example content if available
+                            let content = '';
+                            if (unitFrames.examples) {
+                              const example = unitFrames.examples.find(e => e.frameId === frameId);
+                              if (example && example.content) {
+                                content = example.content;
+                              }
+                            }
+                            
+                            // Create a new frame object
+                            frames.push({
+                              id: nanoid(),
+                              name: frameId,
+                              type: frameId,
+                              content: content,
+                              unitType: unitType,
+                              isTemplateExample: true
+                            });
+                          }
+                        }
+                      }
+                      
+                      const newSkeleton = {
+                        id: skeletonId,
+                        name: name || selectedTemplate.name,
+                        units: selectedTemplate.units || [],
+                        frames: frames,
+                        contentType: contentType,
+                      };
+
+                      console.log("Creating skeleton:", newSkeleton);
+
+                      // Add the skeleton and set it as active
+                      const createdSkeleton = addSkeleton(newSkeleton);
+                      setActiveSkeletonId(createdSkeleton.id);
+                      
+                      // Set the video context
+                      if (videoContext) {
+                        setStoreVideoContext(createdSkeleton.id, videoContext);
+                      }
+                      
+                      // Close the dialog
+                      onOpenChange(false);
+                    } catch (error) {
+                      console.error("Error creating skeleton:", error);
+                    }
+                  }}
                 >
                   Create From Template
                 </Button>
               </DialogFooter>
-            </form>
+            </div>
           </TabsContent>
 
           <TabsContent value="custom" className="flex-1 overflow-y-auto">
