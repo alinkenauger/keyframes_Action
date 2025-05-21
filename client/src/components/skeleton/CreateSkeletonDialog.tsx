@@ -26,6 +26,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
   const [videoContext, setVideoContext] = useState('');
   const [selectedCreator, setSelectedCreator] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<TemplateCategory | 'all'>('all');
+  const categories = getTemplateCategories();
   const [contentType, setContentType] = useState<'short' | 'long'>('long');
   const { addSkeleton, setActiveSkeletonId, setVideoContext: setStoreVideoContext } = useWorkspace();
 
@@ -146,7 +147,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                     >
                       All Templates
                     </button>
-                    {getTemplateCategories().map((category) => (
+                    {categories.map((category) => (
                       <button
                         key={category}
                         type="button"
