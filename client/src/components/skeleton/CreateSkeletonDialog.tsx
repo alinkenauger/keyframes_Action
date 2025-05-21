@@ -86,11 +86,43 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
     if (!selectedTemplate) return;
 
     // Create a new skeleton based on the selected template
+    const skeletonId = nanoid();
+    const frames = [];
+    
+    // If the template has specific frames, add them to the skeleton
+    if (selectedTemplate.frames) {
+      for (const unitFrames of selectedTemplate.frames) {
+        const unitType = unitFrames.unitType;
+        
+        // Get the specific frames for this unit
+        for (const frameId of unitFrames.frameIds) {
+          // Find example content if available
+          let content = '';
+          if (unitFrames.examples) {
+            const example = unitFrames.examples.find(e => e.frameId === frameId);
+            if (example && example.content) {
+              content = example.content;
+            }
+          }
+          
+          // Create a new frame object
+          frames.push({
+            id: nanoid(),
+            name: frameId,
+            type: frameId,
+            content: content,
+            unitType: unitType,
+            isTemplateExample: true
+          });
+        }
+      }
+    }
+    
     const newSkeleton = {
-      id: nanoid(),
+      id: skeletonId,
       name: name || selectedTemplate.name,
       units: selectedTemplate.units,
-      frames: [], // Frames will be populated when the skeleton is created
+      frames: frames,
       contentType: contentType,
     };
 
