@@ -223,12 +223,12 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                     </div>
                   </div>
                   
-                  <div style={{height: '320px', overflow: 'auto'}} className="border rounded-md p-4">
-                      <RadioGroup
-                        value={selectedCreator || ''}
-                        onValueChange={setSelectedCreator}
-                        className="space-y-3"
-                      >
+                  <div className="border rounded-md p-4 max-h-[320px] overflow-y-scroll">
+                    <RadioGroup
+                      value={selectedCreator || ''}
+                      onValueChange={setSelectedCreator}
+                      className="space-y-2"
+                    >
                       {filteredTemplates.map((template: CategoryCreatorTemplate) => (
                         <div 
                           key={template.id} 
