@@ -24,15 +24,6 @@ export interface CategoryCreatorTemplate extends CreatorTemplate {
 
 // Creator templates organized by niche/category
 export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
-  // LIFESTYLE CATEGORY
-  {
-    id: 'emma-chamberlain',
-    name: 'Emma Chamberlain Style',
-    creator: 'Emma Chamberlain',
-    category: 'Lifestyle',
-    contentTypes: ['long'],
-    description: 'Authentic, relatable lifestyle vlogs with unfiltered humor',
-    units: ['Hook', 'Intro', 'Content Journey', 'Rehook', 'Outro'],
     frames: [
       {
         unitType: 'Hook',
