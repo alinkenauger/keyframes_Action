@@ -219,7 +219,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
+      <DialogContent className="max-w-2xl max-h-[95vh] h-[700px] overflow-hidden flex flex-col">
         <DialogHeader>
           <DialogTitle>Create New Skeleton</DialogTitle>
           <DialogDescription>
@@ -322,7 +322,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                     ))}
                   </div>
                   
-                  <ScrollArea className="h-[400px] rounded-md border p-4 touch-pan-y">
+                  <ScrollArea className="h-[500px] rounded-md border p-4 touch-pan-y">
                     <RadioGroup
                       value={selectedCreator || ''}
                       onValueChange={setSelectedCreator}
