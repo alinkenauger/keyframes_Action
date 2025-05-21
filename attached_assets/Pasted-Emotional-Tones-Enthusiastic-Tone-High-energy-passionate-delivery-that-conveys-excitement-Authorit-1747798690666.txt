@@ -1,0 +1,75 @@
+Emotional Tones
+Enthusiastic Tone: High-energy, passionate delivery that conveys excitement
+Authoritative Tone: Confident, expert-like delivery that establishes credibility
+Contemplative Tone: Thoughtful, measured delivery that encourages reflection
+Empathetic Tone: Compassionate, understanding approach that connects emotionally
+Urgent Tone: Creating a sense of time pressure or immediate relevance
+Nostalgic Tone: Evoking fond memories or sentimentality about the past
+Inspirational Tone: Uplifting, motivational delivery that encourages action
+Curious Tone: Inquisitive approach that models wonder and discovery
+Reassuring Tone: Calming, supportive delivery that alleviates concerns
+Provocative Tone: Challenging conventional thinking to stimulate debate
+Stylistic Tones
+Analytical Tone: Logical, methodical approach to breaking down topics
+Conversational Tone: Casual, friendly delivery that feels like a chat
+Instructional Tone: Clear, directive approach focused on teaching
+Narrative Tone: Storytelling approach with plot-like progression
+Minimalist Tone: Stripped-down, essentials-only delivery
+Dramatic Tone: Theatrical delivery with emotional intensity
+Journalistic Tone: Fact-focused, investigative approach
+Scholarly Tone: Academic, research-based delivery
+Satirical Tone: Using humor to critique or comment on topics
+Poetic Tone: Lyrical, metaphorical language and delivery
+Audience-Specific Tones
+Peer-to-Peer Tone: Speaking as an equal, sharing the journey
+Mentor Tone: Guiding from a position of experience but not superiority
+Expert-to-Novice Tone: Breaking down complex topics for beginners
+Insider Tone: Speaking to an audience "in the know" about niche topics
+Community-Building Tone: Fostering a sense of belonging among viewers
+Aspirational Tone: Speaking to viewers' desires for improvement or achievement
+Collaborative Tone: Inviting audience participation and co-creation
+Exclusive Tone: Creating a sense of special access or privileged information
+Missing Filters
+The current KeyFrames system could benefit from more specific filters that shape the overall aesthetic and style of content:
+Visual Filters
+High-Contrast Filter: Bold visual style with strong differences between light and dark
+Soft Focus Filter: Gentle, slightly blurred aesthetic that creates warmth
+Cinematic Filter: Film-like quality with attention to composition and lighting
+Raw/Authentic Filter: Minimal editing that emphasizes realness
+Hyper-Stylized Filter: Heavily edited with distinctive color grading or effects
+Minimalist Filter: Clean, uncluttered visual presentation
+Vintage Filter: Retro visual effects that evoke specific time periods
+Luxury Filter: High-end, polished aesthetic with attention to detail
+Gritty Filter: Rough, unpolished look that emphasizes authenticity
+Bright and Airy Filter: Light, open feeling with high exposure
+Pacing Filters
+Rapid-Fire Filter: Fast-paced editing with quick cuts and high energy
+Slow Burn Filter: Deliberate, measured pacing that builds gradually
+Rhythmic Filter: Editing that follows musical or speech patterns
+Jump Cut Filter: Intentional use of abrupt transitions for effect
+Long Take Filter: Extended shots without cuts that create immersion
+Variable Pacing Filter: Strategic shifts between fast and slow segments
+Montage Filter: Compilation-style editing that compresses time
+Real-Time Filter: Unedited sequences that maintain natural timing
+Punctuated Filter: Regular pattern of emphasis points throughout content
+Audio Filters
+Music-Driven Filter: Content where music sets the tone and pacing
+Voice-Forward Filter: Emphasis on clear vocal delivery with minimal background
+ASMR Filter: Focus on satisfying sounds and audio sensations
+Ambient Filter: Subtle background sounds that create atmosphere
+Sound Effect Enhancement Filter: Strategic use of audio effects for emphasis
+Dynamic Range Filter: Dramatic shifts between quiet and loud moments
+Layered Audio Filter: Complex soundscapes with multiple audio elements
+Minimal Audio Filter: Stripped-down sound design focusing only on essentials
+Narrative Voiceover Filter: Storytelling through explanatory audio overlay
+Structural Filters
+Episodic Filter: Content designed as part of a continuing series
+Standalone Filter: Self-contained content that requires no prior knowledge
+Tutorial Filter: Step-by-step instructional format
+Vlog Filter: Day-in-the-life or personal journey format
+Essay Filter: Argument-driven format with thesis and supporting points
+Review Filter: Evaluation-focused format with clear criteria
+Reaction Filter: Response-based format centered on creator's impressions
+Interview Filter: Conversation-based format with questions and answers
+Documentary Filter: Investigative format that explores a subject in depth
+Challenge Filter: Task-oriented format with clear objectives and outcomes

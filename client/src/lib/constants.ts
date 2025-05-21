@@ -107,9 +107,44 @@ export const SKELETON_UNITS = [
   }
 ];
 
+// Emotional Tones
 export const TONES = [
-  'Playful',
+  // Emotional Tones
+  'Enthusiastic',
+  'Authoritative',
+  'Contemplative',
+  'Empathetic',
+  'Urgent',
+  'Nostalgic',
+  'Inspirational',
+  'Curious',
+  'Reassuring',
+  'Provocative',
+  
+  // Stylistic Tones
+  'Analytical',
+  'Conversational',
+  'Instructional',
+  'Narrative',
+  'Minimalist',
   'Dramatic',
+  'Journalistic',
+  'Scholarly',
+  'Satirical',
+  'Poetic',
+  
+  // Audience-Specific Tones
+  'Peer-to-Peer',
+  'Mentor',
+  'Expert-to-Novice',
+  'Insider',
+  'Community-Building',
+  'Aspirational',
+  'Collaborative',
+  'Exclusive',
+  
+  // Original Tones
+  'Playful',
   'Heartfelt',
   'Empowering',
   'Professional',
@@ -118,13 +153,57 @@ export const TONES = [
   'Energetic'
 ];
 
+// Visual, Pacing, Audio, and Structural Filters
 export const FILTERS = [
+  // Visual Filters
+  'High-Contrast',
+  'Soft Focus',
   'Cinematic',
+  'Raw/Authentic',
+  'Hyper-Stylized',
   'Minimalist',
+  'Vintage',
+  'Luxury',
+  'Gritty',
+  'Bright and Airy',
+  
+  // Pacing Filters
+  'Rapid-Fire',
+  'Slow Burn',
+  'Rhythmic',
+  'Jump Cut',
+  'Long Take',
+  'Variable Pacing',
+  'Montage',
+  'Real-Time',
+  'Punctuated',
+  
+  // Audio Filters
+  'Music-Driven',
+  'Voice-Forward',
+  'ASMR',
+  'Ambient',
+  'Sound Effect Enhancement',
+  'Dynamic Range',
+  'Layered Audio',
+  'Minimal Audio',
+  'Narrative Voiceover',
+  
+  // Structural Filters
+  'Episodic',
+  'Standalone',
+  'Tutorial',
+  'Vlog',
+  'Essay',
+  'Review',
+  'Reaction',
+  'Interview',
+  'Documentary',
+  'Challenge',
+  
+  // Original Filters
   'Bold',
   'Natural',
-  'Vintage',
   'Modern',
-  'Artistic',
-  'Documentary'
+  'Artistic'
 ];
