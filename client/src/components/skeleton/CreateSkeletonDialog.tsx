@@ -144,7 +144,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                           : "bg-muted hover:bg-muted/80"
                       )}
                     >
-                      All Categories
+                      All Templates
                     </button>
                     {getAllCategories().map((category) => (
                       <button
