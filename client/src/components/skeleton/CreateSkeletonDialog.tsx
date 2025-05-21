@@ -15,11 +15,54 @@ import { DndContext, DragEndEvent, DragStartEvent, closestCenter, DragOverlay, u
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { nanoid } from 'nanoid';
+import { Camera, Video, Smartphone, ShoppingBag, BarChart, Film, Utensils, Gamepad, Tv, ImageIcon, Bike, Home, Flower, Brain, Pencil } from 'lucide-react';
 
 interface CreateSkeletonDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
+
+// Category icon mapping
+const getCategoryIcon = (category: TemplateCategory | 'all') => {
+  switch(category) {
+    case 'all':
+      return <ShoppingBag size={18} />;
+    case 'Animation':
+      return <Pencil size={18} />;
+    case 'Automotive':
+      return <Bike size={18} />;
+    case 'Beauty':
+      return <ShoppingBag size={18} />;
+    case 'Business':
+      return <BarChart size={18} />;
+    case 'Cooking':
+      return <Utensils size={18} />;
+    case 'Education':
+      return <Brain size={18} />;
+    case 'Entertainment':
+      return <Tv size={18} />;
+    case 'Filmmaking':
+      return <Film size={18} />;
+    case 'Finance':
+      return <BarChart size={18} />;
+    case 'Gaming':
+      return <Gamepad size={18} />;
+    case 'Gardening':
+      return <Flower size={18} />;
+    case 'Lifestyle':
+      return <Home size={18} />;
+    case 'Mental Health':
+      return <Brain size={18} />;
+    case 'Photography':
+      return <ImageIcon size={18} />;
+    case 'Sports':
+      return <Bike size={18} />;
+    case 'Technology':
+      return <Smartphone size={18} />;
+    default:
+      return <ShoppingBag size={18} />;
+  }
+};
 
 export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkeletonDialogProps) {
   const [name, setName] = useState('');
@@ -134,34 +177,71 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                     </div>
                   </div>
                   
-                  <div className="flex flex-wrap gap-1 mb-2">
-                    <button
-                      type="button"
-                      onClick={() => setSelectedCategory('all')}
-                      className={cn(
-                        "px-2 py-1 text-xs rounded-full",
-                        selectedCategory === 'all'
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-muted hover:bg-muted/80"
-                      )}
-                    >
-                      All Templates
-                    </button>
-                    {categories.map((category) => (
+                  <div className="space-y-3 mb-3">
+                    <div className="grid grid-cols-2 gap-1.5">
                       <button
-                        key={category}
                         type="button"
-                        onClick={() => setSelectedCategory(category)}
+                        onClick={() => setSelectedCategory('all')}
                         className={cn(
-                          "px-2 py-1 text-xs rounded-full",
-                          selectedCategory === category
-                            ? "bg-primary text-primary-foreground"
-                            : "bg-muted hover:bg-muted/80"
+                          "flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-all",
+                          selectedCategory === 'all'
+                            ? "bg-primary text-primary-foreground shadow-sm"
+                            : "bg-background border border-input hover:bg-accent hover:text-accent-foreground"
                         )}
                       >
-                        {category}
+                        <ShoppingBag size={18} />
+                        <span>All Templates</span>
                       </button>
-                    ))}
+                      
+                      {categories.map((category) => (
+                        <button
+                          key={category}
+                          type="button"
+                          onClick={() => setSelectedCategory(category)}
+                          className={cn(
+                            "flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-all",
+                            selectedCategory === category
+                              ? "bg-primary text-primary-foreground shadow-sm" 
+                              : "bg-background border border-input hover:bg-accent hover:text-accent-foreground"
+                          )}
+                        >
+                          {getCategoryIcon(category)}
+                          <span>{category}</span>
+                        </button>
+                      ))}
+                    </div>
+                    
+                    <div className="flex items-center justify-end gap-2">
+                      <Label htmlFor="content-type" className="text-xs">Content Type:</Label>
+                      <div className="flex items-center border rounded-md overflow-hidden">
+                        <button
+                          type="button"
+                          onClick={() => setContentType('short')}
+                          className={cn(
+                            "flex items-center gap-1 px-3 py-1.5 text-xs",
+                            contentType === 'short'
+                              ? "bg-primary text-primary-foreground"
+                              : "bg-background hover:bg-muted"
+                          )}
+                        >
+                          <Smartphone size={14} />
+                          <span>Short</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setContentType('long')}
+                          className={cn(
+                            "flex items-center gap-1 px-3 py-1.5 text-xs",
+                            contentType === 'long'
+                              ? "bg-primary text-primary-foreground"
+                              : "bg-background hover:bg-muted"
+                          )}
+                        >
+                          <Video size={14} />
+                          <span>Long</span>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                   
                   <div className="h-[450px] border rounded-md p-4 overflow-auto">
