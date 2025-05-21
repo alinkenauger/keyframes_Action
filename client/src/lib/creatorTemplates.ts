@@ -14,7 +14,8 @@ export type TemplateCategory =
   'Travel' | 
   'Fashion' | 
   'Fitness' | 
-  'Sports';
+  'Sports' |
+  'Beauty';
 
 // Extended template interface with category
 export interface CategoryCreatorTemplate extends CreatorTemplate {
@@ -23,70 +24,99 @@ export interface CategoryCreatorTemplate extends CreatorTemplate {
 }
 
 // Creator templates organized by niche/category
-export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
+export const creatorTemplates: CategoryCreatorTemplate[] = [
+  // LIFESTYLE CATEGORY
+  {
+    id: 'emma-chamberlain',
+    name: 'Emma Chamberlain Style',
+    creator: 'Emma Chamberlain', 
+    category: 'Lifestyle',
+    contentTypes: ['long'],
+    description: 'Relatable lifestyle content with humor and authenticity',
+    units: ['Hook', 'Intro', 'Content Journey', 'Rehook', 'Anecdote', 'Reflection', 'Outro'],
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['relatable-problem', 'bold-statement'],
+        frameIds: ['intriguing-question', 'bold-statement'],
         examples: [
           {
-            frameId: 'relatable-problem',
-            content: "So I decided that today I was going to be, like, the most productive human on the planet. I made a list. I set alarms. I even bought a planner. Spoiler alert: It's 2 PM and I'm still in bed. Welcome to my life."
+            frameId: 'intriguing-question',
+            content: "Have you ever thought about what our obsession with iced coffee says about us as a generation?"
           }
         ]
       },
       {
         unitType: 'Intro',
-        frameIds: ['lighthearted-humor', 'goal-statement'],
+        frameIds: ['topic-introduction', 'quick-introduction'],
         examples: [
           {
-            frameId: 'lighthearted-humor',
-            content: "I swear I've been drinking coffee for like five years now and I still manage to spill it every single morning. Like, how? Is this a skill issue? Am I just permanently clumsy? Don't answer that."
+            frameId: 'topic-introduction',
+            content: "Today I'm taking you with me to try the worst-rated coffee shops in LA, which, honestly, is probably a terrible idea."
           }
         ]
       },
       {
         unitType: 'Content Journey',
-        frameIds: ['relatable-moment', 'unfiltered-confession'],
+        frameIds: ['day-in-life', 'casual-conversation'],
         examples: [
           {
-            frameId: 'relatable-moment',
-            content: "Does anyone else just stare at their inbox sometimes and feel their soul leaving their body? No? Just me? Cool."
+            frameId: 'day-in-life',
+            content: "So, first I woke up at literally 6am which was painful, and then I realized I had no clean clothes because I've been putting off laundry for two weeks..."
           }
         ]
       },
       {
         unitType: 'Rehook',
-        frameIds: ['humor-rehook', 'unexpected-obstacle'],
+        frameIds: ['unexpected-twist', 'personal-confession'],
         examples: [
           {
-            frameId: 'humor-rehook',
-            content: "Plot twist! I made it to the at-home workout portion of my day. Second plot twist! I've been lying here scrolling through TikTok for 15 minutes instead of actually working out. This is what we call ✨multitasking✨."
+            frameId: 'unexpected-twist',
+            content: "But wait - it actually gets worse. The barista recognized me and then proceeded to tell me how much she hated making their specialty drink that I just ordered."
+          }
+        ]
+      },
+      {
+        unitType: 'Anecdote',
+        frameIds: ['funny-story', 'embarrassing-moment'],
+        examples: [
+          {
+            frameId: 'funny-story',
+            content: "This reminds me of the time I accidentally wore my shirt inside out to a meeting and literally no one told me until I got home and saw myself in the mirror."
+          }
+        ]
+      },
+      {
+        unitType: 'Reflection',
+        frameIds: ['genuine-thoughts', 'lesson-learned'],
+        examples: [
+          {
+            frameId: 'genuine-thoughts',
+            content: "I think what I'm really learning here is that sometimes the experiences that seem the worst in the moment make for the best stories later, you know?"
           }
         ]
       },
       {
         unitType: 'Outro',
-        frameIds: ['reflection-with-humor', 'casual-call-to-action'],
+        frameIds: ['casual-goodbye', 'next-time'],
         examples: [
           {
-            frameId: 'reflection-with-humor',
-            content: "So today I learned that I'm still terrible at being productive, but I'm really good at convincing myself that scrolling through social media counts as 'research' and that organizing my Spotify playlists is 'essential life admin'."
+            frameId: 'casual-goodbye',
+            content: "Anyway, that's all for today. I'm going to go take a nap because this whole adventure has exhausted me. Talk to you guys later!"
           }
         ]
       }
     ]
   },
-
-  // ENTERTAINMENT CATEGORY
+  
+  // LIFESTYLE/VLOG CATEGORY
   {
     id: 'casey-neistat',
     name: 'Casey Neistat Style',
     creator: 'Casey Neistat',
-    category: 'Entertainment',
+    category: 'Lifestyle',
     contentTypes: ['long'],
-    description: 'High-energy vlog/documentary hybrid with cinematic visuals',
-    units: ['Hook', 'Story Setup', 'Content Journey', 'Rehook', 'Escalation', 'Climax', 'Reflection', 'Outro'],
+    description: 'High-energy, story-driven lifestyle vlogs',
+    units: ['Hook', 'Intro', 'Story Setup', 'Adventure', 'Challenge', 'Reflection', 'Outro'],
     frames: [
       {
         unitType: 'Hook',
@@ -94,491 +124,482 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
         examples: [
           {
             frameId: 'visual-hook',
-            content: "New York City. 8 million stories. Today, I'm looking for just one."
+            content: "I rode my boosted board through Times Square at 3AM during a snowstorm, and something unexpected happened."
+          }
+        ]
+      },
+      {
+        unitType: 'Intro',
+        frameIds: ['quick-introduction', 'daily-begin'],
+        examples: [
+          {
+            frameId: 'quick-introduction',
+            content: "So the idea was simple: see if I could cross Manhattan faster on my electric skateboard than my buddy could in a taxi during rush hour."
           }
         ]
       },
       {
         unitType: 'Story Setup',
-        frameIds: ['personal-connection', 'goal-statement'],
+        frameIds: ['set-the-scene', 'establish-problem'],
         examples: [
           {
-            frameId: 'personal-connection',
-            content: "I've been feeling creatively stuck lately. It happens to everyone, but as a creator, it's terrifying. So today, I'm doing what I always do when I need inspiration - I'm hitting the streets."
+            frameId: 'set-the-scene',
+            content: "It's 8:30 AM in New York City. The streets are packed, taxis everywhere, and we need to get from downtown to midtown for a meeting in 30 minutes."
           }
         ]
       },
       {
-        unitType: 'Content Journey',
-        frameIds: ['conflict-setup', 'relatable-moment', 'behind-the-scenes'],
+        unitType: 'Adventure',
+        frameIds: ['action-sequence', 'overcoming-obstacle'],
         examples: [
           {
-            frameId: 'conflict-setup',
-            content: "Of course, nothing in New York is ever simple. Subway's delayed, it's starting to rain, and I'm already behind schedule."
+            frameId: 'action-sequence',
+            content: "I'm weaving through traffic, dodging pedestrians, nearly getting doored by a parked car, while my GoPro captures everything from this crazy angle."
           }
         ]
       },
       {
-        unitType: 'Rehook',
-        frameIds: ['question-rehook', 'teaser-rehook'],
+        unitType: 'Challenge',
+        frameIds: ['unexpected-obstacle', 'moment-of-truth'],
         examples: [
           {
-            frameId: 'question-rehook',
-            content: "What if inspiration isn't something you find? What if it's something that finds you when you're busy looking elsewhere?"
-          }
-        ]
-      },
-      {
-        unitType: 'Escalation',
-        frameIds: ['stakes-amplifier', 'unexpected-discovery'],
-        examples: [
-          {
-            frameId: 'stakes-amplifier',
-            content: "With only four hours of daylight left, I'm determined to visit every neighborhood on my list. The clock is ticking."
-          }
-        ]
-      },
-      {
-        unitType: 'Climax',
-        frameIds: ['triumph-over-adversity', 'big-reveal'],
-        examples: [
-          {
-            frameId: 'triumph-over-adversity',
-            content: "Five neighborhoods. Seven artists. Countless moments of inspiration. Despite the rain, the delays, and the chaos - or maybe because of them - today was exactly what I needed."
+            frameId: 'unexpected-obstacle',
+            content: "Then it started raining. The streets got slick, the board started slipping, and I had to make a split-second decision."
           }
         ]
       },
       {
         unitType: 'Reflection',
-        frameIds: ['one-liner-wisdom', 'key-takeaway'],
+        frameIds: ['lesson-learned', 'life-philosophy'],
         examples: [
           {
-            frameId: 'one-liner-wisdom',
-            content: "Creativity isn't found in perfect conditions. It's found in the messy, unpredictable moments when you're open to seeing the world differently."
+            frameId: 'lesson-learned',
+            content: "Sometimes the biggest risk is not taking one. Life isn't about waiting for perfect conditions - it's about making the most of the conditions you're given."
           }
         ]
       },
       {
         unitType: 'Outro',
-        frameIds: ['call-to-action', 'subscribe-reminder'],
+        frameIds: ['visual-closure', 'next-steps'],
         examples: [
           {
-            frameId: 'call-to-action',
-            content: "Where do you find inspiration when you're stuck? Let me know in the comments. See you tomorrow."
+            frameId: 'visual-closure',
+            content: "So, did I beat the taxi? Well... [reveals result with dramatic time comparison] ... and that's why I'll never take a cab during rush hour again."
           }
         ]
       }
     ]
   },
   
+  // SPORTS/ENTERTAINMENT CATEGORY
   {
-    id: 'dude-perfect',
+    id: 'dude_perfect',
     name: 'Dude Perfect Style',
     creator: 'Dude Perfect',
-    category: 'Entertainment',
+    category: 'Sports',
     contentTypes: ['long'],
-    description: 'High-energy challenge & trick shot videos with team camaraderie',
-    units: ['Hook', 'Intro', 'Content Segment', 'Rehook', 'Challenge Progression', 'Climax', 'Outro'],
+    description: 'High-energy sports challenges and trick shots',
+    units: ['Hook', 'Intro', 'Challenge Setup', 'Attempts', 'Victory Moment', 'Celebration', 'Outro'],
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['visual-hook', 'shocking-statement'],
+        frameIds: ['visual-hook', 'challenge-preview'],
         examples: [
           {
             frameId: 'visual-hook',
-            content: "[Slow-motion shot of paper airplane flying across office, through small opening in doorway, landing perfectly in trash can] Group cheer: 'OHHHHHHHH!'"
+            content: "We're attempting the world's longest basketball shot from the top of a 500-foot dam into a hoop floating on the water below!"
           }
         ]
       },
       {
         unitType: 'Intro',
-        frameIds: ['team-introduction', 'challenge-setup'],
+        frameIds: ['welcome-intro', 'energy-build'],
         examples: [
           {
-            frameId: 'team-introduction',
-            content: "What's up guys! Welcome to Dude Perfect! Today we're turning an ordinary office into the ultimate trick shot playground!"
+            frameId: 'welcome-intro',
+            content: "What's up guys! Welcome to Dam Shot Battle, where we're taking basketball shots to a whole new LEVEL - literally!"
           }
         ]
       },
       {
-        unitType: 'Content Segment',
-        frameIds: ['step-by-step-demo', 'escalation'],
+        unitType: 'Challenge Setup',
+        frameIds: ['rules-explanation', 'stakes-reveal'],
         examples: [
           {
-            frameId: 'step-by-step-demo',
-            content: "Alright, for this first one, we're calling it 'The Copier.' I've got to bounce this stress ball off three walls, onto the copier lid, and have it land in this coffee mug."
+            frameId: 'rules-explanation',
+            content: "Each of us gets 10 attempts. Closest to the hoop gets 1 point, making it on the rim is 5 points, and sinking it is a massive 20 points. Loser has to jump in the freezing water while wearing a chicken suit!"
           }
         ]
       },
       {
-        unitType: 'Rehook',
-        frameIds: ['stakes-amplifier', 'teaser-rehook'],
+        unitType: 'Attempts',
+        frameIds: ['attempt-sequence', 'close-call'],
         examples: [
           {
-            frameId: 'stakes-amplifier',
-            content: "Alright, we're halfway through the challenges, and Garrett is falling behind. If he doesn't make this next shot in under 10 attempts, he's definitely going to be our new intern!"
+            frameId: 'attempt-sequence',
+            content: "Cory with the first attempt... not even close! Tyler stepping up, looking confident. That one had good direction but short. Garrett with a massive heave... OH! That hit the backboard!"
           }
         ]
       },
       {
-        unitType: 'Challenge Progression',
-        frameIds: ['competition', 'triumph-over-adversity'],
+        unitType: 'Victory Moment',
+        frameIds: ['winning-shot', 'dramatic-reveal'],
         examples: [
           {
-            frameId: 'competition',
-            content: "The Swivel Chair Spinner! You've got to spin three times in the chair while bouncing the ping pong ball, then land it in the pencil holder."
+            frameId: 'winning-shot',
+            content: "Down to the final shot. Cody needs this to win. Deep breath, wind check, and... OHHHHHH! IT WENT IN! NO WAY! THAT'S ABSOLUTELY INSANE! [slow-motion replay from multiple angles]"
           }
         ]
       },
       {
-        unitType: 'Climax',
-        frameIds: ['final-challenge', 'big-reveal'],
+        unitType: 'Celebration',
+        frameIds: ['team-celebration', 'winner-reaction'],
         examples: [
           {
-            frameId: 'final-challenge',
-            content: "This is it. The Office Domino. One paper airplane that has to trigger a chain reaction across the entire office, ending with that stapler falling into the trash can."
+            frameId: 'team-celebration',
+            content: "[Entire team running around, chest bumps, falling on the ground in disbelief] I CAN'T BELIEVE THAT JUST HAPPENED! WE'VE BEEN TRYING TRICK SHOTS FOR 10 YEARS AND THAT MIGHT BE THE MOST INCREDIBLE ONE YET!"
           }
         ]
       },
       {
         unitType: 'Outro',
-        frameIds: ['result-announcement', 'call-to-action'],
+        frameIds: ['challenge-result', 'whats-next'],
         examples: [
           {
-            frameId: 'result-announcement',
-            content: "Well, after ten impossible office trick shots... Looks like we've got our new intern!"
+            frameId: 'challenge-result',
+            content: "So Cody takes the win, and... [shows Ty in chicken suit jumping into the water with dramatic scream]. Thanks for watching Dam Shot Battle! What impossible shot should we try next? Let us know in the comments!"
           }
         ]
       }
     ]
   },
-
-  // BUSINESS CATEGORY
+  
+  // BUSINESS/MOTIVATION CATEGORY
   {
-    id: 'garyv',
-    name: 'GaryV Style',
+    id: 'gary_v',
+    name: 'Gary Vaynerchuk Style',
     creator: 'Gary Vaynerchuk',
     category: 'Business',
-    contentTypes: ['long', 'short'],
-    description: 'High-energy, direct motivational business advice with actionable insights',
-    units: ['Hook', 'Intro', 'Content Delivery', 'Rehook', 'Practical Application', 'Reflection', 'Outro'],
+    contentTypes: ['short', 'long'],
+    description: 'High-energy, direct business and motivational advice',
+    units: ['Hook', 'Real Talk', 'Core Message', 'Practical Advice', 'Motivation', 'Call To Action', 'Outro'],
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['call-out-audience', 'bold-statement'],
-        examples: [
-          {
-            frameId: 'call-out-audience',
-            content: "You keep asking why you're not seeing results with your business? I'll tell you exactly why. You're addicted to strategies but allergic to execution. Let's talk about it."
-          }
-        ]
-      },
-      {
-        unitType: 'Intro',
-        frameIds: ['establish-credibility', 'contrarian-perspective'],
-        examples: [
-          {
-            frameId: 'establish-credibility',
-            content: "I've built multiple 8-figure businesses, and I've consulted for Fortune 500 companies. But I've also talked to thousands of entrepreneurs who are struggling. And I keep seeing the same pattern."
-          }
-        ]
-      },
-      {
-        unitType: 'Content Delivery',
-        frameIds: ['key-insight', 'myth-buster'],
-        examples: [
-          {
-            frameId: 'key-insight',
-            content: "Here's the truth: 99% of you are overthinking it. You're consuming content like this instead of DOING THE WORK. It's not about finding the perfect strategy. It's about putting in the reps on the fundamentals."
-          }
-        ]
-      },
-      {
-        unitType: 'Rehook',
-        frameIds: ['attention-grabber', 'personal-challenge'],
+        frameIds: ['attention-grabber', 'provocative-question'],
         examples: [
           {
             frameId: 'attention-grabber',
-            content: "You think Zuckerberg was waiting for the perfect time to launch Facebook? You think I waited until I had the perfect camera setup before starting my content? NO! We just started. That's the difference."
+            content: "The reason you're not successful yet is because you're more worried about looking like you're winning than actually putting in the work to win!"
           }
         ]
       },
       {
-        unitType: 'Practical Application',
-        frameIds: ['step-by-step', 'common-pitfalls'],
+        unitType: 'Real Talk',
+        frameIds: ['truth-bomb', 'market-reality'],
         examples: [
           {
-            frameId: 'step-by-step',
-            content: "Here's what you're going to do: 1) Pick ONE platform. 2) Create content EVERY DAY for 90 days. 3) Engage with your community for at least 30 minutes daily. 4) Review what's working weekly. That's it."
+            frameId: 'truth-bomb',
+            content: "Listen, I get so many DMs from 22-year-olds upset they're not millionaires yet. But you know what? You haven't done sh*t! You've been an adult for like 15 minutes!"
           }
         ]
       },
       {
-        unitType: 'Reflection',
-        frameIds: ['key-takeaway', 'motivation-booster'],
+        unitType: 'Core Message',
+        frameIds: ['central-idea', 'contrarian-view'],
         examples: [
           {
-            frameId: 'key-takeaway',
-            content: "The market doesn't reward people who know things. It rewards people who DO things. Your execution > your knowledge. Your consistency > your perfection."
+            frameId: 'central-idea',
+            content: "Patience and hustle - that's the formula. You need to work your face off for the next decade while everyone else is complaining. That's how you win in the long game."
           }
         ]
       },
       {
-        unitType: 'Outro',
-        frameIds: ['call-to-action', 'gratitude-expression'],
+        unitType: 'Practical Advice',
+        frameIds: ['actionable-tactic', 'step-by-step'],
         examples: [
           {
-            frameId: 'call-to-action',
-            content: "Stop watching videos after this. Go execute. I mean it. But if you found this valuable, maybe subscribe before you go. And if you have a specific challenge you're facing, drop it in the comments - maybe I'll make my next video about it."
-          }
-        ]
-      }
-    ]
-  },
-
-  // TECHNOLOGY CATEGORY
-  {
-    id: 'mkbhd',
-    name: 'Marques Brownlee (MKBHD) Style',
-    creator: 'Marques Brownlee',
-    category: 'Technology',
-    contentTypes: ['long'],
-    description: 'Sleek, precise tech reviews with cinematic visuals and clear explanations',
-    units: ['Hook', 'Intro', 'Content Segment', 'Rehook', 'Content Segment 2', 'Reflection', 'Outro'],
-    frames: [
-      {
-        unitType: 'Hook',
-        frameIds: ['visual-hook', 'intriguing-question'],
-        examples: [
-          {
-            frameId: 'visual-hook',
-            content: "What if I told you the most exciting smartphone of the year isn't from Apple or Samsung? [Camera pans over sleek new phone] This is the [Product X], and after two weeks of testing, I've got some thoughts."
+            frameId: 'actionable-tactic',
+            content: "Here's what you do: Start documenting your journey on social, build an email list from day one, provide so much value people feel guilty not buying from you, then convert that attention into business."
           }
         ]
       },
       {
-        unitType: 'Intro',
-        frameIds: ['quick-introduction', 'topic-overview'],
+        unitType: 'Motivation',
+        frameIds: ['inspirational-push', 'personal-story'],
         examples: [
           {
-            frameId: 'quick-introduction',
-            content: "So when [Company] announced this phone last month, they made some big claims about the camera, battery life, and performance. Today we're putting those claims to the test."
+            frameId: 'inspirational-push',
+            content: "Listen, I was a D and F student who built a $60 million wine business because I outworked everyone. You think you can't do it? That's BS! Your past doesn't dictate your future!"
           }
         ]
       },
       {
-        unitType: 'Content Segment',
-        frameIds: ['detailed-breakdown', 'common-questions'],
+        unitType: 'Call To Action',
+        frameIds: ['direct-command', 'challenge'],
         examples: [
           {
-            frameId: 'detailed-breakdown',
-            content: "Let's start with build quality. The phone has an aluminum frame with Gorilla Glass on front and back. The buttons are clicky and responsive, and that matte finish on the back does a great job hiding fingerprints."
-          }
-        ]
-      },
-      {
-        unitType: 'Rehook',
-        frameIds: ['unexpected-discovery', 'teaser-rehook'],
-        examples: [
-          {
-            frameId: 'unexpected-discovery',
-            content: "But here's where things get interesting. The camera system might look similar to last year's model, but there's something completely different happening inside."
-          }
-        ]
-      },
-      {
-        unitType: 'Content Segment 2',
-        frameIds: ['comparison-contrast', 'data-story'],
-        examples: [
-          {
-            frameId: 'comparison-contrast',
-            content: "I've been comparing these photos side-by-side with the iPhone and Pixel, and in good lighting, they're neck-and-neck. But once the sun goes down, you can see how the larger sensor really makes a difference."
-          }
-        ]
-      },
-      {
-        unitType: 'Reflection',
-        frameIds: ['key-takeaway', 'future-implications'],
-        examples: [
-          {
-            frameId: 'key-takeaway',
-            content: "So is this the perfect phone? No. The software still has some quirks, and that $999 price tag is definitely premium. But what [Company] has done with the camera and battery life is genuinely impressive."
+            frameId: 'direct-command',
+            content: "Stop watching motivational videos all day and go DO SOMETHING! One outreach email, one cold call, one piece of content. Right now, today. No more excuses!"
           }
         ]
       },
       {
         unitType: 'Outro',
-        frameIds: ['audience-question', 'subscribe-reminder'],
+        frameIds: ['signature-close', 'gratitude'],
         examples: [
           {
-            frameId: 'audience-question',
-            content: "What do you think about the [Product X]? Would you consider switching from your current phone? Let me know in the comments. And if you want to see more reviews like this, don't forget to subscribe. This is MKBHD, and I'll catch you in the next one."
+            frameId: 'signature-close',
+            content: "And hey, if this helped you, smash that like button, share it with somebody who needs to hear this, and remember - I genuinely appreciate your attention. Don't take it for granted."
           }
         ]
       }
     ]
   },
   
-  // LIFESTYLE/BEAUTY CATEGORY
+  // TECH REVIEW CATEGORY
+  {
+    id: 'marques_brownlee',
+    name: 'MKBHD Style',
+    creator: 'Marques Brownlee',
+    category: 'Technology',
+    contentTypes: ['long'],
+    description: 'In-depth, cinematic tech product reviews',
+    units: ['Hook', 'Intro', 'Product Overview', 'Deep Dive', 'Comparison', 'Final Thoughts', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['visual-hook', 'key-question'],
+        examples: [
+          {
+            frameId: 'visual-hook',
+            content: "This is the new iPhone 15 Pro Max, and after using it for two weeks, I've discovered some things Apple didn't tell you about."
+          }
+        ]
+      },
+      {
+        unitType: 'Intro',
+        frameIds: ['greeting-intro', 'topic-introduction'],
+        examples: [
+          {
+            frameId: 'greeting-intro',
+            content: "What's up guys, MKBHD here. This year's iPhone is all about that new titanium design and the A17 Pro chip, but the real question is - how does it actually perform in day-to-day use?"
+          }
+        ]
+      },
+      {
+        unitType: 'Product Overview',
+        frameIds: ['specs-breakdown', 'design-analysis'],
+        examples: [
+          {
+            frameId: 'design-analysis',
+            content: "The new titanium frame is noticeably lighter than last year's stainless steel, but it also picks up fingerprints in a different way. The matte back glass feels familiar, and the new action button replaces the classic mute switch with customizable functions."
+          }
+        ]
+      },
+      {
+        unitType: 'Deep Dive',
+        frameIds: ['feature-highlight', 'hands-on-experience'],
+        examples: [
+          {
+            frameId: 'feature-highlight',
+            content: "Let's talk about this new camera system. The 48MP main sensor now captures more detail in optimized lighting, and I've noticed significantly better dynamic range. Here are some side-by-side comparisons so you can see the difference yourself."
+          }
+        ]
+      },
+      {
+        unitType: 'Comparison',
+        frameIds: ['versus-competitors', 'versus-predecessor'],
+        examples: [
+          {
+            frameId: 'versus-competitors',
+            content: "Compared to the Pixel 8 Pro, the iPhone's photos have that signature Apple look - slightly warmer tones and more contrast. The Pixel still edges it out in extreme low light, but for most situations, it's really about your personal preference."
+          }
+        ]
+      },
+      {
+        unitType: 'Final Thoughts',
+        frameIds: ['overall-assessment', 'value-analysis'],
+        examples: [
+          {
+            frameId: 'overall-assessment',
+            content: "So, is the iPhone 15 Pro Max worth the upgrade? If you're coming from an iPhone 12 or older, absolutely. The camera improvements, better battery life, and overall performance boost are significant. From a 13 or 14? It's a tougher call that depends on how much you value the titanium design and that customizable action button."
+          }
+        ]
+      },
+      {
+        unitType: 'Outro',
+        frameIds: ['signature-close', 'viewer-question'],
+        examples: [
+          {
+            frameId: 'signature-close',
+            content: "So that's been my experience with the iPhone 15 Pro Max. I'm curious - what feature are you most excited about? Let me know in the comments below. This has been MKBHD, and I'll catch you in the next one!"
+          }
+        ]
+      }
+    ]
+  },
+  
+  // EDUCATIONAL/DOCUMENTARY CATEGORY
+  {
+    id: 'nas_daily',
+    name: 'Nas Daily Style',
+    creator: 'Nas Daily',
+    category: 'Education',
+    contentTypes: ['short'],
+    description: 'Concise, high-energy educational mini-documentaries',
+    units: ['Hook', 'Problem', 'Investigation', 'Discovery', 'Learning', 'Impact', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['attention-grabber', 'unusual-fact'],
+        examples: [
+          {
+            frameId: 'attention-grabber',
+            content: "This man lives in a Boeing 727 airplane in the middle of the forest. And his story will change how you think about housing forever!"
+          }
+        ]
+      },
+      {
+        unitType: 'Problem',
+        frameIds: ['societal-issue', 'unexpected-challenge'],
+        examples: [
+          {
+            frameId: 'societal-issue',
+            content: "In the United States, housing prices have increased 70% in just ten years, making traditional homes unaffordable for millions. But some people are finding INCREDIBLE alternatives!"
+          }
+        ]
+      },
+      {
+        unitType: 'Investigation',
+        frameIds: ['meet-the-subject', 'behind-the-scenes'],
+        examples: [
+          {
+            frameId: 'meet-the-subject',
+            content: "Meet Bruce. 15 years ago, he bought a retired commercial airplane for $220,000 - less than the price of a small apartment. Then he spent 6 months and $40,000 transforming it into a home with running water, electricity, and even internet!"
+          }
+        ]
+      },
+      {
+        unitType: 'Discovery',
+        frameIds: ['surprising-insight', 'insider-perspective'],
+        examples: [
+          {
+            frameId: 'surprising-insight',
+            content: "His airplane home isn't just cheaper - it's actually MORE sustainable! The aluminum body will last for centuries without rotting, it's earthquake-proof, and the entire structure was saved from being scrapped and wasted!"
+          }
+        ]
+      },
+      {
+        unitType: 'Learning',
+        frameIds: ['data-reveal', 'unexpected-connection'],
+        examples: [
+          {
+            frameId: 'data-reveal',
+            content: "And Bruce isn't alone. Around the world, there are over 1,000 people living in converted vehicles - from airplanes to buses to shipping containers. What looks like desperation is actually INNOVATION!"
+          }
+        ]
+      },
+      {
+        unitType: 'Impact',
+        frameIds: ['societal-takeaway', 'call-to-action'],
+        examples: [
+          {
+            frameId: 'societal-takeaway',
+            content: "This story matters because it shows how thinking differently can solve seemingly impossible problems. Housing doesn't have to look like it has for the past 100 years. The future might be in repurposing what we already have!"
+          }
+        ]
+      },
+      {
+        unitType: 'Outro',
+        frameIds: ['signature-close', 'viewer-question'],
+        examples: [
+          {
+            frameId: 'signature-close',
+            content: "Would YOU live in an airplane? I think I would! That's one minute, see you tomorrow!"
+          }
+        ]
+      }
+    ]
+  },
+  
+  // BEAUTY/LIFESTYLE CATEGORY
   {
     id: 'nikkietutorials',
     name: 'NikkieTutorials Style',
     creator: 'Nikkie de Jager',
-    category: 'Lifestyle',
+    category: 'Beauty',
     contentTypes: ['long'],
-    description: 'Engaging, detailed makeup tutorials with personality and professional techniques',
-    units: ['Hook', 'Intro', 'Content Delivery', 'Demonstration', 'Transformation', 'Final Result', 'Outro'],
+    description: 'Transformative makeup tutorials with personality',
+    units: ['Hook', 'Intro', 'Tutorial Steps', 'Tips & Tricks', 'Transformation', 'Final Look', 'Outro'],
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['promise-of-value', 'visual-hook'],
+        frameIds: ['attention-grabber', 'before-after-preview'],
         examples: [
           {
-            frameId: 'promise-of-value',
-            content: "Hello everyone! My name is Nikkie, and welcome to my channel! Today we're testing viral makeup hacks that are all over social media. Some of these look absolutely insane, but do they actually work? Let's find out!"
+            frameId: 'attention-grabber',
+            content: "I challenged myself to create a full glam look using ONLY drugstore products under $10, and honey, the results shocked even ME!"
           }
         ]
       },
       {
         unitType: 'Intro',
-        frameIds: ['personal-connection', 'structure-preview'],
+        frameIds: ['greeting-intro', 'video-context'],
         examples: [
           {
-            frameId: 'personal-connection',
-            content: "So many of you have been tagging me in these crazy makeup hack videos, and I've been dying to try them! I've collected the five most viral ones that kept showing up on my feed. Some look genius, others look like disasters waiting to happen."
+            frameId: 'greeting-intro',
+            content: "Hey guys! It's me, Nikkie, and welcome back to my channel! Today we're doing something really exciting - we're testing the viral TikTok beauty hacks that supposedly give you airbrushed skin without filters. Let's see if they actually work!"
           }
         ]
       },
       {
-        unitType: 'Content Delivery',
-        frameIds: ['teach-concept', 'expert-insight'],
-        examples: [
-          {
-            frameId: 'teach-concept',
-            content: "Before we dive in, let's understand why this hack is supposed to work. It claims that using a damp beauty sponge will create a more seamless blend because the water creates a barrier between the product and the sponge, preventing absorption."
-          }
-        ]
-      },
-      {
-        unitType: 'Demonstration',
-        frameIds: ['step-by-step', 'close-up-detail'],
+        unitType: 'Tutorial Steps',
+        frameIds: ['step-by-step', 'product-introduction'],
         examples: [
           {
             frameId: 'step-by-step',
-            content: "For this hack, we're going to apply setting powder BEFORE foundation. I know, it sounds completely backwards! They claim it creates an ultra-matte, long-lasting base. Let me show you exactly how to do it..."
+            content: "First, we're going to prime with this hyped-up primer that everyone's been losing their minds over. Now watch closely - instead of rubbing it in, you need to press it into the skin like THIS. See how it creates this subtle tacky base? That's what we want!"
+          }
+        ]
+      },
+      {
+        unitType: 'Tips & Tricks',
+        frameIds: ['pro-secret', 'common-mistake'],
+        examples: [
+          {
+            frameId: 'pro-secret',
+            content: "Here's a little trick I've learned over 15 years of doing makeup: When you're blending eyeshadow in the crease, keep your eye OPEN to see exactly where the color will appear. Most people close their eye and then wonder why their blend disappeared!"
           }
         ]
       },
       {
         unitType: 'Transformation',
-        frameIds: ['before-after', 'common-pitfalls'],
+        frameIds: ['dramatic-change', 'reaction'],
         examples: [
           {
-            frameId: 'before-after',
-            content: "Let's look at the difference side by side. On this side with the hack, you can see the foundation has a different texture - it's definitely more matte, but is it better? Let's zoom in and look at how it's sitting on the skin."
+            frameId: 'dramatic-change',
+            content: "Alright, it's time for lashes, and BOOM! Do you see that difference? It's like we just added an instant face lift! This is why I always say lashes are worth the extra two minutes, they completely transform the look."
           }
         ]
       },
       {
-        unitType: 'Final Result',
-        frameIds: ['honest-review', 'personal-recommendation'],
+        unitType: 'Final Look',
+        frameIds: ['showcase', 'review'],
         examples: [
           {
-            frameId: 'honest-review',
-            content: "After wearing this for the past three hours under these hot studio lights, I have to say... this hack actually WORKS! But with a caveat - it works best for oily skin types and not so much for dry skin. My T-zone usually gets shiny quickly, but with this technique, it's still perfectly matte!"
-          }
-        ]
-      },
-      {
-        unitType: 'Outro',
-        frameIds: ['audience-question', 'subscribe-reminder'],
-        examples: [
-          {
-            frameId: 'audience-question',
-            content: "Have you tried any of these hacks before? Let me know your experiences in the comments! If you enjoyed this video, don't forget to give it a thumbs up and subscribe for new videos every week. Thank you so much for watching, and I'll see you in the next one!"
-          }
-        ]
-      }
-    ]
-  },
-
-  // EDUCATION CATEGORY
-  {
-    id: 'nas-daily',
-    name: 'Nas Daily Style',
-    creator: 'Nuseir Yassin',
-    category: 'Education',
-    contentTypes: ['short'],
-    description: 'Fast-paced, high-energy educational content with global perspective',
-    units: ['Hook', 'Problem Setup', 'Solution', 'Implementation', 'Results', 'Reflection', 'Outro'],
-    frames: [
-      {
-        unitType: 'Hook',
-        frameIds: ['shocking-statement', 'visual-hook'],
-        examples: [
-          {
-            frameId: 'shocking-statement',
-            content: "This tiny island with NO natural resources now produces 70% of its own water! Singapore's water story is mind-blowing, and today, I'm going to show you exactly how they did it in just ONE MINUTE!"
-          }
-        ]
-      },
-      {
-        unitType: 'Problem Setup',
-        frameIds: ['historical-context', 'data-story'],
-        examples: [
-          {
-            frameId: 'historical-context',
-            content: "Fifty years ago, Singapore had NO reliable water sources. They imported almost all their water from Malaysia, creating a dangerous dependence on another country. The situation was IMPOSSIBLE!"
-          }
-        ]
-      },
-      {
-        unitType: 'Solution',
-        frameIds: ['teach-concept', 'expert-insight'],
-        examples: [
-          {
-            frameId: 'teach-concept',
-            content: "So Singapore created a masterplan with FOUR national taps: 1) Imported water, 2) Rainwater collection, 3) Recycled water, and 4) Desalination. But the most INCREDIBLE part is the recycled water system!"
-          }
-        ]
-      },
-      {
-        unitType: 'Implementation',
-        frameIds: ['behind-the-scenes', 'visual-demo'],
-        examples: [
-          {
-            frameId: 'behind-the-scenes',
-            content: "I visited Singapore's NEWater plant, where they take sewage water and transform it into ultra-clean drinking water through a three-step process. The result? Water that's CLEANER than regular tap water!"
-          }
-        ]
-      },
-      {
-        unitType: 'Results',
-        frameIds: ['data-story', 'personal-story'],
-        examples: [
-          {
-            frameId: 'data-story',
-            content: "Today, NEWater meets 40% of Singapore's water needs! By 2060, they plan to triple its capacity to meet 55% of future demand. And the technology is so good that most of it is used for industrial purposes because it's PURER than what humans actually need!"
-          }
-        ]
-      },
-      {
-        unitType: 'Reflection',
-        frameIds: ['global-application', 'one-liner-wisdom'],
-        examples: [
-          {
-            frameId: 'global-application',
-            content: "With climate change making water scarcity a global issue, Singapore's solutions aren't just impressive—they're essential. Countries from Israel to Australia are now implementing similar strategies."
+            frameId: 'showcase',
+            content: "And here is the finished look! Let me zoom you in so you can see all the details. That highlight is poppin', the blend is seamless, and remember - all of this with products that cost less than a lunch. I am genuinely GAGGED at how gorgeous this turned out!"
           }
         ]
       },
       {
         unitType: 'Outro',
-        frameIds: ['call-to-action', 'motivation-booster'],
+        frameIds: ['signature-close', 'next-video'],
         examples: [
           {
-            frameId: 'call-to-action',
-            content: "That's one minute! If you want more stories like this, follow me on social media. And remember: we're just one minute away from understanding each other better!"
+            frameId: 'signature-close',
+            content: "If you enjoyed this video, don't forget to subscribe to my channel and turn on notifications so you never miss an upload! Let me know in the comments what other challenges or tutorials you'd like to see next. Thank you so much for watching, and I'll see you in the next one!"
           }
         ]
       }
@@ -592,15 +613,15 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
     creator: 'Joshua Weissman',
     category: 'Cooking',
     contentTypes: ['long'],
-    description: 'Food content with visual appeal and technical instruction',
+    description: 'High-energy cooking with humor and detailed technique',
     units: ['Hook', 'Intro', 'Content Delivery', 'Escalation', 'Reveal', 'Reflection', 'Outro'],
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['visual-demo', 'challenge-setup'],
+        frameIds: ['visual-hook', 'challenge-setup'],
         examples: [
           {
-            frameId: 'visual-demo',
+            frameId: 'visual-hook',
             content: "That right there is what a real burger should look like. Not that sad, flat thing they serve you at [Fast Food Chain]."
           },
           {
@@ -625,10 +646,10 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
       },
       {
         unitType: 'Content Delivery',
-        frameIds: ['step-by-step', 'educational', 'behind-the-scenes'],
+        frameIds: ['step-by-step-demo', 'educational', 'behind-the-scenes'],
         examples: [
           {
-            frameId: 'step-by-step',
+            frameId: 'step-by-step-demo',
             content: "First, we're making our brioche buns. In a stand mixer, we're combining 500 grams of bread flour, 10 grams of salt, 80 grams of sugar, and 7 grams of instant yeast. Now we're adding 200 milliliters of whole milk that I've warmed to exactly 95 degrees Fahrenheit, 2 eggs, and 80 grams of softened butter. We're going to mix this until it's smooth and elastic."
           },
           {
@@ -675,7 +696,7 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
         examples: [
           {
             frameId: 'success-formula',
-            content: "What makes this burger superior comes down to three things: quality ingredients, proper technique, and attention to detail. We didn't take shortcuts. We respected each component. And the result speaks for itself. This costs about $3.50 per burger to make and will change your life."
+            content: "What makes this burger superior comes down to three things: quality ingredients, proper technique, and attention to detail. We didn't take shortcuts. We respected each component. And the result speaks for itself. This costs $4.99 and leaves you feeling empty inside. This costs about $3.50 per burger to make and will change your life."
           },
           {
             frameId: 'one-liner-wisdom',
@@ -685,21 +706,21 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
       },
       {
         unitType: 'Outro',
-        frameIds: ['call-to-action', 'subscribe-reminder'],
+        frameIds: ['call-to-action', 'whats-next'],
         examples: [
           {
             frameId: 'call-to-action',
             content: "If you enjoyed this culinary glow-up, smash that subscribe button like I smashed that burger patty. Hit the notification bell so you never miss a video. And let me know in the comments what fast food item you want me to make 'But Better' next."
           },
           {
-            frameId: 'subscribe-reminder',
+            frameId: 'whats-next',
             content: "Now go cook something delicious. I believe in you."
           }
         ]
       }
     ]
   },
-  
+
   // GAMING CATEGORY
   {
     id: 'lilsimsie',
@@ -814,48 +835,50 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
       }
     ]
   },
+
+  // GAMING CATEGORY
   {
     id: 'iam-ilb',
-    name: 'IaM ILb Style',
-    creator: 'iaM ILb',
+    name: 'IamILB Style',
+    creator: 'IamILB',
     category: 'Gaming',
-    contentTypes: ['long'],
-    description: 'Roblox game tutorials and strategy guides',
-    units: ['Hook', 'Intro', 'Content Delivery', 'Rehook', 'Reflection', 'Outro'],
+    contentTypes: ['short'],
+    description: 'Roblox tips and strategies with high energy',
+    units: ['Hook', 'Intro', 'Tutorial', 'Rehook', 'Reflection', 'Outro'],
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['visual-demo', 'bold-statement'],
+        frameIds: ['attention-grabber', 'secret-reveal'],
         examples: [
           {
-            frameId: 'visual-demo',
-            content: "This Roblox secret gives you unlimited resources in just 5 minutes - and almost no one knows about it."
+            frameId: 'attention-grabber',
+            content: "I found a BROKEN XP glitch in Blade Ball that will make you level up 50 times faster than normal!"
           }
         ]
       },
       {
         unitType: 'Intro',
-        frameIds: ['quick-introduction', 'topic-overview'],
+        frameIds: ['quick-introduction', 'credibility-builder'],
         examples: [
           {
             frameId: 'quick-introduction',
-            content: "Today I'm showing you the fastest way to level up in Demon Fall without spending any Robux."
+            content: "What's up guys, it's ILB and today I'm showing you the most OP leveling method that the pros don't want you to know about!"
           }
         ]
       },
       {
-        unitType: 'Content Delivery',
-        frameIds: ['step-by-step', 'expert-insight'],
+        unitType: 'Tutorial',
+        frameIds: ['step-by-step', 'strategy-overview'],
         examples: [
           {
             frameId: 'step-by-step',
-            content: "First, you need to go to this exact location on the map. Let me show you the quickest route to get there."
+            content: "First, you need to join a private server with at least one friend. Then both of you need to equip the Dark Matter ability - trust me, this is key!"
           }
         ]
       },
       {
         unitType: 'Rehook',
-        frameIds: ['midway-shock', 'teaser-rehook'],
+        frameIds: ['hidden-tip', 'midway-shock'],
         examples: [
           {
             frameId: 'midway-shock',
@@ -1004,739 +1027,57 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
       }
     ]
   },
-
-  // FINANCE CATEGORY
-  {
-    id: 'humphrey-yang',
-    name: 'Humphrey Yang Style',
-    creator: 'Humphrey Yang',
-    category: 'Finance',
-    contentTypes: ['long', 'short'],
-    description: 'Clear, accessible financial education with visual aids',
-    units: ['Hook', 'Intro', 'Content Delivery', 'Practical Application', 'Proof', 'Reflection', 'Outro'],
-    frames: [
-      {
-        unitType: 'Hook',
-        frameIds: ['shocking-statement', 'intriguing-question'],
-        examples: [
-          {
-            frameId: 'shocking-statement',
-            content: "If you invested $100 a week starting at age 18, you'd have over $1.5 million by retirement - let me show you exactly how."
-          }
-        ]
-      },
-      {
-        unitType: 'Intro',
-        frameIds: ['quick-introduction', 'problem-solution'],
-        examples: [
-          {
-            frameId: 'quick-introduction',
-            content: "Today I'm breaking down compound interest using real numbers that will change how you think about saving."
-          }
-        ]
-      },
-      {
-        unitType: 'Content Delivery',
-        frameIds: ['teach-concept', 'data-story'],
-        examples: [
-          {
-            frameId: 'teach-concept',
-            content: "Compound interest is essentially interest on your interest - here's a simple visual representation of how it works."
-          }
-        ]
-      },
-      {
-        unitType: 'Practical Application',
-        frameIds: ['step-by-step', 'quick-win'],
-        examples: [
-          {
-            frameId: 'step-by-step',
-            content: "Here are three simple steps to set up automatic investing with just $20 a week to start building your wealth."
-          }
-        ]
-      },
-      {
-        unitType: 'Proof',
-        frameIds: ['case-study', 'data-story'],
-        examples: [
-          {
-            frameId: 'case-study', 
-            content: "This is exactly how I started investing at 22, and here's my actual portfolio growth over the past 8 years."
-          }
-        ]
-      },
-      {
-        unitType: 'Reflection',
-        frameIds: ['key-takeaway', 'audience-question'],
-        examples: [
-          {
-            frameId: 'key-takeaway',
-            content: "The key isn't how much you invest, it's how early you start and how consistently you contribute."
-          }
-        ]
-      },
-      {
-        unitType: 'Outro',
-        frameIds: ['call-to-action', 'next-steps'],
-        examples: [
-          {
-            frameId: 'call-to-action',
-            content: "If you want more actionable financial advice, hit subscribe and check out my free investment guide in the description."
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'graham-stephan',
-    name: 'Graham Stephan Style',
-    creator: 'Graham Stephan',
-    category: 'Finance',
-    contentTypes: ['long'],
-    description: 'Financial insights with transparency about personal results',
-    units: ['Hook', 'Intro', 'Content Delivery', 'Practical Application', 'Proof', 'Reflection', 'Outro'],
-    frames: [
-      {
-        unitType: 'Hook',
-        frameIds: ['shocking-statement', 'problem-solution'],
-        examples: [
-          {
-            frameId: 'shocking-statement',
-            content: "I made $145,388 last month in passive income - and today I'm showing you exactly how I did it, line by line."
-          }
-        ]
-      },
-      {
-        unitType: 'Intro',
-        frameIds: ['establish-credibility', 'foreshadow-whats-to-come'],
-        examples: [
-          {
-            frameId: 'establish-credibility',
-            content: "I've spent the last 10 years building multiple income streams, and I document everything so you can see what actually works."
-          }
-        ]
-      },
-      {
-        unitType: 'Content Delivery',
-        frameIds: ['data-story', 'myth-buster'],
-        examples: [
-          {
-            frameId: 'data-story',
-            content: "Let me break down each income stream - real estate ($42K), YouTube ($38K), investments ($35K), and course sales ($30K)."
-          }
-        ]
-      },
-      {
-        unitType: 'Practical Application',
-        frameIds: ['step-by-step', 'common-pitfalls'],
-        examples: [
-          {
-            frameId: 'step-by-step',
-            content: "Here's exactly how I would start building passive income today if I was starting from zero, with just $1,000 to invest."
-          }
-        ]
-      },
-      {
-        unitType: 'Proof',
-        frameIds: ['case-study', 'data-story'],
-        examples: [
-          {
-            frameId: 'case-study', 
-            content: "Let me show you my actual Vanguard account - I've averaged 11.2% returns over the last 5 years using this strategy."
-          }
-        ]
-      },
-      {
-        unitType: 'Reflection',
-        frameIds: ['key-takeaway', 'contrarian-advice'],
-        examples: [
-          {
-            frameId: 'key-takeaway',
-            content: "The most important factor isn't finding the perfect investment - it's consistency and keeping your expenses low while you build."
-          }
-        ]
-      },
-      {
-        unitType: 'Outro',
-        frameIds: ['call-to-action', 'personal-note'],
-        examples: [
-          {
-            frameId: 'call-to-action',
-            content: "If you want to see more transparent breakdowns like this, smash the like button and join the notification squad."
-          }
-        ]
-      }
-    ]
-  },
-
-  // BUSINESS CATEGORY
-  {
-    id: 'alex-becker',
-    name: 'Alex Becker Style',
-    creator: 'Alex Becker',
-    category: 'Business',
-    contentTypes: ['long'],
-    description: 'High-energy business and crypto insights with contrarian views',
-    units: ['Hook', 'Intro', 'Content Delivery', 'Proof', 'Action Plan', 'Reflection', 'Outro'],
-    frames: [
-      {
-        unitType: 'Hook',
-        frameIds: ['bold-statement', 'urgency-creator'],
-        examples: [
-          {
-            frameId: 'bold-statement',
-            content: "This emerging crypto sector is about to explode 50X in the next 90 days - while everyone else is looking in the wrong direction."
-          }
-        ]
-      },
-      {
-        unitType: 'Intro',
-        frameIds: ['establish-credibility', 'contrarian-perspective'],
-        examples: [
-          {
-            frameId: 'establish-credibility',
-            content: "I've been calling these market movements correctly for the last 3 years, and the signs for this opportunity are even stronger."
-          }
-        ]
-      },
-      {
-        unitType: 'Content Delivery',
-        frameIds: ['data-story', 'myth-buster'],
-        examples: [
-          {
-            frameId: 'data-story',
-            content: "Let me show you the exact on-chain metrics that signal this move - 95% of traders completely miss these indicators."
-          }
-        ]
-      },
-      {
-        unitType: 'Proof',
-        frameIds: ['case-study', 'data-story'],
-        examples: [
-          {
-            frameId: 'case-study', 
-            content: "When we saw this exact pattern in 2021, these five projects gained between 300-1200% in just 60 days."
-          }
-        ]
-      },
-      {
-        unitType: 'Action Plan',
-        frameIds: ['step-by-step', 'risk-management'],
-        examples: [
-          {
-            frameId: 'step-by-step',
-            content: "Here's the exact allocation strategy I'm using: 40% in these blue chips, 40% in these mid-caps, and 20% in these high-risk moonshots."
-          }
-        ]
-      },
-      {
-        unitType: 'Reflection',
-        frameIds: ['philosophical-principle', 'contrarian-perspective'],
-        examples: [
-          {
-            frameId: 'philosophical-principle',
-            content: "The people who win in this market aren't the ones following the crowd - they're the ones who can see what's coming before everyone else."
-          }
-        ]
-      },
-      {
-        unitType: 'Outro',
-        frameIds: ['call-to-action', 'urgency-creator'],
-        examples: [
-          {
-            frameId: 'call-to-action',
-            content: "If you want to get my exact buy alerts in real-time, the link to my Discord is in the description - but we're closing membership next week."
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'iman-gadzhi',
-    name: 'Iman Gadzhi Style',
-    creator: 'Iman Gadzhi',
-    category: 'Business',
-    contentTypes: ['long'],
-    description: 'Agency building and entrepreneurship advice for young founders',
-    units: ['Hook', 'Intro', 'Content Delivery', 'Practical Application', 'Proof', 'Reflection', 'Outro'],
-    frames: [
-      {
-        unitType: 'Hook',
-        frameIds: ['bold-statement', 'pattern-interrupt'],
-        examples: [
-          {
-            frameId: 'bold-statement',
-            content: "I built a $10 million agency by age 22 - and the strategy that got me there is the exact opposite of what most \"gurus\" teach."
-          }
-        ]
-      },
-      {
-        unitType: 'Intro',
-        frameIds: ['establish-credibility', 'contrarian-perspective'],
-        examples: [
-          {
-            frameId: 'establish-credibility',
-            content: "I went from charging $200 per client to over $10,000 per month in just 18 months using this exact system."
-          }
-        ]
-      },
-      {
-        unitType: 'Content Delivery',
-        frameIds: ['conceptual-framework', 'myth-buster'],
-        examples: [
-          {
-            frameId: 'conceptual-framework',
-            content: "The \"Gadzhi Triangle\" is how I structure every agency: specialized service, premium positioning, and systematic delivery."
-          }
-        ]
-      },
-      {
-        unitType: 'Practical Application',
-        frameIds: ['step-by-step', 'common-pitfalls'],
-        examples: [
-          {
-            frameId: 'step-by-step',
-            content: "Here's exactly how to land your first $5K/month client - from identifying your ideal prospect to the exact words to use in the pitch."
-          }
-        ]
-      },
-      {
-        unitType: 'Proof',
-        frameIds: ['case-study', 'client-success'],
-        examples: [
-          {
-            frameId: 'case-study', 
-            content: "This is Maria, one of my students who went from $0 to $30K monthly revenue in her web design agency in just 6 months using this framework."
-          }
-        ]
-      },
-      {
-        unitType: 'Reflection',
-        frameIds: ['philosophical-principle', 'future-projection'],
-        examples: [
-          {
-            frameId: 'philosophical-principle',
-            content: "Success in business isn't about working harder - it's about deliberate positioning and systems that deliver real results to clients."
-          }
-        ]
-      },
-      {
-        unitType: 'Outro',
-        frameIds: ['call-to-action', 'exclusivity-creator'],
-        examples: [
-          {
-            frameId: 'call-to-action',
-            content: "I'm opening 20 spots in my Agency Incubator program next week. The link is in the description if you're ready to build a real business."
-          }
-        ]
-      }
-    ]
-  },
-
-  // ENTERTAINMENT CATEGORY
-  {
-    id: 'ryan-trahan',
-    name: 'Ryan Trahan Style',
-    creator: 'Ryan Trahan',
-    category: 'Entertainment',
-    contentTypes: ['long'],
-    description: 'Challenge and survival content with strong narrative structure',
-    units: ['Hook', 'Challenge Setup', 'Journey', 'Obstacles', 'Twist', 'Resolution', 'Outro'],
-    frames: [
-      {
-        unitType: 'Hook',
-        frameIds: ['bold-statement', 'visual-demo'],
-        examples: [
-          {
-            frameId: 'bold-statement',
-            content: "I'm going to survive for 7 days with only $0.01, starting right now - and here's exactly what happened."
-          }
-        ]
-      },
-      {
-        unitType: 'Challenge Setup',
-        frameIds: ['establish-credibility', 'stakes-amplifier'],
-        examples: [
-          {
-            frameId: 'establish-credibility',
-            content: "The rules are simple: I have to turn this penny into enough money for food, shelter, and transportation across the country in one week."
-          }
-        ]
-      },
-      {
-        unitType: 'Journey',
-        frameIds: ['step-by-step', 'behind-the-scenes'],
-        examples: [
-          {
-            frameId: 'step-by-step',
-            content: "Day 1: I managed to trade this penny for a pencil, then the pencil for a bottle of water, and then..."
-          }
-        ]
-      },
-      {
-        unitType: 'Obstacles',
-        frameIds: ['conflict-setup', 'heartfelt-confession'],
-        examples: [
-          {
-            frameId: 'conflict-setup', 
-            content: "Everything was going great until I realized I had no place to sleep and a huge storm was coming. Here's what I did..."
-          }
-        ]
-      },
-      {
-        unitType: 'Twist',
-        frameIds: ['midway-shock', 'unexpected-opportunity'],
-        examples: [
-          {
-            frameId: 'midway-shock',
-            content: "Then something incredible happened - a viewer recognized me and offered me an opportunity that changed everything."
-          }
-        ]
-      },
-      {
-        unitType: 'Resolution',
-        frameIds: ['triumph-over-adversity', 'key-takeaway'],
-        examples: [
-          {
-            frameId: 'triumph-over-adversity',
-            content: "Against all odds, I not only survived the week but managed to turn that penny into $253.42 - here's the final tally."
-          }
-        ]
-      },
-      {
-        unitType: 'Outro',
-        frameIds: ['call-to-action', 'coming-soon'],
-        examples: [
-          {
-            frameId: 'call-to-action',
-            content: "If you want to see what impossible challenge I take on next, hit subscribe - the next video is even crazier!"
-          }
-        ]
-      }
-    ]
-  },
-
-  // LIFESTYLE CATEGORY
-  {
-    id: 'charli-damelio',
-    name: 'Charli D\'Amelio Style',
-    creator: 'Charli D\'Amelio',
-    category: 'Lifestyle',
-    contentTypes: ['short'],
-    description: 'TikTok-style quick entertainment with trendy music and transitions',
-    units: ['Hook', 'Intro', 'Performance', 'Call To Action'],
-    frames: [
-      {
-        unitType: 'Hook',
-        frameIds: ['visual-demo', 'pattern-interrupt'],
-        examples: [
-          {
-            frameId: 'visual-demo',
-            content: "Here's a dance move you've never seen before! #trending"
-          }
-        ]
-      },
-      {
-        unitType: 'Intro',
-        frameIds: ['quick-introduction', 'topic-overview'],
-        examples: [
-          {
-            frameId: 'quick-introduction',
-            content: "Today I'm showing you how to do the viral hand dance everyone's talking about."
-          }
-        ]
-      },
-      {
-        unitType: 'Performance',
-        frameIds: ['step-by-step', 'behind-the-scenes'],
-        examples: [
-          {
-            frameId: 'step-by-step',
-            content: "First position: hands here. Second: cross over. Third: double tap and flip!"
-          }
-        ]
-      },
-      {
-        unitType: 'Call To Action',
-        frameIds: ['audience-question', 'subscribe-cta'],
-        examples: [
-          {
-            frameId: 'audience-question',
-            content: "Tag me if you try this! What song should I dance to next?"
-          }
-        ]
-      }
-    ]
-  },
-
-  // BUSINESS CATEGORY
-  {
-    id: 'alex-hormozi',
-    name: 'Alex Hormozi Style',
-    creator: 'Alex Hormozi',
-    category: 'Business',
-    contentTypes: ['long', 'short'],
-    description: 'Direct, actionable business advice with contrarian principles',
-    units: ['Hook', 'Intro', 'Content Delivery', 'Proof', 'Action Plan', 'Reflection', 'Outro'],
-    frames: [
-      {
-        unitType: 'Hook',
-        frameIds: ['bold-statement', 'urgency-creator'],
-        examples: [
-          {
-            frameId: 'bold-statement',
-            content: "The one mistake costing you 90% of your potential profit - and why almost every entrepreneur makes it."
-          }
-        ]
-      },
-      {
-        unitType: 'Intro',
-        frameIds: ['establish-credibility', 'contrarian-perspective'],
-        examples: [
-          {
-            frameId: 'establish-credibility',
-            content: "I've built and sold multiple 8-figure businesses using this exact framework that no one talks about."
-          }
-        ]
-      },
-      {
-        unitType: 'Content Delivery',
-        frameIds: ['conceptual-framework', 'myth-buster'],
-        examples: [
-          {
-            frameId: 'conceptual-framework',
-            content: "There are four levers that control all business growth: more leads, higher conversion, greater AOV, and increased frequency."
-          }
-        ]
-      },
-      {
-        unitType: 'Proof',
-        frameIds: ['case-study', 'data-story'],
-        examples: [
-          {
-            frameId: 'case-study', 
-            content: "When we applied this to a failing gym, their revenue went from $40k to $175k per month in just 90 days."
-          }
-        ]
-      },
-      {
-        unitType: 'Action Plan',
-        frameIds: ['step-by-step', 'risk-management'],
-        examples: [
-          {
-            frameId: 'step-by-step',
-            content: "First, restructure your offer using the value equation: dream outcome divided by perceived likelihood of achievement times perceived time delay and effort and sacrifice."
-          }
-        ]
-      },
-      {
-        unitType: 'Reflection',
-        frameIds: ['philosophical-principle', 'contrarian-perspective'],
-        examples: [
-          {
-            frameId: 'philosophical-principle',
-            content: "The irony is that giving too many options actually decreases sales - constraint creates clarity."
-          }
-        ]
-      },
-      {
-        unitType: 'Outro',
-        frameIds: ['call-to-action', 'next-steps'],
-        examples: [
-          {
-            frameId: 'call-to-action',
-            content: "Implement just one of these principles this week, and let me know what results you get."
-          }
-        ]
-      }
-    ]
-  },
-
-  // LIFESTYLE/VLOG CATEGORY
-  {
-    id: 'casey-neistat',
-    name: 'Casey Neistat Style',
-    creator: 'Casey Neistat',
-    category: 'Lifestyle',
-    contentTypes: ['long'],
-    description: 'High-energy storytelling with cinematic visuals',
-    units: ['Hook', 'Intro', 'Story Setup', 'Journey', 'Reflection', 'Life Lesson', 'Outro']
-  },
-
-  // ENTERTAINMENT CATEGORY
-  {
-    id: 'dude-perfect',
-    name: 'Dude Perfect Style',
-    creator: 'Dude Perfect',
-    category: 'Entertainment',
-    contentTypes: ['long'],
-    description: 'High-energy stunts and challenges with friendly competition',
-    units: ['Hook', 'Challenge Setup', 'Attempts', 'Celebration', 'Behind the Scenes', 'Bloopers', 'Outro']
-  },
-
-  // LIFESTYLE CATEGORY
-  {
-    id: 'emma-chamberlain',
-    name: 'Emma Chamberlain Style',
-    creator: 'Emma Chamberlain',
-    category: 'Lifestyle',
-    contentTypes: ['long'],
-    description: 'Authentic, relatable lifestyle content with comedic editing',
-    units: ['Hook', 'Intro', 'Daily Life', 'Random Thoughts', 'Story Time', 'Reflection', 'Outro']
-  },
-
-  // BUSINESS/MOTIVATION CATEGORY
-  {
-    id: 'garyv',
-    name: 'GaryV Style',
-    creator: 'Gary Vaynerchuk',
-    category: 'Business',
-    contentTypes: ['short', 'long'],
-    description: 'High-energy motivational business advice',
-    units: ['Hook', 'Core Message', 'Real Talk', 'Practical Advice', 'Call To Action', 'Motivation', 'Outro']
-  },
-
-  // TECHNOLOGY CATEGORY
-  {
-    id: 'mkbhd',
-    name: 'Marques Brownlee Style',
-    creator: 'MKBHD',
-    category: 'Technology',
-    contentTypes: ['long'],
-    description: 'In-depth tech reviews with cinematic quality',
-    units: ['Hook', 'Intro', 'Product Overview', 'Deep Dive', 'Comparison', 'Final Thoughts', 'Outro']
-  },
-
-  // LIFESTYLE/DOCUMENTARY CATEGORY
-  {
-    id: 'nas-daily',
-    name: 'Nas Daily Style',
-    creator: 'Nas Daily',
-    category: 'Lifestyle',
-    contentTypes: ['short'],
-    description: 'Quick, informative stories about people and places',
-    units: ['Hook', 'Problem', 'Investigation', 'Discovery', 'Learning', 'Impact', 'Outro']
-  },
-
-  // BEAUTY/LIFESTYLE CATEGORY
-  {
-    id: 'nikkietutorials',
-    name: 'NikkieTutorials Style',
-    creator: 'Nikkie de Jager',
-    category: 'Lifestyle',
-    contentTypes: ['long'],
-    description: 'Makeup transformations and beauty content',
-    units: ['Hook', 'Intro', 'Tutorial Steps', 'Tips & Tricks', 'Transformation', 'Final Look', 'Outro']
-  },
-
+  
   // CUSTOM BUILDER
   {
     id: 'custom-builder',
     name: 'Custom Builder Option',
     creator: 'Custom',
-    category: 'Custom',
+    category: 'Sports',
     contentTypes: ['short', 'long'],
     description: 'Build your own custom content structure',
     units: ['Hook', 'Intro', 'Content', 'Call To Action', 'Outro']
   },
-
-  // ENTERTAINMENT CATEGORY continued
+  
+  // ENTERTAINMENT CATEGORY
   {
     id: 'mrbeast',
     name: 'MrBeast Style',
     creator: 'MrBeast',
     category: 'Entertainment',
     contentTypes: ['long'],
-    description: 'High-stakes challenges with money, philanthropy, and competition',
-    units: ['Hook', 'Challenge Setup', 'Content Journey', 'Stakes Amplification', 'Climactic Moment', 'Resolution', 'Outro'],
-    frames: [
-      {
-        unitType: 'Hook',
-        frameIds: ['bold-statement', 'visual-demo'],
-        examples: [
-          {
-            frameId: 'bold-statement',
-            content: "Last to leave this circle of fire wins $100,000!"
-          }
-        ]
-      },
-      {
-        unitType: 'Challenge Setup',
-        frameIds: ['establish-credibility', 'stakes-amplifier'],
-        examples: [
-          {
-            frameId: 'establish-credibility',
-            content: "I've gathered 100 people and built the most extreme challenge course ever created."
-          }
-        ]
-      },
-      {
-        unitType: 'Content Journey',
-        frameIds: ['behind-the-scenes', 'milestone-marker'],
-        examples: [
-          {
-            frameId: 'behind-the-scenes',
-            content: "24 hours in and we're down to just 50 competitors. Let's make things more interesting..."
-          }
-        ]
-      },
-      {
-        unitType: 'Stakes Amplification',
-        frameIds: ['midway-shock', 'conflict-setup'],
-        examples: [
-          {
-            frameId: 'midway-shock', 
-            content: "I'm now doubling the prize to $200,000, but adding these impossible obstacles!"
-          }
-        ]
-      },
-      {
-        unitType: 'Climactic Moment',
-        frameIds: ['triumph-over-adversity', 'emotional-peak'],
-        examples: [
-          {
-            frameId: 'triumph-over-adversity',
-            content: "After 72 grueling hours, we're down to the final two contestants, and neither one will give up!"
-          }
-        ]
-      },
-      {
-        unitType: 'Resolution',
-        frameIds: ['reveal', 'heartfelt-moment'],
-        examples: [
-          {
-            frameId: 'reveal',
-            content: "Congratulations to our winner! But wait - I'm also giving $50,000 to the runner-up for their incredible effort!"
-          }
-        ]
-      },
-      {
-        unitType: 'Outro',
-        frameIds: ['call-to-action', 'coming-soon'],
-        examples: [
-          {
-            frameId: 'call-to-action',
-            content: "Subscribe now because next week I'm giving away an entire island to one lucky subscriber!"
-          }
-        ]
-      }
-    ]
+    description: 'High-stakes challenges with prize money and philanthropy',
+    units: ['Hook', 'Challenge Setup', 'Stakes Escalation', 'Contestant Struggles', 'Turning Point', 'Emotional Reveal', 'Outro']
   }
 ];
 
-// Helper function to get templates by category
-export function getTemplatesByCategory(category: TemplateCategory): CategoryCreatorTemplate[] {
-  return CREATOR_TEMPLATES_BY_CATEGORY.filter(template => template.category === category);
-}
+// Export for use in CreateSkeletonDialog component
+export const CREATOR_TEMPLATES_BY_CATEGORY = creatorTemplates;
 
-// Helper function to get all categories
-export function getAllCategories(): TemplateCategory[] {
-  return Array.from(new Set(CREATOR_TEMPLATES_BY_CATEGORY.map(template => template.category)));
-}
-
-// Helper function to get templates by content type
-export function getTemplatesByContentType(contentType: 'short' | 'long'): CategoryCreatorTemplate[] {
-  return CREATOR_TEMPLATES_BY_CATEGORY.filter(template => 
+// Export filtered lists for UI
+export const filterTemplatesByContentType = (contentType: 'short' | 'long') => {
+  return creatorTemplates.filter(template => 
     template.contentTypes.includes(contentType)
   );
-}
+};
+
+export const getTemplateById = (id: string) => {
+  return creatorTemplates.find(template => template.id === id);
+};
+
+export const getTemplateCategories = () => {
+  const categories = new Set<TemplateCategory>();
+  creatorTemplates.forEach(template => {
+    if (template.id !== 'custom-builder') {
+      categories.add(template.category);
+    }
+  });
+  return Array.from(categories).sort();
+};
+
+export const filterTemplatesByCategory = (category: TemplateCategory | 'All Categories') => {
+  if (category === 'All Categories') {
+    return creatorTemplates;
+  }
+  return creatorTemplates.filter(template => template.category === category);
+};

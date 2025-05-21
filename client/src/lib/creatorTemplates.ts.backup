@@ -1,0 +1,23 @@
+import { CreatorTemplate } from './frameLibrary';
+import { nanoid } from 'nanoid';
+
+// Define category types for templates
+export type TemplateCategory = 
+  'Cooking' | 
+  'Gaming' | 
+  'Education' | 
+  'Finance' | 
+  'Business' | 
+  'Entertainment' | 
+  'Technology' | 
+  'Lifestyle' | 
+  'Travel' | 
+  'Fashion' | 
+  'Fitness' | 
+  'Sports';
+
+// Extended template interface with category
+export interface CategoryCreatorTemplate extends CreatorTemplate {
+  category: TemplateCategory;
+  contentTypes: ('short' | 'long')[];
+}
