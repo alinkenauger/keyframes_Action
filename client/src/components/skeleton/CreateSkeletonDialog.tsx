@@ -146,7 +146,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                     >
                       All Templates
                     </button>
-                    {getAllCategories().map((category) => (
+                    {getTemplateCategories().map((category) => (
                       <button
                         key={category}
                         type="button"
@@ -170,9 +170,9 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                       className="pb-16"
                     >
                       {(selectedCategory === 'all' 
-                        ? CREATOR_TEMPLATES_BY_CATEGORY 
-                        : CREATOR_TEMPLATES_BY_CATEGORY.filter(t => t.category === selectedCategory)
-                      ).filter(t => t.id !== 'mrbeast').map((template) => (
+                        ? creatorTemplates 
+                        : creatorTemplates.filter((t: CategoryCreatorTemplate) => t.category === selectedCategory)
+                      ).filter((t: CategoryCreatorTemplate) => t.id !== 'mrbeast').map((template: CategoryCreatorTemplate) => (
                         <div key={template.id} className="flex items-center space-x-2 mb-4 touch-target border-b pb-3">
                           <RadioGroupItem 
                             value={template.id} 
