@@ -891,7 +891,93 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
     ]
   },
 
-  // Add more templates here...
+  // LIFESTYLE/VLOG CATEGORY
+  {
+    id: 'casey-neistat',
+    name: 'Casey Neistat Style',
+    creator: 'Casey Neistat',
+    category: 'Lifestyle',
+    contentTypes: ['long'],
+    description: 'High-energy storytelling with cinematic visuals',
+    units: ['Hook', 'Intro', 'Story Setup', 'Journey', 'Reflection', 'Life Lesson', 'Outro']
+  },
+
+  // ENTERTAINMENT CATEGORY
+  {
+    id: 'dude-perfect',
+    name: 'Dude Perfect Style',
+    creator: 'Dude Perfect',
+    category: 'Entertainment',
+    contentTypes: ['long'],
+    description: 'High-energy stunts and challenges with friendly competition',
+    units: ['Hook', 'Challenge Setup', 'Attempts', 'Celebration', 'Behind the Scenes', 'Bloopers', 'Outro']
+  },
+
+  // LIFESTYLE CATEGORY
+  {
+    id: 'emma-chamberlain',
+    name: 'Emma Chamberlain Style',
+    creator: 'Emma Chamberlain',
+    category: 'Lifestyle',
+    contentTypes: ['long'],
+    description: 'Authentic, relatable lifestyle content with comedic editing',
+    units: ['Hook', 'Intro', 'Daily Life', 'Random Thoughts', 'Story Time', 'Reflection', 'Outro']
+  },
+
+  // BUSINESS/MOTIVATION CATEGORY
+  {
+    id: 'garyv',
+    name: 'GaryV Style',
+    creator: 'Gary Vaynerchuk',
+    category: 'Business',
+    contentTypes: ['short', 'long'],
+    description: 'High-energy motivational business advice',
+    units: ['Hook', 'Core Message', 'Real Talk', 'Practical Advice', 'Call To Action', 'Motivation', 'Outro']
+  },
+
+  // TECHNOLOGY CATEGORY
+  {
+    id: 'mkbhd',
+    name: 'Marques Brownlee Style',
+    creator: 'MKBHD',
+    category: 'Technology',
+    contentTypes: ['long'],
+    description: 'In-depth tech reviews with cinematic quality',
+    units: ['Hook', 'Intro', 'Product Overview', 'Deep Dive', 'Comparison', 'Final Thoughts', 'Outro']
+  },
+
+  // LIFESTYLE/DOCUMENTARY CATEGORY
+  {
+    id: 'nas-daily',
+    name: 'Nas Daily Style',
+    creator: 'Nas Daily',
+    category: 'Lifestyle',
+    contentTypes: ['short'],
+    description: 'Quick, informative stories about people and places',
+    units: ['Hook', 'Problem', 'Investigation', 'Discovery', 'Learning', 'Impact', 'Outro']
+  },
+
+  // BEAUTY/LIFESTYLE CATEGORY
+  {
+    id: 'nikkietutorials',
+    name: 'NikkieTutorials Style',
+    creator: 'Nikkie de Jager',
+    category: 'Lifestyle',
+    contentTypes: ['long'],
+    description: 'Makeup transformations and beauty content',
+    units: ['Hook', 'Intro', 'Tutorial Steps', 'Tips & Tricks', 'Transformation', 'Final Look', 'Outro']
+  },
+
+  // CUSTOM BUILDER
+  {
+    id: 'custom-builder',
+    name: 'Custom Builder Option',
+    creator: 'Custom',
+    category: 'Custom',
+    contentTypes: ['short', 'long'],
+    description: 'Build your own custom content structure',
+    units: ['Hook', 'Intro', 'Content', 'Call To Action', 'Outro']
+  },
 
   // ENTERTAINMENT CATEGORY continued
   {
