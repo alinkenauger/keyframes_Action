@@ -80,63 +80,71 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
 
   function handleTemplateSubmit(e: React.FormEvent) {
     e.preventDefault();
+    console.log("Form submitted", selectedCreator);
 
     // Find the selected template
     const selectedTemplate = CREATOR_TEMPLATES.find(template => template.id === selectedCreator);
-    if (!selectedTemplate) return;
+    if (!selectedTemplate) {
+      console.error("No template selected");
+      return;
+    }
 
-    // Create a new skeleton based on the selected template
-    const skeletonId = nanoid();
-    const frames = [];
-    
-    // If the template has specific frames, add them to the skeleton
-    if (selectedTemplate.frames) {
-      for (const unitFrames of selectedTemplate.frames) {
-        const unitType = unitFrames.unitType;
-        
-        // Get the specific frames for this unit
-        for (const frameId of unitFrames.frameIds) {
-          // Find example content if available
-          let content = '';
-          if (unitFrames.examples) {
-            const example = unitFrames.examples.find(e => e.frameId === frameId);
-            if (example && example.content) {
-              content = example.content;
-            }
-          }
+    try {
+      // Create a new skeleton based on the selected template
+      const skeletonId = nanoid();
+      const frames = [];
+      
+      // If the template has specific frames, add them to the skeleton
+      if (selectedTemplate.frames) {
+        for (const unitFrames of selectedTemplate.frames) {
+          const unitType = unitFrames.unitType;
           
-          // Create a new frame object
-          frames.push({
-            id: nanoid(),
-            name: frameId,
-            type: frameId,
-            content: content,
-            unitType: unitType,
-            isTemplateExample: true
-          });
+          // Get the specific frames for this unit
+          for (const frameId of unitFrames.frameIds) {
+            // Find example content if available
+            let content = '';
+            if (unitFrames.examples) {
+              const example = unitFrames.examples.find(e => e.frameId === frameId);
+              if (example && example.content) {
+                content = example.content;
+              }
+            }
+            
+            // Create a new frame object
+            frames.push({
+              id: nanoid(),
+              name: frameId,
+              type: frameId,
+              content: content,
+              unitType: unitType,
+              isTemplateExample: true
+            });
+          }
         }
       }
-    }
-    
-    const newSkeleton = {
-      id: skeletonId,
-      name: name || selectedTemplate.name,
-      units: selectedTemplate.units,
-      frames: frames,
-      contentType: contentType,
-    };
+      
+      const newSkeleton = {
+        id: skeletonId,
+        name: name || selectedTemplate.name,
+        units: selectedTemplate.units || [],
+        frames: frames,
+        contentType: contentType,
+      };
 
-    // Add the skeleton and set it as active
-    const createdSkeleton = addSkeleton(newSkeleton);
-    setActiveSkeletonId(createdSkeleton.id);
-    
-    // Set the video context
-    if (videoContext) {
-      setStoreVideoContext(createdSkeleton.id, videoContext);
-    }
+      console.log("Creating skeleton:", newSkeleton);
 
-    // Close the dialog
-    onOpenChange(false);
+      // Add the skeleton and set it as active
+      const createdSkeleton = addSkeleton(newSkeleton);
+      setActiveSkeletonId(createdSkeleton.id);
+      
+      // Set the video context
+      if (videoContext) {
+        setStoreVideoContext(createdSkeleton.id, videoContext);
+      }
+      
+    } catch (error) {
+      console.error("Error creating skeleton:", error);
+    }
   }
 
   return (
@@ -319,6 +327,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                   type="submit" 
                   disabled={!selectedCreator} 
                   className="w-full sm:w-auto"
+                  onClick={handleTemplateSubmit}
                 >
                   Create From Template
                 </Button>
