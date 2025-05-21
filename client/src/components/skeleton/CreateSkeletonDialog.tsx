@@ -163,13 +163,16 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                     ))}
                   </div>
                   
-                  <div className="h-[350px] border rounded-md p-4 overflow-auto">
+                  <div className="h-[450px] border rounded-md p-4 overflow-auto">
                     <RadioGroup
                       value={selectedCreator || ''}
                       onValueChange={setSelectedCreator}
                       className="pb-16"
                     >
-                      {CREATOR_TEMPLATES.filter(t => t.id !== 'mrbeast').map((template) => (
+                      {(selectedCategory === 'all' 
+                        ? CREATOR_TEMPLATES_BY_CATEGORY 
+                        : CREATOR_TEMPLATES_BY_CATEGORY.filter(t => t.category === selectedCategory)
+                      ).filter(t => t.id !== 'mrbeast').map((template) => (
                         <div key={template.id} className="flex items-center space-x-2 mb-4 touch-target border-b pb-3">
                           <RadioGroupItem 
                             value={template.id} 
