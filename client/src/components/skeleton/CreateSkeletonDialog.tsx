@@ -21,205 +21,46 @@ interface CreateSkeletonDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-function DraggableUnit({ unit }: { unit: typeof SKELETON_UNITS[0] }) {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: unit.type,
-    data: {
-      type: 'unit',
-      unit
-    }
-  });
-
-  const style = transform ? {
-    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-  } : undefined;
-
-  return (
-    <Card
-      ref={setNodeRef}
-      style={style}
-      className="mb-3 cursor-grab touch-manipulation"
-      {...attributes}
-      {...listeners}
-    >
-      <CardContent className="p-4">
-        <h4 className="font-medium mb-1">{unit.type}</h4>
-        <p className="text-sm text-muted-foreground">{unit.description}</p>
-        <div className="mt-2 text-xs text-muted-foreground">
-          Examples: {unit.examples.join(', ')}
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-function SkeletonDropArea({ children, isOver }: { children: React.ReactNode; isOver: boolean }) {
-  const { setNodeRef } = useDroppable({
-    id: 'skeleton-drop-area',
-    data: {
-      type: 'skeleton-drop-area',
-      accepts: ['unit']
-    }
-  });
-
-  return (
-    <div
-      ref={setNodeRef}
-      className={cn(
-        "h-[400px] rounded-md border p-4",
-        isOver ? "bg-muted border-dashed border-2 border-primary" : "bg-muted/5"
-      )}
-    >
-      {children}
-    </div>
-  );
-}
-
 export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkeletonDialogProps) {
   const [name, setName] = useState('');
   const [videoContext, setVideoContext] = useState('');
   const [selectedCreator, setSelectedCreator] = useState<string | null>(null);
-  const [selectedUnits, setSelectedUnits] = useState<string[]>([]);
-  const [draggedUnit, setDraggedUnit] = useState<typeof SKELETON_UNITS[0] | null>(null);
-  const [isDropAreaOver, setIsDropAreaOver] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<TemplateCategory | 'all'>('all');
   const [contentType, setContentType] = useState<'short' | 'long'>('long');
   const { addSkeleton, setActiveSkeletonId, setVideoContext: setStoreVideoContext } = useWorkspace();
 
-  const handleDragStart = (event: DragStartEvent) => {
-    const { active } = event;
-    const draggedUnit = SKELETON_UNITS.find(unit => unit.type === active.id);
-    if (draggedUnit) {
-      setDraggedUnit(draggedUnit);
-    }
-  };
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    setDraggedUnit(null);
-    setIsDropAreaOver(false);
-
-    if (over && over.id === 'skeleton-drop-area') {
-      // Allow adding the same unit type multiple times
-      setSelectedUnits([...selectedUnits, active.id as string]);
-    }
-  };
-
-  const handleDragOver = () => {
-    setIsDropAreaOver(true);
-  };
-
-  const handleDragCancel = () => {
-    setDraggedUnit(null);
-    setIsDropAreaOver(false);
-  };
-
   function handleTemplateSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    if (selectedCreator) {
-      // Try to find the selected template in either the standard templates or category templates
-      const standardTemplate = CREATOR_TEMPLATES.find(s => s.id === selectedCreator);
-      const categoryTemplate = CREATOR_TEMPLATES_BY_CATEGORY.find(s => s.id === selectedCreator);
-      
-      const template = standardTemplate || categoryTemplate;
-      
-      if (template) {
-        const skeletonId = nanoid();
-        
-        // Create frame objects based on the template's frame recommendations
-        const frames = [];
-        
-        // If the template has specific frames, add them to the skeleton
-        if (template.frames) {
-          for (const unitFrames of template.frames) {
-            const unitType = unitFrames.unitType;
-            
-            // Get the specific frames for this unit
-            for (const frameId of unitFrames.frameIds) {
-              // Find the frame template from the library
-              const frameTemplate = FRAME_TEMPLATES.find(f => f.id === frameId);
-              if (frameTemplate) {
-                // Check if we have a specific example for this frame in the creator template
-                let content = frameTemplate.example || '';
-                
-                // Look for example content from the creator template
-                if (unitFrames.examples) {
-                  const example = unitFrames.examples.find(e => e.frameId === frameId);
-                  if (example && example.content) {
-                    content = example.content;
-                  }
-                }
-                
-                // Create a new frame object
-                frames.push({
-                  id: nanoid(),
-                  name: frameTemplate.name,
-                  type: frameTemplate.id,
-                  content: content,
-                  unitType: unitType,
-                  isTemplateExample: true // Flag to prevent automatic AI adaptation
-                });
-              }
-            }
-          }
-        }
-        
-        // Create the new skeleton with the frames
-        const newSkeleton = {
-          id: skeletonId,
-          name: name || template.name,
-          frames: frames,
-          units: template.units,
-          contentType: categoryTemplate ? (contentType as 'short' | 'long') : undefined
-        };
+    // Find the selected template
+    const selectedTemplate = CREATOR_TEMPLATES.find(template => template.id === selectedCreator);
+    if (!selectedTemplate) return;
 
-        addSkeleton(newSkeleton);
-        
-        // Set the video context in the store
-        if (videoContext) {
-          setStoreVideoContext(skeletonId, videoContext);
-        }
-        
-        setActiveSkeletonId(newSkeleton.id);
-        resetForm();
-        onOpenChange(false);
-      }
+    // Create a new skeleton based on the selected template
+    const newSkeleton = {
+      id: nanoid(),
+      name: name || selectedTemplate.name,
+      units: selectedTemplate.units,
+      frames: [], // Frames will be populated when the skeleton is created
+      contentType: contentType,
+    };
+
+    // Add the skeleton and set it as active
+    const createdSkeleton = addSkeleton(newSkeleton);
+    setActiveSkeletonId(createdSkeleton.id);
+    
+    // Set the video context
+    if (videoContext) {
+      setStoreVideoContext(createdSkeleton.id, videoContext);
     }
+
+    // Close the dialog
+    onOpenChange(false);
   }
-
-  function handleCustomSubmit(e: React.FormEvent) {
-    e.preventDefault();
-
-    if (selectedUnits.length > 0) {
-      const skeletonId = nanoid();
-      const newSkeleton = {
-        id: skeletonId,
-        name: name || 'Custom Skeleton',
-        frames: [], // No pre-loaded frames
-      };
-
-      addSkeleton(newSkeleton);
-      // Set the video context in the store
-      if (videoContext) {
-        setStoreVideoContext(skeletonId, videoContext);
-      }
-      setActiveSkeletonId(newSkeleton.id);
-      resetForm();
-      onOpenChange(false);
-    }
-  }
-
-  const resetForm = () => {
-    setName('');
-    setVideoContext('');
-    setSelectedCreator(null);
-    setSelectedUnits([]);
-  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[95vh] h-[700px] overflow-hidden flex flex-col">
+      <DialogContent className="max-w-2xl h-[700px] overflow-hidden flex flex-col">
         <DialogHeader>
           <DialogTitle>Create New Skeleton</DialogTitle>
           <DialogDescription>
@@ -258,7 +99,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                   />
                 </div>
 
-                <div className="grid gap-4">
+                <div className="grid gap-2 flex-1 overflow-hidden">
                   <div className="flex justify-between items-center">
                     <Label>Choose a Creator Template</Label>
                     <div className="flex items-center gap-2">
@@ -326,15 +167,14 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                     <RadioGroup
                       value={selectedCreator || ''}
                       onValueChange={setSelectedCreator}
-                      className="pb-16" // Extra padding at bottom to ensure visibility on mobile
+                      className="pb-16"
                     >
-                      {/* Show GMV Foundation Template first */}
                       {CREATOR_TEMPLATES.filter(t => t.id !== 'mrbeast').map((template) => (
                         <div key={template.id} className="flex items-center space-x-2 mb-4 touch-target border-b pb-3">
                           <RadioGroupItem 
                             value={template.id} 
                             id={template.id} 
-                            className="h-5 w-5" // Larger touch target
+                            className="h-5 w-5"
                           />
                           <div className="grid gap-1.5">
                             <Label htmlFor={template.id} className="font-medium">
@@ -348,164 +188,26 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                           </div>
                         </div>
                       ))}
-                      
-                      {/* Categorized Templates */}
-                      {selectedCategory === 'all' 
-                        ? CREATOR_TEMPLATES_BY_CATEGORY.filter(template => template.contentTypes.includes(contentType)).map((template) => (
-                          <div key={template.id} className="flex items-center space-x-2 mb-4 touch-target">
-                            <RadioGroupItem 
-                              value={template.id} 
-                              id={template.id} 
-                              className="h-5 w-5"
-                            />
-                            <div className="grid gap-1.5">
-                              <div className="flex items-center gap-2">
-                                <Label htmlFor={template.id} className="font-medium">
-                                  {template.name}
-                                </Label>
-                                <span className="text-xs px-1.5 py-0.5 rounded-full bg-muted text-muted-foreground">
-                                  {template.category}
-                                </span>
-                              </div>
-                              <p className="text-sm text-muted-foreground">
-                                {template.description}
-                              </p>
-                              <p className="text-xs text-muted-foreground">
-                                {template.units.length} units - {
-                                  template.units.join(' → ')
-                                }
-                              </p>
-                            </div>
-                          </div>
-                        ))
-                        : getTemplatesByCategory(selectedCategory).filter(template => template.contentTypes.includes(contentType)).map((template) => (
-                          <div key={template.id} className="flex items-center space-x-2 mb-4 touch-target">
-                            <RadioGroupItem 
-                              value={template.id} 
-                              id={template.id} 
-                              className="h-5 w-5"
-                            />
-                            <div className="grid gap-1.5">
-                              <Label htmlFor={template.id} className="font-medium">
-                                {template.name}
-                              </Label>
-                              <p className="text-sm text-muted-foreground">
-                                {template.description}
-                              </p>
-                              <p className="text-xs text-muted-foreground">
-                                {template.units.length} units - {
-                                  template.units.join(' → ')
-                                }
-                              </p>
-                            </div>
-                          </div>
-                        ))
-                      }
                     </RadioGroup>
-                  </ScrollArea>
+                  </div>
                 </div>
               </div>
               <DialogFooter className="mt-4 sticky bottom-0 pt-2 bg-background z-10 border-t">
-                <Button type="submit" disabled={!selectedCreator} className="w-full sm:w-auto touch-target">
+                <Button 
+                  type="submit" 
+                  disabled={!selectedCreator || !videoContext} 
+                  className="w-full sm:w-auto"
+                >
                   Create From Template
                 </Button>
               </DialogFooter>
             </form>
           </TabsContent>
 
-          <TabsContent value="custom" className="flex-1 overflow-hidden flex flex-col">
-            <form onSubmit={handleCustomSubmit} className="flex-1 overflow-hidden flex flex-col">
-              <div className="grid gap-4 flex-1 overflow-hidden">
-                <div className="grid gap-2">
-                  <Label htmlFor="custom-name">Name</Label>
-                  <Input
-                    id="custom-name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="e.g., My Custom Format"
-                    className="touch-target"
-                  />
-                </div>
-
-                <div className="grid gap-2">
-                  <Label htmlFor="custom-video-context">What is this video about?</Label>
-                  <Textarea
-                    id="custom-video-context"
-                    value={videoContext}
-                    onChange={(e) => setVideoContext(e.target.value)}
-                    placeholder="Describe your video's main topic, goals, and target audience..."
-                    className="min-h-[80px] touch-target"
-                  />
-                </div>
-
-                <DndContext
-                  onDragStart={handleDragStart}
-                  onDragEnd={handleDragEnd}
-                  onDragOver={handleDragOver}
-                  onDragCancel={handleDragCancel}
-                  collisionDetection={closestCenter}
-                >
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1 overflow-hidden">
-                    <div className="overflow-hidden flex flex-col">
-                      <Label>Available Units</Label>
-                      <ScrollArea className="h-[400px] rounded-md border p-4 touch-pan-y">
-                        <div className="space-y-2 pb-8">
-                          {SKELETON_UNITS.map((unit) => (
-                            <DraggableUnit key={unit.type} unit={unit} />
-                          ))}
-                        </div>
-                      </ScrollArea>
-                    </div>
-
-                    <div className="overflow-hidden flex flex-col">
-                      <Label>Your Skeleton Structure</Label>
-                      <SkeletonDropArea isOver={isDropAreaOver}>
-                        {selectedUnits.length === 0 ? (
-                          <p className="text-sm text-muted-foreground text-center mt-8">
-                            Drag units here to build your skeleton
-                          </p>
-                        ) : (
-                          <ScrollArea className="h-full touch-pan-y">
-                            <div className="space-y-2 pb-16"> {/* Extra padding to ensure scrollability on mobile */}
-                              {selectedUnits.map((unit, index) => (
-                                <div
-                                  key={index}
-                                  className="p-2 bg-background rounded-md border flex items-center justify-between"
-                                >
-                                  <span>{unit}</span>
-                                  <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    onClick={() => setSelectedUnits(selectedUnits.filter((_, i) => i !== index))}
-                                    className="touch-target"
-                                  >
-                                    ✕
-                                  </Button>
-                                </div>
-                              ))}
-                            </div>
-                          </ScrollArea>
-                        )}
-                      </SkeletonDropArea>
-                    </div>
-                  </div>
-
-                  <DragOverlay>
-                    {draggedUnit && <DraggableUnit unit={draggedUnit} />}
-                  </DragOverlay>
-                </DndContext>
-
-                <DialogFooter className="mt-4 sticky bottom-0 pt-2 bg-background z-10 border-t">
-                  <Button 
-                    type="submit" 
-                    disabled={selectedUnits.length === 0} 
-                    className="w-full sm:w-auto touch-target"
-                  >
-                    Create Custom Skeleton
-                  </Button>
-                </DialogFooter>
-              </div>
-            </form>
+          <TabsContent value="custom" className="flex-1 overflow-y-auto">
+            <div className="p-4 text-center">
+              <p>Custom skeleton builder coming soon!</p>
+            </div>
           </TabsContent>
         </Tabs>
       </DialogContent>
