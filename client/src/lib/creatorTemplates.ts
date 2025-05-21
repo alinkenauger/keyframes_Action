@@ -24,6 +24,576 @@ export interface CategoryCreatorTemplate extends CreatorTemplate {
 
 // Creator templates organized by niche/category
 export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
+  // LIFESTYLE CATEGORY
+  {
+    id: 'emma-chamberlain',
+    name: 'Emma Chamberlain Style',
+    creator: 'Emma Chamberlain',
+    category: 'Lifestyle',
+    contentTypes: ['long'],
+    description: 'Authentic, relatable lifestyle vlogs with unfiltered humor',
+    units: ['Hook', 'Intro', 'Content Journey', 'Rehook', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['relatable-problem', 'bold-statement'],
+        examples: [
+          {
+            frameId: 'relatable-problem',
+            content: "So I decided that today I was going to be, like, the most productive human on the planet. I made a list. I set alarms. I even bought a planner. Spoiler alert: It's 2 PM and I'm still in bed. Welcome to my life."
+          }
+        ]
+      },
+      {
+        unitType: 'Intro',
+        frameIds: ['lighthearted-humor', 'goal-statement'],
+        examples: [
+          {
+            frameId: 'lighthearted-humor',
+            content: "I swear I've been drinking coffee for like five years now and I still manage to spill it every single morning. Like, how? Is this a skill issue? Am I just permanently clumsy? Don't answer that."
+          }
+        ]
+      },
+      {
+        unitType: 'Content Journey',
+        frameIds: ['relatable-moment', 'unfiltered-confession'],
+        examples: [
+          {
+            frameId: 'relatable-moment',
+            content: "Does anyone else just stare at their inbox sometimes and feel their soul leaving their body? No? Just me? Cool."
+          }
+        ]
+      },
+      {
+        unitType: 'Rehook',
+        frameIds: ['humor-rehook', 'unexpected-obstacle'],
+        examples: [
+          {
+            frameId: 'humor-rehook',
+            content: "Plot twist! I made it to the at-home workout portion of my day. Second plot twist! I've been lying here scrolling through TikTok for 15 minutes instead of actually working out. This is what we call ✨multitasking✨."
+          }
+        ]
+      },
+      {
+        unitType: 'Outro',
+        frameIds: ['reflection-with-humor', 'casual-call-to-action'],
+        examples: [
+          {
+            frameId: 'reflection-with-humor',
+            content: "So today I learned that I'm still terrible at being productive, but I'm really good at convincing myself that scrolling through social media counts as 'research' and that organizing my Spotify playlists is 'essential life admin'."
+          }
+        ]
+      }
+    ]
+  },
+
+  // ENTERTAINMENT CATEGORY
+  {
+    id: 'casey-neistat',
+    name: 'Casey Neistat Style',
+    creator: 'Casey Neistat',
+    category: 'Entertainment',
+    contentTypes: ['long'],
+    description: 'High-energy vlog/documentary hybrid with cinematic visuals',
+    units: ['Hook', 'Story Setup', 'Content Journey', 'Rehook', 'Escalation', 'Climax', 'Reflection', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['visual-hook', 'bold-statement'],
+        examples: [
+          {
+            frameId: 'visual-hook',
+            content: "New York City. 8 million stories. Today, I'm looking for just one."
+          }
+        ]
+      },
+      {
+        unitType: 'Story Setup',
+        frameIds: ['personal-connection', 'goal-statement'],
+        examples: [
+          {
+            frameId: 'personal-connection',
+            content: "I've been feeling creatively stuck lately. It happens to everyone, but as a creator, it's terrifying. So today, I'm doing what I always do when I need inspiration - I'm hitting the streets."
+          }
+        ]
+      },
+      {
+        unitType: 'Content Journey',
+        frameIds: ['conflict-setup', 'relatable-moment', 'behind-the-scenes'],
+        examples: [
+          {
+            frameId: 'conflict-setup',
+            content: "Of course, nothing in New York is ever simple. Subway's delayed, it's starting to rain, and I'm already behind schedule."
+          }
+        ]
+      },
+      {
+        unitType: 'Rehook',
+        frameIds: ['question-rehook', 'teaser-rehook'],
+        examples: [
+          {
+            frameId: 'question-rehook',
+            content: "What if inspiration isn't something you find? What if it's something that finds you when you're busy looking elsewhere?"
+          }
+        ]
+      },
+      {
+        unitType: 'Escalation',
+        frameIds: ['stakes-amplifier', 'unexpected-discovery'],
+        examples: [
+          {
+            frameId: 'stakes-amplifier',
+            content: "With only four hours of daylight left, I'm determined to visit every neighborhood on my list. The clock is ticking."
+          }
+        ]
+      },
+      {
+        unitType: 'Climax',
+        frameIds: ['triumph-over-adversity', 'big-reveal'],
+        examples: [
+          {
+            frameId: 'triumph-over-adversity',
+            content: "Five neighborhoods. Seven artists. Countless moments of inspiration. Despite the rain, the delays, and the chaos - or maybe because of them - today was exactly what I needed."
+          }
+        ]
+      },
+      {
+        unitType: 'Reflection',
+        frameIds: ['one-liner-wisdom', 'key-takeaway'],
+        examples: [
+          {
+            frameId: 'one-liner-wisdom',
+            content: "Creativity isn't found in perfect conditions. It's found in the messy, unpredictable moments when you're open to seeing the world differently."
+          }
+        ]
+      },
+      {
+        unitType: 'Outro',
+        frameIds: ['call-to-action', 'subscribe-reminder'],
+        examples: [
+          {
+            frameId: 'call-to-action',
+            content: "Where do you find inspiration when you're stuck? Let me know in the comments. See you tomorrow."
+          }
+        ]
+      }
+    ]
+  },
+  
+  {
+    id: 'dude-perfect',
+    name: 'Dude Perfect Style',
+    creator: 'Dude Perfect',
+    category: 'Entertainment',
+    contentTypes: ['long'],
+    description: 'High-energy challenge & trick shot videos with team camaraderie',
+    units: ['Hook', 'Intro', 'Content Segment', 'Rehook', 'Challenge Progression', 'Climax', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['visual-hook', 'shocking-statement'],
+        examples: [
+          {
+            frameId: 'visual-hook',
+            content: "[Slow-motion shot of paper airplane flying across office, through small opening in doorway, landing perfectly in trash can] Group cheer: 'OHHHHHHHH!'"
+          }
+        ]
+      },
+      {
+        unitType: 'Intro',
+        frameIds: ['team-introduction', 'challenge-setup'],
+        examples: [
+          {
+            frameId: 'team-introduction',
+            content: "What's up guys! Welcome to Dude Perfect! Today we're turning an ordinary office into the ultimate trick shot playground!"
+          }
+        ]
+      },
+      {
+        unitType: 'Content Segment',
+        frameIds: ['step-by-step-demo', 'escalation'],
+        examples: [
+          {
+            frameId: 'step-by-step-demo',
+            content: "Alright, for this first one, we're calling it 'The Copier.' I've got to bounce this stress ball off three walls, onto the copier lid, and have it land in this coffee mug."
+          }
+        ]
+      },
+      {
+        unitType: 'Rehook',
+        frameIds: ['stakes-amplifier', 'teaser-rehook'],
+        examples: [
+          {
+            frameId: 'stakes-amplifier',
+            content: "Alright, we're halfway through the challenges, and Garrett is falling behind. If he doesn't make this next shot in under 10 attempts, he's definitely going to be our new intern!"
+          }
+        ]
+      },
+      {
+        unitType: 'Challenge Progression',
+        frameIds: ['competition', 'triumph-over-adversity'],
+        examples: [
+          {
+            frameId: 'competition',
+            content: "The Swivel Chair Spinner! You've got to spin three times in the chair while bouncing the ping pong ball, then land it in the pencil holder."
+          }
+        ]
+      },
+      {
+        unitType: 'Climax',
+        frameIds: ['final-challenge', 'big-reveal'],
+        examples: [
+          {
+            frameId: 'final-challenge',
+            content: "This is it. The Office Domino. One paper airplane that has to trigger a chain reaction across the entire office, ending with that stapler falling into the trash can."
+          }
+        ]
+      },
+      {
+        unitType: 'Outro',
+        frameIds: ['result-announcement', 'call-to-action'],
+        examples: [
+          {
+            frameId: 'result-announcement',
+            content: "Well, after ten impossible office trick shots... Looks like we've got our new intern!"
+          }
+        ]
+      }
+    ]
+  },
+
+  // BUSINESS CATEGORY
+  {
+    id: 'garyv',
+    name: 'GaryV Style',
+    creator: 'Gary Vaynerchuk',
+    category: 'Business',
+    contentTypes: ['long', 'short'],
+    description: 'High-energy, direct motivational business advice with actionable insights',
+    units: ['Hook', 'Intro', 'Content Delivery', 'Rehook', 'Practical Application', 'Reflection', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['call-out-audience', 'bold-statement'],
+        examples: [
+          {
+            frameId: 'call-out-audience',
+            content: "You keep asking why you're not seeing results with your business? I'll tell you exactly why. You're addicted to strategies but allergic to execution. Let's talk about it."
+          }
+        ]
+      },
+      {
+        unitType: 'Intro',
+        frameIds: ['establish-credibility', 'contrarian-perspective'],
+        examples: [
+          {
+            frameId: 'establish-credibility',
+            content: "I've built multiple 8-figure businesses, and I've consulted for Fortune 500 companies. But I've also talked to thousands of entrepreneurs who are struggling. And I keep seeing the same pattern."
+          }
+        ]
+      },
+      {
+        unitType: 'Content Delivery',
+        frameIds: ['key-insight', 'myth-buster'],
+        examples: [
+          {
+            frameId: 'key-insight',
+            content: "Here's the truth: 99% of you are overthinking it. You're consuming content like this instead of DOING THE WORK. It's not about finding the perfect strategy. It's about putting in the reps on the fundamentals."
+          }
+        ]
+      },
+      {
+        unitType: 'Rehook',
+        frameIds: ['attention-grabber', 'personal-challenge'],
+        examples: [
+          {
+            frameId: 'attention-grabber',
+            content: "You think Zuckerberg was waiting for the perfect time to launch Facebook? You think I waited until I had the perfect camera setup before starting my content? NO! We just started. That's the difference."
+          }
+        ]
+      },
+      {
+        unitType: 'Practical Application',
+        frameIds: ['step-by-step', 'common-pitfalls'],
+        examples: [
+          {
+            frameId: 'step-by-step',
+            content: "Here's what you're going to do: 1) Pick ONE platform. 2) Create content EVERY DAY for 90 days. 3) Engage with your community for at least 30 minutes daily. 4) Review what's working weekly. That's it."
+          }
+        ]
+      },
+      {
+        unitType: 'Reflection',
+        frameIds: ['key-takeaway', 'motivation-booster'],
+        examples: [
+          {
+            frameId: 'key-takeaway',
+            content: "The market doesn't reward people who know things. It rewards people who DO things. Your execution > your knowledge. Your consistency > your perfection."
+          }
+        ]
+      },
+      {
+        unitType: 'Outro',
+        frameIds: ['call-to-action', 'gratitude-expression'],
+        examples: [
+          {
+            frameId: 'call-to-action',
+            content: "Stop watching videos after this. Go execute. I mean it. But if you found this valuable, maybe subscribe before you go. And if you have a specific challenge you're facing, drop it in the comments - maybe I'll make my next video about it."
+          }
+        ]
+      }
+    ]
+  },
+
+  // TECHNOLOGY CATEGORY
+  {
+    id: 'mkbhd',
+    name: 'Marques Brownlee (MKBHD) Style',
+    creator: 'Marques Brownlee',
+    category: 'Technology',
+    contentTypes: ['long'],
+    description: 'Sleek, precise tech reviews with cinematic visuals and clear explanations',
+    units: ['Hook', 'Intro', 'Content Segment', 'Rehook', 'Content Segment 2', 'Reflection', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['visual-hook', 'intriguing-question'],
+        examples: [
+          {
+            frameId: 'visual-hook',
+            content: "What if I told you the most exciting smartphone of the year isn't from Apple or Samsung? [Camera pans over sleek new phone] This is the [Product X], and after two weeks of testing, I've got some thoughts."
+          }
+        ]
+      },
+      {
+        unitType: 'Intro',
+        frameIds: ['quick-introduction', 'topic-overview'],
+        examples: [
+          {
+            frameId: 'quick-introduction',
+            content: "So when [Company] announced this phone last month, they made some big claims about the camera, battery life, and performance. Today we're putting those claims to the test."
+          }
+        ]
+      },
+      {
+        unitType: 'Content Segment',
+        frameIds: ['detailed-breakdown', 'common-questions'],
+        examples: [
+          {
+            frameId: 'detailed-breakdown',
+            content: "Let's start with build quality. The phone has an aluminum frame with Gorilla Glass on front and back. The buttons are clicky and responsive, and that matte finish on the back does a great job hiding fingerprints."
+          }
+        ]
+      },
+      {
+        unitType: 'Rehook',
+        frameIds: ['unexpected-discovery', 'teaser-rehook'],
+        examples: [
+          {
+            frameId: 'unexpected-discovery',
+            content: "But here's where things get interesting. The camera system might look similar to last year's model, but there's something completely different happening inside."
+          }
+        ]
+      },
+      {
+        unitType: 'Content Segment 2',
+        frameIds: ['comparison-contrast', 'data-story'],
+        examples: [
+          {
+            frameId: 'comparison-contrast',
+            content: "I've been comparing these photos side-by-side with the iPhone and Pixel, and in good lighting, they're neck-and-neck. But once the sun goes down, you can see how the larger sensor really makes a difference."
+          }
+        ]
+      },
+      {
+        unitType: 'Reflection',
+        frameIds: ['key-takeaway', 'future-implications'],
+        examples: [
+          {
+            frameId: 'key-takeaway',
+            content: "So is this the perfect phone? No. The software still has some quirks, and that $999 price tag is definitely premium. But what [Company] has done with the camera and battery life is genuinely impressive."
+          }
+        ]
+      },
+      {
+        unitType: 'Outro',
+        frameIds: ['audience-question', 'subscribe-reminder'],
+        examples: [
+          {
+            frameId: 'audience-question',
+            content: "What do you think about the [Product X]? Would you consider switching from your current phone? Let me know in the comments. And if you want to see more reviews like this, don't forget to subscribe. This is MKBHD, and I'll catch you in the next one."
+          }
+        ]
+      }
+    ]
+  },
+  
+  // LIFESTYLE/BEAUTY CATEGORY
+  {
+    id: 'nikkietutorials',
+    name: 'NikkieTutorials Style',
+    creator: 'Nikkie de Jager',
+    category: 'Lifestyle',
+    contentTypes: ['long'],
+    description: 'Engaging, detailed makeup tutorials with personality and professional techniques',
+    units: ['Hook', 'Intro', 'Content Delivery', 'Demonstration', 'Transformation', 'Final Result', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['promise-of-value', 'visual-hook'],
+        examples: [
+          {
+            frameId: 'promise-of-value',
+            content: "Hello everyone! My name is Nikkie, and welcome to my channel! Today we're testing viral makeup hacks that are all over social media. Some of these look absolutely insane, but do they actually work? Let's find out!"
+          }
+        ]
+      },
+      {
+        unitType: 'Intro',
+        frameIds: ['personal-connection', 'structure-preview'],
+        examples: [
+          {
+            frameId: 'personal-connection',
+            content: "So many of you have been tagging me in these crazy makeup hack videos, and I've been dying to try them! I've collected the five most viral ones that kept showing up on my feed. Some look genius, others look like disasters waiting to happen."
+          }
+        ]
+      },
+      {
+        unitType: 'Content Delivery',
+        frameIds: ['teach-concept', 'expert-insight'],
+        examples: [
+          {
+            frameId: 'teach-concept',
+            content: "Before we dive in, let's understand why this hack is supposed to work. It claims that using a damp beauty sponge will create a more seamless blend because the water creates a barrier between the product and the sponge, preventing absorption."
+          }
+        ]
+      },
+      {
+        unitType: 'Demonstration',
+        frameIds: ['step-by-step', 'close-up-detail'],
+        examples: [
+          {
+            frameId: 'step-by-step',
+            content: "For this hack, we're going to apply setting powder BEFORE foundation. I know, it sounds completely backwards! They claim it creates an ultra-matte, long-lasting base. Let me show you exactly how to do it..."
+          }
+        ]
+      },
+      {
+        unitType: 'Transformation',
+        frameIds: ['before-after', 'common-pitfalls'],
+        examples: [
+          {
+            frameId: 'before-after',
+            content: "Let's look at the difference side by side. On this side with the hack, you can see the foundation has a different texture - it's definitely more matte, but is it better? Let's zoom in and look at how it's sitting on the skin."
+          }
+        ]
+      },
+      {
+        unitType: 'Final Result',
+        frameIds: ['honest-review', 'personal-recommendation'],
+        examples: [
+          {
+            frameId: 'honest-review',
+            content: "After wearing this for the past three hours under these hot studio lights, I have to say... this hack actually WORKS! But with a caveat - it works best for oily skin types and not so much for dry skin. My T-zone usually gets shiny quickly, but with this technique, it's still perfectly matte!"
+          }
+        ]
+      },
+      {
+        unitType: 'Outro',
+        frameIds: ['audience-question', 'subscribe-reminder'],
+        examples: [
+          {
+            frameId: 'audience-question',
+            content: "Have you tried any of these hacks before? Let me know your experiences in the comments! If you enjoyed this video, don't forget to give it a thumbs up and subscribe for new videos every week. Thank you so much for watching, and I'll see you in the next one!"
+          }
+        ]
+      }
+    ]
+  },
+
+  // EDUCATION CATEGORY
+  {
+    id: 'nas-daily',
+    name: 'Nas Daily Style',
+    creator: 'Nuseir Yassin',
+    category: 'Education',
+    contentTypes: ['short'],
+    description: 'Fast-paced, high-energy educational content with global perspective',
+    units: ['Hook', 'Problem Setup', 'Solution', 'Implementation', 'Results', 'Reflection', 'Outro'],
+    frames: [
+      {
+        unitType: 'Hook',
+        frameIds: ['shocking-statement', 'visual-hook'],
+        examples: [
+          {
+            frameId: 'shocking-statement',
+            content: "This tiny island with NO natural resources now produces 70% of its own water! Singapore's water story is mind-blowing, and today, I'm going to show you exactly how they did it in just ONE MINUTE!"
+          }
+        ]
+      },
+      {
+        unitType: 'Problem Setup',
+        frameIds: ['historical-context', 'data-story'],
+        examples: [
+          {
+            frameId: 'historical-context',
+            content: "Fifty years ago, Singapore had NO reliable water sources. They imported almost all their water from Malaysia, creating a dangerous dependence on another country. The situation was IMPOSSIBLE!"
+          }
+        ]
+      },
+      {
+        unitType: 'Solution',
+        frameIds: ['teach-concept', 'expert-insight'],
+        examples: [
+          {
+            frameId: 'teach-concept',
+            content: "So Singapore created a masterplan with FOUR national taps: 1) Imported water, 2) Rainwater collection, 3) Recycled water, and 4) Desalination. But the most INCREDIBLE part is the recycled water system!"
+          }
+        ]
+      },
+      {
+        unitType: 'Implementation',
+        frameIds: ['behind-the-scenes', 'visual-demo'],
+        examples: [
+          {
+            frameId: 'behind-the-scenes',
+            content: "I visited Singapore's NEWater plant, where they take sewage water and transform it into ultra-clean drinking water through a three-step process. The result? Water that's CLEANER than regular tap water!"
+          }
+        ]
+      },
+      {
+        unitType: 'Results',
+        frameIds: ['data-story', 'personal-story'],
+        examples: [
+          {
+            frameId: 'data-story',
+            content: "Today, NEWater meets 40% of Singapore's water needs! By 2060, they plan to triple its capacity to meet 55% of future demand. And the technology is so good that most of it is used for industrial purposes because it's PURER than what humans actually need!"
+          }
+        ]
+      },
+      {
+        unitType: 'Reflection',
+        frameIds: ['global-application', 'one-liner-wisdom'],
+        examples: [
+          {
+            frameId: 'global-application',
+            content: "With climate change making water scarcity a global issue, Singapore's solutions aren't just impressive—they're essential. Countries from Israel to Australia are now implementing similar strategies."
+          }
+        ]
+      },
+      {
+        unitType: 'Outro',
+        frameIds: ['call-to-action', 'motivation-booster'],
+        examples: [
+          {
+            frameId: 'call-to-action',
+            content: "That's one minute! If you want more stories like this, follow me on social media. And remember: we're just one minute away from understanding each other better!"
+          }
+        ]
+      }
+    ]
+  },
+
   // COOKING CATEGORY
   {
     id: 'joshua-weissman',
