@@ -146,40 +146,12 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                 <div className="grid gap-2 flex-1 overflow-hidden">
                   <div className="flex justify-between items-center">
                     <Label>Choose a Creator Template</Label>
-                    <div className="flex items-center gap-2">
-                      <Label htmlFor="content-type" className="text-xs">Content:</Label>
-                      <div className="flex border rounded-md overflow-hidden">
-                        <button
-                          type="button"
-                          onClick={() => setContentType('short')}
-                          className={cn(
-                            "px-2 py-1 text-xs",
-                            contentType === 'short'
-                              ? "bg-primary text-primary-foreground"
-                              : "bg-background hover:bg-muted"
-                          )}
-                        >
-                          Short
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setContentType('long')}
-                          className={cn(
-                            "px-2 py-1 text-xs",
-                            contentType === 'long'
-                              ? "bg-primary text-primary-foreground"
-                              : "bg-background hover:bg-muted"
-                          )}
-                        >
-                          Long
-                        </button>
-                      </div>
-                    </div>
                   </div>
                   
                   <div className="space-y-2 mb-2">
                     <div className="flex justify-between items-center">
-                      <div className="flex gap-1.5">
+                      <div className="flex items-center gap-2">
+                        <Label className="text-xs">Content Type:</Label>
                         <div className="flex items-center border rounded-md overflow-hidden">
                           <button
                             type="button"
