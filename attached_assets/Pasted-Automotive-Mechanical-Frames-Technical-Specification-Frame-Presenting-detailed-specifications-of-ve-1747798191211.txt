@@ -1,0 +1,38 @@
+Automotive/Mechanical Frames
+Technical Specification Frame: Presenting detailed specifications of vehicles, parts, or equipment
+Diagnostic Frame: Identifying and explaining mechanical problems or issues
+Safety Procedure Frame: Highlighting important safety considerations for mechanical work
+Gaming Frames
+Gameplay Strategy Frame: Explaining specific tactics or approaches to gameplay
+Game Update Frame: Discussing new features or changes to a game
+Speedrun Frame: Demonstrating how to complete game objectives quickly
+Sports/Athletic Frames
+Form Correction Frame: Highlighting proper technique and common errors
+Training Progression Frame: Showing how to advance from beginner to advanced levels
+Game Situation Frame: Demonstrating when to apply specific skills in competitive settings
+Science/Educational Frames
+Experiment Setup Frame: Detailing the preparation of scientific demonstrations
+Hypothesis Formation Frame: Presenting predictions before testing
+Scientific Principle Frame: Connecting observations to broader scientific concepts
+Technology Frames
+Tech Comparison Frame: Directly comparing features of different devices/software
+Troubleshooting Frame: Walking through solutions to common technical problems
+Future Technology Frame: Discussing upcoming innovations or developments
+Gardening/Outdoor Frames
+Plant Care Frame: Detailing specific maintenance requirements for plants
+Seasonal Timing Frame: Explaining when to perform specific gardening tasks
+Growth Progression Frame: Showing plant development over time
+Mental Health/Wellness Frames
+Therapeutic Exercise Frame: Demonstrating specific mental health techniques
+Neuroscience Explanation Frame: Breaking down brain mechanisms behind behaviors
+Self-Assessment Frame: Guiding viewers through personal evaluation processes
+Universal Engagement Frames
+Viewer Question Response Frame: Addressing specific questions from previous videos
+Community Showcase Frame: Highlighting viewer submissions or participation
+Platform-Specific Engagement Frame: Utilizing unique features of specific platforms (YouTube Polls, etc.)
+Timestamp Navigation Frame: Guiding viewers to different sections of longer videos
+Production Enhancement Frames
+Multi-Angle Demonstration Frame: Showing processes from multiple perspectives
+Time-Lapse Progress Frame: Condensing lengthy processes into brief segments
+Screen Recording Frame: Capturing digital processes or online activities
+Split-Screen Comparison Frame: Showing before/after or multiple options simultaneously
