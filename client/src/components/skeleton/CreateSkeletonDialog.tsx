@@ -72,6 +72,11 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
   const categories = getTemplateCategories();
   const [contentType, setContentType] = useState<'short' | 'long'>('long');
   const { addSkeleton, setActiveSkeletonId, setVideoContext: setStoreVideoContext } = useWorkspace();
+  
+  // Filter templates based on selected category and content type
+  const filteredTemplates = selectedCategory === 'all'
+    ? creatorTemplates.filter(t => t.contentTypes.includes(contentType))
+    : creatorTemplates.filter(t => t.category === selectedCategory && t.contentTypes.includes(contentType));
 
   function handleTemplateSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -224,10 +229,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                       onValueChange={setSelectedCreator}
                       className="pb-16 grid gap-3"
                     >
-                      {(selectedCategory === 'all' 
-                        ? creatorTemplates 
-                        : creatorTemplates.filter((t: CategoryCreatorTemplate) => t.category === selectedCategory)
-                      ).filter((t: CategoryCreatorTemplate) => t.contentTypes.includes(contentType)).map((template: CategoryCreatorTemplate) => (
+                      {filteredTemplates.map((template: CategoryCreatorTemplate) => (
                         <div 
                           key={template.id} 
                           className={cn(
