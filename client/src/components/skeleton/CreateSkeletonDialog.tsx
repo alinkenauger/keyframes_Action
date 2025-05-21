@@ -223,7 +223,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                     </div>
                   </div>
                   
-                  <div className="h-[450px] border rounded-md p-4 overflow-auto">
+                  <div className="h-[450px] border rounded-md p-4 overflow-y-auto">
                     <RadioGroup
                       value={selectedCreator || ''}
                       onValueChange={setSelectedCreator}
