@@ -606,71 +606,103 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['visual-demo', 'call-out-audience'],
+        frameIds: ['visual-demo', 'challenge-setup'],
         examples: [
           {
             frameId: 'visual-demo',
-            content: "This homemade burger is about to change your life. Fast food could never."
+            content: "That right there is what a real burger should look like. Not that sad, flat thing they serve you at [Fast Food Chain]."
+          },
+          {
+            frameId: 'challenge-setup',
+            content: "Today, we're taking this sad excuse for a burger and transforming it into something that will make your taste buds absolutely lose their minds. This is [Fast Food Chain] Burger... But Better!"
           }
         ]
       },
       {
         unitType: 'Intro',
-        frameIds: ['quick-introduction', 'establish-credibility'],
+        frameIds: ['relatable-problem', 'promise-of-value'],
         examples: [
           {
-            frameId: 'quick-introduction',
-            content: "Today we're making a gourmet version of that fast-food classic, but of course... better."
+            frameId: 'relatable-problem',
+            content: "Look at this thing. Dry, overcooked patty. Wilted lettuce. A bun that's been squished into oblivion. And don't even get me started on this sauce that's basically just glorified mayo with food coloring. We deserve better than this, people!"
+          },
+          {
+            frameId: 'promise-of-value',
+            content: "So here's what we're going to do. We're making everything from scratch - a perfect smash burger patty with a custom blend of beef, homemade brioche buns that are going to be absolutely luscious, quick-pickled onions for acidity, and a secret sauce that will make you slap your mama. This is going to be the burger of your dreams."
           }
         ]
       },
       {
         unitType: 'Content Delivery',
-        frameIds: ['step-by-step', 'expert-insight'],
+        frameIds: ['step-by-step', 'educational', 'behind-the-scenes'],
         examples: [
           {
             frameId: 'step-by-step',
-            content: "First, let's break down each component - the bun, the patty, the sauce, and the assembly."
+            content: "First, we're making our brioche buns. In a stand mixer, we're combining 500 grams of bread flour, 10 grams of salt, 80 grams of sugar, and 7 grams of instant yeast. Now we're adding 200 milliliters of whole milk that I've warmed to exactly 95 degrees Fahrenheit, 2 eggs, and 80 grams of softened butter. We're going to mix this until it's smooth and elastic."
+          },
+          {
+            frameId: 'educational',
+            content: "Now for the patties, I'm using a blend of 70% chuck and 30% brisket for the perfect fat content. You want around 20% fat for a juicy smash burger. And here's the key - don't overwork the meat! Just gently form it into balls. We're going for tender, not tough."
+          },
+          {
+            frameId: 'behind-the-scenes',
+            content: "While our dough is doing its thing, I've already prepared our quick-pickled onions. These have been sitting for about 2 hours in a mixture of rice vinegar, sugar, and salt. The acidity is going to cut through the richness of our burger perfectly."
           }
         ]
       },
       {
         unitType: 'Escalation',
-        frameIds: ['conflict-setup', 'creative-transition'],
+        frameIds: ['stakes-amplifier', 'comparison'],
         examples: [
           {
-            frameId: 'conflict-setup',
-            content: "Now for the ultimate test - how does this stack up against the original?"
+            frameId: 'stakes-amplifier',
+            content: "Now comes the moment of truth. We need this skillet absolutely ripping hot. I'm talking 500+ degrees. If it's not hot enough, we won't get that beautiful crust that makes a smash burger so incredible. This is where most people fail. They get impatient or scared of the heat. But greatness requires commitment, people!"
+          },
+          {
+            frameId: 'comparison',
+            content: "Look at the difference here. Their patty is pre-cooked, frozen, and reheated. Ours is fresh, perfectly seasoned, and getting an incredible sear that's developing hundreds of flavor compounds. It's not even a competition at this point. That crust is what dreams are made of, people. That's what we're after!"
           }
         ]
       },
       {
         unitType: 'Reveal',
-        frameIds: ['case-study', 'visual-demo'],
+        frameIds: ['big-reveal', 'taste-test'],
         examples: [
           {
-            frameId: 'visual-demo', 
-            content: "Look at that perfect cross-section! Just listen to that crunch!"
+            frameId: 'big-reveal', 
+            content: "And now, the moment we've all been waiting for. Toasted brioche bun, secret sauce on the bottom, perfectly seared patty, melted American cheese, crisp lettuce, tomato, quick-pickled onions, more sauce, and the crown of our beautiful bun. Just look at that. Absolutely magnificent. A true work of art."
+          },
+          {
+            frameId: 'taste-test',
+            content: "Oh my... that is... ridiculous. The juiciness of that patty, the butteriness of the bun, the tang from the pickled onions, the richness of the sauce... it all comes together in perfect harmony. This isn't even in the same universe as the fast food version. This is what a burger should be."
           }
         ]
       },
       {
         unitType: 'Reflection',
-        frameIds: ['testimonial', 'quick-win'],
+        frameIds: ['success-formula', 'one-liner-wisdom'],
         examples: [
           {
-            frameId: 'quick-win',
-            content: "The key to this recipe is taking your time with the fermentation and getting a really good sear on the patty."
+            frameId: 'success-formula',
+            content: "What makes this burger superior comes down to three things: quality ingredients, proper technique, and attention to detail. We didn't take shortcuts. We respected each component. And the result speaks for itself. This costs about $3.50 per burger to make and will change your life."
+          },
+          {
+            frameId: 'one-liner-wisdom',
+            content: "Remember, people - cooking is about transformation. Taking something ordinary and making it extraordinary. That's the power you have in your kitchen every single day."
           }
         ]
       },
       {
         unitType: 'Outro',
-        frameIds: ['subscribe-reminder', 'coming-soon'],
+        frameIds: ['call-to-action', 'subscribe-reminder'],
         examples: [
           {
+            frameId: 'call-to-action',
+            content: "If you enjoyed this culinary glow-up, smash that subscribe button like I smashed that burger patty. Hit the notification bell so you never miss a video. And let me know in the comments what fast food item you want me to make 'But Better' next."
+          },
+          {
             frameId: 'subscribe-reminder',
-            content: "If you want to see more \"But Better\" recipes, hit that subscribe button and tell me what to make next in the comments!"
+            content: "Now go cook something delicious. I believe in you."
           }
         ]
       }
@@ -689,51 +721,75 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
     frames: [
       {
         unitType: 'Hook',
-        frameIds: ['visual-demo', 'intriguing-question'],
+        frameIds: ['visual-demo', 'challenge-setup'],
         examples: [
           {
             frameId: 'visual-demo',
-            content: "I built what might be the craziest tiny house in The Sims 4 yet, and I'm not sure if I love it or hate it."
+            content: "Okay, so I may have a slight obsession with tiny houses in The Sims. They're just so cute and cozy and perfect and today we're building the ultimate tiny house that's actually functional for gameplay!"
+          },
+          {
+            frameId: 'challenge-setup',
+            content: "So here's the challenge - we're going to build a fully functional tiny house on this 20x15 lot in Evergreen Harbor. It needs a kitchen, bathroom, living space, and at least one bedroom, but I also want it to be super cute and have a little garden. And we're going to try to keep it under 32 tiles to get all those tiny home benefits. This is going to be chaotic!"
           }
         ]
       },
       {
         unitType: 'Intro',
-        frameIds: ['quick-introduction', 'topic-overview'],
+        frameIds: ['relatable-problem', 'promise-of-value'],
         examples: [
           {
-            frameId: 'quick-introduction',
-            content: "Today we're going to be taking on the Ultimate Tiny Home Challenge with some impossible requirements."
+            frameId: 'relatable-problem',
+            content: "I've tried building functional tiny houses before, and they always end up being either too cramped for actual gameplay or they're not actually tiny anymore. Like this one I made last month - it's cute, but my Sim kept getting the uncomfortable moodlet because they couldn't walk anywhere without bumping into things. It was a disaster!"
+          },
+          {
+            frameId: 'promise-of-value',
+            content: "But today is going to be different! I've been researching tiny house layouts, and I think I've figured out some tricks to make this work. We're going to use platforms for different levels, Murphy beds to save space, and I found some amazing custom content that's going to make this place super cute while being actually playable. Let's get started!"
           }
         ]
       },
       {
         unitType: 'Content Journey',
-        frameIds: ['behind-the-scenes', 'common-struggle'],
+        frameIds: ['step-by-step', 'educational', 'humor'],
         examples: [
           {
-            frameId: 'behind-the-scenes',
-            content: "Let me show you exactly how I'm planning this layout to maximize every single tile of space."
+            frameId: 'step-by-step',
+            content: "First, I'm starting with a 6x5 foundation for the main living area. I know that seems tiny, but trust me, we're going to make it work! I'm adding a little 3x4 bump-out on the side for the bathroom. Now I'm going to add a platform here that's raised by one click - this is going to be our bedroom area, and we'll put the Murphy bed against this wall so it can fold up during the day and give us more space."
+          },
+          {
+            frameId: 'educational',
+            content: "Okay, so here's a little Sims 4 tip - if you use these half walls instead of full walls for the bathroom, it makes the space feel more open while still giving your Sim privacy. The game counts it as a room, but visually it doesn't cut off the space. And remember, tiny homes under 32 tiles get a 50% boost to Sim needs, which is actually super helpful for gameplay. Your Sims will be happier in a well-designed tiny home than in a mansion!"
+          },
+          {
+            frameId: 'humor',
+            content: "I'm putting the fridge right next to the bed because nothing says 'sweet dreams' like the sound of your refrigerator running all night! I'm kidding, we're not doing that. Even I have standards... barely. Although, midnight snacks would be super convenient. No, Kayla, focus! We're trying to make this functional, not cursed!"
           }
         ]
       },
       {
         unitType: 'Rehook',
-        frameIds: ['midway-shock', 'teaser-rehook'],
+        frameIds: ['question-rehook', 'midway-shock'],
         examples: [
           {
+            frameId: 'question-rehook',
+            content: "Wait, do you think we should go with the eco-friendly appliances or the more compact ones? The eco ones will fit the Evergreen Harbor vibe, but they take up more counter space... What would you do? I'm kind of leaning toward the compact ones even though they're not as cute. This is the kind of decision that keeps me up at night, folks. The struggles of a Sims builder!"
+          },
+          {
             frameId: 'midway-shock',
-            content: "Oh no, I just realized I completely forgot about the bathroom! Now I have to redo the entire floorplan!"
+            content: "OH NO! I just deleted the entire bathroom! Why does this always happen to me?! It's fine, it's fine, we can fix this. This is why we have ctrl+z, folks. Crisis averted. Although, maybe the build would be better without a bathroom... No, that's definitely cursed building. We need the bathroom."
           }
         ]
       },
       {
         unitType: 'Reveal',
-        frameIds: ['visual-demo', 'data-story'],
+        frameIds: ['big-reveal', 'reaction'],
         examples: [
           {
-            frameId: 'visual-demo', 
-            content: "And here's the final build! Let me give you a full tour of every space-saving feature."
+            frameId: 'big-reveal', 
+            content: "And here it is! Our completed tiny house! We managed to fit everything in just 31 tiles, so we get all those tiny home benefits. We have our Murphy bed that folds up into the wall, a compact kitchen with all the essentials, a cute little bathroom with a shower-tub combo, and even a small living area with a bookshelf and TV. And look at this adorable garden outside! I used the eco footprint-friendly plants so our Sim can help keep Evergreen Harbor green while having fresh produce."
+          },
+          {
+            frameId: 'reaction',
+            content: "I think this might be my favorite tiny house I've ever built! It's actually functional, it's super cute, and I didn't have to sacrifice anything important. I'm literally so excited to play with this in my next Let's Play. I think my Rags to Riches Sim would love living here! I'm not even being dramatic right now, I'm genuinely so happy with how this turned out!"
           }
         ]
       },
@@ -743,17 +799,25 @@ export const CREATOR_TEMPLATES_BY_CATEGORY: CategoryCreatorTemplate[] = [
         examples: [
           {
             frameId: 'audience-question',
-            content: "What other challenges should I try next? Let me know in the comments below!"
+            content: "What do you think of our tiny house? Would you change anything about it? I'm thinking maybe the color scheme could use some work, but I'm kind of obsessed with the layout. Let me know your thoughts in the comments! Also, do you prefer playing in tiny homes or big mansions in The Sims? I go back and forth, but tiny homes are winning me over lately."
+          },
+          {
+            frameId: 'call-to-action',
+            content: "If you enjoyed this build, please hit that like button! It really helps the channel. And if you want to see me actually play in this tiny house, make sure you're subscribed and have notifications turned on so you don't miss the Let's Play. Also, I stream on Twitch four times a week if you want to see more chaotic building in real-time!"
           }
         ]
       },
       {
         unitType: 'Outro',
-        frameIds: ['subscribe-reminder', 'coming-soon'],
+        frameIds: ['subscribe-reminder', 'thank-you'],
         examples: [
           {
             frameId: 'subscribe-reminder',
             content: "If you enjoyed this build, make sure to subscribe for new Sims 4 content every week!"
+          },
+          {
+            frameId: 'thank-you',
+            content: "Thanks for watching, and I'll see you in the next one! Bye!"
           }
         ]
       }
