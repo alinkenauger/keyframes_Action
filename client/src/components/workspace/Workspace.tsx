@@ -250,7 +250,14 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <div className="flex justify-between items-center mb-2">
               <TabsList>
-                <TabsTrigger value="skeleton">Skeleton Board</TabsTrigger>
+                <TabsTrigger value="skeleton" className="flex items-center gap-2">
+                  <Grid3X3 className="w-4 h-4" />
+                  Skeleton Board
+                </TabsTrigger>
+                <TabsTrigger value="framestorm" className="flex items-center gap-2">
+                  <FileText className="w-4 h-4" />
+                  Frame-Storming
+                </TabsTrigger>
                 <TabsTrigger value="script">Full Script</TabsTrigger>
                 <TabsTrigger value="combined" className="hidden md:inline-flex">Combined View</TabsTrigger>
               </TabsList>
@@ -312,6 +319,18 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
                   />
                 </div>
               </ScrollArea>
+            </TabsContent>
+
+            <TabsContent value="framestorm" className="mt-0">
+              <FrameStormingMode 
+                skeleton={activeSkeleton}
+                onFrameUpdate={(frameId, content) => {
+                  const updatedFrames = activeSkeleton.frames.map(frame =>
+                    frame.id === frameId ? { ...frame, content } : frame
+                  );
+                  updateFrameOrder(activeSkeleton.id, updatedFrames);
+                }}
+              />
             </TabsContent>
 
             <TabsContent value="script" className="mt-0">
