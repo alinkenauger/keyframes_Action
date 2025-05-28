@@ -5,13 +5,14 @@ import { DragOverlay, defaultDropAnimationSideEffects } from '@dnd-kit/core';
 import Frame from './Frame';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Eye, EyeOff, Smartphone, Monitor } from 'lucide-react';
+import { Eye, EyeOff, Smartphone, Monitor, FileText, Grid3X3 } from 'lucide-react';
 import ScriptViewer from './ScriptViewer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import { useMobileView } from '@/hooks/use-mobile';
 import { useTouchGestures } from '@/hooks/use-touch-gestures';
+import FrameStormingMode from './FrameStormingMode';
 
 interface WorkspaceProps {
   activeId: string | null;
