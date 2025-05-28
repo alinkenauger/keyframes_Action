@@ -34,40 +34,80 @@ export default function FrameStormingMode({
 
   const getFrameQuestions = (frame: Frame) => {
     const questionSets: Record<string, string[]> = {
-      'visual-hook': [
-        'What are the benefits of this video and why should the viewer stick around to watch it?',
-        'What\'s the most surprising or unexpected thing about your content that will grab attention?',
-        'What problem are you solving for the viewer in this video?'
+      'call-out-the-audience': [
+        'What does the majority of your audience do or think is correct about this subject but it\'s NOT?',
+        'What should viewers understand or feel when you call them out?',
+        'What action do you want them to take with this call out? (Why should they watch and what will it do for them?)'
       ],
-      'voiceover-intro': [
-        'What personal connection do you have to this topic?',
-        'What makes you the right person to teach this?',
-        'What\'s your unique perspective on this subject?'
+      'attention-grabber': [
+        'What shocking or surprising statement will stop viewers from scrolling?',
+        'What\'s the most unexpected angle on your topic?',
+        'What bold claim can you make that hooks them immediately?'
+      ],
+      'visual-hook': [
+        'What compelling visual will grab attention in the first 3 seconds?',
+        'What\'s the most striking visual element of your content?',
+        'What visual will make viewers stop and watch?'
       ],
       'problem-statement': [
-        'What specific problem does your audience face?',
-        'Why is this problem important to solve now?',
+        'What specific problem does your audience face daily?',
+        'Why is this problem costing them time, money, or happiness?',
         'What happens if they don\'t solve this problem?'
       ],
+      'relatable-problem': [
+        'What frustrating situation do most people in your audience experience?',
+        'What common mistake or struggle can you relate to?',
+        'How does this problem show up in their everyday life?'
+      ],
+      'common-business-challenge': [
+        'What business challenge keeps your audience up at night?',
+        'What expensive mistake do most businesses make?',
+        'What obstacle prevents them from reaching their goals?'
+      ],
       'personal-connection': [
-        'What personal experience led you to this topic?',
+        'What personal experience led you to discover this solution?',
         'What mistake did you make that others can avoid?',
         'What transformation have you experienced?'
       ],
       'goal-statement': [
-        'What specific outcome will viewers achieve?',
-        'What will they be able to do after watching?',
+        'What specific outcome will viewers achieve by the end?',
+        'What will they be able to do that they can\'t do now?',
         'What\'s your promise to them?'
       ],
       'technique-overview': [
-        'What are the key steps in your technique?',
-        'What makes your approach different?',
-        'What\'s the most important tip for success?'
+        'What are the 3-5 key steps in your technique?',
+        'What makes your approach different from others?',
+        'What\'s the most important element for success?'
+      ],
+      'step-by-step': [
+        'What are the exact steps viewers need to follow?',
+        'What tools or resources do they need?',
+        'What\'s the most critical step they can\'t skip?'
       ],
       'visual-showcase': [
-        'What impressive visual will you show?',
-        'What\'s the money shot of your content?',
-        'What will make viewers say "wow"?'
+        'What impressive result will you demonstrate?',
+        'What\'s the "money shot" that proves your point?',
+        'What transformation will make viewers say "wow"?'
+      ],
+      'results-reveal': [
+        'What dramatic before-and-after will you show?',
+        'What specific metrics or outcomes will you share?',
+        'What proof do you have that this works?'
+      ],
+      'call-to-action': [
+        'What specific action do you want viewers to take right now?',
+        'What\'s the next logical step in their journey?',
+        'How will taking this action benefit them immediately?'
+      ],
+      'challenge-setup': [
+        'What are the rules or constraints of this challenge?',
+        'What makes this challenge exciting or difficult?',
+        'What\'s at stake and what will you prove?'
+      ],
+      'rehook': [
+        'What new angle or surprise will re-engage viewers?',
+        'What additional value are you about to provide?',
+        'Why should they keep watching instead of clicking away?'
       ]
     };
 
@@ -226,7 +266,9 @@ export default function FrameStormingMode({
                     <Badge variant="outline" className="text-xs">
                       Frame {index + 1}
                     </Badge>
-                    <h4 className="font-medium">{frame.name}</h4>
+                    <h4 className="font-medium">{frame.name.split('-').map(word => 
+                      word.charAt(0).toUpperCase() + word.slice(1)
+                    ).join(' ')}</h4>
                   </div>
                 </div>
 
