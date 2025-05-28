@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Wand2 } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Wand2, Bot, ArrowRight, CheckCircle2 } from 'lucide-react';
 import type { Frame, Skeleton } from '@/types';
 import { TONES, FILTERS } from '@/lib/constants';
 
@@ -18,6 +19,42 @@ export default function FrameStormingMode({
   onFrameUpdate,
   onFrameAttributeUpdate
 }: FrameStormingModeProps) {
+  const [loadingFrameId, setLoadingFrameId] = useState<string | null>(null);
+
+  const handleAIAssist = async (frame: Frame) => {
+    setLoadingFrameId(frame.id);
+    
+    // Generate frame-specific questions based on frame type and unit
+    const framePrompt = generateFramePrompt(frame);
+    onFrameUpdate(frame.id, framePrompt);
+    
+    setLoadingFrameId(null);
+  };
+
+  const generateFramePrompt = (frame: Frame) => {
+    const prompts = {
+      'visual-hook': 'What compelling visual will grab attention in the first 3 seconds? Describe the opening shot that makes viewers stop scrolling.',
+      'voiceover-intro': 'What will you say to immediately connect with your audience? Write your opening line that hooks them in.',
+      'problem-statement': 'What problem or challenge will you address? Why should viewers care about this topic?',
+      'personal-connection': 'How does this topic relate to your personal experience? What story can you share?',
+      'goal-statement': 'What specific outcome will viewers achieve by watching? What\'s your promise to them?',
+      'technique-overview': 'What technique or method will you teach? Break it down into clear steps.',
+      'visual-showcase': 'What impressive visual will demonstrate your point? Describe the money shot.',
+      'step-by-step': 'What are the exact steps viewers need to follow? Make it actionable.',
+      'common-mistakes': 'What mistakes do beginners make? How can viewers avoid them?',
+      'pro-tips': 'What insider knowledge will you share? What makes the difference between good and great?',
+      'results-reveal': 'What transformation will you show? What\'s the before and after?',
+      'call-to-action': 'What action do you want viewers to take? How will you motivate them?'
+    };
+
+    return prompts[frame.type] || `What content will you create for this ${frame.name} section? Consider your audience and the value you want to deliver.`;
+  };
+
+  // Calculate completion progress
+  const completedFrames = skeleton.frames.filter(frame => 
+    frame.content && frame.content.trim().length > 0
+  ).length;
+  const progressPercentage = Math.round((completedFrames / skeleton.frames.length) * 100);
 
   // Order frames by unit position (left to right, top to bottom within each unit)
   const orderedFrames = React.useMemo(() => {
@@ -51,12 +88,37 @@ export default function FrameStormingMode({
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-4">
-      <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold mb-2">Frame-Storming Mode</h2>
-        <p className="text-muted-foreground">
-          Work through your frames sequentially like writing a document. Flow from left-to-right units, top-to-bottom frames.
-        </p>
-      </div>
+      {/* Header with guidance and progress */}
+      <Card className="border-primary/20 bg-primary/5">
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-lg">Frame-Storming Mode</CardTitle>
+              <p className="text-sm text-muted-foreground mt-1">
+                Write your script ideas below for each frame. Use AI Assist for frame-specific guidance.
+              </p>
+            </div>
+            <div className="text-right">
+              <div className="text-2xl font-bold text-primary">{progressPercentage}%</div>
+              <div className="text-xs text-muted-foreground">
+                {completedFrames} of {skeleton.frames.length} frames complete
+              </div>
+            </div>
+          </div>
+          
+          {progressPercentage === 100 && (
+            <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+              <div className="flex items-center gap-2 text-green-800">
+                <CheckCircle2 className="h-4 w-4" />
+                <span className="font-medium">Great work! Your frame content is complete.</span>
+              </div>
+              <p className="text-sm text-green-700 mt-1">
+                Ready to move to the Full Script tab to generate your complete video script?
+              </p>
+            </div>
+          )}
+        </CardHeader>
+      </Card>
 
       <div className="space-y-4">
         {orderedFrames.map((frame, index) => {
@@ -90,11 +152,12 @@ export default function FrameStormingMode({
                   <Button
                     size="sm"
                     variant="outline"
-                    className="flex items-center gap-2"
-                    disabled
+                    className="flex items-center gap-2 hover:bg-primary/10"
+                    onClick={() => handleAIAssist(frame)}
+                    disabled={loadingFrameId === frame.id}
                   >
-                    <Wand2 className="w-4 h-4" />
-                    AI Enhance
+                    <Bot className="w-4 h-4" />
+                    {loadingFrameId === frame.id ? 'Loading...' : 'AI Assist'}
                   </Button>
                 </div>
 
