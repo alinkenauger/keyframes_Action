@@ -24,6 +24,7 @@ export default function FrameStormingMode({
   const [unitAssistants, setUnitAssistants] = useState<Record<string, string>>({});
   const [frameAnswers, setFrameAnswers] = useState<Record<string, Record<string, string>>>({});
   const [loadingFrameId, setLoadingFrameId] = useState<string | null>(null);
+  const [submittedFrames, setSubmittedFrames] = useState<Set<string>>(new Set());
 
   const toggleAIAssist = (frameId: string) => {
     setOpenAIAssist(prev => ({
@@ -132,6 +133,15 @@ export default function FrameStormingMode({
     const answers = frameAnswers[frameId] || {};
     const content = Object.values(answers).filter(answer => answer.trim()).join('\n\n');
     onFrameUpdate(frameId, content);
+    
+    // Mark frame as submitted
+    setSubmittedFrames(prev => new Set([...prev, frameId]));
+    
+    // Close AI Assist accordion after submission
+    setOpenAIAssist(prev => ({
+      ...prev,
+      [frameId]: false
+    }));
   };
 
   const handleEnhanceAnswers = async (frameId: string) => {
@@ -142,13 +152,21 @@ export default function FrameStormingMode({
     // Here you would call your AI enhancement API
     // For now, we'll just add the content as is
     onFrameUpdate(frameId, content + '\n\n[AI Enhancement placeholder - integrate with your OpenAI service]');
+    
+    // Mark frame as submitted
+    setSubmittedFrames(prev => new Set([...prev, frameId]));
+    
+    // Close AI Assist accordion after submission
+    setOpenAIAssist(prev => ({
+      ...prev,
+      [frameId]: false
+    }));
+    
     setLoadingFrameId(null);
   };
 
-  // Calculate completion progress
-  const completedFrames = skeleton.frames.filter(frame => 
-    frame.content && frame.content.trim().length > 0
-  ).length;
+  // Calculate completion progress based on submitted frames only
+  const completedFrames = submittedFrames.size;
   const progressPercentage = Math.round((completedFrames / skeleton.frames.length) * 100);
 
   // Order frames by unit position (left to right, top to bottom within each unit)
@@ -260,15 +278,37 @@ export default function FrameStormingMode({
               )}
 
               {/* Frame card */}
-              <div className="border rounded-lg p-6 bg-white shadow-sm hover:shadow-md transition-shadow">
+              <div className={`border rounded-lg p-6 shadow-sm hover:shadow-md transition-all ${
+                submittedFrames.has(frame.id) 
+                  ? 'bg-green-50 border-green-200' 
+                  : 'bg-white border-gray-200'
+              }`}>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <Badge variant="outline" className="text-xs">
-                      Frame {index + 1}
+                    <Badge 
+                      variant={submittedFrames.has(frame.id) ? "default" : "outline"} 
+                      className={`text-xs ${
+                        submittedFrames.has(frame.id) 
+                          ? 'bg-green-600 text-white' 
+                          : ''
+                      }`}
+                    >
+                      {submittedFrames.has(frame.id) ? (
+                        <div className="flex items-center gap-1">
+                          <CheckCircle2 className="h-3 w-3" />
+                          Frame {index + 1}
+                        </div>
+                      ) : (
+                        `Frame ${index + 1}`
+                      )}
                     </Badge>
-                    <h4 className="font-medium">{frame.name.split('-').map(word => 
-                      word.charAt(0).toUpperCase() + word.slice(1)
-                    ).join(' ')}</h4>
+                    <h4 className={`font-medium ${
+                      submittedFrames.has(frame.id) ? 'text-green-800' : ''
+                    }`}>
+                      {frame.name.split('-').map(word => 
+                        word.charAt(0).toUpperCase() + word.slice(1)
+                      ).join(' ')}
+                    </h4>
                   </div>
                 </div>
 
