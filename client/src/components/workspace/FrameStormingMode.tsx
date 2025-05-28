@@ -205,6 +205,11 @@ export default function FrameStormingMode({
     setLoadingFrameId(null);
   };
 
+  const handleManualSubmit = (frameId: string) => {
+    // Mark frame as submitted without requiring AI Assist
+    setSubmittedFrames(prev => new Set([...prev, frameId]));
+  };
+
   // Calculate completion progress based on submitted frames only
   const completedFrames = submittedFrames.size;
   const progressPercentage = Math.round((completedFrames / skeleton.frames.length) * 100);
@@ -464,6 +469,30 @@ export default function FrameStormingMode({
                   className="min-h-[120px] resize-y focus:ring-2 focus:ring-primary/20"
                   style={{ lineHeight: '1.6' }}
                 />
+
+                {/* Submit Frame Button */}
+                {!submittedFrames.has(frame.id) && (
+                  <div className="mt-4 flex justify-end">
+                    <Button
+                      onClick={() => handleManualSubmit(frame.id)}
+                      disabled={!frame.content || frame.content.trim().length === 0}
+                      className="bg-green-600 hover:bg-green-700 text-white"
+                    >
+                      <CheckCircle2 className="w-4 h-4 mr-2" />
+                      Submit Frame
+                    </Button>
+                  </div>
+                )}
+
+                {/* Completion indicator for submitted frames */}
+                {submittedFrames.has(frame.id) && (
+                  <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+                    <div className="flex items-center gap-2 text-green-800">
+                      <CheckCircle2 className="h-4 w-4" />
+                      <span className="font-medium">Frame completed and submitted</span>
+                    </div>
+                  </div>
+                )}
 
                 {/* Show frame attributes if they exist */}
                 {(frame.tone || frame.filter) && (
