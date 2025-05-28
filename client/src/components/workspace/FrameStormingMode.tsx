@@ -2,17 +2,21 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Wand2 } from 'lucide-react';
 import type { Frame, Skeleton } from '@/types';
+import { TONES, FILTERS } from '@/lib/constants';
 
 interface FrameStormingModeProps {
   skeleton: Skeleton;
   onFrameUpdate: (frameId: string, content: string) => void;
+  onFrameAttributeUpdate: (frameId: string, type: 'tone' | 'filter', value: string) => void;
 }
 
 export default function FrameStormingMode({ 
   skeleton, 
-  onFrameUpdate
+  onFrameUpdate,
+  onFrameAttributeUpdate
 }: FrameStormingModeProps) {
 
   // Order frames by unit position (left to right, top to bottom within each unit)
@@ -92,6 +96,61 @@ export default function FrameStormingMode({
                     <Wand2 className="w-4 h-4" />
                     AI Enhance
                   </Button>
+                </div>
+
+                {/* Tone and Filter selectors */}
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label className="text-xs text-muted-foreground mb-2 block">Tone</label>
+                    <Select
+                      value={frame.tone || ''}
+                      onValueChange={(value) => onFrameAttributeUpdate(frame.id, 'tone', value)}
+                    >
+                      <SelectTrigger className="h-8">
+                        <SelectValue placeholder="Select tone" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.entries(TONES).map(([category, tones]) => (
+                          <div key={category}>
+                            <div className="px-2 py-1 text-xs font-medium text-muted-foreground">
+                              {category}
+                            </div>
+                            {(tones as string[]).map((tone) => (
+                              <SelectItem key={tone} value={tone}>
+                                {tone}
+                              </SelectItem>
+                            ))}
+                          </div>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <label className="text-xs text-muted-foreground mb-2 block">Filter</label>
+                    <Select
+                      value={frame.filter || ''}
+                      onValueChange={(value) => onFrameAttributeUpdate(frame.id, 'filter', value)}
+                    >
+                      <SelectTrigger className="h-8">
+                        <SelectValue placeholder="Select filter" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.entries(FILTERS).map(([category, filters]) => (
+                          <div key={category}>
+                            <div className="px-2 py-1 text-xs font-medium text-muted-foreground">
+                              {category}
+                            </div>
+                            {(filters as string[]).map((filter) => (
+                              <SelectItem key={filter} value={filter}>
+                                {filter}
+                              </SelectItem>
+                            ))}
+                          </div>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
 
                 {/* Content textarea */}
