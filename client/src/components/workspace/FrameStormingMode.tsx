@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Wand2, Bot, ArrowRight, CheckCircle2, ChevronDown, ChevronRight, Settings } from 'lucide-react';
-import type { Frame, Skeleton } from '@/types';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { ChevronDown, ChevronRight, Bot, CheckCircle2 } from 'lucide-react';
+import { Frame, Skeleton } from '@/types';
 import { TONES, FILTERS } from '@/lib/constants';
 
 interface FrameStormingModeProps {
@@ -17,14 +16,33 @@ interface FrameStormingModeProps {
 
 export default function FrameStormingMode({ 
   skeleton, 
-  onFrameUpdate,
-  onFrameAttributeUpdate
+  onFrameUpdate, 
+  onFrameAttributeUpdate 
 }: FrameStormingModeProps) {
   const [openAIAssist, setOpenAIAssist] = useState<Record<string, boolean>>({});
-  const [unitAssistants, setUnitAssistants] = useState<Record<string, string>>({});
-  const [frameAnswers, setFrameAnswers] = useState<Record<string, Record<string, string>>>({});
+  const [frameAnswers, setFrameAnswers] = useState<Record<string, Record<number, string>>>({});
   const [loadingFrameId, setLoadingFrameId] = useState<string | null>(null);
   const [submittedFrames, setSubmittedFrames] = useState<Set<string>>(new Set());
+
+  // Calculate completion percentage
+  const completionPercentage = useMemo(() => {
+    const totalFrames = skeleton.frames.length;
+    const completedFrames = submittedFrames.size;
+    return totalFrames > 0 ? Math.round((completedFrames / totalFrames) * 100) : 0;
+  }, [skeleton.frames.length, submittedFrames.size]);
+
+  // Order frames by unit type order, then by frame order within unit
+  const orderedFrames = useMemo(() => {
+    const unitOrder = skeleton.units;
+    return skeleton.frames.sort((a, b) => {
+      const aUnitIndex = unitOrder.indexOf(a.unitType);
+      const bUnitIndex = unitOrder.indexOf(b.unitType);
+      if (aUnitIndex !== bUnitIndex) {
+        return aUnitIndex - bUnitIndex;
+      }
+      return 0;
+    });
+  }, [skeleton.frames, skeleton.units]);
 
   const toggleAIAssist = (frameId: string) => {
     setOpenAIAssist(prev => ({
@@ -33,454 +51,307 @@ export default function FrameStormingMode({
     }));
   };
 
-  const getFrameQuestions = (frame: Frame) => {
-    const questionSets: Record<string, string[]> = {
-      // Hook Frame Types
-      'call-out-the-audience': [
-        'What does the majority of your audience do or think is correct about this subject but it\'s NOT?',
-        'What should viewers understand or feel when you call them out?',
-        'What action do you want them to take with this call out? (Why should they watch and what will it do for them?)'
-      ],
-      'attention-grabber': [
-        'What shocking or surprising statement will stop viewers from scrolling?',
-        'What makes this statement credible and not just clickbait?'
-      ],
-      'visual-hook': [
-        'What compelling visual will grab attention in the first 3 seconds?',
-        'What emotion should this visual make viewers feel?'
-      ],
-      'promise-of-value': [
-        'What specific transformation or result will you deliver?',
-        'What makes this promise believable and achievable?'
-      ],
-      'before-after-preview': [
-        'What dramatic transformation will you tease?',
-        'At what point in the video will you reveal the full result?'
-      ],
-      'problem-statement': [
-        'What specific problem does your audience face daily?',
-        'Why is this problem costing them time, money, or happiness?',
-        'What happens if they don\'t solve this problem?'
-      ],
-      
-      // Intro Frame Types
-      'greeting-intro': [
-        'How will you warmly welcome viewers to create connection?',
-        'What energy or personality will you bring to this greeting?',
-        'How will you make new viewers feel included and excited?'
-      ],
-      'brief-product-overview': [
-        'What key products will you feature and why?',
-        'What makes these products special or worth highlighting?',
-        'What should viewers know about your product selection criteria?'
-      ],
-      'personal-connection': [
-        'What personal experience led you to discover this solution?',
-        'What mistake did you make that others can avoid?',
-        'What transformation have you experienced?'
-      ],
-      'goal-statement': [
-        'What specific outcome will viewers achieve by the end?',
-        'What will they be able to do that they can\'t do now?',
-        'What\'s your promise to them?'
-      ],
-      
-      // Content Delivery Frame Types
-      'technique-overview': [
-        'What are the 3-5 key steps in your technique?',
-        'What makes your approach different from others?'
-      ],
-      'step-by-step': [
-        'What are the exact steps viewers need to follow?',
-        'What tools or resources do they need?'
-      ],
-      'visual-showcase': [
-        'What impressive result will you demonstrate?',
-        'What specific details should viewers pay attention to?'
-      ],
-      'common-mistakes': [
-        'What are the top 3 mistakes beginners make with this?',
-        'How can they avoid these costly errors?'
-      ],
-      'pro-tips': [
-        'What insider secret will give viewers an edge?',
-        'What do experts know that beginners don\'t?'
-      ],
-      
-      // Problem Setup Frame Types
-      'relatable-problem': [
-        'What frustrating situation do most people in your audience experience?',
-        'What common mistake or struggle can you relate to?',
-        'How does this problem show up in their everyday life?'
-      ],
-      'common-business-challenge': [
-        'What business challenge keeps your audience up at night?',
-        'What expensive mistake do most businesses make?',
-        'What obstacle prevents them from reaching their goals?'
-      ],
-      
-      // Results/Reveal Frame Types
-      'results-reveal': [
-        'What dramatic before-and-after will you show?',
-        'What specific metrics or outcomes will you share?'
-      ],
-      'final-look': [
-        'What\'s the most stunning aspect of your final result?',
-        'What makes this final look special or unique?'
-      ],
-      
-      // Engagement Frame Types
-      'call-to-action': [
-        'What specific action do you want viewers to take right now?',
-        'What\'s the next logical step in their journey?',
-        'How will taking this action benefit them immediately?'
-      ],
-      'challenge-setup': [
-        'What are the rules or constraints of this challenge?',
-        'What makes this challenge exciting or difficult?',
-        'What\'s at stake and what will you prove?'
-      ],
-      'rehook': [
-        'What new angle or surprise will re-engage viewers?',
-        'What additional value are you about to provide?',
-        'Why should they keep watching instead of clicking away?'
-      ],
-      'engagement-trigger': [
-        'What question will get viewers commenting and engaging?',
-        'What controversial or thought-provoking statement will you make?',
-        'How will you encourage viewers to share their experiences?'
-      ]
-    };
-
-    return questionSets[frame.type] || [
-      'What value will you provide in this section?',
-      'What should viewers understand or feel?',
-      'What action do you want them to take?'
-    ];
-  };
-
-  const handleAnswerChange = (frameId: string, questionIndex: number, answer: string) => {
+  const handleAnswerChange = (frameId: string, questionIndex: number, value: string) => {
     setFrameAnswers(prev => ({
       ...prev,
       [frameId]: {
         ...prev[frameId],
-        [questionIndex]: answer
+        [questionIndex]: value
       }
     }));
   };
 
   const handleEnterAnswers = (frameId: string) => {
     const answers = frameAnswers[frameId] || {};
-    const content = Object.values(answers).filter(answer => answer.trim()).join('\n\n');
-    onFrameUpdate(frameId, content);
-    
-    // Mark frame as submitted
-    setSubmittedFrames(prev => new Set([...prev, frameId]));
-    
-    // Close AI Assist accordion after submission
-    setOpenAIAssist(prev => ({
-      ...prev,
-      [frameId]: false
-    }));
+    const answerText = Object.values(answers).join(' ');
+    onFrameUpdate(frameId, answerText);
   };
 
   const handleEnhanceAnswers = async (frameId: string) => {
     setLoadingFrameId(frameId);
-    const answers = frameAnswers[frameId] || {};
-    const content = Object.values(answers).filter(answer => answer.trim()).join('\n\n');
-    
-    // Here you would call your AI enhancement API
-    // For now, we'll just add the content as is
-    onFrameUpdate(frameId, content + '\n\n[AI Enhancement placeholder - integrate with your OpenAI service]');
-    
-    // Mark frame as submitted
-    setSubmittedFrames(prev => new Set([...prev, frameId]));
-    
-    // Close AI Assist accordion after submission
-    setOpenAIAssist(prev => ({
-      ...prev,
-      [frameId]: false
-    }));
-    
-    setLoadingFrameId(null);
+    try {
+      const answers = frameAnswers[frameId] || {};
+      const answerText = Object.values(answers).join(' ');
+      onFrameUpdate(frameId, answerText + ' [Enhanced by AI]');
+    } finally {
+      setLoadingFrameId(null);
+    }
   };
 
   const handleManualSubmit = (frameId: string) => {
-    // Mark frame as submitted without requiring AI Assist
     setSubmittedFrames(prev => new Set([...prev, frameId]));
   };
 
-  // Calculate completion progress based on submitted frames only
-  const completedFrames = submittedFrames.size;
-  const progressPercentage = Math.round((completedFrames / skeleton.frames.length) * 100);
-
-  // Order frames by unit position (left to right, top to bottom within each unit)
-  const orderedFrames = React.useMemo(() => {
-    const frames: Frame[] = [];
-    
-    if (skeleton.units) {
-      skeleton.units.forEach(unitName => {
-        const unitFrames = skeleton.frames.filter(frame => frame.unitType === unitName);
-        frames.push(...unitFrames);
-      });
-    }
-    
-    return frames;
-  }, [skeleton]);
+  const getFrameQuestions = (frame: Frame) => {
+    const questions = [
+      `What is the main message you want to convey in this ${frame.name.replace('-', ' ')}?`,
+      `Who is your target audience for this content?`,
+      `What specific outcome do you want from this section?`
+    ];
+    return questions;
+  };
 
   const getUnitColor = (unitType: string) => {
     const colors: Record<string, string> = {
-      'Hook': 'bg-red-50 border-red-200 text-red-800',
-      'Intro': 'bg-blue-50 border-blue-200 text-blue-800',
-      'Story Setup': 'bg-green-50 border-green-200 text-green-800',
-      'Content Delivery': 'bg-orange-50 border-orange-200 text-orange-800',
-      'Content Journey': 'bg-indigo-50 border-indigo-200 text-indigo-800',
-      'Practical Application': 'bg-purple-50 border-purple-200 text-purple-800',
-      'Case Study': 'bg-pink-50 border-pink-200 text-pink-800',
-      'Climax': 'bg-emerald-50 border-emerald-200 text-emerald-800',
-      'Reflection': 'bg-amber-50 border-amber-200 text-amber-800',
-      'Outro': 'bg-rose-50 border-rose-200 text-rose-800'
+      'Hook': 'border-red-400 bg-red-50',
+      'Intro': 'border-blue-400 bg-blue-50',
+      'Content Journey': 'border-green-400 bg-green-50',
+      'Process': 'border-green-400 bg-green-50',
+      'Testing': 'border-yellow-400 bg-yellow-50',
+      'Event': 'border-purple-400 bg-purple-50',
+      'Reflection': 'border-indigo-400 bg-indigo-50',
+      'Rehook': 'border-orange-400 bg-orange-50',
+      'Outro': 'border-gray-400 bg-gray-50',
+      'Call To Action': 'border-pink-400 bg-pink-50',
     };
-    return colors[unitType] || 'bg-gray-50 border-gray-200 text-gray-800';
+    return colors[unitType] || 'border-gray-400 bg-gray-50';
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-4">
-      {/* Header with guidance and progress */}
-      <Card className="border-primary/20 bg-primary/5">
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="text-lg">Frame-Storming Mode</CardTitle>
-              <p className="text-sm text-muted-foreground mt-1">
-                Write your script ideas below for each frame. Use AI Assist for frame-specific guidance.
-              </p>
-            </div>
-            <div className="text-right">
-              <div className="text-2xl font-bold text-primary">{progressPercentage}%</div>
-              <div className="text-xs text-muted-foreground">
-                {completedFrames} of {skeleton.frames.length} frames complete
-              </div>
-            </div>
+    <div className="max-w-4xl mx-auto p-6 space-y-8">
+      {/* Header with completion tracking */}
+      <div className="text-center mb-8">
+        <div className="inline-flex items-center gap-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+          <div className="text-2xl font-bold text-blue-600">{completionPercentage}%</div>
+          <div className="text-left">
+            <p className="font-medium text-gray-800">
+              Write your script ideas below for each frame. Use AI Assist for frame-specific guidance.
+            </p>
+            <p className="text-sm text-gray-600">
+              {submittedFrames.size} of {skeleton.frames.length} frames complete
+            </p>
           </div>
-          
-          {progressPercentage === 100 && (
-            <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
-              <div className="flex items-center gap-2 text-green-800">
-                <CheckCircle2 className="h-4 w-4" />
-                <span className="font-medium">Great work! Your frame content is complete.</span>
-              </div>
-              <p className="text-sm text-green-700 mt-1">
-                Ready to move to the Full Script tab to generate your complete video script?
-              </p>
-            </div>
-          )}
-        </CardHeader>
-      </Card>
+        </div>
+      </div>
 
-      <div className="space-y-4">
+      {/* Frames */}
+      <div className="space-y-8">
         {orderedFrames.map((frame, index) => {
-          const isNewUnit = index === 0 || orderedFrames[index - 1]?.unitType !== frame.unitType;
-          const unitIndex = skeleton.units?.indexOf(frame.unitType) || 0;
+          const isNewUnit = index === 0 || frame.unitType !== orderedFrames[index - 1].unitType;
           
           return (
-            <div key={frame.id} className="space-y-3">
-              {/* Unit header when starting a new unit */}
+            <div key={frame.id}>
+              {/* Unit header - only show for first frame of each unit */}
               {isNewUnit && (
-                <div className={`p-4 rounded-lg border-2 ${getUnitColor(frame.unitType)}`}>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <h3 className="font-semibold text-lg">{frame.unitType}</h3>
-                      <Badge variant="secondary" className="text-xs">
-                        Unit {unitIndex + 1} of {skeleton.units?.length || 0}
-                      </Badge>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Select
-                        value={unitAssistants[frame.unitType] || 'Hook Specialist'}
-                        onValueChange={(value) => setUnitAssistants(prev => ({
-                          ...prev,
-                          [frame.unitType]: value
-                        }))}
-                      >
-                        <SelectTrigger className="w-[180px] h-8 text-xs">
-                          <SelectValue />
+                <div className="sticky top-0 z-10 mb-4">
+                  <div className={`p-4 rounded-lg border-l-4 ${getUnitColor(frame.unitType)}`}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <h3 className="text-xl font-bold text-gray-800">
+                          {frame.unitType}
+                        </h3>
+                        <Badge variant="outline" className="text-xs">
+                          Unit {orderedFrames.filter((f, i) => i <= index && orderedFrames.findIndex((uf) => uf.unitType === f.unitType) === orderedFrames.findIndex((uf) => uf.unitType === frame.unitType)).length} of {skeleton.units.length}
+                        </Badge>
+                      </div>
+                      
+                      <Select>
+                        <SelectTrigger className="w-[200px] h-8">
+                          <SelectValue placeholder={`${frame.unitType} Specialist`} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="Hook Specialist">Hook Specialist</SelectItem>
-                          <SelectItem value="Story Specialist">Story Specialist</SelectItem>
-                          <SelectItem value="Tutorial Specialist">Tutorial Specialist</SelectItem>
-                          <SelectItem value="Engagement Specialist">Engagement Specialist</SelectItem>
-                          <SelectItem value="Custom Assistant">+ Create Custom</SelectItem>
+                          <SelectItem value="default">{frame.unitType} Specialist</SelectItem>
+                          <SelectItem value="expert">Expert Mode</SelectItem>
+                          <SelectItem value="beginner">Beginner Friendly</SelectItem>
                         </SelectContent>
                       </Select>
-                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                        <Settings className="h-3 w-3" />
-                      </Button>
                     </div>
                   </div>
                 </div>
               )}
 
               {/* Frame card */}
-              <div className={`border rounded-lg p-6 shadow-sm hover:shadow-md transition-all ${
+              <div className={`border-2 rounded-lg p-6 shadow-sm transition-all ${
                 submittedFrames.has(frame.id) 
-                  ? 'bg-green-50 border-green-200' 
-                  : 'bg-white border-gray-200'
+                  ? 'bg-green-50 border-green-300' 
+                  : 'bg-white border-blue-200 border-dashed'
               }`}>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <Badge 
-                      variant={submittedFrames.has(frame.id) ? "default" : "outline"} 
-                      className={`text-xs ${
+                {/* Clear Frame Header */}
+                <div className="mb-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
                         submittedFrames.has(frame.id) 
                           ? 'bg-green-600 text-white' 
-                          : ''
-                      }`}
-                    >
-                      {submittedFrames.has(frame.id) ? (
-                        <div className="flex items-center gap-1">
-                          <CheckCircle2 className="h-3 w-3" />
-                          Frame {index + 1}
-                        </div>
-                      ) : (
-                        `Frame ${index + 1}`
-                      )}
-                    </Badge>
-                    <h4 className={`font-medium ${
-                      submittedFrames.has(frame.id) ? 'text-green-800' : ''
-                    }`}>
-                      {frame.name.split('-').map(word => 
-                        word.charAt(0).toUpperCase() + word.slice(1)
-                      ).join(' ')}
-                    </h4>
-                  </div>
-                </div>
-
-                {/* AI Assist Collapsible Section */}
-                <Collapsible 
-                  open={openAIAssist[frame.id] || false} 
-                  onOpenChange={() => toggleAIAssist(frame.id)}
-                  className="mb-4"
-                >
-                  <CollapsibleTrigger asChild>
-                    <Button 
-                      variant="ghost" 
-                      className="w-full justify-start p-2 h-auto font-normal text-left hover:bg-primary/5"
-                    >
-                      <div className="flex items-center gap-2">
-                        {openAIAssist[frame.id] ? (
-                          <ChevronDown className="h-4 w-4" />
+                          : 'bg-blue-600 text-white'
+                      }`}>
+                        {submittedFrames.has(frame.id) ? (
+                          <CheckCircle2 className="h-4 w-4" />
                         ) : (
-                          <ChevronRight className="h-4 w-4" />
+                          index + 1
                         )}
-                        <Bot className="h-4 w-4 text-primary" />
-                        <span className="text-sm font-medium">AI Assist (Recommended)</span>
                       </div>
-                    </Button>
-                  </CollapsibleTrigger>
-                  
-                  <CollapsibleContent className="space-y-3 pt-2">
-                    <div className="text-xs text-muted-foreground mb-3">
-                      Answer these questions to help the AI generate targeted content for this {frame.unitType} unit
-                    </div>
-                    
-                    {getFrameQuestions(frame).map((question, questionIndex) => (
-                      <div key={questionIndex} className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700">
-                          {question}
-                        </label>
-                        <Textarea
-                          value={frameAnswers[frame.id]?.[questionIndex] || ''}
-                          onChange={(e) => handleAnswerChange(frame.id, questionIndex, e.target.value)}
-                          placeholder="Enter your answer..."
-                          className="min-h-[60px] text-sm resize-none"
-                        />
+                      <div>
+                        <h4 className={`text-lg font-semibold ${
+                          submittedFrames.has(frame.id) ? 'text-green-800' : 'text-gray-800'
+                        }`}>
+                          {frame.name.split('-').map(word => 
+                            word.charAt(0).toUpperCase() + word.slice(1)
+                          ).join(' ')}
+                        </h4>
+                        <p className="text-sm text-gray-600">
+                          {submittedFrames.has(frame.id) ? '✓ Complete' : 'Write your content below'}
+                        </p>
                       </div>
-                    ))}
-                    
-                    <div className="flex gap-2 pt-2">
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        onClick={() => handleEnterAnswers(frame.id)}
-                        className="flex-1"
-                      >
-                        Enter
-                      </Button>
-                      <Button 
-                        size="sm" 
-                        onClick={() => handleEnhanceAnswers(frame.id)}
-                        disabled={loadingFrameId === frame.id}
-                        className="flex-1"
-                      >
-                        {loadingFrameId === frame.id ? 'Enhancing...' : 'Enhance'}
-                      </Button>
                     </div>
-                  </CollapsibleContent>
-                </Collapsible>
-
-                {/* Tone and Filter selectors */}
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <label className="text-xs text-muted-foreground mb-2 block">Tone</label>
-                    <Select
-                      value={frame.tone || ''}
-                      onValueChange={(value) => onFrameAttributeUpdate(frame.id, 'tone', value)}
-                    >
-                      <SelectTrigger className="h-8">
-                        <SelectValue placeholder="Select tone" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {TONES.map((tone) => (
-                          <SelectItem key={tone} value={tone}>
-                            {tone}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <label className="text-xs text-muted-foreground mb-2 block">Filter</label>
-                    <Select
-                      value={frame.filter || ''}
-                      onValueChange={(value) => onFrameAttributeUpdate(frame.id, 'filter', value)}
-                    >
-                      <SelectTrigger className="h-8">
-                        <SelectValue placeholder="Select filter" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {FILTERS.map((filter) => (
-                          <SelectItem key={filter} value={filter}>
-                            {filter}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    {submittedFrames.has(frame.id) && (
+                      <Badge className="bg-green-100 text-green-800 border-green-200">
+                        Submitted
+                      </Badge>
+                    )}
                   </div>
                 </div>
 
-                {/* Content textarea */}
-                <Textarea
-                  value={frame.content || ''}
-                  onChange={(e) => onFrameUpdate(frame.id, e.target.value)}
-                  placeholder={`Write content for ${frame.name}...`}
-                  className="min-h-[120px] resize-y focus:ring-2 focus:ring-primary/20"
-                  style={{ lineHeight: '1.6' }}
-                />
-
-                {/* Submit Frame Button */}
+                {/* Step 1: AI Assist Collapsible Section */}
                 {!submittedFrames.has(frame.id) && (
-                  <div className="mt-4 flex justify-end">
-                    <Button
-                      onClick={() => handleManualSubmit(frame.id)}
-                      disabled={!frame.content || frame.content.trim().length === 0}
-                      className="bg-green-600 hover:bg-green-700 text-white"
-                    >
-                      <CheckCircle2 className="w-4 h-4 mr-2" />
-                      Submit Frame
-                    </Button>
+                  <Collapsible 
+                    open={openAIAssist[frame.id] || false} 
+                    onOpenChange={() => toggleAIAssist(frame.id)}
+                    className="mb-6"
+                  >
+                    <CollapsibleTrigger asChild>
+                      <Button 
+                        variant="ghost" 
+                        className="w-full justify-start p-3 h-auto font-normal text-left hover:bg-blue-50 border border-blue-200 rounded-lg"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center font-medium">
+                            1
+                          </div>
+                          {openAIAssist[frame.id] ? (
+                            <ChevronDown className="h-4 w-4 text-blue-600" />
+                          ) : (
+                            <ChevronRight className="h-4 w-4 text-blue-600" />
+                          )}
+                          <Bot className="h-4 w-4 text-blue-600" />
+                          <span className="text-sm font-medium text-gray-700">AI Assist (Recommended)</span>
+                        </div>
+                      </Button>
+                    </CollapsibleTrigger>
+                    
+                    <CollapsibleContent className="space-y-3 pt-2">
+                      <div className="text-xs text-muted-foreground mb-3">
+                        Answer these questions to help the AI generate targeted content for this {frame.unitType} unit
+                      </div>
+                    
+                      {getFrameQuestions(frame).map((question, questionIndex) => (
+                        <div key={questionIndex} className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700">
+                            {question}
+                          </label>
+                          <Textarea
+                            value={frameAnswers[frame.id]?.[questionIndex] || ''}
+                            onChange={(e) => handleAnswerChange(frame.id, questionIndex, e.target.value)}
+                            placeholder="Enter your answer..."
+                            className="min-h-[60px] text-sm resize-none"
+                          />
+                        </div>
+                      ))}
+                      
+                      <div className="flex gap-2 pt-2">
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => handleEnterAnswers(frame.id)}
+                          className="flex-1"
+                        >
+                          Enter
+                        </Button>
+                        <Button 
+                          size="sm" 
+                          onClick={() => handleEnhanceAnswers(frame.id)}
+                          disabled={loadingFrameId === frame.id}
+                          className="flex-1"
+                        >
+                          {loadingFrameId === frame.id ? 'Enhancing...' : 'Enhance'}
+                        </Button>
+                      </div>
+                    </CollapsibleContent>
+                  </Collapsible>
+                )}
+
+                {/* Step 2: Optional Tone and Filter */}
+                {!submittedFrames.has(frame.id) && (
+                  <div className="mb-6 p-4 bg-gray-50 rounded-lg border">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-6 h-6 rounded-full bg-gray-400 text-white text-xs flex items-center justify-center font-medium">
+                        2
+                      </div>
+                      <h5 className="font-medium text-gray-700">Choose Tone & Filter (Optional)</h5>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-muted-foreground mb-2 block">Tone</label>
+                        <Select
+                          value={frame.tone || ''}
+                          onValueChange={(value) => onFrameAttributeUpdate(frame.id, 'tone', value)}
+                        >
+                          <SelectTrigger className="h-8">
+                            <SelectValue placeholder="Select tone" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {TONES.map((tone) => (
+                              <SelectItem key={tone} value={tone}>
+                                {tone}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
+                        <label className="text-xs text-muted-foreground mb-2 block">Filter</label>
+                        <Select
+                          value={frame.filter || ''}
+                          onValueChange={(value) => onFrameAttributeUpdate(frame.id, 'filter', value)}
+                        >
+                          <SelectTrigger className="h-8">
+                            <SelectValue placeholder="Select filter" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {FILTERS.map((filter) => (
+                              <SelectItem key={filter} value={filter}>
+                                {filter}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Step 3: Write Content */}
+                {!submittedFrames.has(frame.id) && (
+                  <div className="mb-6">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center font-medium">
+                        3
+                      </div>
+                      <h5 className="font-medium text-gray-700">Write Your Content</h5>
+                    </div>
+                    <Textarea
+                      value={frame.content || ''}
+                      onChange={(e) => onFrameUpdate(frame.id, e.target.value)}
+                      placeholder={`Write your script content for ${frame.name.split('-').map(word => 
+                        word.charAt(0).toUpperCase() + word.slice(1)
+                      ).join(' ')}...`}
+                      className="min-h-[120px] resize-y focus:ring-2 focus:ring-blue-200 border-2"
+                      style={{ lineHeight: '1.6' }}
+                    />
+                    
+                    {/* Submit Frame Button */}
+                    <div className="mt-4 flex justify-end">
+                      <Button
+                        onClick={() => handleManualSubmit(frame.id)}
+                        disabled={!frame.content || frame.content.trim().length === 0}
+                        className="bg-green-600 hover:bg-green-700 text-white font-medium"
+                        size="lg"
+                      >
+                        <CheckCircle2 className="w-4 h-4 mr-2" />
+                        Submit Frame
+                      </Button>
+                    </div>
                   </div>
                 )}
 
