@@ -43,23 +43,19 @@ export default function FrameStormingMode({
       ],
       'attention-grabber': [
         'What shocking or surprising statement will stop viewers from scrolling?',
-        'What\'s the most unexpected angle on your topic?',
-        'What bold claim can you make that hooks them immediately?'
+        'What makes this statement credible and not just clickbait?'
       ],
       'visual-hook': [
         'What compelling visual will grab attention in the first 3 seconds?',
-        'What\'s the most striking visual element of your content?',
-        'What visual will make viewers stop and watch?'
+        'What emotion should this visual make viewers feel?'
       ],
       'promise-of-value': [
         'What specific transformation or result will you deliver?',
-        'What makes this promise exciting and worth watching for?',
-        'What\'s the most compelling benefit viewers will get?'
+        'What makes this promise believable and achievable?'
       ],
       'before-after-preview': [
         'What dramatic transformation will you tease?',
-        'What\'s the most shocking part of your before vs after?',
-        'What will make viewers think "I need to see how they did this"?'
+        'At what point in the video will you reveal the full result?'
       ],
       'problem-statement': [
         'What specific problem does your audience face daily?',
@@ -92,27 +88,22 @@ export default function FrameStormingMode({
       // Content Delivery Frame Types
       'technique-overview': [
         'What are the 3-5 key steps in your technique?',
-        'What makes your approach different from others?',
-        'What\'s the most important element for success?'
+        'What makes your approach different from others?'
       ],
       'step-by-step': [
         'What are the exact steps viewers need to follow?',
-        'What tools or resources do they need?',
-        'What\'s the most critical step they can\'t skip?'
+        'What tools or resources do they need?'
       ],
       'visual-showcase': [
         'What impressive result will you demonstrate?',
-        'What\'s the "money shot" that proves your point?',
-        'What transformation will make viewers say "wow"?'
+        'What specific details should viewers pay attention to?'
       ],
       'common-mistakes': [
         'What are the top 3 mistakes beginners make with this?',
-        'What warning signs should viewers watch out for?',
         'How can they avoid these costly errors?'
       ],
       'pro-tips': [
-        'What insider secrets will give viewers an edge?',
-        'What\'s the one tip that makes all the difference?',
+        'What insider secret will give viewers an edge?',
         'What do experts know that beginners don\'t?'
       ],
       
@@ -131,12 +122,10 @@ export default function FrameStormingMode({
       // Results/Reveal Frame Types
       'results-reveal': [
         'What dramatic before-and-after will you show?',
-        'What specific metrics or outcomes will you share?',
-        'What proof do you have that this works?'
+        'What specific metrics or outcomes will you share?'
       ],
       'final-look': [
         'What\'s the most stunning aspect of your final result?',
-        'What details should viewers pay attention to?',
         'What makes this final look special or unique?'
       ],
       
