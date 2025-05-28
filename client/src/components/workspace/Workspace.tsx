@@ -322,15 +322,18 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
             </TabsContent>
 
             <TabsContent value="framestorm" className="mt-0">
-              <FrameStormingMode 
-                skeleton={activeSkeleton}
-                onFrameUpdate={(frameId, content) => {
-                  const updatedFrames = activeSkeleton.frames.map(frame =>
-                    frame.id === frameId ? { ...frame, content } : frame
-                  );
-                  updateFrameOrder(activeSkeleton.id, updatedFrames);
-                }}
-              />
+              <ScrollArea className="h-[calc(100vh-200px)] overflow-y-auto">
+                <FrameStormingMode 
+                  skeleton={activeSkeleton}
+                  onFrameUpdate={(frameId, content) => {
+                    const updatedFrames = activeSkeleton.frames.map(frame =>
+                      frame.id === frameId ? { ...frame, content } : frame
+                    );
+                    updateFrameOrder(activeSkeleton.id, updatedFrames);
+                  }}
+                  onFrameAttributeUpdate={onUpdateFrameAttribute}
+                />
+              </ScrollArea>
             </TabsContent>
 
             <TabsContent value="script" className="mt-0">
