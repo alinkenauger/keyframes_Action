@@ -4,7 +4,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Wand2, Bot, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Wand2, Bot, ArrowRight, CheckCircle2, ChevronDown, ChevronRight, Settings } from 'lucide-react';
 import type { Frame, Skeleton } from '@/types';
 import { TONES, FILTERS } from '@/lib/constants';
 
@@ -19,35 +20,89 @@ export default function FrameStormingMode({
   onFrameUpdate,
   onFrameAttributeUpdate
 }: FrameStormingModeProps) {
+  const [openAIAssist, setOpenAIAssist] = useState<Record<string, boolean>>({});
+  const [unitAssistants, setUnitAssistants] = useState<Record<string, string>>({});
+  const [frameAnswers, setFrameAnswers] = useState<Record<string, Record<string, string>>>({});
   const [loadingFrameId, setLoadingFrameId] = useState<string | null>(null);
 
-  const handleAIAssist = async (frame: Frame) => {
-    setLoadingFrameId(frame.id);
-    
-    // Generate frame-specific questions based on frame type and unit
-    const framePrompt = generateFramePrompt(frame);
-    onFrameUpdate(frame.id, framePrompt);
-    
-    setLoadingFrameId(null);
+  const toggleAIAssist = (frameId: string) => {
+    setOpenAIAssist(prev => ({
+      ...prev,
+      [frameId]: !prev[frameId]
+    }));
   };
 
-  const generateFramePrompt = (frame: Frame) => {
-    const prompts = {
-      'visual-hook': 'What compelling visual will grab attention in the first 3 seconds? Describe the opening shot that makes viewers stop scrolling.',
-      'voiceover-intro': 'What will you say to immediately connect with your audience? Write your opening line that hooks them in.',
-      'problem-statement': 'What problem or challenge will you address? Why should viewers care about this topic?',
-      'personal-connection': 'How does this topic relate to your personal experience? What story can you share?',
-      'goal-statement': 'What specific outcome will viewers achieve by watching? What\'s your promise to them?',
-      'technique-overview': 'What technique or method will you teach? Break it down into clear steps.',
-      'visual-showcase': 'What impressive visual will demonstrate your point? Describe the money shot.',
-      'step-by-step': 'What are the exact steps viewers need to follow? Make it actionable.',
-      'common-mistakes': 'What mistakes do beginners make? How can viewers avoid them?',
-      'pro-tips': 'What insider knowledge will you share? What makes the difference between good and great?',
-      'results-reveal': 'What transformation will you show? What\'s the before and after?',
-      'call-to-action': 'What action do you want viewers to take? How will you motivate them?'
+  const getFrameQuestions = (frame: Frame) => {
+    const questionSets: Record<string, string[]> = {
+      'visual-hook': [
+        'What are the benefits of this video and why should the viewer stick around to watch it?',
+        'What\'s the most surprising or unexpected thing about your content that will grab attention?',
+        'What problem are you solving for the viewer in this video?'
+      ],
+      'voiceover-intro': [
+        'What personal connection do you have to this topic?',
+        'What makes you the right person to teach this?',
+        'What\'s your unique perspective on this subject?'
+      ],
+      'problem-statement': [
+        'What specific problem does your audience face?',
+        'Why is this problem important to solve now?',
+        'What happens if they don\'t solve this problem?'
+      ],
+      'personal-connection': [
+        'What personal experience led you to this topic?',
+        'What mistake did you make that others can avoid?',
+        'What transformation have you experienced?'
+      ],
+      'goal-statement': [
+        'What specific outcome will viewers achieve?',
+        'What will they be able to do after watching?',
+        'What\'s your promise to them?'
+      ],
+      'technique-overview': [
+        'What are the key steps in your technique?',
+        'What makes your approach different?',
+        'What\'s the most important tip for success?'
+      ],
+      'visual-showcase': [
+        'What impressive visual will you show?',
+        'What\'s the money shot of your content?',
+        'What will make viewers say "wow"?'
+      ]
     };
 
-    return prompts[frame.type] || `What content will you create for this ${frame.name} section? Consider your audience and the value you want to deliver.`;
+    return questionSets[frame.type] || [
+      'What value will you provide in this section?',
+      'What should viewers understand or feel?',
+      'What action do you want them to take?'
+    ];
+  };
+
+  const handleAnswerChange = (frameId: string, questionIndex: number, answer: string) => {
+    setFrameAnswers(prev => ({
+      ...prev,
+      [frameId]: {
+        ...prev[frameId],
+        [questionIndex]: answer
+      }
+    }));
+  };
+
+  const handleEnterAnswers = (frameId: string) => {
+    const answers = frameAnswers[frameId] || {};
+    const content = Object.values(answers).filter(answer => answer.trim()).join('\n\n');
+    onFrameUpdate(frameId, content);
+  };
+
+  const handleEnhanceAnswers = async (frameId: string) => {
+    setLoadingFrameId(frameId);
+    const answers = frameAnswers[frameId] || {};
+    const content = Object.values(answers).filter(answer => answer.trim()).join('\n\n');
+    
+    // Here you would call your AI enhancement API
+    // For now, we'll just add the content as is
+    onFrameUpdate(frameId, content + '\n\n[AI Enhancement placeholder - integrate with your OpenAI service]');
+    setLoadingFrameId(null);
   };
 
   // Calculate completion progress
@@ -131,10 +186,35 @@ export default function FrameStormingMode({
               {isNewUnit && (
                 <div className={`p-4 rounded-lg border-2 ${getUnitColor(frame.unitType)}`}>
                   <div className="flex items-center justify-between">
-                    <h3 className="font-semibold text-lg">{frame.unitType}</h3>
-                    <Badge variant="secondary" className="text-xs">
-                      Unit {unitIndex + 1} of {skeleton.units?.length || 0}
-                    </Badge>
+                    <div className="flex items-center gap-3">
+                      <h3 className="font-semibold text-lg">{frame.unitType}</h3>
+                      <Badge variant="secondary" className="text-xs">
+                        Unit {unitIndex + 1} of {skeleton.units?.length || 0}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Select
+                        value={unitAssistants[frame.unitType] || 'Hook Specialist'}
+                        onValueChange={(value) => setUnitAssistants(prev => ({
+                          ...prev,
+                          [frame.unitType]: value
+                        }))}
+                      >
+                        <SelectTrigger className="w-[180px] h-8 text-xs">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Hook Specialist">Hook Specialist</SelectItem>
+                          <SelectItem value="Story Specialist">Story Specialist</SelectItem>
+                          <SelectItem value="Tutorial Specialist">Tutorial Specialist</SelectItem>
+                          <SelectItem value="Engagement Specialist">Engagement Specialist</SelectItem>
+                          <SelectItem value="Custom Assistant">+ Create Custom</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                        <Settings className="h-3 w-3" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
               )}
@@ -148,18 +228,70 @@ export default function FrameStormingMode({
                     </Badge>
                     <h4 className="font-medium">{frame.name}</h4>
                   </div>
-                  
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="flex items-center gap-2 hover:bg-primary/10"
-                    onClick={() => handleAIAssist(frame)}
-                    disabled={loadingFrameId === frame.id}
-                  >
-                    <Bot className="w-4 h-4" />
-                    {loadingFrameId === frame.id ? 'Loading...' : 'AI Assist'}
-                  </Button>
                 </div>
+
+                {/* AI Assist Collapsible Section */}
+                <Collapsible 
+                  open={openAIAssist[frame.id] || false} 
+                  onOpenChange={() => toggleAIAssist(frame.id)}
+                  className="mb-4"
+                >
+                  <CollapsibleTrigger asChild>
+                    <Button 
+                      variant="ghost" 
+                      className="w-full justify-start p-2 h-auto font-normal text-left hover:bg-primary/5"
+                    >
+                      <div className="flex items-center gap-2">
+                        {openAIAssist[frame.id] ? (
+                          <ChevronDown className="h-4 w-4" />
+                        ) : (
+                          <ChevronRight className="h-4 w-4" />
+                        )}
+                        <Bot className="h-4 w-4 text-primary" />
+                        <span className="text-sm font-medium">AI Assist (Recommended)</span>
+                      </div>
+                    </Button>
+                  </CollapsibleTrigger>
+                  
+                  <CollapsibleContent className="space-y-3 pt-2">
+                    <div className="text-xs text-muted-foreground mb-3">
+                      Answer these questions to help the AI generate targeted content for this {frame.unitType} unit
+                    </div>
+                    
+                    {getFrameQuestions(frame).map((question, questionIndex) => (
+                      <div key={questionIndex} className="space-y-2">
+                        <label className="text-sm font-medium text-gray-700">
+                          {question}
+                        </label>
+                        <Textarea
+                          value={frameAnswers[frame.id]?.[questionIndex] || ''}
+                          onChange={(e) => handleAnswerChange(frame.id, questionIndex, e.target.value)}
+                          placeholder="Enter your answer..."
+                          className="min-h-[60px] text-sm resize-none"
+                        />
+                      </div>
+                    ))}
+                    
+                    <div className="flex gap-2 pt-2">
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        onClick={() => handleEnterAnswers(frame.id)}
+                        className="flex-1"
+                      >
+                        Enter
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        onClick={() => handleEnhanceAnswers(frame.id)}
+                        disabled={loadingFrameId === frame.id}
+                        className="flex-1"
+                      >
+                        {loadingFrameId === frame.id ? 'Enhancing...' : 'Enhance'}
+                      </Button>
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
 
                 {/* Tone and Filter selectors */}
                 <div className="grid grid-cols-2 gap-4 mb-4">
