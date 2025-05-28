@@ -259,7 +259,7 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
                   Frame-Storming
                 </TabsTrigger>
                 <TabsTrigger value="script">Full Script</TabsTrigger>
-                <TabsTrigger value="combined" className="hidden md:inline-flex">Combined View</TabsTrigger>
+                <TabsTrigger value="combined" className="hidden md:inline-flex">Fine-Tuning</TabsTrigger>
               </TabsList>
               <div className="flex space-x-2">
                 <Button
