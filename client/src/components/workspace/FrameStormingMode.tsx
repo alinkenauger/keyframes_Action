@@ -110,17 +110,10 @@ export default function FrameStormingMode({
                         <SelectValue placeholder="Select tone" />
                       </SelectTrigger>
                       <SelectContent>
-                        {Object.entries(TONES).map(([category, tones]) => (
-                          <div key={category}>
-                            <div className="px-2 py-1 text-xs font-medium text-muted-foreground">
-                              {category}
-                            </div>
-                            {(tones as string[]).map((tone) => (
-                              <SelectItem key={tone} value={tone}>
-                                {tone}
-                              </SelectItem>
-                            ))}
-                          </div>
+                        {TONES.map((tone) => (
+                          <SelectItem key={tone} value={tone}>
+                            {tone}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -136,17 +129,10 @@ export default function FrameStormingMode({
                         <SelectValue placeholder="Select filter" />
                       </SelectTrigger>
                       <SelectContent>
-                        {Object.entries(FILTERS).map(([category, filters]) => (
-                          <div key={category}>
-                            <div className="px-2 py-1 text-xs font-medium text-muted-foreground">
-                              {category}
-                            </div>
-                            {(filters as string[]).map((filter) => (
-                              <SelectItem key={filter} value={filter}>
-                                {filter}
-                              </SelectItem>
-                            ))}
-                          </div>
+                        {FILTERS.map((filter) => (
+                          <SelectItem key={filter} value={filter}>
+                            {filter}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
