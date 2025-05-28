@@ -35,6 +35,7 @@ export default function FrameStormingMode({
 
   const getFrameQuestions = (frame: Frame) => {
     const questionSets: Record<string, string[]> = {
+      // Hook Frame Types
       'call-out-the-audience': [
         'What does the majority of your audience do or think is correct about this subject but it\'s NOT?',
         'What should viewers understand or feel when you call them out?',
@@ -50,20 +51,32 @@ export default function FrameStormingMode({
         'What\'s the most striking visual element of your content?',
         'What visual will make viewers stop and watch?'
       ],
+      'promise-of-value': [
+        'What specific transformation or result will you deliver?',
+        'What makes this promise exciting and worth watching for?',
+        'What\'s the most compelling benefit viewers will get?'
+      ],
+      'before-after-preview': [
+        'What dramatic transformation will you tease?',
+        'What\'s the most shocking part of your before vs after?',
+        'What will make viewers think "I need to see how they did this"?'
+      ],
       'problem-statement': [
         'What specific problem does your audience face daily?',
         'Why is this problem costing them time, money, or happiness?',
         'What happens if they don\'t solve this problem?'
       ],
-      'relatable-problem': [
-        'What frustrating situation do most people in your audience experience?',
-        'What common mistake or struggle can you relate to?',
-        'How does this problem show up in their everyday life?'
+      
+      // Intro Frame Types
+      'greeting-intro': [
+        'How will you warmly welcome viewers to create connection?',
+        'What energy or personality will you bring to this greeting?',
+        'How will you make new viewers feel included and excited?'
       ],
-      'common-business-challenge': [
-        'What business challenge keeps your audience up at night?',
-        'What expensive mistake do most businesses make?',
-        'What obstacle prevents them from reaching their goals?'
+      'brief-product-overview': [
+        'What key products will you feature and why?',
+        'What makes these products special or worth highlighting?',
+        'What should viewers know about your product selection criteria?'
       ],
       'personal-connection': [
         'What personal experience led you to discover this solution?',
@@ -75,6 +88,8 @@ export default function FrameStormingMode({
         'What will they be able to do that they can\'t do now?',
         'What\'s your promise to them?'
       ],
+      
+      // Content Delivery Frame Types
       'technique-overview': [
         'What are the 3-5 key steps in your technique?',
         'What makes your approach different from others?',
@@ -90,11 +105,42 @@ export default function FrameStormingMode({
         'What\'s the "money shot" that proves your point?',
         'What transformation will make viewers say "wow"?'
       ],
+      'common-mistakes': [
+        'What are the top 3 mistakes beginners make with this?',
+        'What warning signs should viewers watch out for?',
+        'How can they avoid these costly errors?'
+      ],
+      'pro-tips': [
+        'What insider secrets will give viewers an edge?',
+        'What\'s the one tip that makes all the difference?',
+        'What do experts know that beginners don\'t?'
+      ],
+      
+      // Problem Setup Frame Types
+      'relatable-problem': [
+        'What frustrating situation do most people in your audience experience?',
+        'What common mistake or struggle can you relate to?',
+        'How does this problem show up in their everyday life?'
+      ],
+      'common-business-challenge': [
+        'What business challenge keeps your audience up at night?',
+        'What expensive mistake do most businesses make?',
+        'What obstacle prevents them from reaching their goals?'
+      ],
+      
+      // Results/Reveal Frame Types
       'results-reveal': [
         'What dramatic before-and-after will you show?',
         'What specific metrics or outcomes will you share?',
         'What proof do you have that this works?'
       ],
+      'final-look': [
+        'What\'s the most stunning aspect of your final result?',
+        'What details should viewers pay attention to?',
+        'What makes this final look special or unique?'
+      ],
+      
+      // Engagement Frame Types
       'call-to-action': [
         'What specific action do you want viewers to take right now?',
         'What\'s the next logical step in their journey?',
@@ -109,6 +155,11 @@ export default function FrameStormingMode({
         'What new angle or surprise will re-engage viewers?',
         'What additional value are you about to provide?',
         'Why should they keep watching instead of clicking away?'
+      ],
+      'engagement-trigger': [
+        'What question will get viewers commenting and engaging?',
+        'What controversial or thought-provoking statement will you make?',
+        'How will you encourage viewers to share their experiences?'
       ]
     };
 
