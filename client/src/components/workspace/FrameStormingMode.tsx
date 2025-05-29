@@ -141,7 +141,7 @@ export default function FrameStormingMode({
                           {frame.unitType}
                         </h3>
                         <Badge variant="outline" className="text-xs">
-                          Unit {orderedFrames.filter((f, i) => i <= index && orderedFrames.findIndex((uf) => uf.unitType === f.unitType) === orderedFrames.findIndex((uf) => uf.unitType === frame.unitType)).length} of {skeleton.units.length}
+                          Unit {skeleton.units.indexOf(frame.unitType) + 1} of {skeleton.units.length}
                         </Badge>
                       </div>
                       
