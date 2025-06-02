@@ -16,6 +16,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { nanoid } from 'nanoid';
 import { Camera, Video, Smartphone, ShoppingBag, BarChart, Film, Utensils, Gamepad, Tv, ImageIcon, Bike, Home, Flower, Brain, Pencil } from 'lucide-react';
+import CustomSkeletonBuilder from './CustomSkeletonBuilder';
 
 interface CreateSkeletonDialogProps {
   open: boolean;
@@ -405,9 +406,27 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
           </TabsContent>
 
           <TabsContent value="custom" className="flex-1 overflow-y-auto">
-            <div className="p-4 text-center">
-              <p>Custom skeleton builder coming soon!</p>
-            </div>
+            <CustomSkeletonBuilder 
+              onCreateSkeleton={(skeleton: any) => {
+                try {
+                  console.log("Creating custom skeleton:", skeleton);
+                  
+                  // Add the skeleton and set it as active
+                  const createdSkeleton = addSkeleton(skeleton);
+                  setActiveSkeletonId(createdSkeleton.id);
+                  
+                  // Set the video context
+                  if (videoContext) {
+                    setStoreVideoContext(createdSkeleton.id, videoContext);
+                  }
+                  
+                  // Close the dialog
+                  onOpenChange(false);
+                } catch (error) {
+                  console.error("Error creating custom skeleton:", error);
+                }
+              }}
+            />
           </TabsContent>
         </Tabs>
       </DialogContent>
