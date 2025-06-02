@@ -322,18 +322,27 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
             </TabsContent>
 
             <TabsContent value="framestorm" className="mt-0">
-              <ScrollArea className="h-[calc(100vh-200px)] overflow-y-auto">
-                <FrameStormingMode 
-                  skeleton={activeSkeleton}
-                  onFrameUpdate={(frameId, content) => {
-                    const updatedFrames = activeSkeleton.frames.map(frame =>
-                      frame.id === frameId ? { ...frame, content } : frame
-                    );
-                    updateFrameOrder(activeSkeleton.id, updatedFrames);
-                  }}
-                  onFrameAttributeUpdate={onUpdateFrameAttribute}
-                />
-              </ScrollArea>
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden h-[calc(100vh-200px)]">
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 px-4 py-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <h3 className="font-semibold text-gray-800">Frame-Storming</h3>
+                    <span className="text-xs text-gray-500 bg-white px-2 py-1 rounded-full">Write Content</span>
+                  </div>
+                </div>
+                <ScrollArea className="h-full p-4">
+                  <FrameStormingMode 
+                    skeleton={activeSkeleton}
+                    onFrameUpdate={(frameId, content) => {
+                      const updatedFrames = activeSkeleton.frames.map(frame =>
+                        frame.id === frameId ? { ...frame, content } : frame
+                      );
+                      updateFrameOrder(activeSkeleton.id, updatedFrames);
+                    }}
+                    onFrameAttributeUpdate={onUpdateFrameAttribute}
+                  />
+                </ScrollArea>
+              </div>
             </TabsContent>
 
             <TabsContent value="script" className="mt-0">
@@ -341,19 +350,42 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
             </TabsContent>
 
             <TabsContent value="combined" className="mt-0">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="col-span-1">
-                  <ScrollArea className="w-full overflow-x-auto touch-pan-x">
-                    <Skeleton
-                      skeleton={activeSkeleton!}
-                      onDeleteFrame={onDeleteFrame}
-                      onReorderFrames={handleReorderFrames}
-                      onReorderUnits={handleReorderUnits}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-[calc(100vh-200px)]">
+                {/* Left Panel - Frame-Storming */}
+                <div className="col-span-1 bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 px-4 py-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                      <h3 className="font-semibold text-gray-800">Frame-Storming</h3>
+                      <span className="text-xs text-gray-500 bg-white px-2 py-1 rounded-full">Write Content</span>
+                    </div>
+                  </div>
+                  <ScrollArea className="h-full p-4">
+                    <FrameStormingMode 
+                      skeleton={activeSkeleton}
+                      onFrameUpdate={(frameId, content) => {
+                        const updatedFrames = activeSkeleton.frames.map(frame =>
+                          frame.id === frameId ? { ...frame, content } : frame
+                        );
+                        updateFrameOrder(activeSkeleton.id, updatedFrames);
+                      }}
+                      onFrameAttributeUpdate={onUpdateFrameAttribute}
                     />
                   </ScrollArea>
                 </div>
-                <div className="col-span-1">
-                  <ScriptViewer fullWidth={true} />
+                
+                {/* Right Panel - Script Preview */}
+                <div className="col-span-1 bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-b border-gray-200 px-4 py-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <h3 className="font-semibold text-gray-800">Script Preview</h3>
+                      <span className="text-xs text-gray-500 bg-white px-2 py-1 rounded-full">Live Updates</span>
+                    </div>
+                  </div>
+                  <div className="h-full">
+                    <ScriptViewer fullWidth={true} />
+                  </div>
                 </div>
               </div>
             </TabsContent>
