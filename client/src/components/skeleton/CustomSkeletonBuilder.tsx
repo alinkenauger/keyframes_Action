@@ -19,6 +19,7 @@ interface CustomSkeletonBuilderProps {
 
 const AVAILABLE_UNITS = [
   'Hook',
+  'Problem Expansion',
   'Intro', 
   'Content Journey',
   'Content Delivery',
