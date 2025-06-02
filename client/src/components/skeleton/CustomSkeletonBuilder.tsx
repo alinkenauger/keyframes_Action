@@ -153,8 +153,8 @@ export default function CustomSkeletonBuilder({ onCreateSkeleton }: CustomSkelet
   const isFormValid = skeletonName.trim() !== '' && selectedUnits.length > 0;
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="space-y-4">
+    <div className="p-4 space-y-4 max-h-[600px] overflow-y-auto">
+      <div className="space-y-3">
         <div>
           <Label htmlFor="skeleton-name" className="text-sm font-medium">
             Skeleton Name
@@ -185,8 +185,8 @@ export default function CustomSkeletonBuilder({ onCreateSkeleton }: CustomSkelet
         </div>
       </div>
 
-      <div className="border-t pt-6">
-        <h4 className="font-medium mb-4">Build Your Structure</h4>
+      <div className="border-t pt-4">
+        <h4 className="font-medium mb-3">Build Your Structure</h4>
         
         <div className="flex gap-2 mb-4">
           <Select value={selectedUnit} onValueChange={setSelectedUnit}>
@@ -255,7 +255,7 @@ export default function CustomSkeletonBuilder({ onCreateSkeleton }: CustomSkelet
         )}
       </div>
 
-      <div className="border-t pt-6">
+      <div className="border-t pt-4">
         <Button 
           onClick={handleCreateSkeleton}
           disabled={!isFormValid}

@@ -3,6 +3,7 @@ import { Skeleton, Frame } from '@/types';
 // Add color mappings for frame categories
 export const FRAME_CATEGORY_COLORS: Record<string, { bg: string; text: string }> = {
   'Hook': { bg: 'bg-red-100', text: 'text-red-800' },
+  'Problem Expansion': { bg: 'bg-red-200', text: 'text-red-900' },
   'Intro': { bg: 'bg-blue-100', text: 'text-blue-800' },
   'Challenge Setup': { bg: 'bg-purple-100', text: 'text-purple-800' },
   'Story Setup': { bg: 'bg-green-100', text: 'text-green-800' },
@@ -26,6 +27,11 @@ export const SKELETON_UNITS = [
     description: 'Grabs the audience\'s attention within the first few seconds',
     examples: ['Visual Hook', 'Shock Value', 'Intriguing Question'],
     placement: 'Always the first segment in the Skeleton'
+  },
+  {
+    type: 'Problem Expansion',
+    description: 'Elaborates on the problem or challenge to create deeper engagement',
+    examples: ['Problem Deep Dive', 'Impact Analysis', 'Why This Matters']
   },
   {
     type: 'Intro',
