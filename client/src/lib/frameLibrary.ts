@@ -361,6 +361,69 @@ export const FRAME_TEMPLATES: FrameTemplate[] = [
     popularUse: 'Tutorials, how-to content, and educational videos.'
   },
   {
+    id: 'method-breakdown',
+    name: 'Method Breakdown',
+    description: 'Explains the specific process or technique in detail.',
+    example: "Here's the exact method I use to optimize my content for maximum reach.",
+    category: FRAME_CATEGORIES.CONTENT,
+    subcategory: CONTENT_SUBCATEGORIES.EDUCATIONAL,
+    popularUse: 'How-to tutorials and skill-building content.'
+  },
+  {
+    id: 'tools-and-resources',
+    name: 'Tools & Resources',
+    description: 'Lists specific tools, software, or materials needed.',
+    example: "You'll need these three free tools: Canva, Buffer, and Google Analytics.",
+    category: FRAME_CATEGORIES.CONTENT,
+    subcategory: CONTENT_SUBCATEGORIES.EDUCATIONAL,
+    popularUse: 'Tutorial preparation and resource sharing.'
+  },
+  {
+    id: 'prerequisites-setup',
+    name: 'Prerequisites & Setup',
+    description: 'Explains what viewers need before starting the tutorial.',
+    example: "Before we begin, make sure you have a business account and these settings enabled.",
+    category: FRAME_CATEGORIES.CONTENT,
+    subcategory: CONTENT_SUBCATEGORIES.EDUCATIONAL,
+    popularUse: 'Technical tutorials and skill development.'
+  },
+  {
+    id: 'screen-walkthrough',
+    name: 'Screen Walkthrough',
+    description: 'Guides viewers through software or interface navigation.',
+    example: "Now click on the dashboard, then navigate to settings, and you'll see this option.",
+    category: FRAME_CATEGORIES.CONTENT,
+    subcategory: CONTENT_SUBCATEGORIES.EDUCATIONAL,
+    popularUse: 'Software tutorials and digital how-tos.'
+  },
+  {
+    id: 'troubleshooting-guide',
+    name: 'Troubleshooting Guide',
+    description: 'Addresses common problems and their solutions.',
+    example: "If you're getting this error message, here's exactly how to fix it.",
+    category: FRAME_CATEGORIES.CONTENT,
+    subcategory: CONTENT_SUBCATEGORIES.EDUCATIONAL,
+    popularUse: 'Technical support and problem-solving content.'
+  },
+  {
+    id: 'practical-exercise',
+    name: 'Practical Exercise',
+    description: 'Provides hands-on practice or application of the concept.',
+    example: "Let's practice this together - pause the video and try it on your own account.",
+    category: FRAME_CATEGORIES.CONTENT,
+    subcategory: CONTENT_SUBCATEGORIES.EDUCATIONAL,
+    popularUse: 'Interactive learning and skill practice.'
+  },
+  {
+    id: 'before-after-comparison',
+    name: 'Before & After Comparison',
+    description: 'Shows the transformation or improvement achieved.',
+    example: "Here's my account before applying this strategy, and here's the result after 30 days.",
+    category: FRAME_CATEGORIES.CONTENT,
+    subcategory: CONTENT_SUBCATEGORIES.EDUCATIONAL,
+    popularUse: 'Demonstrating effectiveness and results.'
+  },
+  {
     id: 'expert-insight',
     name: 'Expert Insight',
     description: 'Shares specialized knowledge or perspective.',
