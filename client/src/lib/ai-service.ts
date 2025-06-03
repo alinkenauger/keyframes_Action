@@ -2,6 +2,7 @@ import OpenAI from "openai";
 import { SKELETON_UNITS } from './constants';
 import { CustomGptAssistant } from './custom-gpt';
 import { generateContentWithAgent, adaptContentWithAgent } from './agent-service';
+import { creatorTemplates } from './creatorTemplates';
 
 const openai = new OpenAI({
   apiKey: import.meta.env.VITE_OPENAI_API_KEY as string,
@@ -241,7 +242,7 @@ export async function adaptFrameContent(
     return await adaptContentWithAgent(content, tone, filter, unitType);
   } catch (error) {
     console.error('Error adapting content with Agent 2.0:', error);
-    
+
     // Fallback to the legacy implementation if Agent 2.0 fails
     try {
       const frameTypeData = FRAME_TYPE_PROMPTS[frameType] || DEFAULT_FRAME_TYPE;
@@ -283,7 +284,7 @@ Response:`;
         model: "gpt-4",
         messages: [
           {
-            role: "system",
+            role: "system" as const,
             content: "You are an expert content adapter, skilled at maintaining core messages while adjusting tone and style. Your adaptations should feel natural and enhance the original content's impact."
           },
           {
@@ -322,7 +323,7 @@ export async function generateFrameContent(
     return generateContentWithAgent(frameType, unitType, context, answers, customAssistant);
   } catch (error) {
     console.error('Error generating content with Agent 2.0:', error);
-    
+
     // Fallback to the legacy implementation if Agent 2.0 fails
     try {
       const frameTypeData = FRAME_TYPE_PROMPTS[frameType] || DEFAULT_FRAME_TYPE;
