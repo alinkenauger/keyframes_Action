@@ -15,8 +15,9 @@ import { DndContext, DragEndEvent, DragStartEvent, closestCenter, DragOverlay, u
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { nanoid } from 'nanoid';
-import { Camera, Video, Smartphone, ShoppingBag, BarChart, Film, Utensils, Gamepad, Tv, ImageIcon, Bike, Home, Flower, Brain, Pencil } from 'lucide-react';
+import { Camera, Video, Smartphone, ShoppingBag, BarChart, Film, Utensils, Gamepad, Tv, ImageIcon, Bike, Home, Flower, Brain, Pencil, Sparkles, Loader2 } from 'lucide-react';
 import CustomSkeletonBuilder from './CustomSkeletonBuilder';
+import { generateContentWithAgent } from '@/lib/agent-service';
 
 interface CreateSkeletonDialogProps {
   open: boolean;
@@ -72,12 +73,113 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
   const [selectedCategory, setSelectedCategory] = useState<TemplateCategory | 'all'>('all');
   const categories = getTemplateCategories();
   const [contentType, setContentType] = useState<'short' | 'long'>('long');
+  const [recommendationData, setRecommendationData] = useState({
+    videoIdea: '',
+    audienceGoal: '',
+    overallGoal: '',
+    preferredLength: 'long' as 'short' | 'long',
+    targetAudience: '',
+    contentStyle: ''
+  });
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [recommendation, setRecommendation] = useState<{
+    type: 'template' | 'custom';
+    templateId?: string;
+    customStructure?: any;
+    reasoning: string;
+  } | null>(null);
   const { addSkeleton, setActiveSkeletonId, setVideoContext: setStoreVideoContext } = useWorkspace();
   
   // Filter templates based on selected category and content type
   const filteredTemplates = selectedCategory === 'all'
     ? creatorTemplates.filter(t => t.contentTypes.includes(contentType))
     : creatorTemplates.filter(t => t.category === selectedCategory && t.contentTypes.includes(contentType));
+
+  const analyzeAndRecommend = async () => {
+    if (!recommendationData.videoIdea || !recommendationData.audienceGoal || !recommendationData.overallGoal) {
+      return;
+    }
+
+    setIsAnalyzing(true);
+    try {
+      // Create analysis prompt
+      const analysisPrompt = `
+You are an expert content strategist analyzing video concepts to recommend the best content structure.
+
+Video Idea: ${recommendationData.videoIdea}
+What audience should get out of it: ${recommendationData.audienceGoal}
+Overall goal: ${recommendationData.overallGoal}
+Preferred length: ${recommendationData.preferredLength}
+Target audience: ${recommendationData.targetAudience}
+Content style preference: ${recommendationData.contentStyle}
+
+Available Templates:
+${creatorTemplates.filter(t => t.contentTypes.includes(recommendationData.preferredLength)).map(t => 
+  `- ${t.name} (${t.category}): ${t.description} | Units: ${t.units.join(' → ')}`
+).join('\n')}
+
+Based on this information, analyze the video concept and either:
+1. RECOMMEND an existing template that best matches (provide the exact template name and reasoning)
+2. SUGGEST a custom structure if no template is ideal (provide units and reasoning)
+
+Respond in JSON format:
+{
+  "recommendation_type": "template" or "custom",
+  "template_name": "exact template name if recommending template",
+  "custom_units": ["unit1", "unit2"] if suggesting custom,
+  "reasoning": "detailed explanation of why this structure works best",
+  "confidence": "high/medium/low"
+}
+`;
+
+      const response = await generateContentWithAgent(
+        'recommendation-analysis',
+        'analysis',
+        analysisPrompt
+      );
+
+      try {
+        const analysis = JSON.parse(response);
+        
+        if (analysis.recommendation_type === 'template') {
+          const recommendedTemplate = creatorTemplates.find(t => 
+            t.name.toLowerCase().includes(analysis.template_name.toLowerCase()) ||
+            analysis.template_name.toLowerCase().includes(t.name.toLowerCase())
+          );
+          
+          setRecommendation({
+            type: 'template',
+            templateId: recommendedTemplate?.id,
+            reasoning: analysis.reasoning
+          });
+        } else {
+          setRecommendation({
+            type: 'custom',
+            customStructure: {
+              units: analysis.custom_units,
+              contentType: recommendationData.preferredLength
+            },
+            reasoning: analysis.reasoning
+          });
+        }
+      } catch (parseError) {
+        console.error('Failed to parse recommendation:', parseError);
+        // Fallback to simple recommendation based on content type and goals
+        const fallbackTemplate = creatorTemplates.find(t => 
+          t.contentTypes.includes(recommendationData.preferredLength)
+        );
+        setRecommendation({
+          type: 'template',
+          templateId: fallbackTemplate?.id,
+          reasoning: 'Based on your content type preference, this template should work well for your video concept.'
+        });
+      }
+    } catch (error) {
+      console.error('Recommendation analysis failed:', error);
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
 
   function handleTemplateSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -161,6 +263,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
         <Tabs defaultValue="template" className="flex-1 overflow-hidden flex flex-col">
           <TabsList className="mb-4">
             <TabsTrigger value="template">Use Template</TabsTrigger>
+            <TabsTrigger value="recommendation">Smart Recommendation</TabsTrigger>
             <TabsTrigger value="custom">Custom Build</TabsTrigger>
           </TabsList>
 
@@ -402,6 +505,269 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                   Create From Template
                 </Button>
               </DialogFooter>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="recommendation" className="flex-1 overflow-hidden flex flex-col">
+            <div className="space-y-4 flex-1 overflow-hidden flex flex-col">
+              <div className="grid gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="name">Name (Optional)</Label>
+                  <Input
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="e.g., My YouTube Script"
+                    className="touch-target"
+                  />
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="video-idea">What's your video idea?</Label>
+                  <Textarea
+                    id="video-idea"
+                    value={recommendationData.videoIdea}
+                    onChange={(e) => setRecommendationData(prev => ({ ...prev, videoIdea: e.target.value }))}
+                    placeholder="Describe your video concept in detail..."
+                    className="min-h-[80px] touch-target"
+                  />
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="audience-goal">What should your audience get out of this video?</Label>
+                  <Textarea
+                    id="audience-goal"
+                    value={recommendationData.audienceGoal}
+                    onChange={(e) => setRecommendationData(prev => ({ ...prev, audienceGoal: e.target.value }))}
+                    placeholder="What value, emotion, or outcome should viewers experience?"
+                    className="min-h-[60px] touch-target"
+                  />
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="overall-goal">What's your overall goal for this video?</Label>
+                  <Textarea
+                    id="overall-goal"
+                    value={recommendationData.overallGoal}
+                    onChange={(e) => setRecommendationData(prev => ({ ...prev, overallGoal: e.target.value }))}
+                    placeholder="Brand awareness, education, entertainment, sales, etc."
+                    className="min-h-[60px] touch-target"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="grid gap-2">
+                    <Label>Preferred Length</Label>
+                    <div className="flex items-center border rounded-md overflow-hidden">
+                      <button
+                        type="button"
+                        onClick={() => setRecommendationData(prev => ({ ...prev, preferredLength: 'short' }))}
+                        className={cn(
+                          "flex items-center gap-1 px-3 py-2 text-sm flex-1 justify-center",
+                          recommendationData.preferredLength === 'short'
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-background hover:bg-muted"
+                        )}
+                      >
+                        <Smartphone size={14} />
+                        <span>Short</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setRecommendationData(prev => ({ ...prev, preferredLength: 'long' }))}
+                        className={cn(
+                          "flex items-center gap-1 px-3 py-2 text-sm flex-1 justify-center",
+                          recommendationData.preferredLength === 'long'
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-background hover:bg-muted"
+                        )}
+                      >
+                        <Video size={14} />
+                        <span>Long</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="grid gap-2">
+                    <Label htmlFor="target-audience">Target Audience (Optional)</Label>
+                    <Input
+                      id="target-audience"
+                      value={recommendationData.targetAudience}
+                      onChange={(e) => setRecommendationData(prev => ({ ...prev, targetAudience: e.target.value }))}
+                      placeholder="e.g., Young professionals"
+                      className="touch-target"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="content-style">Content Style Preference (Optional)</Label>
+                  <Input
+                    id="content-style"
+                    value={recommendationData.contentStyle}
+                    onChange={(e) => setRecommendationData(prev => ({ ...prev, contentStyle: e.target.value }))}
+                    placeholder="e.g., Educational, entertaining, casual, professional"
+                    className="touch-target"
+                  />
+                </div>
+
+                <Button
+                  onClick={analyzeAndRecommend}
+                  disabled={!recommendationData.videoIdea || !recommendationData.audienceGoal || !recommendationData.overallGoal || isAnalyzing}
+                  className="w-full"
+                >
+                  {isAnalyzing ? (
+                    <>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      Analyzing Your Video Concept...
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="h-4 w-4 mr-2" />
+                      Get My Recommendation
+                    </>
+                  )}
+                </Button>
+
+                {recommendation && (
+                  <div className="border rounded-lg p-4 bg-muted/30">
+                    <h3 className="font-semibold text-sm mb-2 flex items-center gap-2">
+                      <Sparkles className="h-4 w-4 text-primary" />
+                      AI Recommendation
+                    </h3>
+                    
+                    {recommendation.type === 'template' && recommendation.templateId && (
+                      <div className="space-y-3">
+                        {(() => {
+                          const recommendedTemplate = creatorTemplates.find(t => t.id === recommendation.templateId);
+                          return recommendedTemplate ? (
+                            <>
+                              <div className="p-3 border rounded-md bg-background">
+                                <div className="font-medium text-sm mb-1">{recommendedTemplate.name}</div>
+                                <div className="text-xs text-muted-foreground mb-2">{recommendedTemplate.description}</div>
+                                <div className="text-xs">
+                                  <span className="font-medium">Structure:</span> {recommendedTemplate.units.join(' → ')}
+                                </div>
+                              </div>
+                              
+                              <div className="text-xs text-muted-foreground">
+                                <strong>Why this works:</strong> {recommendation.reasoning}
+                              </div>
+                              
+                              <Button
+                                onClick={() => {
+                                  setSelectedCreator(recommendation.templateId!);
+                                  // Auto-fill video context from recommendation data
+                                  setVideoContext(recommendationData.videoIdea);
+                                  
+                                  // Create skeleton immediately
+                                  try {
+                                    const skeletonId = nanoid();
+                                    const frames = [];
+                                    
+                                    if (recommendedTemplate.frames) {
+                                      for (const unitFrames of recommendedTemplate.frames) {
+                                        const unitType = unitFrames.unitType;
+                                        
+                                        for (const frameId of unitFrames.frameIds) {
+                                          let content = '';
+                                          if (unitFrames.examples) {
+                                            const example = unitFrames.examples.find(e => e.frameId === frameId);
+                                            if (example && example.content) {
+                                              content = example.content;
+                                            }
+                                          }
+                                          
+                                          frames.push({
+                                            id: nanoid(),
+                                            name: frameId,
+                                            type: frameId,
+                                            content: content,
+                                            unitType: unitType,
+                                            isTemplateExample: true
+                                          });
+                                        }
+                                      }
+                                    }
+                                    
+                                    const newSkeleton = {
+                                      id: skeletonId,
+                                      name: name || `${recommendedTemplate.name} - ${new Date().toLocaleDateString()}`,
+                                      units: recommendedTemplate.units || [],
+                                      frames: frames,
+                                      contentType: recommendationData.preferredLength,
+                                    };
+
+                                    const createdSkeleton = addSkeleton(newSkeleton);
+                                    setActiveSkeletonId(createdSkeleton.id);
+                                    
+                                    if (recommendationData.videoIdea) {
+                                      setStoreVideoContext(createdSkeleton.id, recommendationData.videoIdea);
+                                    }
+                                    
+                                    onOpenChange(false);
+                                  } catch (error) {
+                                    console.error("Error creating recommended skeleton:", error);
+                                  }
+                                }}
+                                className="w-full text-sm"
+                              >
+                                Use This Template
+                              </Button>
+                            </>
+                          ) : (
+                            <div className="text-sm text-muted-foreground">Template not found</div>
+                          );
+                        })()}
+                      </div>
+                    )}
+
+                    {recommendation.type === 'custom' && recommendation.customStructure && (
+                      <div className="space-y-3">
+                        <div className="p-3 border rounded-md bg-background">
+                          <div className="font-medium text-sm mb-1">Custom Structure Recommended</div>
+                          <div className="text-xs">
+                            <span className="font-medium">Structure:</span> {recommendation.customStructure.units.join(' → ')}
+                          </div>
+                        </div>
+                        
+                        <div className="text-xs text-muted-foreground">
+                          <strong>Why this works:</strong> {recommendation.reasoning}
+                        </div>
+                        
+                        <Button
+                          onClick={() => {
+                            try {
+                              const skeletonId = nanoid();
+                              const newSkeleton = {
+                                id: skeletonId,
+                                name: name || `Custom Structure - ${new Date().toLocaleDateString()}`,
+                                units: recommendation.customStructure.units,
+                                frames: [],
+                                contentType: recommendationData.preferredLength,
+                              };
+
+                              const createdSkeleton = addSkeleton(newSkeleton);
+                              setActiveSkeletonId(createdSkeleton.id);
+                              
+                              if (recommendationData.videoIdea) {
+                                setStoreVideoContext(createdSkeleton.id, recommendationData.videoIdea);
+                              }
+                              
+                              onOpenChange(false);
+                            } catch (error) {
+                              console.error("Error creating custom skeleton:", error);
+                            }
+                          }}
+                          className="w-full text-sm"
+                        >
+                          Create Custom Structure
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </TabsContent>
 
