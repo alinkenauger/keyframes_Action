@@ -27,7 +27,7 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
   const { skeletons, activeSkeletonId, updateFrameOrder, updateSkeletonUnits } = useWorkspace();
   const activeSkeleton = skeletons.find((s) => s.id === activeSkeletonId);
   const [showScriptView, setShowScriptView] = useState(false);
-  const [activeTab, setActiveTab] = useState<string>("framestorm");
+  const [activeTab, setActiveTab] = useState<string>("skeleton");
   const { isMobile, toggleMobilePreview, previewMode } = useMobileView();
   const [zoomLevel, setZoomLevel] = useState(1);
   const skeletonContainerRef = useRef<HTMLDivElement>(null);
