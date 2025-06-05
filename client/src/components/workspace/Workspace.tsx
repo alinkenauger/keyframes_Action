@@ -236,17 +236,15 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
 
   return (
     <div className="h-[calc(100vh-65px)] overflow-hidden">
-      <div className="flex-1 p-2 md:p-6">
-        <div className="mb-4">
-          <h2 className="text-xl md:text-2xl font-semibold text-center">{activeSkeleton.name}</h2>
-          <p className="text-xs md:text-sm text-muted-foreground text-center">
+      <div className="flex-1 p-2 md:p-4">
+        <div className="mb-2">
+          <h2 className="text-lg md:text-xl font-semibold text-center">{activeSkeleton.name}</h2>
+          <p className="text-xs text-muted-foreground text-center">
             Drag frames from the sidebar and drop them into the units below
           </p>
         </div>
 
-        {/* Preview button removed as requested */}
-
-        <div className="mb-4 flex justify-end space-x-2">
+        <div className="mb-2 flex justify-end space-x-2">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <div className="flex justify-between items-center mb-2">
               <TabsList>
@@ -296,7 +294,7 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
                   WebkitOverflowScrolling: 'touch',
                   scrollBehavior: 'smooth',
                   paddingBottom: '20px', // Add padding for the horizontal scrollbar
-                  height: 'calc(100vh - 180px)' // Set a fixed height to ensure scrolling works
+                  height: 'calc(100vh - 120px)' // Set a fixed height to ensure scrolling works
                 }}
                 orientation="both"
               >
@@ -322,7 +320,7 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
             </TabsContent>
 
             <TabsContent value="framestorm" className="mt-0">
-              <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden h-[calc(100vh-200px)]">
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden h-[calc(100vh-140px)]">
                 <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 px-4 py-3">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
@@ -350,7 +348,7 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
             </TabsContent>
 
             <TabsContent value="combined" className="mt-0">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-[calc(100vh-200px)]">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-[calc(100vh-140px)]">
                 {/* Left Panel - Frame-Storming */}
                 <div className="col-span-1 bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
                   <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 px-4 py-3">

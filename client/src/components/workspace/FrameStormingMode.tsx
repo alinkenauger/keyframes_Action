@@ -108,10 +108,10 @@ export default function FrameStormingMode({
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-8">
+    <div className="max-w-4xl mx-auto p-3 space-y-4">
       {/* Header with completion tracking */}
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+      <div className="text-center mb-4">
+        <div className="inline-flex items-center gap-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
           <div className="text-2xl font-bold text-blue-600">{completionPercentage}%</div>
           <div className="text-left">
             <p className="font-medium text-gray-800">
@@ -125,7 +125,7 @@ export default function FrameStormingMode({
       </div>
 
       {/* Frames */}
-      <div className="space-y-8">
+      <div className="space-y-4">
         {orderedFrames.map((frame, index) => {
           const isNewUnit = index === 0 || frame.unitType !== orderedFrames[index - 1].unitType;
           
@@ -133,8 +133,8 @@ export default function FrameStormingMode({
             <div key={frame.id}>
               {/* Unit header - only show for first frame of each unit */}
               {isNewUnit && (
-                <div className="sticky top-0 z-10 mb-4">
-                  <div className={`p-4 rounded-lg border-l-4 ${getUnitColor(frame.unitType)}`}>
+                <div className="sticky top-0 z-10 mb-2">
+                  <div className={`p-3 rounded-lg border-l-4 ${getUnitColor(frame.unitType)}`}>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <h3 className="text-xl font-bold text-gray-800">
@@ -161,13 +161,13 @@ export default function FrameStormingMode({
               )}
 
               {/* Frame card */}
-              <div className={`border-2 rounded-lg p-6 shadow-sm transition-all ${
+              <div className={`border-2 rounded-lg p-4 shadow-sm transition-all ${
                 submittedFrames.has(frame.id) 
                   ? 'bg-green-50 border-green-300' 
                   : 'bg-white border-blue-200 border-dashed'
               }`}>
                 {/* Clear Frame Header */}
-                <div className="mb-6">
+                <div className="mb-4">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-3">
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
