@@ -520,7 +520,7 @@ Respond in JSON format:
                     placeholder="e.g., My YouTube Script"
                     className="touch-target"
                   />
-                </div></div>
+                </div>
 
                 <div className="grid gap-2">
                   <Label htmlFor="video-idea">What's your video idea?</Label>
