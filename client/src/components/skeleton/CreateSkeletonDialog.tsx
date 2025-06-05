@@ -102,80 +102,52 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
 
     setIsAnalyzing(true);
     try {
-      // Create analysis prompt
-      const analysisPrompt = `
-You are an expert content strategist analyzing video concepts to recommend the best content structure.
+      const response = await fetch('/api/recommend-skeleton', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(recommendationData),
+      });
 
-Video Idea: ${recommendationData.videoIdea}
-What audience should get out of it: ${recommendationData.audienceGoal}
-Overall goal: ${recommendationData.overallGoal}
-Preferred length: ${recommendationData.preferredLength}
-Target audience: ${recommendationData.targetAudience}
-Content style preference: ${recommendationData.contentStyle}
+      if (!response.ok) {
+        throw new Error('Failed to get recommendation');
+      }
 
-Available Templates:
-${creatorTemplates.filter(t => t.contentTypes.includes(recommendationData.preferredLength)).map(t => 
-  `- ${t.name} (${t.category}): ${t.description} | Units: ${t.units.join(' → ')}`
-).join('\n')}
+      const analysis = await response.json();
 
-Based on this information, analyze the video concept and either:
-1. RECOMMEND an existing template that best matches (provide the exact template name and reasoning)
-2. SUGGEST a custom structure if no template is ideal (provide units and reasoning)
-
-Respond in JSON format:
-{
-  "recommendation_type": "template" or "custom",
-  "template_name": "exact template name if recommending template",
-  "custom_units": ["unit1", "unit2"] if suggesting custom,
-  "reasoning": "detailed explanation of why this structure works best",
-  "confidence": "high/medium/low"
-}
-`;
-
-      const response = await generateContentWithAgent(
-        'recommendation-analysis',
-        'analysis',
-        analysisPrompt
-      );
-
-      try {
-        const analysis = JSON.parse(response);
-
-        if (analysis.recommendation_type === 'template') {
-          const recommendedTemplate = creatorTemplates.find(t => 
-            t.name.toLowerCase().includes(analysis.template_name.toLowerCase()) ||
-            analysis.template_name.toLowerCase().includes(t.name.toLowerCase())
-          );
-
-          setRecommendation({
-            type: 'template',
-            templateId: recommendedTemplate?.id,
-            reasoning: analysis.reasoning
-          });
-        } else {
-          setRecommendation({
-            type: 'custom',
-            customStructure: {
-              units: analysis.custom_units,
-              contentType: recommendationData.preferredLength
-            },
-            reasoning: analysis.reasoning
-          });
-        }
-      } catch (parseError) {
-        console.error('Failed to parse recommendation:', parseError);
-        // Fallback to simple recommendation based on content type and goals
-        const fallbackTemplate = creatorTemplates.find(t => 
-          t.contentTypes.includes(recommendationData.preferredLength)
+      if (analysis.recommendation_type === 'template') {
+        const recommendedTemplate = creatorTemplates.find(t => 
+          t.name.toLowerCase().includes(analysis.template_name.toLowerCase()) ||
+          analysis.template_name.toLowerCase().includes(t.name.toLowerCase())
         );
+
         setRecommendation({
           type: 'template',
-          templateId: fallbackTemplate?.id,
-          reasoning: 'Based on your content type preference, this template should work well for your video concept.'
+          templateId: recommendedTemplate?.id,
+          reasoning: analysis.reasoning
+        });
+      } else {
+        setRecommendation({
+          type: 'custom',
+          customStructure: {
+            units: analysis.custom_units,
+            contentType: recommendationData.preferredLength
+          },
+          reasoning: analysis.reasoning
         });
       }
     } catch (error) {
-      console.error('Recommendation analysis failed:', error);
+      console.error('Failed to get recommendation:', error);
+      // Fallback to simple recommendation based on content type and goals
+      const fallbackTemplate = creatorTemplates.find(t => 
+        t.contentTypes.includes(recommendationData.preferredLength)
+      );
+      setRecommendation({
+        type: 'template',
+        templateId: fallbackTemplate?.id,
+        reasoning: 'Based on your content type preference, this template should work well for your video concept.'
+      });
     } finally {
       setIsAnalyzing(false);
     }
