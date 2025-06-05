@@ -89,7 +89,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
     reasoning: string;
   } | null>(null);
   const { addSkeleton, setActiveSkeletonId, setVideoContext: setStoreVideoContext } = useWorkspace();
-  
+
   // Filter templates based on selected category and content type
   const filteredTemplates = selectedCategory === 'all'
     ? creatorTemplates.filter(t => t.contentTypes.includes(contentType))
@@ -140,13 +140,13 @@ Respond in JSON format:
 
       try {
         const analysis = JSON.parse(response);
-        
+
         if (analysis.recommendation_type === 'template') {
           const recommendedTemplate = creatorTemplates.find(t => 
             t.name.toLowerCase().includes(analysis.template_name.toLowerCase()) ||
             analysis.template_name.toLowerCase().includes(t.name.toLowerCase())
           );
-          
+
           setRecommendation({
             type: 'template',
             templateId: recommendedTemplate?.id,
@@ -196,12 +196,12 @@ Respond in JSON format:
       // Create a new skeleton based on the selected template
       const skeletonId = nanoid();
       const frames = [];
-      
+
       // If the template has specific frames, add them to the skeleton
       if (selectedTemplate.frames) {
         for (const unitFrames of selectedTemplate.frames) {
           const unitType = unitFrames.unitType;
-          
+
           // Get the specific frames for this unit
           for (const frameId of unitFrames.frameIds) {
             // Find example content if available
@@ -212,7 +212,7 @@ Respond in JSON format:
                 content = example.content;
               }
             }
-            
+
             // Create a new frame object
             frames.push({
               id: nanoid(),
@@ -225,7 +225,7 @@ Respond in JSON format:
           }
         }
       }
-      
+
       const newSkeleton = {
         id: skeletonId,
         name: name || selectedTemplate.name,
@@ -239,12 +239,12 @@ Respond in JSON format:
       // Add the skeleton and set it as active
       const createdSkeleton = addSkeleton(newSkeleton);
       setActiveSkeletonId(createdSkeleton.id);
-      
+
       // Set the video context
       if (videoContext) {
         setStoreVideoContext(createdSkeleton.id, videoContext);
       }
-      
+
     } catch (error) {
       console.error("Error creating skeleton:", error);
     }
@@ -296,7 +296,7 @@ Respond in JSON format:
                   <div className="flex justify-between items-center">
                     <Label>Choose a Creator Template</Label>
                   </div>
-                  
+
                   <div className="space-y-2 mb-2">
                     <div className="flex justify-between items-center">
                       <div className="flex items-center gap-2">
@@ -332,7 +332,7 @@ Respond in JSON format:
                       </div>
                       <Label className="text-xs text-muted-foreground">Filter by category:</Label>
                     </div>
-                    
+
                     <div className="flex flex-wrap gap-1">
                       <button
                         type="button"
@@ -347,7 +347,7 @@ Respond in JSON format:
                         <ShoppingBag size={12} />
                         <span>All</span>
                       </button>
-                      
+
                       {categories.map((category) => (
                         <button
                           key={category}
@@ -366,7 +366,7 @@ Respond in JSON format:
                       ))}
                     </div>
                   </div>
-                  
+
                   <div className="border rounded-md p-4 max-h-[320px] overflow-y-scroll">
                     <RadioGroup
                       value={selectedCreator || ''}
@@ -401,16 +401,16 @@ Respond in JSON format:
                                   </span>
                                 </div>
                               </div>
-                              
+
                               <p className="text-xs text-muted-foreground line-clamp-2">
                                 {template.description}
                               </p>
-                              
+
                               <div className="mt-1.5 flex flex-wrap items-center text-[10px]">
                                 <span className="font-medium text-foreground/80 mr-1">{template.units.length} units:</span>
                                 <span className="text-muted-foreground truncate">{template.units.join(' → ')}</span>
                               </div>
-                              
+
                               {template.frames && template.frames[0]?.examples && template.frames[0].examples[0] && (
                                 <div className="mt-1.5 p-1.5 bg-muted/50 rounded-md text-[10px] text-muted-foreground border border-border/50">
                                   <span className="inline-block font-medium text-foreground/70 mr-1">Example:</span>
@@ -443,15 +443,15 @@ Respond in JSON format:
                       // Create a new skeleton based on the selected template
                       const skeletonId = nanoid();
                       const frames = [];
-                      
+
                       // Find complete template with frames
                       const completeTemplate = selectedTemplate;
-                      
+
                       // If the template has specific frames, add them to the skeleton
                       if (completeTemplate && completeTemplate.frames) {
                         for (const unitFrames of completeTemplate.frames) {
                           const unitType = unitFrames.unitType;
-                          
+
                           // Get the specific frames for this unit
                           for (const frameId of unitFrames.frameIds) {
                             // Find example content if available
@@ -462,7 +462,7 @@ Respond in JSON format:
                                 content = example.content;
                               }
                             }
-                            
+
                             // Create a new frame object
                             frames.push({
                               id: nanoid(),
@@ -475,7 +475,7 @@ Respond in JSON format:
                           }
                         }
                       }
-                      
+
                       const newSkeleton = {
                         id: skeletonId,
                         name: name || selectedTemplate.name,
@@ -489,12 +489,12 @@ Respond in JSON format:
                       // Add the skeleton and set it as active
                       const createdSkeleton = addSkeleton(newSkeleton);
                       setActiveSkeletonId(createdSkeleton.id);
-                      
+
                       // Set the video context
                       if (videoContext) {
                         setStoreVideoContext(createdSkeleton.id, videoContext);
                       }
-                      
+
                       // Close the dialog
                       onOpenChange(false);
                     } catch (error) {
@@ -508,8 +508,8 @@ Respond in JSON format:
             </div>
           </TabsContent>
 
-          <TabsContent value="recommendation" className="flex-1 overflow-hidden flex flex-col">
-            <div className="space-y-4 flex-1 overflow-hidden flex flex-col">
+          <TabsContent value="recommendation" className="flex-1 overflow-hidden">
+            <div className="space-y-4 h-full overflow-y-auto p-1">
               <div className="grid gap-4">
                 <div className="grid gap-2">
                   <Label htmlFor="name">Name (Optional)</Label>
@@ -635,7 +635,7 @@ Respond in JSON format:
                       <Sparkles className="h-4 w-4 text-primary" />
                       AI Recommendation
                     </h3>
-                    
+
                     {recommendation.type === 'template' && recommendation.templateId && (
                       <div className="space-y-3">
                         {(() => {
@@ -649,26 +649,26 @@ Respond in JSON format:
                                   <span className="font-medium">Structure:</span> {recommendedTemplate.units.join(' → ')}
                                 </div>
                               </div>
-                              
+
                               <div className="text-xs text-muted-foreground">
                                 <strong>Why this works:</strong> {recommendation.reasoning}
                               </div>
-                              
+
                               <Button
                                 onClick={() => {
                                   setSelectedCreator(recommendation.templateId!);
                                   // Auto-fill video context from recommendation data
                                   setVideoContext(recommendationData.videoIdea);
-                                  
+
                                   // Create skeleton immediately
                                   try {
                                     const skeletonId = nanoid();
                                     const frames = [];
-                                    
+
                                     if (recommendedTemplate.frames) {
                                       for (const unitFrames of recommendedTemplate.frames) {
                                         const unitType = unitFrames.unitType;
-                                        
+
                                         for (const frameId of unitFrames.frameIds) {
                                           let content = '';
                                           if (unitFrames.examples) {
@@ -677,7 +677,7 @@ Respond in JSON format:
                                               content = example.content;
                                             }
                                           }
-                                          
+
                                           frames.push({
                                             id: nanoid(),
                                             name: frameId,
@@ -689,7 +689,7 @@ Respond in JSON format:
                                         }
                                       }
                                     }
-                                    
+
                                     const newSkeleton = {
                                       id: skeletonId,
                                       name: name || `${recommendedTemplate.name} - ${new Date().toLocaleDateString()}`,
@@ -700,11 +700,11 @@ Respond in JSON format:
 
                                     const createdSkeleton = addSkeleton(newSkeleton);
                                     setActiveSkeletonId(createdSkeleton.id);
-                                    
+
                                     if (recommendationData.videoIdea) {
                                       setStoreVideoContext(createdSkeleton.id, recommendationData.videoIdea);
                                     }
-                                    
+
                                     onOpenChange(false);
                                   } catch (error) {
                                     console.error("Error creating recommended skeleton:", error);
@@ -730,11 +730,11 @@ Respond in JSON format:
                             <span className="font-medium">Structure:</span> {recommendation.customStructure.units.join(' → ')}
                           </div>
                         </div>
-                        
+
                         <div className="text-xs text-muted-foreground">
                           <strong>Why this works:</strong> {recommendation.reasoning}
                         </div>
-                        
+
                         <Button
                           onClick={() => {
                             try {
@@ -749,11 +749,11 @@ Respond in JSON format:
 
                               const createdSkeleton = addSkeleton(newSkeleton);
                               setActiveSkeletonId(createdSkeleton.id);
-                              
+
                               if (recommendationData.videoIdea) {
                                 setStoreVideoContext(createdSkeleton.id, recommendationData.videoIdea);
                               }
-                              
+
                               onOpenChange(false);
                             } catch (error) {
                               console.error("Error creating custom skeleton:", error);
@@ -776,16 +776,16 @@ Respond in JSON format:
               onCreateSkeleton={(skeleton: any) => {
                 try {
                   console.log("Creating custom skeleton:", skeleton);
-                  
+
                   // Add the skeleton and set it as active
                   const createdSkeleton = addSkeleton(skeleton);
                   setActiveSkeletonId(createdSkeleton.id);
-                  
+
                   // Set the video context
                   if (videoContext) {
                     setStoreVideoContext(createdSkeleton.id, videoContext);
                   }
-                  
+
                   // Close the dialog
                   onOpenChange(false);
                 } catch (error) {
