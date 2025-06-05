@@ -509,8 +509,8 @@ Respond in JSON format:
           </TabsContent>
 
           <TabsContent value="recommendation" className="flex-1 overflow-hidden flex flex-col">
-            <div className="space-y-4 flex-1 overflow-hidden flex flex-col">
-              <div className="grid gap-4">
+            <div className="space-y-4 flex-1 overflow-y-auto">
+              <div className="grid gap-4"></div>
                 <div className="grid gap-2">
                   <Label htmlFor="name">Name (Optional)</Label>
                   <Input
