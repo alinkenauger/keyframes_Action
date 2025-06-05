@@ -481,8 +481,8 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
           </TabsContent>
 
           <TabsContent value="recommendation" className="flex-1 overflow-hidden">
-            <div className="space-y-4 h-full overflow-y-auto p-1">
-              <div className="grid gap-4">
+            <div className="space-y-3 h-full overflow-y-auto p-0">
+              <div className="grid gap-3">
                 <div className="grid gap-2">
                   <Label htmlFor="name">Name (Optional)</Label>
                   <Input
@@ -501,7 +501,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                     value={recommendationData.videoIdea}
                     onChange={(e) => setRecommendationData(prev => ({ ...prev, videoIdea: e.target.value }))}
                     placeholder="Describe your video concept in detail..."
-                    className="min-h-[80px] touch-target"
+                    className="min-h-[50px] touch-target"
                   />
                 </div>
 
@@ -512,7 +512,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                     value={recommendationData.audienceGoal}
                     onChange={(e) => setRecommendationData(prev => ({ ...prev, audienceGoal: e.target.value }))}
                     placeholder="What value, emotion, or outcome should viewers experience?"
-                    className="min-h-[60px] touch-target"
+                    className="min-h-[40px] touch-target"
                   />
                 </div>
 
@@ -523,7 +523,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                     value={recommendationData.overallGoal}
                     onChange={(e) => setRecommendationData(prev => ({ ...prev, overallGoal: e.target.value }))}
                     placeholder="Brand awareness, education, entertainment, sales, etc."
-                    className="min-h-[60px] touch-target"
+                    className="min-h-[40px] touch-target"
                   />
                 </div>
 
