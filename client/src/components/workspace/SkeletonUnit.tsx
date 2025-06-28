@@ -46,8 +46,8 @@ export default function SkeletonUnit({
       type: 'unit',
       accepts: ['frame', 'template'],
       name,
+      priority: 10  // High priority for unit drops
     },
-    // Make sure the droppable area is active - needed for cross-unit drag and drop
     disabled: false
   });
 
@@ -167,15 +167,20 @@ export default function SkeletonUnit({
         "flex flex-col transition-all duration-200 relative max-h-full",
         isOver && !isDraggingFromOtherUnit && "ring-2 ring-primary/40 bg-primary/10",
         isOver && isDraggingFromOtherUnit && "ring-2 ring-green-500/60 bg-green-50/50 shadow-lg",
+        isOver && "drop-zone-active",
         isResizing && "select-none"
       )}
       style={{ 
         width: `${width}px`,
         height: "100%",
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        position: "relative",
+        zIndex: isOver ? 10 : 1  // Ensure drop zone is on top when active
       }}
       data-unit-type={name}
+      data-droppable="true"
+      data-is-over={isOver ? "true" : "false"}
     >
       {/* Resize handle - positioned on the right edge */}
       <div 
@@ -241,6 +246,20 @@ export default function SkeletonUnit({
         </div>
       </div>
 
+      {/* Drop zone overlay for external items - ABOVE sortable context */}
+      {isOver && active && (active.data.current?.type === 'template' || 
+        (active.data.current?.type === 'frame' && isDraggingFromOtherUnit)) && (
+        <div 
+          className="absolute inset-0 pointer-events-none z-30"
+          style={{ 
+            background: 'linear-gradient(to bottom, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05))',
+            border: '3px dashed rgb(34, 197, 94)',
+            borderRadius: '8px',
+            margin: '4px'
+          }}
+        />
+      )}
+      
       {/* Improved scrollable frames area with responsive layout */}
       <div className="flex-grow flex flex-col overflow-auto" style={{minHeight: "300px", position: "relative"}}>
         {unitFrames.length === 0 ? (
@@ -249,13 +268,20 @@ export default function SkeletonUnit({
             isOver && isDraggingFromOtherUnit ? "text-green-600 scale-105" : "text-muted-foreground",
             isOver ? "opacity-100" : "opacity-70"
           )}>
-            <p className="text-center px-4">
-              {isOver && isDraggingFromOtherUnit ? "Drop to move frame here" : "Drop frames here"}
-            </p>
+            <div className="text-center px-4">
+              <p className="text-lg font-medium mb-2">
+                {isOver && isDraggingFromOtherUnit ? "Drop to move frame here" : "Drop frames here"}
+              </p>
+              {isOver && (
+                <p className="text-sm text-green-600 animate-pulse">
+                  Release to drop
+                </p>
+              )}
+            </div>
             {/* Show placeholder even when empty */}
             {isOver && active && (active.data.current?.type === 'frame' || active.data.current?.type === 'template') && (
-              <div className="absolute inset-x-2 top-1/2 -translate-y-1/2">
-                <div className="h-20 bg-primary/20 border-2 border-dashed border-primary rounded-lg animate-pulse" />
+              <div className="absolute inset-x-4 top-1/2 -translate-y-1/2">
+                <div className="h-24 bg-green-500/20 border-3 border-dashed border-green-500 rounded-lg animate-pulse shadow-lg" />
               </div>
             )}
           </div>
@@ -280,7 +306,7 @@ export default function SkeletonUnit({
             >
               <div 
                 className={cn(
-                  "pb-32", // Increased padding to 1.5x card height
+                  "pb-48", // Increased padding to 2x card height for easier drops
                   width > BREAKPOINT_FOR_HORIZONTAL 
                     ? "grid grid-cols-2 gap-3" 
                     : "flex flex-col gap-3"
@@ -307,7 +333,11 @@ export default function SkeletonUnit({
                             marginBottom: '12px'
                           }}
                         >
-                          <div className="h-full bg-primary/20 border-2 border-dashed border-primary rounded-lg animate-pulse" />
+                          <div className="h-full bg-green-500/20 border-3 border-dashed border-green-500 rounded-lg animate-pulse shadow-lg relative">
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <span className="text-green-600 font-medium">Drop here</span>
+                            </div>
+                          </div>
                         </div>
                       )}
                       
@@ -342,12 +372,16 @@ export default function SkeletonUnit({
                             width > BREAKPOINT_FOR_HORIZONTAL ? "col-span-2" : ""
                           )}
                           style={{
-                            height: isOver ? '80px' : '0px',
-                            opacity: isOver ? 1 : 0,
-                            marginTop: isOver ? '12px' : '0px'
+                            height: '80px',
+                            opacity: 1,
+                            marginTop: '12px'
                           }}
                         >
-                          <div className="h-full bg-primary/20 border-2 border-dashed border-primary rounded-lg animate-pulse" />
+                          <div className="h-full bg-green-500/20 border-3 border-dashed border-green-500 rounded-lg animate-pulse shadow-lg relative">
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <span className="text-green-600 font-medium">Drop here</span>
+                            </div>
+                          </div>
                         </div>
                       )}
                     </React.Fragment>
@@ -367,7 +401,19 @@ export default function SkeletonUnit({
                       opacity: 1
                     }}
                   >
-                    <div className="h-full bg-primary/20 border-2 border-dashed border-primary rounded-lg animate-pulse" />
+                    <div className="h-full bg-green-500/20 border-3 border-dashed border-green-500 rounded-lg animate-pulse shadow-lg" />
+                  </div>
+                )}
+                
+                {/* Extra large drop zone at the bottom for easy dropping */}
+                {isOver && active && (active.data.current?.type === 'frame' || active.data.current?.type === 'template') && (
+                  <div 
+                    className={cn(
+                      "absolute bottom-0 left-0 right-0 h-32 pointer-events-none",
+                      width > BREAKPOINT_FOR_HORIZONTAL ? "col-span-2" : ""
+                    )}
+                  >
+                    <div className="h-full bg-gradient-to-t from-green-500/10 to-transparent" />
                   </div>
                 )}
               </div>

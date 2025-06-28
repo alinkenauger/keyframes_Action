@@ -215,16 +215,58 @@ export default function Home() {
     }
   };
 
-  // Simplified collision detection for better performance
+  // Enhanced collision detection for reliable drops
   const customCollisionDetection: CollisionDetection = args => {
+    const { active, droppableContainers, draggableRect, droppableRects, collisionRect, pointerCoordinates } = args;
+    
     // Ignore skeleton-unit dragging as it's handled separately
-    if (args.active.data.current?.type === 'skeleton-unit') {
+    if (active.data.current?.type === 'skeleton-unit') {
       return [];
     }
     
-    // For frame/template dragging, use closestCenter without filtering
-    // This allows dropping on frames as well as units
-    if (args.active.data.current?.type === 'frame' || args.active.data.current?.type === 'template') {
+    // For frame/template dragging from external sources (sidebar or other units)
+    if (active.data.current?.type === 'frame' || active.data.current?.type === 'template') {
+      // First, check for unit container collisions with expanded hit area
+      const unitContainers = droppableContainers.filter(container => 
+        container.data.current?.type === 'unit'
+      );
+      
+      // Use pointer-based collision for better accuracy
+      if (pointerCoordinates) {
+        for (const container of unitContainers) {
+          const rect = droppableRects.get(container.id);
+          if (rect) {
+            // Expand the hit area by 50px on all sides for easier dropping
+            const expandedRect = {
+              top: rect.top - 50,
+              bottom: rect.bottom + 50,
+              left: rect.left - 50,
+              right: rect.right + 50,
+              width: rect.width + 100,
+              height: rect.height + 100
+            };
+            
+            if (pointerCoordinates.x >= expandedRect.left && 
+                pointerCoordinates.x <= expandedRect.right &&
+                pointerCoordinates.y >= expandedRect.top && 
+                pointerCoordinates.y <= expandedRect.bottom) {
+              return [{id: container.id, data: container.data}];
+            }
+          }
+        }
+      }
+      
+      // Fallback to rect intersection with priority on units
+      const rectCollisions = rectIntersection({
+        ...args,
+        droppableContainers: unitContainers
+      });
+      
+      if (rectCollisions.length > 0) {
+        return rectCollisions;
+      }
+      
+      // Only then check for frame collisions
       return closestCenter(args);
     }
     
@@ -349,13 +391,30 @@ export default function Home() {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
+    // Debug logging
+    console.log('🎯 Drag end:', {
+      activeType: active.data.current?.type,
+      activeId: active.id,
+      overId: over?.id,
+      overType: over?.data.current?.type,
+      overName: over?.data.current?.name,
+      isUnit: over?.data.current?.type === 'unit'
+    });
+
     // Only clear activeId after a brief delay to improve the transition visually
     setTimeout(() => {
       setActiveId(null);
       setActiveDragData(null);
+      // Clean up window pointer tracking
+      if ((window as any).__dndKitPointerY) {
+        delete (window as any).__dndKitPointerY;
+      }
     }, 50);
 
-    if (!over) return;
+    if (!over) {
+      console.log('❌ No drop target found');
+      return;
+    }
 
     const activeSkeleton = skeletons.find((s) => s.id === activeSkeletonId);
     if (!activeSkeleton) return;

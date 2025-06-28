@@ -44,3 +44,26 @@
 [data-dnd-drag-overlay] {
   z-index: 9999 !important;
 }
+
+/* Ensure droppable units are properly layered */
+[data-droppable="true"] {
+  position: relative;
+  z-index: 1;
+}
+
+[data-droppable="true"][data-is-over="true"] {
+  z-index: 10 !important;
+}
+
+/* Ensure sortable items don't interfere with unit drops */
+.sortable-container {
+  position: relative;
+  z-index: 0;
+}
+
+/* Make drop zones more prominent when active */
+.drop-zone-active {
+  outline: 3px dashed #22c55e;
+  outline-offset: 4px;
+  background-color: rgba(34, 197, 94, 0.05);
+}

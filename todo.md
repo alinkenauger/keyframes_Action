@@ -391,3 +391,63 @@ The preview system only worked for frames within the same unit. Frames from the 
 - [ ] Drag frame within same unit - verify still works
 - [ ] Test with empty units
 - [ ] Verify all frames animate to make space
+
+## CRITICAL: Production-Ready Drop Detection
+
+### Issue Description
+Drops from frame library were nearly impossible - required pixel-perfect precision. This was a showstopper for production.
+
+### Root Causes
+1. Collision detection wasn't prioritizing unit containers
+2. SortableContext was intercepting drops meant for units
+3. Drop zones were too small and precise
+4. No visual feedback for valid drop areas
+
+### Critical Fixes Implemented
+
+#### 1. Enhanced Collision Detection (Home.tsx)
+- Prioritizes unit containers over sortable items
+- Expands hit area by 50px on all sides
+- Uses pointer-based collision for accuracy
+- Falls back to rect intersection for reliability
+
+#### 2. Visual Drop Zone Overlay (SkeletonUnit.tsx)
+- Added prominent green overlay when dragging external items
+- Shows "Drop here" text in placeholders
+- Increased drop zone padding to 2x card height (pb-48)
+- Added gradient overlay at bottom for visibility
+
+#### 3. Z-Index Management
+- Units get z-index: 10 when active drop target
+- Added CSS rules to ensure proper layering
+- Drop zone overlay at z-index: 30
+
+#### 4. Debug Logging
+- Added console logs to track drop events
+- Helps identify when drops fail
+
+#### 5. CSS Enhancements (drag-drop-fixes.css)
+- Added drop-zone-active class with outline
+- Ensures droppable units are properly layered
+- Prevents sortable items from interfering
+
+### Changes Made:
+- Modified `/client/src/pages/Home.tsx`:
+  - Rewrote collision detection for reliability
+  - Added debug logging
+  - Improved pointer tracking
+- Modified `/client/src/components/workspace/SkeletonUnit.tsx`:
+  - Added visual overlays for drop zones
+  - Increased drop area size
+  - Added data attributes for CSS
+- Modified `/client/src/styles/drag-drop-fixes.css`:
+  - Added z-index rules
+  - Added drop zone styling
+
+### Production Testing Checklist:
+- [ ] Drop from frame library anywhere in unit - MUST work
+- [ ] Drop in empty unit - MUST work
+- [ ] Drop between frames - MUST work
+- [ ] Drop at bottom of unit - MUST work
+- [ ] Visual feedback is clear and obvious
+- [ ] Drop success rate is 100%
