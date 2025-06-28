@@ -221,17 +221,10 @@ export default function Home() {
       return [];
     }
     
-    // For frame/template dragging, prioritize unit containers
+    // For frame/template dragging, use closestCenter without filtering
+    // This allows dropping on frames as well as units
     if (args.active.data.current?.type === 'frame' || args.active.data.current?.type === 'template') {
-      // Use closestCenter for better performance with many draggables
-      const collisions = closestCenter(args);
-      
-      // Filter to only unit containers if any are found
-      const unitCollisions = collisions.filter(
-        collision => collision.data?.current?.type === 'unit'
-      );
-      
-      return unitCollisions.length > 0 ? unitCollisions : collisions;
+      return closestCenter(args);
     }
     
     // For all other drag types, use simple closestCenter
@@ -376,53 +369,86 @@ export default function Home() {
 
     const newFrames = [...activeSkeleton.frames];
 
-    // Handle frame reordering within the same unit with enhanced positioning
-    if (active.data.current?.type === 'frame' && over.data.current?.type === 'frame') {
-      const activeFrame = newFrames.find(f => f.id === active.id);
+    // Handle frame drops on other frames (both same unit and cross-unit)
+    if ((active.data.current?.type === 'frame' || active.data.current?.type === 'template') && 
+        over.data.current?.type === 'frame') {
       const overFrame = newFrames.find(f => f.id === over.id);
+      if (!overFrame) return;
 
-      // Only reorder if both frames are from the same unit
-      if (activeFrame && overFrame && activeFrame.unitType === overFrame.unitType) {
+      // Get mouse position to determine if we should place above or below
+      const overRect = document.getElementById(over.id as string)?.getBoundingClientRect();
+      const mouseY = event.activatorEvent?.clientY || 0;
+      const shouldPlaceBefore = overRect ? mouseY < (overRect.top + overRect.height / 2) : true;
+
+      if (active.data.current?.type === 'template') {
+        // Create new frame from template
+        const template = active.data.current.frame as FrameTemplate;
+        const newFrame = {
+          id: nanoid(),
+          name: template.name,
+          type: template.name,
+          content: template.example,
+          unitType: overFrame.unitType, // Use the target frame's unit
+          tone: '',
+          filter: ''
+        };
+
+        // Find the index where to insert the new frame
+        const overIndex = newFrames.findIndex(f => f.id === over.id);
+        const insertIndex = shouldPlaceBefore ? overIndex : overIndex + 1;
+        
+        // Insert the new frame at the calculated position
+        newFrames.splice(insertIndex, 0, newFrame);
+        
+        toast({
+          title: 'Frame Added',
+          description: `${template.name} added to ${overFrame.unitType}`,
+        });
+      } else {
+        // Handle existing frame movement
+        const activeFrame = newFrames.find(f => f.id === active.id);
+        if (!activeFrame) return;
+
         const activeIndex = newFrames.findIndex(f => f.id === active.id);
         const overIndex = newFrames.findIndex(f => f.id === over.id);
 
-        // Determine if we should place the frame above or below the target frame
-        // Get approximate mouse position relative to the over frame
-        const overRect = document.getElementById(over.id as string)?.getBoundingClientRect();
-        if (overRect) {
-          // If mouse is in the top half of the target frame, place before; otherwise, place after
-          const mouseY = (over as any).rect?.top || 0;
-          const frameMiddleY = overRect.top + overRect.height / 2;
+        if (activeFrame.unitType === overFrame.unitType) {
+          // Same unit reordering
+          let targetIndex = shouldPlaceBefore ? overIndex : overIndex + 1;
+          if (activeIndex < overIndex && shouldPlaceBefore) targetIndex--;
+          if (activeIndex > overIndex && !shouldPlaceBefore) targetIndex--;
           
-          // If in top half and dragging from below, or in bottom half and dragging from above
-          if ((mouseY < frameMiddleY && activeIndex > overIndex) || 
-              (mouseY >= frameMiddleY && activeIndex < overIndex)) {
-            // Use arrayMove from dnd-kit to reorder the frames
-            const reorderedFrames = arrayMove(newFrames, activeIndex, overIndex);
-            updateFrameOrder(activeSkeleton.id, reorderedFrames);
-          } else {
-            // If in top half and dragging from above, place at overIndex - 1
-            // If in bottom half and dragging from below, place at overIndex + 1
-            const targetIndex = mouseY < frameMiddleY ? 
-              Math.max(0, overIndex) : 
-              Math.min(newFrames.length - 1, overIndex + 1);
-            
-            const reorderedFrames = arrayMove(newFrames, activeIndex, targetIndex);
-            updateFrameOrder(activeSkeleton.id, reorderedFrames);
-          }
-        } else {
-          // Fallback to default behavior if we can't get rect information
-          const reorderedFrames = arrayMove(newFrames, activeIndex, overIndex);
+          const reorderedFrames = arrayMove(newFrames, activeIndex, targetIndex);
           updateFrameOrder(activeSkeleton.id, reorderedFrames);
+          
+          toast({
+            title: 'Frame Repositioned',
+            description: `Frame reordered within ${activeFrame.unitType}`,
+          });
+        } else {
+          // Cross-unit movement
+          // Remove from current position
+          const frameToMove = newFrames.splice(activeIndex, 1)[0];
+          
+          // Update the unit type
+          frameToMove.unitType = overFrame.unitType;
+          
+          // Find new position (accounting for the removal)
+          let insertIndex = newFrames.findIndex(f => f.id === over.id);
+          if (!shouldPlaceBefore) insertIndex++;
+          
+          // Insert at new position
+          newFrames.splice(insertIndex, 0, frameToMove);
+          
+          updateFrameOrder(activeSkeleton.id, newFrames);
+          
+          toast({
+            title: 'Frame Moved',
+            description: `Frame moved to ${overFrame.unitType}`,
+          });
         }
-
-        // Show a toast notification
-        toast({
-          title: 'Frame Repositioned',
-          description: `Frame reordered within ${activeFrame.unitType}`,
-        });
-        return;
       }
+      return;
     }
 
     // Handle frame drops on unit containers

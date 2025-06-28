@@ -257,3 +257,41 @@ Make the drag-and-drop experience smooth and intuitive for creatives and busines
 - [ ] Test dragging between multiple units
 - [ ] Verify drop indicators still work correctly
 - [ ] Test keyboard shortcuts with multiple frames
+
+## Frame-to-Frame Drop Enhancement
+
+### Issue Description
+Users had to drop frames precisely in empty unit space. Dropping on existing frames didn't work, making the UI frustrating to use.
+
+### Solution Implemented
+
+#### 1. Updated Collision Detection (Home.tsx:218)
+- Removed filtering that prioritized unit containers over frames
+- Now allows frames to be valid drop targets
+- Simplified from 3-layer detection to direct `closestCenter`
+
+#### 2. Enhanced Drop Handler (Home.tsx:379)
+- Added comprehensive frame-to-frame drop handling
+- Supports both template drops and existing frame movements
+- Detects mouse position to determine placement (top/bottom half)
+
+#### 3. Position Detection Logic
+- Uses `event.activatorEvent.clientY` for accurate mouse position
+- Compares to frame center to determine if drop should be above or below
+- Works for both same-unit reordering and cross-unit movements
+
+### Changes Made:
+1. **File: `/client/src/pages/Home.tsx`**
+   - Modified `customCollisionDetection` to allow frame collisions
+   - Replaced frame reordering logic with comprehensive drop handler
+   - Added support for dropping templates on frames
+   - Added cross-unit frame movement when dropping on frames
+
+### Testing Scenarios:
+- [ ] Drop template frame on existing frame (top half)
+- [ ] Drop template frame on existing frame (bottom half)
+- [ ] Drag frame within same unit to reorder
+- [ ] Drag frame to different unit by dropping on a frame
+- [ ] Verify visual indicators show correct drop position
+- [ ] Test with multiple frames in various units
+- [ ] Confirm toast notifications show correct messages
