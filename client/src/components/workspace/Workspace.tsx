@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useWorkspace } from '@/lib/store';
 import Skeleton from './Skeleton';
-import { DragOverlay, defaultDropAnimationSideEffects } from '@dnd-kit/core';
+import { DragOverlay } from '@dnd-kit/core';
 import Frame from './Frame';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -351,13 +351,6 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
           dropAnimation={{
             duration: 200,
             easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
-            sideEffects: defaultDropAnimationSideEffects({
-              styles: {
-                active: {
-                  opacity: '0.5',
-                },
-              },
-            }),
           }}
           style={{
             opacity: 0.9,
