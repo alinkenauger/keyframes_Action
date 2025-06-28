@@ -351,7 +351,13 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
           dropAnimation={{
             duration: 200,
             easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
-            sideEffects: defaultDropAnimationSideEffects(),
+            sideEffects: defaultDropAnimationSideEffects({
+              styles: {
+                active: {
+                  opacity: '0.5',
+                },
+              },
+            }),
           }}
           style={{
             opacity: 0.9,
