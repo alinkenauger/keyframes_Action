@@ -33,9 +33,11 @@ interface FrameProps {
   onDelete?: (id: string) => void;
   dimmed?: boolean; // Whether to dim the frame (when parent unit is being dragged over)
   unitWidth?: number; // The width of the parent unit for responsive sizing
+  isSelected?: boolean; // Whether this frame is selected
+  onSelect?: (id: string) => void; // Callback when frame is selected
 }
 
-export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: FrameProps) {
+export default function Frame({ frame, onDelete, dimmed = false, unitWidth, isSelected = false, onSelect }: FrameProps) {
   const [showDialog, setShowDialog] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const { toast } = useToast();
@@ -148,38 +150,81 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
   }, [frame.tone, frame.filter, activeSkeletonId, frame.id, frame.content, frame.type, frame.unitType, updateFrameContent, frame.isTemplateExample]);
 
   // Determine drop position for visual indicators
-  const [dropPosition, setDropPosition] = useState<'top' | 'bottom' | 'middle' | null>(null);
+  const [dropPosition, setDropPosition] = useState<'top' | 'bottom' | null>(null);
   
-  // Update drop position when dragging over this frame
+  // Cache for getBoundingClientRect to improve performance
+  const rectCacheRef = useRef<DOMRect | null>(null);
+  const lastUpdateRef = useRef<number>(0);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Invalidate cache on scroll or resize
   useEffect(() => {
+    const invalidateCache = () => {
+      rectCacheRef.current = null;
+    };
+    
+    window.addEventListener('scroll', invalidateCache, true);
+    window.addEventListener('resize', invalidateCache);
+    
+    return () => {
+      window.removeEventListener('scroll', invalidateCache, true);
+      window.removeEventListener('resize', invalidateCache);
+    };
+  }, []);
+  
+  // Update drop position when dragging over this frame (throttled with delay)
+  useEffect(() => {
+    // Clear any existing timeout
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+    
     if (!over || over.id !== frame.id || isDragging) {
       setDropPosition(null);
+      rectCacheRef.current = null;
       return;
     }
     
-    // Calculate if the cursor is in the top, middle, or bottom section of the frame
-    const overData = over.data.current;
-    if (overData && overData.type === 'frame') {
-      const rect = document.getElementById(frame.id)?.getBoundingClientRect();
-      if (rect) {
-        // Get mouse position from event - this is approximate since we don't have direct access to mouse position
-        const mouseY = (over as any).rect?.top || 0;
-        const frameTop = rect.top;
-        const frameHeight = rect.height;
+    // Add 100ms delay before showing drop zone to reduce flickering
+    hoverTimeoutRef.current = setTimeout(() => {
+      // Throttle updates to 60fps (16ms)
+      const now = Date.now();
+      if (now - lastUpdateRef.current < 16) {
+        return;
+      }
+      lastUpdateRef.current = now;
+      
+      // Calculate if the cursor is in the top, middle, or bottom section of the frame
+      const overData = over.data.current;
+      if (overData && overData.type === 'frame') {
+        // Use cached rect or get new one
+        if (!rectCacheRef.current) {
+          rectCacheRef.current = document.getElementById(frame.id)?.getBoundingClientRect() || null;
+        }
         
-        // Define three sections: top 30%, middle 40%, bottom 30%
-        const topThreshold = frameTop + frameHeight * 0.3;
-        const bottomThreshold = frameTop + frameHeight * 0.7;
-        
-        if (mouseY < topThreshold) {
-          setDropPosition('top');
-        } else if (mouseY > bottomThreshold) {
-          setDropPosition('bottom');
-        } else {
-          setDropPosition('middle');
+        const rect = rectCacheRef.current;
+        if (rect) {
+          // Get mouse position from the over data
+          const mouseY = (over as any).activatorEvent?.clientY || (over as any).rect?.top || 0;
+          const frameCenterY = rect.top + (rect.height / 2);
+          
+          // Simple 50/50 split for clearer drop zones
+          if (mouseY < frameCenterY) {
+            setDropPosition('top');
+          } else {
+            setDropPosition('bottom');
+          }
         }
       }
-    }
+    }, 100); // 100ms delay
+    
+    // Cleanup timeout on unmount or when dependencies change
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
   }, [over, frame.id, isDragging]);
 
   const style = {
@@ -229,9 +274,12 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
         style={{
           ...style,
           width: unitWidth ? `${unitWidth - 24}px` : '100%', // Ensure cards are visible
+          willChange: isDragging ? 'transform' : 'auto',
         }}
         className={cn(
-          "relative mb-4 hover:shadow-md transition-shadow cursor-grab active:cursor-grabbing group touch-manipulation min-h-[80px]",
+          "relative hover:shadow-md transition-shadow cursor-grab active:cursor-grabbing group touch-manipulation min-h-[80px]",
+          // Consistent margin for grid-like alignment
+          "mb-3",
           frameTypeColors.text.replace('text-', 'border-l-4 border-l-'),
           dimmed && "opacity-40",
           isDragging && "shadow-lg ring-2 ring-blue-400",
@@ -239,9 +287,16 @@ export default function Frame({ frame, onDelete, dimmed = false, unitWidth }: Fr
           // Add background highlight based on drop position
           !isDragging && over && over.id === frame.id && dropPosition === 'top' && "bg-gradient-to-b from-primary/20 to-transparent",
           !isDragging && over && over.id === frame.id && dropPosition === 'bottom' && "bg-gradient-to-t from-primary/20 to-transparent",
-          !isDragging && over && over.id === frame.id && dropPosition === 'middle' && "bg-primary/10",
-          "hover:border hover:border-blue-300"
+          "hover:border hover:border-blue-300",
+          // Selection styling
+          isSelected && "ring-2 ring-orange-500 shadow-lg bg-orange-50/30"
         )}
+        onClick={(e) => {
+          // Only select if not dragging and not clicking on interactive elements
+          if (!isDragging && onSelect && !(e.target as HTMLElement).closest('button')) {
+            onSelect(frame.id);
+          }
+        }}
       >
         {/* Drop position indicator */}
         {!isDragging && over && over.id === frame.id && (

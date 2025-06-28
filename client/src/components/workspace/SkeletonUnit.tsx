@@ -16,6 +16,8 @@ interface SkeletonUnitProps {
   onDuplicateUnit?: (unitName: string) => void;
   onDeleteUnit?: (unitName: string) => void;
   activeDragOver?: boolean; // Whether a frame is being dragged over this unit
+  selectedFrameId?: string | null; // Currently selected frame
+  onSelectFrame?: (frameId: string) => void; // Frame selection callback
 }
 
 export default function SkeletonUnit({ 
@@ -25,14 +27,16 @@ export default function SkeletonUnit({
   onDeleteFrame, 
   onReorderFrames,
   onDuplicateUnit,
-  onDeleteUnit 
+  onDeleteUnit,
+  selectedFrameId,
+  onSelectFrame
 }: SkeletonUnitProps) {
   const unitFrames = frames.filter(frame => {
     return frame.unitType && 
            frame.unitType.toLowerCase().trim() === name.toLowerCase().trim();
   });
 
-  const { setNodeRef, isOver } = useDroppable({
+  const { setNodeRef, isOver, active } = useDroppable({
     id: name,
     data: {
       type: 'unit',
@@ -82,13 +86,19 @@ export default function SkeletonUnit({
       document.removeEventListener('mouseup', handleResizeEnd);
     };
   }, []);
+  
+  // Check if we're dragging a frame from a different unit
+  const isDraggingFromOtherUnit = active && active.data.current?.type === 'frame' && 
+    active.data.current?.frame?.unitType && 
+    active.data.current.frame.unitType.toLowerCase().trim() !== name.toLowerCase().trim();
 
   return (
     <div 
       ref={setNodeRef}
       className={cn(
         "flex flex-col transition-all duration-200 relative max-h-full",
-        isOver && "ring-2 ring-primary/40 bg-primary/10",
+        isOver && !isDraggingFromOtherUnit && "ring-2 ring-primary/40 bg-primary/10",
+        isOver && isDraggingFromOtherUnit && "ring-2 ring-green-500/60 bg-green-50/50 shadow-lg",
         isResizing && "select-none"
       )}
       style={{ 
@@ -112,8 +122,14 @@ export default function SkeletonUnit({
       </div>
       
       {/* Header */}
-      <div className="flex items-center justify-between px-2 py-1 border-b bg-background">
-        <h3 className="text-base font-medium">{name}</h3>
+      <div className={cn(
+        "flex items-center justify-between px-2 py-1 border-b transition-colors duration-200",
+        isOver && isDraggingFromOtherUnit ? "bg-green-50 border-green-300" : "bg-background"
+      )}>
+        <h3 className={cn(
+          "text-base font-medium transition-colors duration-200",
+          isOver && isDraggingFromOtherUnit && "text-green-700"
+        )}>{name}</h3>
         <div className="flex items-center gap-1">
           <Button
             variant="ghost"
@@ -140,17 +156,26 @@ export default function SkeletonUnit({
       <div className="flex-grow flex flex-col overflow-auto" style={{minHeight: "300px"}}>
         {unitFrames.length === 0 ? (
           <div className={cn(
-            "flex items-center justify-center h-full text-muted-foreground text-sm",
+            "flex items-center justify-center h-full text-sm transition-all duration-200",
+            isOver && isDraggingFromOtherUnit ? "text-green-600 scale-105" : "text-muted-foreground",
             isOver ? "opacity-100" : "opacity-70"
           )}>
-            <p className="text-center px-4">Drop frames here</p>
+            <p className="text-center px-4">
+              {isOver && isDraggingFromOtherUnit ? "Drop to move frame here" : "Drop frames here"}
+            </p>
           </div>
         ) : (
-          <div className="overflow-y-auto overflow-x-hidden h-full p-2" style={{
-            overscrollBehavior: "contain", 
-            maxHeight: "100%",
-            display: "block" 
-          }}>
+          <div 
+            className="overflow-y-auto overflow-x-hidden h-full p-2" 
+            style={{
+              overscrollBehavior: "contain", 
+              maxHeight: "100%",
+              display: "block",
+              // Ensure smooth scrolling for auto-scroll
+              scrollBehavior: "smooth"
+            }}
+            // Add data attribute for auto-scroll targeting
+            data-dnd-auto-scroll-container>
             <SortableContext
               items={unitFrames.map(f => f.id)}
               strategy={verticalListSortingStrategy}
@@ -161,8 +186,10 @@ export default function SkeletonUnit({
                     <Frame 
                       frame={frame}
                       onDelete={onDeleteFrame}
-                      dimmed={isOver}
+                      dimmed={isOver && isDraggingFromOtherUnit}
                       unitWidth={width}
+                      isSelected={selectedFrameId === frame.id}
+                      onSelect={onSelectFrame}
                     />
                   </div>
                 ))}

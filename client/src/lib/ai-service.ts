@@ -1,12 +1,40 @@
-import OpenAI from "openai";
 import { SKELETON_UNITS } from './constants';
 import { CustomGptAssistant } from './custom-gpt';
 import { generateContentWithAgent, adaptContentWithAgent } from './agent-service';
+import { apiClient } from './api-client';
+import type { 
+  AdaptContentRequest, 
+  AdaptContentResponse,
+  GenerateCustomContentRequest,
+  GenerateCustomContentResponse 
+} from '../../../shared/types/api';
 
-const openai = new OpenAI({
-  apiKey: import.meta.env.VITE_OPENAI_API_KEY as string,
-  dangerouslyAllowBrowser: true
-});
+// AI Service - Professional implementation with proper error handling
+// All OpenAI calls are securely proxied through our server
+
+/**
+ * Makes a request to our backend AI API with proper error handling and retry logic
+ */
+async function callAIAPI<T>(endpoint: string, data: any): Promise<T> {
+  const response = await apiClient.post<T>(`/ai/${endpoint}`, data);
+  
+  if (response.error) {
+    console.error(`AI API Error [${endpoint}]:`, {
+      error: response.error,
+      requestId: response.requestId,
+      status: response.status
+    });
+    
+    // Throw error with context
+    throw new Error(response.error);
+  }
+  
+  if (!response.data) {
+    throw new Error('No data received from AI API');
+  }
+  
+  return response.data;
+}
 
 export const UNIT_CONSTRAINTS: Record<string, { maxLength: number; guidelines: string }> = {
   'Hook': {
@@ -202,14 +230,14 @@ Generate engaging, authentic content for this section now:
 `
     });
 
-    const completion = await openai.chat.completions.create({
+    const response = await callAIAPI('generate-custom-content', {
       model: "gpt-4",
       messages: messages,
       temperature: 0.7,
       max_tokens: 200
     });
 
-    let content = completion.choices[0].message.content || "Could not generate content. Please try again.";
+    let content = response.content || "Could not generate content. Please try again.";
 
     if (content.length > unitConstraints.maxLength) {
       content = content.substring(0, unitConstraints.maxLength) + "...";
@@ -231,83 +259,74 @@ export async function adaptFrameContent(
   unitType: string,
   answers?: Record<string, string> // Answers to unit-specific questions
 ): Promise<string> {
-  // First, check if we have content to adapt
+  // Input validation
   if (!content || content.trim() === '') {
     throw new Error('No content provided to adapt');
   }
 
+  // Try primary method - Agent 2.0
   try {
-    // Use the Agent 2.0 implementation for content adaptation
-    return await adaptContentWithAgent(content, tone, filter, unitType);
-  } catch (error) {
-    console.error('Error adapting content with Agent 2.0:', error);
+    const result = await adaptContentWithAgent(content, tone, filter, unitType);
+    return truncateToUnitLimit(result, unitType);
+  } catch (agentError) {
+    console.warn('Agent adaptation failed, trying API fallback:', agentError);
     
-    // Fallback to the legacy implementation if Agent 2.0 fails
+    // Try API fallback with proper typing
     try {
-      const frameTypeData = FRAME_TYPE_PROMPTS[frameType] || DEFAULT_FRAME_TYPE;
-      const answersContext = answers 
-        ? `Unit-specific context based on answers:
-${Object.entries(answers).map(([q, a]) => `- ${q}: ${a}`).join('\n')}`
-        : '';
-
-      const prompt = `
-Original Content: "${content}"
-
-${answersContext}
-
-Tone Adjustment (${tone}):
-- Adapt emotional resonance and delivery style
-- Use language that reflects the tone while maintaining authenticity
-- Ensure tone supports the frame's purpose
-
-Style Filter (${filter}):
-- Apply ${filter} stylistic elements
-- Enhance presentation while preserving core message
-- Maintain natural flow and authenticity
-
-Frame Type: ${frameType}
-${frameTypeData.prompt}
-
-Unit Type: ${unitType}
-${UNIT_CONSTRAINTS[unitType]?.guidelines || DEFAULT_CONSTRAINT.guidelines}
-
-Generate adapted content that:
-- Incorporates unit-specific context
-- Applies tone and style adjustments
-- Maintains original message integrity
-- Stays within character limit
-
-Response:`;
-
-      const completion = await openai.chat.completions.create({
-        model: "gpt-4",
-        messages: [
-          {
-            role: "system",
-            content: "You are an expert content adapter, skilled at maintaining core messages while adjusting tone and style. Your adaptations should feel natural and enhance the original content's impact."
-          },
-          {
-            role: "user",
-            content: prompt
-          }
-        ],
-        temperature: 0.7,
-        max_tokens: 150
-      });
-
-      const adaptedContent = completion.choices[0].message.content || content;
-      const unitConstraints = UNIT_CONSTRAINTS[unitType] || DEFAULT_CONSTRAINT;
-
-      if (adaptedContent.length > unitConstraints.maxLength) {
-        return adaptedContent.substring(0, unitConstraints.maxLength) + "...";
+      const request: AdaptContentRequest = {
+        content,
+        tone,
+        filter,
+        frameType,
+        unitType
+      };
+      
+      const response = await callAIAPI<AdaptContentResponse>('adapt-content', request);
+      
+      if (response.adaptedContent) {
+        return truncateToUnitLimit(response.adaptedContent, unitType);
       }
-
-      return adaptedContent;
-    } catch (fallbackError) {
-      console.error('Error in fallback content adaptation:', fallbackError);
-      return content; // Return original content on error
+      
+      // If no adapted content, return original
+      return content;
+    } catch (apiError: any) {
+      console.error('API adaptation failed:', apiError);
+      
+      // If it's a rate limit error, inform the user
+      if (apiError.message?.includes('rate limit')) {
+        throw new Error('AI service is busy. Please try again in a few moments.');
+      }
+      
+      // For other errors, return original content with a warning
+      console.warn('Returning original content due to AI service error');
+      return content;
     }
   }
+}
+
+/**
+ * Helper function to truncate content to unit limits
+ */
+function truncateToUnitLimit(content: string, unitType: string): string {
+  const unitConstraints = UNIT_CONSTRAINTS[unitType] || DEFAULT_CONSTRAINT;
+  
+  if (content.length > unitConstraints.maxLength) {
+    // Try to truncate at a sentence boundary
+    const truncated = content.substring(0, unitConstraints.maxLength);
+    const lastPeriod = truncated.lastIndexOf('.');
+    const lastQuestion = truncated.lastIndexOf('?');
+    const lastExclamation = truncated.lastIndexOf('!');
+    
+    const lastSentenceEnd = Math.max(lastPeriod, lastQuestion, lastExclamation);
+    
+    if (lastSentenceEnd > unitConstraints.maxLength * 0.8) {
+      return truncated.substring(0, lastSentenceEnd + 1);
+    }
+    
+    return truncated.trim() + '...';
+  }
+  
+  return content;
 }
 
 export async function generateFrameContent(
@@ -351,7 +370,7 @@ Maximum Length: ${unitConstraints.maxLength} characters
 
 Generate the content using the above constraints and context:`;
 
-        const completion = await openai.chat.completions.create({
+        const response = await callAIAPI('generate-custom-content', {
           model: "gpt-4",
           messages: [
             {
@@ -367,7 +386,7 @@ Generate the content using the above constraints and context:`;
           max_tokens: 150
         });
 
-        let content = completion.choices[0].message.content || "Could not generate content. Please try again.";
+        let content = response.content || "Could not generate content. Please try again.";
 
         if (content.length > unitConstraints.maxLength) {
           content = content.substring(0, unitConstraints.maxLength) + "...";

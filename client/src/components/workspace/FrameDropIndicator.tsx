@@ -1,58 +1,52 @@
 import { cn } from "@/lib/utils";
 
 interface FrameDropIndicatorProps {
-  position: "top" | "bottom" | "middle" | null;
+  position: "top" | "bottom" | null;
   className?: string;
 }
 
 export default function FrameDropIndicator({ position, className }: FrameDropIndicatorProps) {
   if (!position) return null;
 
-  if (position === "top" || position === "bottom") {
-    return (
-      <>
-        {/* Line indicator */}
-        <div 
-          className={cn(
-            "absolute inset-x-0 z-20",
-            position === "top" ? "top-0 -translate-y-1/2" : "",
-            position === "bottom" ? "bottom-0 translate-y-1/2" : "",
-            className
-          )}
-        >
+  return (
+    <>
+      {/* Enhanced line indicator with arrow */}
+      <div 
+        className={cn(
+          "absolute inset-x-0 z-20 flex items-center justify-center",
+          position === "top" ? "top-0 -translate-y-1/2" : "bottom-0 translate-y-1/2",
+          className
+        )}
+      >
+        <div className="relative w-full">
+          {/* Main drop line */}
           <div
-            className="mx-auto h-2 bg-primary rounded-full shadow-md w-3/4"
+            className="mx-auto h-3 bg-primary rounded-full shadow-lg w-4/5"
             style={{
-              animation: "pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite"
+              animation: "pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+              boxShadow: "0 0 12px rgba(var(--primary), 0.6)"
             }}
           />
+          {/* Arrow indicators */}
+          <div className="absolute inset-0 flex items-center justify-between px-8">
+            <div className="text-primary animate-bounce">▶</div>
+            <div className="text-primary animate-bounce">◀</div>
+          </div>
         </div>
-        
-        {/* Gap indicator - shows the space where the frame will be inserted */}
-        <div
-          className={cn(
-            "absolute inset-x-0 z-10 h-6 bg-primary/10 border-2 border-dashed border-primary/40",
-            position === "top" ? "top-0 -translate-y-3" : "bottom-0 translate-y-3"
-          )}
-        />
-      </>
-    );
-  }
-  
-  // Middle position indicator
-  return (
-    <div 
-      className={cn(
-        "absolute inset-x-0 z-20 top-1/2 -translate-y-1/2",
-        className
-      )}
-    >
+      </div>
+      
+      {/* Enhanced gap indicator */}
       <div
-        className="mx-auto h-2 bg-primary rounded-full shadow-md w-1/2"
+        className={cn(
+          "absolute inset-x-0 z-10 h-8 bg-primary/15 border-2 border-primary/50 rounded",
+          "backdrop-blur-sm",
+          position === "top" ? "top-0 -translate-y-4" : "bottom-0 translate-y-4"
+        )}
         style={{
-          animation: "pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite"
+          borderStyle: "dashed",
+          animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite"
         }}
       />
-    </div>
+    </>
   );
 }

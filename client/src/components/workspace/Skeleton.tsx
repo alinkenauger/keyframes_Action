@@ -21,6 +21,8 @@ interface SkeletonProps {
   onDeleteFrame?: (frameId: string) => void;
   onReorderFrames?: (fromId: string, toId: string, unitType: string) => void;
   onReorderUnits?: (fromIndex: number, toIndex: number) => void;
+  selectedFrameId?: string | null;
+  onSelectFrame?: (frameId: string) => void;
 }
 
 function DraggableUnit({ unit, children }: { unit: any, children: React.ReactNode }) {
@@ -71,7 +73,7 @@ function DraggableUnit({ unit, children }: { unit: any, children: React.ReactNod
   );
 }
 
-export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onReorderUnits }: SkeletonProps) {
+export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onReorderUnits, selectedFrameId, onSelectFrame }: SkeletonProps) {
   const { toast } = useToast();
   const { updateSkeletonUnits, updateFrameOrder, updateFrameContent } = useWorkspace();
   const [enhancing, setEnhancing] = useState(false);
@@ -303,6 +305,8 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
                       onReorderFrames={onReorderFrames}
                       onDuplicateUnit={handleDuplicateUnit}
                       onDeleteUnit={handleDeleteUnit}
+                      selectedFrameId={selectedFrameId}
+                      onSelectFrame={onSelectFrame}
                     />
                   </div>
                 </ResizablePanel>

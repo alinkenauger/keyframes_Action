@@ -19,9 +19,11 @@ interface WorkspaceProps {
   onDeleteFrame: (frameId: string) => void;
   onUpdateFrameAttribute: (frameId: string, type: 'tone' | 'filter', value: string) => void;
   onOpenCreateDialog?: () => void; // Add this to allow opening the New Skeleton dialog
+  selectedFrameId?: string | null;
+  onSelectFrame?: (frameId: string) => void;
 }
 
-export default function Workspace({ activeId, activeDragData, onDeleteFrame, onUpdateFrameAttribute, onOpenCreateDialog }: WorkspaceProps) {
+export default function Workspace({ activeId, activeDragData, onDeleteFrame, onUpdateFrameAttribute, onOpenCreateDialog, selectedFrameId, onSelectFrame }: WorkspaceProps) {
   const { toast } = useToast();
   const { skeletons, activeSkeletonId, updateFrameOrder, updateSkeletonUnits } = useWorkspace();
   const activeSkeleton = skeletons.find((s) => s.id === activeSkeletonId);
@@ -308,6 +310,8 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
                     onDeleteFrame={onDeleteFrame}
                     onReorderFrames={handleReorderFrames}
                     onReorderUnits={handleReorderUnits}
+                    selectedFrameId={selectedFrameId}
+                    onSelectFrame={onSelectFrame}
                   />
                 </div>
               </ScrollArea>
@@ -343,17 +347,17 @@ export default function Workspace({ activeId, activeDragData, onDeleteFrame, onU
           </div>
         )}
 
-        <DragOverlay dropAnimation={{
-          duration: 350,
-          easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
-          sideEffects: defaultDropAnimationSideEffects({
-            styles: {
-              active: {
-                opacity: '0.5',
-              },
-            },
-          }),
-        }}>
+        <DragOverlay 
+          dropAnimation={{
+            duration: 200,
+            easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+            sideEffects: defaultDropAnimationSideEffects(),
+          }}
+          style={{
+            opacity: 0.9,
+            filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.06))',
+          }}
+        >
           {activeId && activeDragData?.type === 'template' ? (
             <Frame
               frame={{

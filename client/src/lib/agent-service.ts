@@ -1,12 +1,5 @@
-import OpenAI from "openai";
 import { UNIT_CONSTRAINTS, FRAME_TYPE_PROMPTS } from './ai-service';
 import { CustomGptAssistant } from './custom-gpt';
-
-// Create OpenAI client with API key
-const openai = new OpenAI({
-  apiKey: import.meta.env.VITE_OPENAI_API_KEY as string,
-  dangerouslyAllowBrowser: true
-});
 
 // Default constraints when unit type is not found
 const DEFAULT_CONSTRAINT = {
@@ -142,112 +135,32 @@ ${unitConstraints.guidelines}
       content: userMessage
     });
 
-    // Create a new thread for this content generation
-    const thread = await openai.beta.threads.create();
-    
-    // Add messages to the thread
-    await openai.beta.threads.messages.create(thread.id, {
-      role: "user",
-      content: userMessage
+    // Since the backend doesn't support the Assistant API directly,
+    // we'll use the generate-custom-content endpoint with our messages
+    const response = await fetch('/api/ai/generate-custom-content', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: "gpt-4o",
+        messages: messages,
+        temperature: 0.7,
+        max_tokens: 500
+      }),
     });
 
-    // Run the assistant
-    const assistantId = customAssistant?.id || "assistant_agent";
-    const runParams: any = {
-      assistant_id: assistantId,
-      tools: contentGenerationTools,
-    };
-
-    // If using a custom ID, create a temporary assistant
-    let temporaryAssistant;
-    if (!customAssistant) {
-      temporaryAssistant = await openai.beta.assistants.create({
-        name: "Content Generation Assistant",
-        instructions: systemMessage,
-        tools: contentGenerationTools,
-        model: "gpt-4o"
-      });
-      runParams.assistant_id = temporaryAssistant.id;
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Failed to generate content');
     }
 
-    // Run the assistant
-    let run = await openai.beta.threads.runs.create(thread.id, runParams);
-    
-    // Poll until the run completes
-    while (run.status !== "completed" && run.status !== "failed") {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      run = await openai.beta.threads.runs.retrieve(thread.id, run.id);
-      
-      // Handle tool calls if required
-      if (run.status === "requires_action") {
-        const toolCalls = run.required_action?.submit_tool_outputs.tool_calls || [];
-        const toolOutputs: Array<{tool_call_id: string, output: string}> = [];
-        
-        for (const toolCall of toolCalls) {
-          if (toolCall.function.name === "generate_content") {
-            // Parse the arguments
-            const args = JSON.parse(toolCall.function.arguments);
-            
-            // Use the content directly from the tool
-            let content = args.content || "Could not generate content. Please try again.";
-            
-            // Ensure content doesn't exceed max length
-            if (content.length > unitConstraints.maxLength) {
-              content = content.substring(0, unitConstraints.maxLength) + "...";
-            }
-            
-            // Add to tool outputs
-            toolOutputs.push({
-              tool_call_id: toolCall.id,
-              output: JSON.stringify({ success: true })
-            });
-            
-            // Clean up temporary assistant if created
-            if (temporaryAssistant) {
-              await openai.beta.assistants.del(temporaryAssistant.id);
-            }
-            
-            // Return the generated content
-            return content;
-          }
-        }
-        
-        // Submit tool outputs if any
-        if (toolOutputs.length > 0) {
-          await openai.beta.threads.runs.submitToolOutputs(
-            thread.id,
-            run.id,
-            { tool_outputs: toolOutputs }
-          );
-        }
-      }
-    }
-    
-    // If we get here, fallback to getting messages from the thread
-    const messages_response = await openai.beta.threads.messages.list(thread.id);
-    const assistant_messages = messages_response.data.filter(
-      msg => msg.role === "assistant" && msg.content[0].type === "text"
-    );
-    
-    // Get the latest assistant message
-    let content = "";
-    if (assistant_messages.length > 0) {
-      const latestMessage = assistant_messages[0];
-      content = latestMessage.content[0].type === "text" 
-        ? latestMessage.content[0].text.value 
-        : "Could not generate content. Please try again.";
-    } else {
-      content = "Could not generate content. Please try again.";
-    }
+    const data = await response.json();
+    let content = data.content || "Could not generate content. Please try again.";
     
     // Ensure content doesn't exceed max length
     if (content.length > unitConstraints.maxLength) {
       content = content.substring(0, unitConstraints.maxLength) + "...";
-    }
-    
-    // Clean up temporary assistant if created
-    if (temporaryAssistant) {
-      await openai.beta.assistants.del(temporaryAssistant.id);
     }
     
     return content;
@@ -295,55 +208,33 @@ Maximum Length: ${unitConstraints.maxLength} characters
 Your adaptation should preserve the core message but adjust the style according to the tone and filter.
 `;
     
-    // Create a new thread for this content adaptation
-    const thread = await openai.beta.threads.create();
-    
-    // Add message to the thread
-    await openai.beta.threads.messages.create(thread.id, {
-      role: "user",
-      content: userMessage
+    // Use the backend adapt-content endpoint
+    const response = await fetch('/api/ai/adapt-content', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        content,
+        tone,
+        filter,
+        frameType: '',
+        unitType
+      }),
     });
-    
-    // Create temporary assistant
-    const assistant = await openai.beta.assistants.create({
-      name: "Content Adaptation Assistant",
-      instructions: systemMessage,
-      model: "gpt-4o"
-    });
-    
-    // Run the assistant
-    let run = await openai.beta.threads.runs.create(thread.id, {
-      assistant_id: assistant.id
-    });
-    
-    // Poll until the run completes
-    while (run.status !== "completed" && run.status !== "failed") {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      run = await openai.beta.threads.runs.retrieve(thread.id, run.id);
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Failed to adapt content');
     }
-    
-    // Get the messages from the thread
-    const messages_response = await openai.beta.threads.messages.list(thread.id);
-    const assistant_messages = messages_response.data.filter(
-      msg => msg.role === "assistant" && msg.content[0].type === "text"
-    );
-    
-    // Get the latest assistant message
-    let adaptedContent = content; // Default to original content
-    if (assistant_messages.length > 0) {
-      const latestMessage = assistant_messages[0];
-      adaptedContent = latestMessage.content[0].type === "text" 
-        ? latestMessage.content[0].text.value 
-        : content;
-    }
+
+    const data = await response.json();
+    let adaptedContent = data.adaptedContent || content;
     
     // Ensure content doesn't exceed max length
     if (adaptedContent.length > unitConstraints.maxLength) {
       adaptedContent = adaptedContent.substring(0, unitConstraints.maxLength) + "...";
     }
-    
-    // Clean up temporary assistant
-    await openai.beta.assistants.del(assistant.id);
     
     return adaptedContent;
   } catch (error) {

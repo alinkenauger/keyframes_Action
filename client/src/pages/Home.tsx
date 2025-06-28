@@ -29,6 +29,46 @@ import { KeyboardShortcutsHelp } from '@/components/ui/keyboard-shortcuts-help';
 import { useToast } from '@/hooks/use-toast';
 import { useIsMobile } from '@/hooks/use-mobile';
 
+// Type definitions for drag data
+type DragDataType = 'frame' | 'template' | 'skeleton-unit' | 'tone' | 'filter';
+
+interface BaseDragData {
+  type: DragDataType;
+}
+
+interface FrameDragData extends BaseDragData {
+  type: 'frame';
+  frame: any; // Frame type from your schema
+}
+
+interface TemplateDragData extends BaseDragData {
+  type: 'template';
+  frame: FrameTemplate;
+}
+
+interface SkeletonUnitDragData extends BaseDragData {
+  type: 'skeleton-unit';
+  unitName: string;
+}
+
+interface ToneDragData extends BaseDragData {
+  type: 'tone';
+  value: string;
+}
+
+interface FilterDragData extends BaseDragData {
+  type: 'filter';
+  value: string;
+}
+
+type DragData = FrameDragData | TemplateDragData | SkeletonUnitDragData | ToneDragData | FilterDragData;
+
+// Mouse position tracking during drag
+interface DragMousePosition {
+  x: number;
+  y: number;
+}
+
 export default function Home() {
   const { toast } = useToast();
   const { addSkeleton, setActiveSkeletonId, updateFrameOrder, skeletons, activeSkeletonId, updateFrameTone, updateFrameFilter, updateSkeletonUnits } = useWorkspace();
@@ -36,7 +76,8 @@ export default function Home() {
   const [showWelcomeScreen, setShowWelcomeScreen] = useState(false);
   const [hasSeenWelcome, setHasSeenWelcome] = useLocalStorage('has-seen-welcome', false);
   const [activeId, setActiveId] = useState<string | null>(null);
-  const [activeDragData, setActiveDragData] = useState<any>(null);
+  const [activeDragData, setActiveDragData] = useState<DragData | null>(null);
+  const [selectedFrameId, setSelectedFrameId] = useState<string | null>(null);
   
   // Check if this is the first time user is visiting and show welcome screen
   useEffect(() => {
@@ -48,7 +89,7 @@ export default function Home() {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 5,
+        distance: 15,
       },
     }),
     useSensor(KeyboardSensor)
@@ -57,34 +98,139 @@ export default function Home() {
   // Instead of auto-creating a skeleton, let's show the welcome screen
   // to guide users in selecting their first skeleton template
 
-  // Create a more forgiving collision detection algorithm
+  // Move frame up or down within its unit
+  const moveFrameWithKeyboard = (direction: 'up' | 'down') => {
+    if (!selectedFrameId || !activeSkeletonId) {
+      toast({
+        title: 'No frame selected',
+        description: 'Click on a frame to select it first',
+        variant: 'destructive'
+      });
+      return;
+    }
+    
+    const activeSkeleton = skeletons.find(s => s.id === activeSkeletonId);
+    if (!activeSkeleton) return;
+    
+    const frameIndex = activeSkeleton.frames.findIndex(f => f.id === selectedFrameId);
+    if (frameIndex === -1) {
+      // Frame no longer exists, clear selection
+      setSelectedFrameId(null);
+      return;
+    }
+    
+    const selectedFrame = activeSkeleton.frames[frameIndex];
+    const unitFrames = activeSkeleton.frames.filter(f => f.unitType === selectedFrame.unitType);
+    const unitFrameIndex = unitFrames.findIndex(f => f.id === selectedFrameId);
+    
+    if (direction === 'up' && unitFrameIndex > 0) {
+      const targetFrame = unitFrames[unitFrameIndex - 1];
+      const targetIndex = activeSkeleton.frames.findIndex(f => f.id === targetFrame.id);
+      const newFrames = arrayMove(activeSkeleton.frames, frameIndex, targetIndex);
+      updateFrameOrder(activeSkeletonId, newFrames);
+      
+      toast({
+        title: 'Frame Moved',
+        description: 'Frame moved up',
+      });
+      
+      // Scroll the frame into view
+      setTimeout(() => {
+        document.getElementById(selectedFrameId)?.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center' 
+        });
+      }, 100);
+    } else if (direction === 'down' && unitFrameIndex < unitFrames.length - 1) {
+      const targetFrame = unitFrames[unitFrameIndex + 1];
+      const targetIndex = activeSkeleton.frames.findIndex(f => f.id === targetFrame.id);
+      const newFrames = arrayMove(activeSkeleton.frames, frameIndex, targetIndex);
+      updateFrameOrder(activeSkeletonId, newFrames);
+      
+      toast({
+        title: 'Frame Moved',
+        description: 'Frame moved down',
+      });
+      
+      // Scroll the frame into view
+      setTimeout(() => {
+        document.getElementById(selectedFrameId)?.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center' 
+        });
+      }, 100);
+    }
+  };
+  
+  // Move frame to previous or next unit
+  const moveFrameToUnit = (direction: 'prev' | 'next') => {
+    if (!selectedFrameId || !activeSkeletonId) {
+      toast({
+        title: 'No frame selected',
+        description: 'Click on a frame to select it first',
+        variant: 'destructive'
+      });
+      return;
+    }
+    
+    const activeSkeleton = skeletons.find(s => s.id === activeSkeletonId);
+    if (!activeSkeleton) return;
+    
+    const frame = activeSkeleton.frames.find(f => f.id === selectedFrameId);
+    if (!frame) {
+      // Frame no longer exists, clear selection
+      setSelectedFrameId(null);
+      return;
+    }
+    
+    const units = activeSkeleton.units || [];
+    const currentUnitIndex = units.findIndex(u => u.toLowerCase() === frame.unitType?.toLowerCase());
+    
+    let targetUnitIndex = -1;
+    if (direction === 'prev' && currentUnitIndex > 0) {
+      targetUnitIndex = currentUnitIndex - 1;
+    } else if (direction === 'next' && currentUnitIndex < units.length - 1) {
+      targetUnitIndex = currentUnitIndex + 1;
+    }
+    
+    if (targetUnitIndex !== -1) {
+      const newFrames = activeSkeleton.frames.map(f => 
+        f.id === selectedFrameId ? { ...f, unitType: units[targetUnitIndex] } : f
+      );
+      updateFrameOrder(activeSkeletonId, newFrames);
+      
+      toast({
+        title: 'Frame Moved',
+        description: `Frame moved to ${units[targetUnitIndex]}`,
+      });
+      
+      // Scroll the frame into view in its new unit
+      setTimeout(() => {
+        document.getElementById(selectedFrameId)?.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center' 
+        });
+      }, 100);
+    }
+  };
+
+  // Simplified collision detection for better performance
   const customCollisionDetection: CollisionDetection = args => {
-    // First, try pointerWithin which is more forgiving for unit containers
-    const pointerCollisions = pointerWithin(args);
-    
-    if (pointerCollisions.length > 0) {
-      // Filter collisions to prioritize unit containers when dragging frames
-      if (args.active.data.current?.type === 'frame' || args.active.data.current?.type === 'template') {
-        const unitCollisions = pointerCollisions.filter(
-          collision => collision.data?.current?.type === 'unit'
-        );
-        
-        if (unitCollisions.length > 0) {
-          return unitCollisions;
-        }
-      }
-      return pointerCollisions;
+    // For frame/template dragging, prioritize unit containers
+    if (args.active.data.current?.type === 'frame' || args.active.data.current?.type === 'template') {
+      // Use closestCenter for better performance with many draggables
+      const collisions = closestCenter(args);
+      
+      // Filter to only unit containers if any are found
+      const unitCollisions = collisions.filter(
+        collision => collision.data?.current?.type === 'unit'
+      );
+      
+      return unitCollisions.length > 0 ? unitCollisions : collisions;
     }
     
-    // If no collisions found with pointerWithin, try rectangle intersection
-    const rectCollisions = rectIntersection(args);
-    
-    // If still no collisions, fall back to closestCenter for better precision
-    if (rectCollisions.length === 0) {
-      return closestCenter(args);
-    }
-    
-    return rectCollisions;
+    // For all other drag types, use simple closestCenter
+    return closestCenter(args);
   };
 
   // Define keyboard shortcuts
@@ -146,9 +292,36 @@ export default function Home() {
         if (showCreateDialog) {
           setShowCreateDialog(false);
         }
+        // Clear selected frame
+        setSelectedFrameId(null);
       },
-      description: 'Close current dialog',
+      description: 'Close current dialog / Clear selection',
       category: 'General'
+    },
+    // Frame movement shortcuts
+    {
+      key: 'alt+arrowup',
+      action: () => moveFrameWithKeyboard('up'),
+      description: 'Move selected frame up',
+      category: 'Frame Movement'
+    },
+    {
+      key: 'alt+arrowdown',
+      action: () => moveFrameWithKeyboard('down'),
+      description: 'Move selected frame down',
+      category: 'Frame Movement'
+    },
+    {
+      key: 'alt+arrowleft',
+      action: () => moveFrameToUnit('prev'),
+      description: 'Move frame to previous unit',
+      category: 'Frame Movement'
+    },
+    {
+      key: 'alt+arrowright',
+      action: () => moveFrameToUnit('next'),
+      description: 'Move frame to next unit',
+      category: 'Frame Movement'
     }
   ];
 
@@ -328,6 +501,11 @@ export default function Home() {
 
     const newFrames = activeSkeleton.frames.filter(f => f.id !== frameId);
     updateFrameOrder(activeSkeleton.id, newFrames);
+    
+    // Clear selection if the deleted frame was selected
+    if (selectedFrameId === frameId) {
+      setSelectedFrameId(null);
+    }
   };
 
   // Use mobile detection
@@ -337,6 +515,17 @@ export default function Home() {
   // Import the mobile layout components
   const MobileLayout = React.lazy(() => import('../components/mobile/MobileLayout'));
   const SafeAreaProvider = React.lazy(() => import('../components/ui/safe-area').then(m => ({ default: m.SafeAreaProvider })));
+  
+  // Auto-scroll configuration for drag and drop
+  const autoScrollOptions = {
+    // Enable auto-scrolling
+    enabled: true,
+    // Speed and acceleration
+    threshold: {
+      x: 0.2, // 20% from edge
+      y: 0.2  // 20% from edge
+    }
+  };
 
   return (
     <DndContext 
@@ -344,6 +533,7 @@ export default function Home() {
       collisionDetection={customCollisionDetection}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
+      autoScroll={autoScrollOptions}
     >
       {isMobile ? (
         // Mobile layout
@@ -370,6 +560,8 @@ export default function Home() {
                 onDeleteFrame={deleteFrame}
                 onUpdateFrameAttribute={handleUpdateFrameAttribute}
                 onOpenCreateDialog={() => setShowCreateDialog(true)}
+                selectedFrameId={selectedFrameId}
+                onSelectFrame={setSelectedFrameId}
               />
             </div>
           </div>

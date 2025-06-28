@@ -45,10 +45,20 @@ export default function DraggableFrame({ frame, onDelete, compact = false }: Dra
         frame.category === FRAME_CATEGORIES.OUTRO && "border-l-orange-500 bg-orange-50/30 dark:bg-orange-950/10",
         compact && "py-0"
       )}
+      style={{
+        willChange: isDragging ? 'transform' : 'auto',
+      }}
       {...attributes}
-      {...listeners}
     >
-      <CardContent className={cn("p-3 transition-all", compact && "p-2")}>
+      {/* Drag handle - only this area is draggable */}
+      <div 
+        className="absolute left-0 top-0 bottom-0 w-6 flex items-center justify-center cursor-move hover:bg-muted/50 transition-colors"
+        {...listeners}
+      >
+        <GripHorizontal className="h-4 w-4 text-muted-foreground" />
+      </div>
+      
+      <CardContent className={cn("p-3 transition-all pl-8", compact && "p-2 pl-7")}>
         {/* Category indicator badge */}
         <div className="flex justify-between items-start mb-1">
           {!compact && (
@@ -79,16 +89,6 @@ export default function DraggableFrame({ frame, onDelete, compact = false }: Dra
               <X className="h-3 w-3" />
             </Button>
           )}
-        </div>
-
-        {/* Drag handle */}
-        <div className={cn(
-          "absolute top-1/2 -left-2 -translate-y-1/2 bg-background rounded-full border shadow-sm opacity-0 group-hover:opacity-100 transition-opacity",
-          compact && "top-[20%]"
-        )}>
-          <div className="p-1" {...attributes} {...listeners}>
-            <GripHorizontal className="h-3 w-3 text-muted-foreground" />
-          </div>
         </div>
 
         <div className="pl-1">

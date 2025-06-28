@@ -1,12 +1,5 @@
-import OpenAI from "openai";
 import { Skeleton, Frame } from '@/types';
 import { SKELETON_UNITS, TONES, FILTERS } from './constants';
-
-// The newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
-const openai = new OpenAI({
-  apiKey: import.meta.env.VITE_OPENAI_API_KEY as string,
-  dangerouslyAllowBrowser: true
-});
 
 // Interface for B-roll recommendations
 export interface BRollRecommendation {
@@ -193,18 +186,31 @@ export async function generateVideoScript(skeleton: Skeleton): Promise<VideoScri
     }
     `;
 
-    // Call OpenAI API
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: [
-        { role: "system", content: "You are an expert YouTube scriptwriter and video strategist." },
-        { role: "user", content: prompt }
-      ],
-      response_format: { type: "json_object" },
-      temperature: 0.7,
+    // Call backend API for script generation
+    const response = await fetch('/api/ai/generate-custom-content', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: "gpt-4o",
+        messages: [
+          { role: "system", content: "You are an expert YouTube scriptwriter and video strategist." },
+          { role: "user", content: prompt }
+        ],
+        temperature: 0.7,
+        max_tokens: 4000
+      }),
     });
 
-    const responseContent = response.choices[0].message.content;
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Failed to generate script');
+    }
+
+    const data = await response.json();
+    const responseContent = data.content;
+    
     if (!responseContent) {
       throw new Error("Failed to generate script: No content in response");
     }
@@ -255,18 +261,31 @@ export async function adjustScriptLength(
     Format the response as the same JSON structure as the input.
     `;
 
-    // Call OpenAI API
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: [
-        { role: "system", content: "You are an expert YouTube scriptwriter and video editor." },
-        { role: "user", content: prompt }
-      ],
-      response_format: { type: "json_object" },
-      temperature: 0.7,
+    // Call backend API for script adjustment
+    const response = await fetch('/api/ai/generate-custom-content', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: "gpt-4o",
+        messages: [
+          { role: "system", content: "You are an expert YouTube scriptwriter and video editor." },
+          { role: "user", content: prompt }
+        ],
+        temperature: 0.7,
+        max_tokens: 4000
+      }),
     });
 
-    const responseContent = response.choices[0].message.content;
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Failed to adjust script');
+    }
+
+    const data = await response.json();
+    const responseContent = data.content;
+    
     if (!responseContent) {
       throw new Error("Failed to adjust script: No content in response");
     }
