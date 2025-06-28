@@ -348,3 +348,46 @@ Users had difficulty dropping frames into columns with existing frames. They had
 - [ ] Test extended drop zone below last frame
 - [ ] Verify smooth animations
 - [ ] Test with multiple columns
+
+## External Frame Drop Fix
+
+### Issue Description
+The preview system only worked for frames within the same unit. Frames from the sidebar or other units didn't trigger the preview animations.
+
+### Root Cause
+1. The placeholder system wasn't checking for valid drag types from external sources
+2. Initial mouse position wasn't being tracked for immediate placeholder calculation
+3. Conditional checks were too restrictive for external frames
+
+### Solution Implemented
+
+#### 1. Enhanced Drag Type Detection (SkeletonUnit.tsx)
+- Added explicit checks for 'frame' and 'template' drag types
+- Ensured placeholder shows for all valid drag sources
+- Fixed placeholder visibility for empty units
+
+#### 2. Mouse Position Tracking (Home.tsx)
+- Added pointer position tracking in handleDragStart
+- Updated handleDragOver to maintain live position
+- Stored position in window object for immediate access
+
+#### 3. Improved Placeholder Logic
+- Placeholder now appears immediately when dragging over
+- Works for frames from sidebar, other units, and same unit
+- Proper animation triggers for all drag sources
+
+### Changes Made:
+- Modified `/client/src/components/workspace/SkeletonUnit.tsx`:
+  - Enhanced drag type validation
+  - Fixed placeholder conditions for external frames
+  - Added initial position calculation
+- Modified `/client/src/pages/Home.tsx`:
+  - Added pointer tracking in drag handlers
+  - Stored mouse position for immediate use
+
+### Testing Checklist:
+- [ ] Drag frame from sidebar - see preview animation
+- [ ] Drag frame from another unit - see preview animation
+- [ ] Drag frame within same unit - verify still works
+- [ ] Test with empty units
+- [ ] Verify all frames animate to make space

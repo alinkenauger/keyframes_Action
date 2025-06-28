@@ -328,14 +328,22 @@ export default function Home() {
   const { helpVisible, setHelpVisible, shortcutsByCategory } = useKeyboardShortcuts(shortcuts);
 
   const handleDragStart = (event: DragStartEvent) => {
-    const { active } = event;
+    const { active, activatorEvent } = event;
     setActiveId(active.id as string);
     setActiveDragData(active.data.current);
+    
+    // Store initial mouse position for immediate placeholder calculation
+    if (activatorEvent && 'clientY' in activatorEvent) {
+      (window as any).__dndKitPointerY = activatorEvent.clientY;
+    }
   };
 
   const handleDragOver = (event: DragOverEvent) => {
-    // This will be used by SkeletonUnit to track mouse position
-    // The SkeletonUnit component handles the visual preview internally
+    // Update pointer position for live tracking
+    const { activatorEvent } = event;
+    if (activatorEvent && 'clientY' in activatorEvent) {
+      (window as any).__dndKitPointerY = activatorEvent.clientY;
+    }
   };
 
   const handleDragEnd = (event: DragEndEvent) => {

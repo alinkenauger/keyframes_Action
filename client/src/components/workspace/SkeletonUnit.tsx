@@ -55,6 +55,7 @@ export default function SkeletonUnit({
   const [placeholderIndex, setPlaceholderIndex] = useState<number | null>(null);
   const [mouseY, setMouseY] = useState(0);
   const frameRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const containerScrollRef = useRef<HTMLDivElement>(null);
 
   // Width management state
   const MIN_WIDTH = 300;
@@ -105,8 +106,23 @@ export default function SkeletonUnit({
       return;
     }
 
+    // Check if we're dragging a frame or template
+    const isDraggingValidItem = active.data.current?.type === 'frame' || 
+                                active.data.current?.type === 'template';
+    
+    if (!isDraggingValidItem) {
+      setPlaceholderIndex(null);
+      return;
+    }
+
     const handleMouseMove = (e: MouseEvent) => {
       setMouseY(e.clientY);
+      
+      // If no frames in unit, always show placeholder at index 0
+      if (unitFrames.length === 0) {
+        setPlaceholderIndex(0);
+        return;
+      }
       
       // Calculate where the placeholder should appear
       let newIndex = 0;
@@ -126,6 +142,12 @@ export default function SkeletonUnit({
       setPlaceholderIndex(newIndex);
     };
 
+    // Get initial mouse position from pointer event if available
+    const pointerY = (window as any).__dndKitPointerY || mouseY || 0;
+    
+    // Trigger initial calculation
+    handleMouseMove({ clientY: pointerY } as MouseEvent);
+    
     document.addEventListener('mousemove', handleMouseMove);
     return () => document.removeEventListener('mousemove', handleMouseMove);
   }, [isOver, active, unitFrames.length]);
@@ -220,7 +242,7 @@ export default function SkeletonUnit({
       </div>
 
       {/* Improved scrollable frames area with responsive layout */}
-      <div className="flex-grow flex flex-col overflow-auto" style={{minHeight: "300px"}}>
+      <div className="flex-grow flex flex-col overflow-auto" style={{minHeight: "300px", position: "relative"}}>
         {unitFrames.length === 0 ? (
           <div className={cn(
             "flex items-center justify-center h-full text-sm transition-all duration-200",
@@ -231,7 +253,7 @@ export default function SkeletonUnit({
               {isOver && isDraggingFromOtherUnit ? "Drop to move frame here" : "Drop frames here"}
             </p>
             {/* Show placeholder even when empty */}
-            {isOver && active && (
+            {isOver && active && (active.data.current?.type === 'frame' || active.data.current?.type === 'template') && (
               <div className="absolute inset-x-2 top-1/2 -translate-y-1/2">
                 <div className="h-20 bg-primary/20 border-2 border-dashed border-primary rounded-lg animate-pulse" />
               </div>
@@ -239,13 +261,16 @@ export default function SkeletonUnit({
           </div>
         ) : (
           <div 
+            ref={containerScrollRef}
             className="overflow-y-auto overflow-x-hidden h-full p-2" 
             style={{
               overscrollBehavior: "contain", 
               maxHeight: "100%",
               display: "block",
               // Ensure smooth scrolling for auto-scroll
-              scrollBehavior: "smooth"
+              scrollBehavior: "smooth",
+              // Ensure minimum height for drop zone
+              minHeight: "100%"
             }}
             // Add data attribute for auto-scroll targeting
             data-dnd-auto-scroll-container>
@@ -262,8 +287,10 @@ export default function SkeletonUnit({
                 )}
               >
                 {unitFrames.map((frame, index) => {
-                  const showPlaceholderBefore = isOver && placeholderIndex === index;
-                  const showPlaceholderAfter = isOver && placeholderIndex === unitFrames.length && index === unitFrames.length - 1;
+                  // Show placeholder for all drag sources (frames from sidebar, other units, or same unit)
+                  const isDraggingValidItem = active && (active.data.current?.type === 'frame' || active.data.current?.type === 'template');
+                  const showPlaceholderBefore = isOver && isDraggingValidItem && placeholderIndex === index;
+                  const showPlaceholderAfter = isOver && isDraggingValidItem && placeholderIndex === unitFrames.length && index === unitFrames.length - 1;
                   
                   return (
                     <React.Fragment key={frame.id}>
@@ -275,9 +302,9 @@ export default function SkeletonUnit({
                             width > BREAKPOINT_FOR_HORIZONTAL ? "col-span-2" : ""
                           )}
                           style={{
-                            height: isOver ? '80px' : '0px',
-                            opacity: isOver ? 1 : 0,
-                            marginBottom: isOver ? '12px' : '0px'
+                            height: '80px',
+                            opacity: 1,
+                            marginBottom: '12px'
                           }}
                         >
                           <div className="h-full bg-primary/20 border-2 border-dashed border-primary rounded-lg animate-pulse" />
@@ -292,7 +319,7 @@ export default function SkeletonUnit({
                         }}
                         className="relative transition-transform duration-300 ease-out"
                         style={{
-                          transform: isOver && placeholderIndex !== null && index >= placeholderIndex 
+                          transform: isOver && isDraggingValidItem && placeholderIndex !== null && index >= placeholderIndex 
                             ? 'translateY(92px)' // 80px placeholder + 12px gap
                             : 'translateY(0px)'
                         }}
@@ -328,7 +355,8 @@ export default function SkeletonUnit({
                 })}
                 
                 {/* Show placeholder when dragging over empty space at the bottom */}
-                {isOver && placeholderIndex === unitFrames.length && unitFrames.length > 0 && (
+                {isOver && active && (active.data.current?.type === 'frame' || active.data.current?.type === 'template') && 
+                 placeholderIndex === unitFrames.length && unitFrames.length > 0 && (
                   <div 
                     className={cn(
                       "transition-all duration-300 ease-out",
