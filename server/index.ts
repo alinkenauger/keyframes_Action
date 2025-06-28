@@ -4,8 +4,12 @@ import { setupVite, serveStatic, log } from "./vite";
 import { requestLogger, errorLogger, performanceMonitor } from "./middleware/monitoring";
 import { corsMiddleware } from "./middleware/cors-simple";
 import { generalRateLimiter, addRateLimitHeaders } from "./middleware/rateLimiting-simple";
+import { securityHeaders, apiSecurityHeaders } from "./middleware/security-headers";
 
 const app = express();
+
+// Security headers should be first
+app.use(securityHeaders);
 
 // Enable CORS before other middleware
 app.use(corsMiddleware);
@@ -15,6 +19,9 @@ app.use(addRateLimitHeaders);
 
 // Apply general rate limiting to all routes
 app.use(generalRateLimiter);
+
+// API-specific security headers
+app.use('/api', apiSecurityHeaders);
 
 // Parse JSON bodies
 app.use(express.json({ limit: '10mb' }));

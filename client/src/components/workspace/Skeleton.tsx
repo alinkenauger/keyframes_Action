@@ -45,7 +45,8 @@ function DraggableUnit({ unit, children }: { unit: any, children: React.ReactNod
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
-    zIndex: isDragging ? 1 : 0,
+    zIndex: isDragging ? 1000 : 'auto',
+    position: isDragging ? 'relative' : 'static' as any,
   };
 
   return (
@@ -53,19 +54,20 @@ function DraggableUnit({ unit, children }: { unit: any, children: React.ReactNod
       ref={setNodeRef} 
       style={style} 
       className={cn(
-        "flex items-center group relative w-full",
-        isDragging && "ring-2 ring-primary"
+        "flex items-center group relative w-full h-full",
+        isDragging && "ring-2 ring-primary shadow-2xl"
       )}
     >
       <div 
-        className="absolute left-2 top-1/2 -translate-y-1/2 cursor-grab touch-manipulation z-10 p-1.5 rounded-md hover:bg-gray-100 opacity-0 group-hover:opacity-100 transition-opacity"
+        className="absolute left-2 top-4 cursor-grab active:cursor-grabbing touch-manipulation z-20 p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 opacity-0 group-hover:opacity-100 transition-opacity"
         {...attributes} 
         {...listeners}
+        title="Drag to reorder unit"
       >
-        <div className="w-4 h-4 flex flex-col gap-1">
-          <div className="h-[2px] bg-gray-400 rounded"></div>
-          <div className="h-[2px] bg-gray-400 rounded"></div>
-          <div className="h-[2px] bg-gray-400 rounded"></div>
+        <div className="w-4 h-4 flex flex-col gap-0.5">
+          <div className="h-[2px] bg-gray-400 dark:bg-gray-600 rounded"></div>
+          <div className="h-[2px] bg-gray-400 dark:bg-gray-600 rounded"></div>
+          <div className="h-[2px] bg-gray-400 dark:bg-gray-600 rounded"></div>
         </div>
       </div>
       {children}
