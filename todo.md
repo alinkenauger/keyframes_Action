@@ -295,3 +295,56 @@ Users had to drop frames precisely in empty unit space. Dropping on existing fra
 - [ ] Verify visual indicators show correct drop position
 - [ ] Test with multiple frames in various units
 - [ ] Confirm toast notifications show correct messages
+
+## Responsive Drag-and-Drop Enhancement
+
+### Issue Description
+Users had difficulty dropping frames into columns with existing frames. They had to find "sweet spots" between frames or at column edges. The drop zone below frames was too small.
+
+### Solution Implemented
+
+#### 1. Live Preview System (SkeletonUnit.tsx)
+- Added real-time placeholder that shows exactly where frame will drop
+- Placeholder appears based on mouse Y position
+- Existing frames animate downward to make space
+
+#### 2. Enhanced Drop Zones
+- Extended bottom padding to 1.5x card height (pb-32)
+- Entire column is now a valid drop target
+- No more hunting for "sweet spots"
+
+#### 3. Frame Animation System
+- Frames below insertion point translate down by 92px (80px placeholder + 12px gap)
+- Smooth 300ms transitions for natural feel
+- Frames automatically make space when dragging over
+
+#### 4. Smart Position Detection
+- Tracks mouse position during drag over
+- Calculates insertion index based on frame midpoints
+- Works for both empty columns and columns with frames
+
+### Technical Implementation:
+1. **SkeletonUnit.tsx**:
+   - Added `placeholderIndex` state to track insertion position
+   - Added `frameRefs` to track frame positions
+   - Added mouse move listener during drag over
+   - Implemented placeholder rendering with animations
+   - Extended drop zone with increased padding
+
+2. **Home.tsx**:
+   - Added `handleDragOver` function
+   - Enhanced `handleDragEnd` to calculate proper insertion index
+   - Updated drop logic to respect calculated positions
+
+### Changes Made:
+- Modified `/client/src/components/workspace/SkeletonUnit.tsx`
+- Modified `/client/src/pages/Home.tsx`
+
+### Testing Checklist:
+- [ ] Drag frame over column - see placeholder appear
+- [ ] Move frame up/down - see placeholder move and frames animate
+- [ ] Drop frame at top, middle, bottom of column
+- [ ] Test with empty columns
+- [ ] Test extended drop zone below last frame
+- [ ] Verify smooth animations
+- [ ] Test with multiple columns

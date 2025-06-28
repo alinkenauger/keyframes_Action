@@ -10,7 +10,8 @@ import { useLocalStorage } from '@/hooks/use-local-storage';
 import { 
   DndContext, 
   DragStartEvent, 
-  DragEndEvent, 
+  DragEndEvent,
+  DragOverEvent, 
   closestCenter,
   rectIntersection,
   pointerWithin,
@@ -332,6 +333,11 @@ export default function Home() {
     setActiveDragData(active.data.current);
   };
 
+  const handleDragOver = (event: DragOverEvent) => {
+    // This will be used by SkeletonUnit to track mouse position
+    // The SkeletonUnit component handles the visual preview internally
+  };
+
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
@@ -455,31 +461,68 @@ export default function Home() {
     const unitType = over.data.current?.name;
     if (!unitType) return;
 
+    // Get all frames in the target unit to determine insertion position
+    const targetUnitFrames = newFrames.filter(f => 
+      f.unitType && f.unitType.toLowerCase().trim() === unitType.toLowerCase().trim()
+    );
+
+    // Calculate insertion position based on mouse Y position
+    let insertionIndex = newFrames.length; // Default to end
+    
+    if (event.activatorEvent && 'clientY' in event.activatorEvent) {
+      const mouseY = event.activatorEvent.clientY;
+      
+      // Find the appropriate insertion point
+      for (let i = 0; i < targetUnitFrames.length; i++) {
+        const frameElement = document.getElementById(targetUnitFrames[i].id);
+        if (frameElement) {
+          const rect = frameElement.getBoundingClientRect();
+          if (mouseY < rect.top + rect.height / 2) {
+            // Insert before this frame
+            insertionIndex = newFrames.findIndex(f => f.id === targetUnitFrames[i].id);
+            break;
+          } else if (i === targetUnitFrames.length - 1) {
+            // Insert after the last frame
+            insertionIndex = newFrames.findIndex(f => f.id === targetUnitFrames[i].id) + 1;
+          }
+        }
+      }
+    }
+
     if (active.data.current?.type === 'template') {
-      // Create new frame from template, preserving the original frame's properties
+      // Create new frame from template
       const template = active.data.current.frame as FrameTemplate;
       const newFrame = {
         id: nanoid(),
-        name: template.name,           // Keep the original frame name (e.g., "Bold Statement")
-        type: template.name,       // Use the template name as the type (e.g., "Bold Statement")
-        content: template.example,     // Use the example as initial content
-        unitType,                      // Set the unit location (where it's dropped)
+        name: template.name,
+        type: template.name,
+        content: template.example,
+        unitType,
         tone: '',
         filter: ''
       };
 
-      newFrames.push(newFrame);
+      // Insert at calculated position
+      newFrames.splice(insertionIndex, 0, newFrame);
     } 
     else if (active.data.current?.type === 'frame') {
       const frameId = active.id as string;
-      const frameIndex = newFrames.findIndex(f => f.id === frameId);
+      const currentIndex = newFrames.findIndex(f => f.id === frameId);
 
-      if (frameIndex !== -1) {
-        // Only update the unitType, preserve everything else
-        newFrames[frameIndex] = {
-          ...newFrames[frameIndex],
-          unitType
-        };
+      if (currentIndex !== -1) {
+        // Remove from current position
+        const [movedFrame] = newFrames.splice(currentIndex, 1);
+        
+        // Update unit type
+        movedFrame.unitType = unitType;
+        
+        // Adjust insertion index if we removed before it
+        if (currentIndex < insertionIndex) {
+          insertionIndex--;
+        }
+        
+        // Insert at new position
+        newFrames.splice(insertionIndex, 0, movedFrame);
       }
     }
 
@@ -533,6 +576,7 @@ export default function Home() {
       sensors={sensors}
       collisionDetection={customCollisionDetection}
       onDragStart={handleDragStart}
+      onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
       autoScroll={autoScrollOptions}
     >

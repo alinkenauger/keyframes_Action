@@ -1,11 +1,11 @@
-import { useDroppable } from '@dnd-kit/core';
+import { useDroppable, DragOverlay } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import Frame from './Frame';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Copy, Trash2, GripVertical } from 'lucide-react';
 import type { Frame as FrameType } from '@/types';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 
 interface SkeletonUnitProps {
   id: string;
@@ -40,7 +40,7 @@ export default function SkeletonUnit({
            frame.unitType.toLowerCase().trim() === name.toLowerCase().trim();
   });
 
-  const { setNodeRef, isOver, active } = useDroppable({
+  const { setNodeRef, isOver, active, over, rect } = useDroppable({
     id: name,
     data: {
       type: 'unit',
@@ -50,6 +50,11 @@ export default function SkeletonUnit({
     // Make sure the droppable area is active - needed for cross-unit drag and drop
     disabled: false
   });
+
+  // State for tracking where the placeholder should appear
+  const [placeholderIndex, setPlaceholderIndex] = useState<number | null>(null);
+  const [mouseY, setMouseY] = useState(0);
+  const frameRefs = useRef<Map<string, HTMLDivElement>>(new Map());
 
   // Width management state
   const MIN_WIDTH = 300;
@@ -92,6 +97,38 @@ export default function SkeletonUnit({
       document.removeEventListener('mouseup', handleResizeEnd);
     };
   }, []);
+
+  // Track mouse position and calculate placeholder position when dragging over
+  useEffect(() => {
+    if (!isOver || !active) {
+      setPlaceholderIndex(null);
+      return;
+    }
+
+    const handleMouseMove = (e: MouseEvent) => {
+      setMouseY(e.clientY);
+      
+      // Calculate where the placeholder should appear
+      let newIndex = 0;
+      const frameElements = Array.from(frameRefs.current.values());
+      
+      for (let i = 0; i < frameElements.length; i++) {
+        const rect = frameElements[i].getBoundingClientRect();
+        const midPoint = rect.top + rect.height / 2;
+        
+        if (e.clientY > midPoint) {
+          newIndex = i + 1;
+        } else {
+          break;
+        }
+      }
+      
+      setPlaceholderIndex(newIndex);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    return () => document.removeEventListener('mousemove', handleMouseMove);
+  }, [isOver, active, unitFrames.length]);
   
   // Check if we're dragging a frame from a different unit
   const isDraggingFromOtherUnit = active && active.data.current?.type === 'frame' && 
@@ -193,6 +230,12 @@ export default function SkeletonUnit({
             <p className="text-center px-4">
               {isOver && isDraggingFromOtherUnit ? "Drop to move frame here" : "Drop frames here"}
             </p>
+            {/* Show placeholder even when empty */}
+            {isOver && active && (
+              <div className="absolute inset-x-2 top-1/2 -translate-y-1/2">
+                <div className="h-20 bg-primary/20 border-2 border-dashed border-primary rounded-lg animate-pulse" />
+              </div>
+            )}
           </div>
         ) : (
           <div 
@@ -212,24 +255,93 @@ export default function SkeletonUnit({
             >
               <div 
                 className={cn(
-                  "pb-8",
+                  "pb-32", // Increased padding to 1.5x card height
                   width > BREAKPOINT_FOR_HORIZONTAL 
                     ? "grid grid-cols-2 gap-3" 
                     : "flex flex-col gap-3"
                 )}
               >
-                {unitFrames.map((frame, index) => (
-                  <div key={frame.id} className="relative">
-                    <Frame 
-                      frame={frame}
-                      onDelete={onDeleteFrame}
-                      dimmed={isOver && isDraggingFromOtherUnit}
-                      unitWidth={width}
-                      isSelected={selectedFrameId === frame.id}
-                      onSelect={onSelectFrame}
-                    />
+                {unitFrames.map((frame, index) => {
+                  const showPlaceholderBefore = isOver && placeholderIndex === index;
+                  const showPlaceholderAfter = isOver && placeholderIndex === unitFrames.length && index === unitFrames.length - 1;
+                  
+                  return (
+                    <React.Fragment key={frame.id}>
+                      {/* Placeholder before frame */}
+                      {showPlaceholderBefore && (
+                        <div 
+                          className={cn(
+                            "transition-all duration-300 ease-out",
+                            width > BREAKPOINT_FOR_HORIZONTAL ? "col-span-2" : ""
+                          )}
+                          style={{
+                            height: isOver ? '80px' : '0px',
+                            opacity: isOver ? 1 : 0,
+                            marginBottom: isOver ? '12px' : '0px'
+                          }}
+                        >
+                          <div className="h-full bg-primary/20 border-2 border-dashed border-primary rounded-lg animate-pulse" />
+                        </div>
+                      )}
+                      
+                      {/* The actual frame with transform animation */}
+                      <div 
+                        ref={(el) => {
+                          if (el) frameRefs.current.set(frame.id, el);
+                          else frameRefs.current.delete(frame.id);
+                        }}
+                        className="relative transition-transform duration-300 ease-out"
+                        style={{
+                          transform: isOver && placeholderIndex !== null && index >= placeholderIndex 
+                            ? 'translateY(92px)' // 80px placeholder + 12px gap
+                            : 'translateY(0px)'
+                        }}
+                      >
+                        <Frame 
+                          frame={frame}
+                          onDelete={onDeleteFrame}
+                          dimmed={isOver && isDraggingFromOtherUnit}
+                          unitWidth={width}
+                          isSelected={selectedFrameId === frame.id}
+                          onSelect={onSelectFrame}
+                        />
+                      </div>
+                      
+                      {/* Placeholder after last frame */}
+                      {showPlaceholderAfter && (
+                        <div 
+                          className={cn(
+                            "transition-all duration-300 ease-out",
+                            width > BREAKPOINT_FOR_HORIZONTAL ? "col-span-2" : ""
+                          )}
+                          style={{
+                            height: isOver ? '80px' : '0px',
+                            opacity: isOver ? 1 : 0,
+                            marginTop: isOver ? '12px' : '0px'
+                          }}
+                        >
+                          <div className="h-full bg-primary/20 border-2 border-dashed border-primary rounded-lg animate-pulse" />
+                        </div>
+                      )}
+                    </React.Fragment>
+                  );
+                })}
+                
+                {/* Show placeholder when dragging over empty space at the bottom */}
+                {isOver && placeholderIndex === unitFrames.length && unitFrames.length > 0 && (
+                  <div 
+                    className={cn(
+                      "transition-all duration-300 ease-out",
+                      width > BREAKPOINT_FOR_HORIZONTAL ? "col-span-2" : ""
+                    )}
+                    style={{
+                      height: '80px',
+                      opacity: 1
+                    }}
+                  >
+                    <div className="h-full bg-primary/20 border-2 border-dashed border-primary rounded-lg animate-pulse" />
                   </div>
-                ))}
+                )}
               </div>
             </SortableContext>
           </div>
