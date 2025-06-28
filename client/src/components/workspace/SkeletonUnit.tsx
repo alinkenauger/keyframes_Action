@@ -18,6 +18,8 @@ interface SkeletonUnitProps {
   activeDragOver?: boolean; // Whether a frame is being dragged over this unit
   selectedFrameId?: string | null; // Currently selected frame
   onSelectFrame?: (frameId: string) => void; // Frame selection callback
+  dragHandleProps?: any; // Props for drag handle
+  isDragging?: boolean; // Whether this unit is being dragged
 }
 
 export default function SkeletonUnit({ 
@@ -29,7 +31,9 @@ export default function SkeletonUnit({
   onDuplicateUnit,
   onDeleteUnit,
   selectedFrameId,
-  onSelectFrame
+  onSelectFrame,
+  dragHandleProps,
+  isDragging
 }: SkeletonUnitProps) {
   const unitFrames = frames.filter(frame => {
     return frame.unitType && 
@@ -48,7 +52,9 @@ export default function SkeletonUnit({
   });
 
   // Width management state
-  const [width, setWidth] = useState(300);
+  const MIN_WIDTH = 300;
+  const BREAKPOINT_FOR_HORIZONTAL = 600; // Width at which frames go horizontal
+  const [width, setWidth] = useState(MIN_WIDTH);
   const [isResizing, setIsResizing] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   
@@ -63,13 +69,13 @@ export default function SkeletonUnit({
   
   // Handle the resize movement
   const handleResizeMove = (e: MouseEvent) => {
-    if (!isResizing || !containerRef.current) return;
+    if (!containerRef.current) return;
     
     const containerRect = containerRef.current.getBoundingClientRect();
     const newWidth = e.clientX - containerRect.left;
     
     // Set minimum width to prevent column from getting too small
-    setWidth(Math.max(200, newWidth));
+    setWidth(Math.max(MIN_WIDTH, newWidth));
   };
   
   // Handle ending the resize operation
@@ -94,7 +100,10 @@ export default function SkeletonUnit({
 
   return (
     <div 
-      ref={setNodeRef}
+      ref={(node) => {
+        setNodeRef(node);
+        if (node) containerRef.current = node;
+      }}
       className={cn(
         "flex flex-col transition-all duration-200 relative max-h-full",
         isOver && !isDraggingFromOtherUnit && "ring-2 ring-primary/40 bg-primary/10",
@@ -109,30 +118,49 @@ export default function SkeletonUnit({
       }}
       data-unit-type={name}
     >
-      {/* Resize handle */}
+      {/* Resize handle - positioned on the right edge */}
       <div 
         className={cn(
-          "absolute right-0 top-0 bottom-0 w-4 cursor-col-resize flex items-center justify-center",
-          "hover:bg-primary/10 active:bg-primary/20 z-10",
-          isResizing && "bg-primary/20"
+          "absolute right-0 top-0 bottom-0 w-2 cursor-col-resize",
+          "hover:bg-primary/20 active:bg-primary/30 transition-colors",
+          "group/resize",
+          isResizing && "bg-primary/30"
         )}
         onMouseDown={handleResizeStart}
+        title="Drag to resize column"
       >
-        <GripVertical className="h-4 w-4 text-muted-foreground opacity-50" />
+        <div className="absolute inset-y-0 -left-1 -right-1 w-4" />
+        <div className="h-full w-full bg-gray-300 dark:bg-gray-600 group-hover/resize:bg-primary/40 transition-colors" />
       </div>
       
       {/* Header */}
       <div className={cn(
-        "flex items-center justify-between px-2 py-1 border-b transition-colors duration-200 relative",
+        "flex items-center justify-between px-2 py-1 border-b transition-colors duration-200 relative group",
         isOver && isDraggingFromOtherUnit ? "bg-green-50 border-green-300" : "bg-background"
       )}>
+        {/* Drag handle - positioned to the left of the title */}
+        {dragHandleProps && (
+          <div
+            {...dragHandleProps}
+            className={cn(
+              "absolute -left-6 top-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing",
+              "opacity-0 group-hover:opacity-100 transition-opacity",
+              "p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800",
+              isDragging && "opacity-100"
+            )}
+            title="Drag to reorder column"
+          >
+            <GripVertical className="h-4 w-4 text-gray-500" />
+          </div>
+        )}
+        
         <div className="flex items-center gap-2">
           <h3 className={cn(
             "text-base font-medium transition-colors duration-200",
             isOver && isDraggingFromOtherUnit && "text-green-700"
           )}>{name}</h3>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 mr-2">
           <Button
             variant="ghost"
             size="sm"
@@ -154,7 +182,7 @@ export default function SkeletonUnit({
         </div>
       </div>
 
-      {/* Improved scrollable frames area with better overflow handling */}
+      {/* Improved scrollable frames area with responsive layout */}
       <div className="flex-grow flex flex-col overflow-auto" style={{minHeight: "300px"}}>
         {unitFrames.length === 0 ? (
           <div className={cn(
@@ -182,7 +210,14 @@ export default function SkeletonUnit({
               items={unitFrames.map(f => f.id)}
               strategy={verticalListSortingStrategy}
             >
-              <div className="flex flex-col gap-3 pb-8">
+              <div 
+                className={cn(
+                  "pb-8",
+                  width > BREAKPOINT_FOR_HORIZONTAL 
+                    ? "grid grid-cols-2 gap-3" 
+                    : "flex flex-col gap-3"
+                )}
+              >
                 {unitFrames.map((frame, index) => (
                   <div key={frame.id} className="relative">
                     <Frame 

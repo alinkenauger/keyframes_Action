@@ -85,7 +85,7 @@ export function UnitManager({
   };
 
   return (
-    <div className="flex gap-2 p-2 rounded-lg border bg-background h-full" 
+    <div className="flex gap-2 p-2 pl-8 rounded-lg border bg-background h-full" 
          style={{ minHeight: "calc(100vh - 180px)" }}>
       {units.map((unit, index) => (
         <div
@@ -101,22 +101,6 @@ export function UnitManager({
         >
           {/* Unit wrapper with drag handle */}
           <div className="relative h-full">
-            {/* Drag handle - absolutely positioned */}
-            <div
-              draggable
-              onDragStart={(e) => handleDragStart(e, index)}
-              onDragEnd={handleDragEnd}
-              className={cn(
-                "absolute -left-2 top-2 z-40 cursor-grab active:cursor-grabbing",
-                "bg-white dark:bg-gray-800 border rounded-md shadow-sm",
-                "p-1 opacity-0 group-hover:opacity-100 transition-opacity",
-                "hover:bg-gray-50 dark:hover:bg-gray-700"
-              )}
-              title="Drag to reorder unit"
-            >
-              <GripVertical className="h-4 w-4 text-gray-500" />
-            </div>
-
             {/* The actual unit */}
             <SkeletonUnit
               {...unit}
@@ -126,6 +110,12 @@ export function UnitManager({
               onDeleteUnit={onDeleteUnit}
               selectedFrameId={selectedFrameId}
               onSelectFrame={onSelectFrame}
+              dragHandleProps={{
+                draggable: true,
+                onDragStart: handleDragStart,
+                onDragEnd: handleDragEnd
+              }}
+              isDragging={draggedIndex === index}
             />
           </div>
         </div>
