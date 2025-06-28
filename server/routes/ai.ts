@@ -1,11 +1,32 @@
 import { Router, Request, Response } from 'express';
 import OpenAI from 'openai';
+import { aiRateLimiter, premiumAiRateLimiter } from '../middleware/rateLimiting-simple';
+import { authenticateToken } from '../middleware/auth';
 
 const router = Router();
 
 // Initialize OpenAI with server-side API key
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
+});
+
+// Middleware to optionally authenticate user for premium rate limits
+router.use((req: Request, res: Response, next) => {
+  // Try to authenticate but don't require it
+  const authHeader = req.headers.authorization;
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    authenticateToken(req, res, () => {
+      // If authenticated, apply premium rate limiter
+      if ((req as any).user) {
+        premiumAiRateLimiter(req, res, next);
+      } else {
+        aiRateLimiter(req, res, next);
+      }
+    });
+  } else {
+    // No auth header, apply standard rate limiter
+    aiRateLimiter(req, res, next);
+  }
 });
 
 // Endpoint for adapting frame content

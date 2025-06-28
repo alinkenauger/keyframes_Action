@@ -2,8 +2,19 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { requestLogger, errorLogger, performanceMonitor } from "./middleware/monitoring";
+import { corsMiddleware } from "./middleware/cors-simple";
+import { generalRateLimiter, addRateLimitHeaders } from "./middleware/rateLimiting-simple";
 
 const app = express();
+
+// Enable CORS before other middleware
+app.use(corsMiddleware);
+
+// Add rate limit headers to all responses
+app.use(addRateLimitHeaders);
+
+// Apply general rate limiting to all routes
+app.use(generalRateLimiter);
 
 // Parse JSON bodies
 app.use(express.json({ limit: '10mb' }));

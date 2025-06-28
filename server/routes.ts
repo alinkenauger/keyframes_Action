@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import aiRoutes from "./routes/ai";
 import authRoutes from "./routes/auth";
 import { authenticateToken } from "./middleware/auth";
+import { healthCheckRateLimiter } from "./middleware/rateLimiting-simple";
 
 export function registerRoutes(app: Express): Server {
   // Add cookie parser for refresh tokens
@@ -13,7 +14,7 @@ export function registerRoutes(app: Express): Server {
   app.use("/api/auth", authRoutes);
   
   // Health check endpoint (public)
-  app.get("/api/health", (req, res) => {
+  app.get("/api/health", healthCheckRateLimiter, (req, res) => {
     res.json({ 
       status: "ok", 
       timestamp: new Date().toISOString(),
@@ -21,8 +22,8 @@ export function registerRoutes(app: Express): Server {
     });
   });
 
-  // Protected API routes - require authentication
-  app.use("/api/ai", authenticateToken, aiRoutes);
+  // AI routes - authentication is optional (handled internally for rate limiting)
+  app.use("/api/ai", aiRoutes);
 
   const httpServer = createServer(app);
 
