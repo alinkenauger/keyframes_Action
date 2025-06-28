@@ -356,12 +356,12 @@ export default function Home() {
       // Find the units in the array
       const units = activeSkeleton.units || [];
       const fromIndex = units.findIndex(unitName => {
-        const unitId = unitName.toLowerCase().replace(' ', '-');
+        const unitId = unitName.toLowerCase().replace(/\s+/g, '-');
         return unitId === fromId;
       });
 
       const toIndex = units.findIndex(unitName => {
-        const unitId = unitName.toLowerCase().replace(' ', '-');
+        const unitId = unitName.toLowerCase().replace(/\s+/g, '-');
         return unitId === toId;
       });
 

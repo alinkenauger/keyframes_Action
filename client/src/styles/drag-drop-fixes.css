@@ -1,0 +1,46 @@
+/* Drag and Drop Fixes */
+
+/* Ensure drag handles are interactive */
+[draggable="true"] {
+  -webkit-user-drag: element;
+  cursor: grab;
+}
+
+[draggable="true"]:active {
+  cursor: grabbing;
+}
+
+/* Fix for touch devices */
+.touch-manipulation {
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Ensure proper z-index for drag handles */
+.drag-handle {
+  position: relative;
+  z-index: 10;
+}
+
+/* Fix for ResizablePanel interference */
+.resizable-panel-group {
+  position: relative;
+}
+
+/* Ensure draggable units have proper stacking */
+.draggable-unit {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Override any conflicting styles from ResizablePanel */
+[data-panel-group] > * {
+  position: relative !important;
+}
+
+/* Ensure drag overlay is visible */
+[data-dnd-drag-overlay] {
+  z-index: 9999 !important;
+}

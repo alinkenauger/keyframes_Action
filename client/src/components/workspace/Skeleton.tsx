@@ -7,10 +7,10 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Plus, Wand2, VideoIcon } from 'lucide-react';
 import { adaptFrameContent } from '@/lib/ai-service';
-import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { SortableContext, verticalListSortingStrategy, horizontalListSortingStrategy } from '@dnd-kit/sortable';
 import GenerateScriptButton from '../script/GenerateScriptButton';
-import { CSS } from '@dnd-kit/utilities';
 import { cn } from '@/lib/utils';
+import { DraggableUnitWrapper } from './DraggableUnitWrapper';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useToast } from '@/hooks/use-toast';
@@ -25,55 +25,6 @@ interface SkeletonProps {
   onSelectFrame?: (frameId: string) => void;
 }
 
-function DraggableUnit({ unit, children }: { unit: any, children: React.ReactNode }) {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging
-  } = useSortable({
-    id: unit.id,
-    data: {
-      type: 'skeleton-unit',
-      unit
-    }
-  });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : 1,
-    zIndex: isDragging ? 1000 : 'auto',
-    position: isDragging ? 'relative' : 'static' as any,
-  };
-
-  return (
-    <div 
-      ref={setNodeRef} 
-      style={style} 
-      className={cn(
-        "flex items-center group relative w-full h-full",
-        isDragging && "ring-2 ring-primary shadow-2xl"
-      )}
-    >
-      <div 
-        className="absolute left-2 top-4 cursor-grab active:cursor-grabbing touch-manipulation z-20 p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 opacity-0 group-hover:opacity-100 transition-opacity"
-        {...attributes} 
-        {...listeners}
-        title="Drag to reorder unit"
-      >
-        <div className="w-4 h-4 flex flex-col gap-0.5">
-          <div className="h-[2px] bg-gray-400 dark:bg-gray-600 rounded"></div>
-          <div className="h-[2px] bg-gray-400 dark:bg-gray-600 rounded"></div>
-          <div className="h-[2px] bg-gray-400 dark:bg-gray-600 rounded"></div>
-        </div>
-      </div>
-      {children}
-    </div>
-  );
-}
 
 export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onReorderUnits, selectedFrameId, onSelectFrame }: SkeletonProps) {
   const { toast } = useToast();
@@ -285,7 +236,7 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
 
       <SortableContext 
         items={units.map(unit => unit.id)} 
-        strategy={verticalListSortingStrategy}
+        strategy={horizontalListSortingStrategy}
       >
         <div className="flex-1 overflow-x-auto min-w-max">
           <ResizablePanelGroup 
@@ -294,7 +245,7 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
             style={{ minHeight: "calc(100vh - 180px)" }}
           >
             {units.map((unit, index) => (
-              <DraggableUnit key={unit.id} unit={unit}>
+              <DraggableUnitWrapper key={unit.id} unit={unit}>
                 <ResizablePanel 
                   defaultSize={100 / units.length}
                   minSize={15}
@@ -313,7 +264,7 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
                   </div>
                 </ResizablePanel>
                 {index < units.length - 1 && <ResizableHandle />}
-              </DraggableUnit>
+              </DraggableUnitWrapper>
             ))}
           </ResizablePanelGroup>
         </div>

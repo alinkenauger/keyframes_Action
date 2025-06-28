@@ -123,13 +123,15 @@ export default function SkeletonUnit({
       
       {/* Header */}
       <div className={cn(
-        "flex items-center justify-between px-2 py-1 border-b transition-colors duration-200",
+        "flex items-center justify-between px-2 py-1 border-b transition-colors duration-200 relative",
         isOver && isDraggingFromOtherUnit ? "bg-green-50 border-green-300" : "bg-background"
       )}>
-        <h3 className={cn(
-          "text-base font-medium transition-colors duration-200",
-          isOver && isDraggingFromOtherUnit && "text-green-700"
-        )}>{name}</h3>
+        <div className="flex items-center gap-2">
+          <h3 className={cn(
+            "text-base font-medium transition-colors duration-200",
+            isOver && isDraggingFromOtherUnit && "text-green-700"
+          )}>{name}</h3>
+        </div>
         <div className="flex items-center gap-1">
           <Button
             variant="ghost"
