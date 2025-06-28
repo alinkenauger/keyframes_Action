@@ -1,5 +1,4 @@
-import SkeletonUnit from './SkeletonUnit';
-import { SimpleDraggableUnit } from './SimpleDraggableUnit';
+import { UnitManager } from './UnitManager';
 import { useWorkspace } from '@/lib/store';
 import type { Skeleton as SkeletonType } from '@/types';
 import { SKELETON_UNITS } from '@/lib/constants';
@@ -30,8 +29,6 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
   const [enhancing, setEnhancing] = useState(false);
   const [showAddUnitPopover, setShowAddUnitPopover] = useState(false);
   const [selectedUnit, setSelectedUnit] = useState<string>("");
-  const [draggedUnitIndex, setDraggedUnitIndex] = useState<number | null>(null);
-  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
 
   // Get units from skeleton if available, otherwise use defaults
   const templateUnits = skeleton.units || ['Hook', 'Intro', 'Content Journey', 'Rehook', 'Outro'];
@@ -148,35 +145,13 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
     unit => !templateUnits.includes(unit.type)
   );
 
-  // Drag handlers for units
-  const handleUnitDragStart = (unitId: string, index: number) => {
-    setDraggedUnitIndex(index);
-  };
-
-  const handleUnitDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-  };
-
-  const handleUnitDrop = (targetIndex: number) => {
-    if (draggedUnitIndex === null || draggedUnitIndex === targetIndex) {
-      setDraggedUnitIndex(null);
-      setDragOverIndex(null);
-      return;
-    }
-
-    const newUnits = [...templateUnits];
-    const [movedUnit] = newUnits.splice(draggedUnitIndex, 1);
-    newUnits.splice(targetIndex, 0, movedUnit);
-
-    updateSkeletonUnits(skeleton.id, newUnits);
-    
+  // Handle unit reordering from UnitManager
+  const handleUnitReorder = (newUnitOrder: string[]) => {
+    updateSkeletonUnits(skeleton.id, newUnitOrder);
     toast({
-      title: 'Unit Reordered',
-      description: `${movedUnit} has been moved`,
+      title: 'Units Reordered',
+      description: 'Column order has been updated',
     });
-
-    setDraggedUnitIndex(null);
-    setDragOverIndex(null);
   };
 
   return (
@@ -266,26 +241,16 @@ export default function Skeleton({ skeleton, onDeleteFrame, onReorderFrames, onR
       </div>
 
       <div className="flex-1 overflow-x-auto min-w-max">
-        <div className="flex gap-2 p-2 rounded-lg border bg-background" style={{ minHeight: "calc(100vh - 180px)" }}>
-          {units.map((unit, index) => (
-            <SimpleDraggableUnit
-              key={unit.id}
-              unit={unit}
-              index={index}
-              onDragStart={handleUnitDragStart}
-              onDragOver={handleUnitDragOver}
-              onDrop={handleUnitDrop}
-              isDragging={draggedUnitIndex === index}
-              dragOverIndex={dragOverIndex}
-              onDeleteFrame={onDeleteFrame}
-              onReorderFrames={onReorderFrames}
-              onDuplicateUnit={handleDuplicateUnit}
-              onDeleteUnit={handleDeleteUnit}
-              selectedFrameId={selectedFrameId}
-              onSelectFrame={onSelectFrame}
-            />
-          ))}
-        </div>
+        <UnitManager
+          units={units}
+          onReorderUnits={handleUnitReorder}
+          onDeleteFrame={onDeleteFrame}
+          onReorderFrames={onReorderFrames}
+          onDuplicateUnit={handleDuplicateUnit}
+          onDeleteUnit={handleDeleteUnit}
+          selectedFrameId={selectedFrameId}
+          onSelectFrame={onSelectFrame}
+        />
       </div>
     </div>
   );

@@ -216,6 +216,11 @@ export default function Home() {
 
   // Simplified collision detection for better performance
   const customCollisionDetection: CollisionDetection = args => {
+    // Ignore skeleton-unit dragging as it's handled separately
+    if (args.active.data.current?.type === 'skeleton-unit') {
+      return [];
+    }
+    
     // For frame/template dragging, prioritize unit containers
     if (args.active.data.current?.type === 'frame' || args.active.data.current?.type === 'template') {
       // Use closestCenter for better performance with many draggables
@@ -348,39 +353,9 @@ export default function Home() {
     const activeSkeleton = skeletons.find((s) => s.id === activeSkeletonId);
     if (!activeSkeleton) return;
 
-    // Handle skeleton unit reordering
-    if (active.data.current?.type === 'skeleton-unit' && over.data.current?.type === 'skeleton-unit') {
-      const fromId = active.id as string;
-      const toId = over.id as string;
-
-      // Find the units in the array
-      const units = activeSkeleton.units || [];
-      const fromIndex = units.findIndex(unitName => {
-        const unitId = unitName.toLowerCase().replace(/\s+/g, '-');
-        return unitId === fromId;
-      });
-
-      const toIndex = units.findIndex(unitName => {
-        const unitId = unitName.toLowerCase().replace(/\s+/g, '-');
-        return unitId === toId;
-      });
-
-      if (fromIndex !== -1 && toIndex !== -1 && activeSkeletonId) { // Add null check here
-        // Reorder the units
-        const newUnits = [...units];
-        const [movedUnit] = newUnits.splice(fromIndex, 1);
-        newUnits.splice(toIndex, 0, movedUnit);
-
-        // Update the skeleton with new unit order
-        updateSkeletonUnits(activeSkeletonId, newUnits);
-
-        toast({
-          title: 'Unit Reordered',
-          description: `${movedUnit} unit has been moved`,
-        });
-
-        return;
-      }
+    // Skip skeleton unit handling as it's now handled by UnitManager
+    if (active.data.current?.type === 'skeleton-unit') {
+      return;
     }
 
     // Handle tone or filter drops on frames
