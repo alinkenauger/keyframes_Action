@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'wouter';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -99,7 +99,7 @@ export default function Login() {
             
             <div className="text-sm text-center text-muted-foreground">
               Don't have an account?{' '}
-              <Link to="/register" className="text-primary underline-offset-4 hover:underline">
+              <Link href="/register" className="text-primary underline-offset-4 hover:underline">
                 Sign up
               </Link>
             </div>

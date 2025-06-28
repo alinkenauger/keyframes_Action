@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { apiClient } from '@/lib/api-client';
 import { useToast } from '@/hooks/use-toast';
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'wouter';
 
 interface User {
   id: number;
@@ -99,7 +99,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
-  const navigate = useNavigate();
+  const [, setLocation] = useLocation();
 
   // Check if user is authenticated on mount
   useEffect(() => {
@@ -153,7 +153,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           description: `Logged in as ${response.data.user.username}`,
         });
         
-        navigate('/');
+        setLocation('/');
       }
     } catch (error: any) {
       toast({
@@ -181,7 +181,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           description: 'Your account has been created successfully',
         });
         
-        navigate('/');
+        setLocation('/');
       }
     } catch (error: any) {
       toast({
@@ -207,7 +207,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         description: 'You have been logged out successfully',
       });
       
-      navigate('/login');
+      setLocation('/login');
     }
   };
 
@@ -254,13 +254,13 @@ export function useAuth() {
 // Protected route component
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();
-  const navigate = useNavigate();
+  const [, setLocation] = useLocation();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
-      navigate('/login');
+      setLocation('/login');
     }
-  }, [isAuthenticated, isLoading, navigate]);
+  }, [isAuthenticated, isLoading, setLocation]);
 
   if (isLoading) {
     return (

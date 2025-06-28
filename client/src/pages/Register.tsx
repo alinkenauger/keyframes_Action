@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'wouter';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -175,11 +175,11 @@ export default function Register() {
             
             <div className="text-xs text-muted-foreground">
               By creating an account, you agree to our{' '}
-              <Link to="/terms" className="underline underline-offset-4 hover:text-primary">
+              <Link href="/terms" className="underline underline-offset-4 hover:text-primary">
                 Terms of Service
               </Link>{' '}
               and{' '}
-              <Link to="/privacy" className="underline underline-offset-4 hover:text-primary">
+              <Link href="/privacy" className="underline underline-offset-4 hover:text-primary">
                 Privacy Policy
               </Link>
             </div>
@@ -203,7 +203,7 @@ export default function Register() {
             
             <div className="text-sm text-center text-muted-foreground">
               Already have an account?{' '}
-              <Link to="/login" className="text-primary underline-offset-4 hover:underline">
+              <Link href="/login" className="text-primary underline-offset-4 hover:underline">
                 Log in
               </Link>
             </div>
