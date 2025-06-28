@@ -9,6 +9,11 @@ interface APIResponse<T> {
   requestId?: string;
 }
 
+interface Interceptors {
+  request?: (config: RequestInit) => RequestInit | Promise<RequestInit>;
+  response?: (response: Response) => Response | Promise<Response>;
+}
+
 interface APIClientConfig {
   baseURL?: string;
   retryAttempts?: number;
@@ -21,6 +26,7 @@ class APIClient {
   private retryAttempts: number;
   private retryDelay: number;
   private timeout: number;
+  public interceptors: Interceptors = {};
 
   constructor(config: APIClientConfig = {}) {
     this.baseURL = config.baseURL || '/api';
@@ -39,7 +45,8 @@ class APIClient {
     const timeoutId = setTimeout(() => controller.abort(), this.timeout);
 
     try {
-      const response = await fetch(`${this.baseURL}${endpoint}`, {
+      // Apply request interceptor
+      let finalOptions = {
         ...options,
         signal: controller.signal,
         headers: {
@@ -47,7 +54,13 @@ class APIClient {
           'X-Request-ID': requestId,
           ...options.headers,
         },
-      });
+      };
+      
+      if (this.interceptors.request) {
+        finalOptions = await this.interceptors.request(finalOptions);
+      }
+
+      const response = await fetch(`${this.baseURL}${endpoint}`, finalOptions);
 
       clearTimeout(timeoutId);
 
