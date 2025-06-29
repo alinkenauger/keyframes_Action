@@ -8,7 +8,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card, CardContent } from '@/components/ui/card';
 import { useWorkspace } from '@/lib/store';
-import { CREATOR_TEMPLATES, FRAME_TEMPLATES } from '@/lib/frameLibrary';
+import { FRAME_TEMPLATES } from '@/lib/frameLibrary';
 import { creatorTemplates, getTemplateCategories, filterTemplatesByCategory, CategoryCreatorTemplate, TemplateCategory } from '@/lib/creatorTemplates';
 import { SKELETON_UNITS } from '@/lib/constants';
 import { DndContext, DragEndEvent, DragStartEvent, closestCenter, DragOverlay, useDroppable, useDraggable } from '@dnd-kit/core';
@@ -83,7 +83,7 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
     console.log("Form submitted", selectedCreator);
 
     // Find the selected template
-    const selectedTemplate = CREATOR_TEMPLATES.find(template => template.id === selectedCreator);
+    const selectedTemplate = creatorTemplates.find(template => template.id === selectedCreator);
     if (!selectedTemplate) {
       console.error("No template selected");
       return;
@@ -131,7 +131,13 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
         contentType: contentType,
       };
 
-      console.log("Creating skeleton:", newSkeleton);
+      console.log("Creating skeleton:", {
+        id: newSkeleton.id,
+        name: newSkeleton.name,
+        unitCount: newSkeleton.units.length,
+        frameCount: newSkeleton.frames.length,
+        contentType: newSkeleton.contentType
+      });
 
       // Add the skeleton and set it as active
       const createdSkeleton = addSkeleton(newSkeleton);
@@ -142,8 +148,15 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
         setStoreVideoContext(createdSkeleton.id, videoContext);
       }
       
+      // Close the dialog after successful creation
+      onOpenChange(false);
+      
     } catch (error) {
       console.error("Error creating skeleton:", error);
+      // Make sure we don't try to render the error object
+      const errorMessage = error instanceof Error ? error.message : 'An error occurred while creating the skeleton';
+      console.error("Error details:", errorMessage);
+      alert(errorMessage);
     }
   }
 
@@ -380,7 +393,13 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                         contentType: contentType,
                       };
 
-                      console.log("Creating skeleton:", newSkeleton);
+                      console.log("Creating skeleton:", {
+                        id: newSkeleton.id,
+                        name: newSkeleton.name,
+                        unitCount: newSkeleton.units.length,
+                        frameCount: newSkeleton.frames.length,
+                        contentType: newSkeleton.contentType
+                      });
 
                       // Add the skeleton and set it as active
                       const createdSkeleton = addSkeleton(newSkeleton);
@@ -395,6 +414,18 @@ export default function CreateSkeletonDialog({ open, onOpenChange }: CreateSkele
                       onOpenChange(false);
                     } catch (error) {
                       console.error("Error creating skeleton:", error);
+                      // Make sure we don't try to render the error object
+                      const errorMessage = error instanceof Error ? error.message : 'An error occurred while creating the skeleton';
+                      console.error("Error details:", errorMessage);
+                      
+                      // Show error toast with safe string message
+                      if (window.toast) {
+                        window.toast({
+                          title: 'Error',
+                          description: errorMessage,
+                          variant: 'destructive'
+                        });
+                      }
                     }
                   }}
                 >
