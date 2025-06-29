@@ -296,6 +296,77 @@ Users had to drop frames precisely in empty unit space. Dropping on existing fra
 - [ ] Test with multiple frames in various units
 - [ ] Confirm toast notifications show correct messages
 
+## Unified Drag-Drop Behavior Enhancement
+
+### Issue Description
+When moving Frame Cards from the Frame Library or another unit into a different unit, users had to find a precise "sweet spot" to drop successfully. The drag experience was inconsistent - cards within the same unit showed smooth animations, but external cards didn't trigger the same behavior.
+
+### Solution Implemented
+
+#### Modified Collision Detection (Home.tsx)
+- Changed collision detection to always prioritize unit containers for external drags
+- This ensures units receive `isOver` state for placeholder animations
+- Simplified approach that maintains consistent behavior
+
+### Changes Made:
+1. **File: `/client/src/pages/Home.tsx`**
+   - Modified `customCollisionDetection` to always return unit container for external frame/template drags
+   - Ensures consistent drag-over behavior regardless of source
+
+### Result:
+- ✅ Cards from Frame Library now show smooth animations
+- ✅ Cross-unit dragging displays proper placeholders  
+- ✅ No more hunting for "sweet spots"
+- ✅ Unified behavior for all drag sources
+
+## Agentic Workflow Implementation - Phase 1
+
+### Issue Description
+Implementing an AI-powered conversational workflow where users interact with specialized agents for content creation, replacing form-based interfaces with natural chat interactions.
+
+### Phase 1 Implementation - Chat Interface Foundation
+
+#### Components Created:
+
+1. **ChatInterface.tsx** - Main chat container
+   - Message history display with auto-scroll
+   - Agent header with name and description
+   - Integration with conversation store
+   - Context-aware welcome messages
+
+2. **MessageBubble.tsx** - Message display component
+   - User/agent/system message styling
+   - Action cards for special agent messages
+   - Copy functionality for agent responses
+   - Timestamp display
+
+3. **ChatInput.tsx** - User input component
+   - Auto-resizing textarea
+   - Send on Enter (Shift+Enter for newlines)
+   - Optional voice and attachment buttons
+   - Disabled state during agent typing
+
+4. **AgentTypingIndicator.tsx** - Typing animation
+   - Animated dots showing agent is thinking
+   - Agent name display
+
+5. **conversation-store.ts** - State management
+   - Zustand store with persistence
+   - Conversation and message management
+   - API integration for sending messages
+   - Full CRUD operations
+
+6. **types/agent.ts** - TypeScript definitions
+   - Agent types (partner, hook, content, etc.)
+   - Message and conversation interfaces
+   - Channel profile and workflow state types
+
+### Next Steps:
+- Integrate chat interface with Frame dialog
+- Create backend API endpoints
+- Implement partner agent personality
+- Add unit-specific expert agents
+
 ## Responsive Drag-and-Drop Enhancement
 
 ### Issue Description
