@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { CREATOR_TEMPLATES } from '@/lib/frameLibrary';
 import { useWorkspace } from '@/lib/store';
 import { nanoid } from 'nanoid';
-import { ArrowRight, PlayCircle, FileText, Layout } from 'lucide-react';
+import { ArrowRight, PlayCircle, FileText, Layout, Sparkles, MessageCircle } from 'lucide-react';
+import BuzzyOnboarding from '@/components/agent/BuzzyOnboarding';
+import { Badge } from '@/components/ui/badge';
 
 interface WelcomeScreenProps {
   open: boolean;
@@ -15,6 +17,7 @@ interface WelcomeScreenProps {
 
 export default function WelcomeScreen({ open, onOpenChange, onShowSkeletonCreator }: WelcomeScreenProps) {
   const { addSkeleton, setActiveSkeletonId, setVideoContext } = useWorkspace();
+  const [showBuzzyOnboarding, setShowBuzzyOnboarding] = useState(false);
 
   const handleSelectTemplate = (templateId: string) => {
     // Find the template
@@ -74,23 +77,63 @@ export default function WelcomeScreen({ open, onOpenChange, onShowSkeletonCreato
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-center">Welcome to Get More Views!</DialogTitle>
           <DialogDescription className="text-center text-base">
-            Let's get started by creating your first content structure
+            Meet Buzzy, your AI content creation partner!
           </DialogDescription>
         </DialogHeader>
 
         <div className="my-6">
-          <h3 className="text-lg font-medium mb-4">Choose how you want to begin:</h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Buzzy Introduction */}
+          <Card className="mb-6 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-yellow-200 dark:border-yellow-800">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-yellow-400 to-orange-400 flex items-center justify-center text-3xl shadow-lg">
+                    🐝
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold flex items-center gap-2">
+                      Meet Buzzy!
+                      <Badge className="bg-green-500 text-white">RECOMMENDED</Badge>
+                    </h3>
+                    <p className="text-muted-foreground mt-1">
+                      Your AI partner who learns about your channel and helps create the perfect content structure
+                    </p>
+                  </div>
+                </div>
+                <Button 
+                  size="lg"
+                  className="gap-2 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600"
+                  onClick={() => {
+                    setShowBuzzyOnboarding(true);
+                    onOpenChange(false);
+                  }}
+                >
+                  <MessageCircle className="h-5 w-5" />
+                  Start with Buzzy
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">Or choose manually</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 opacity-75 hover:opacity-100 transition-opacity">
             {/* Standard Content Structure */}
             <Card className="cursor-pointer hover:border-primary transition-colors" 
               onClick={() => onShowSkeletonCreator()}>
-              <CardContent className="p-6">
-                <div className="flex items-start mb-4">
-                  <PlayCircle className="w-8 h-8 text-primary mr-3" />
+              <CardContent className="p-4">
+                <div className="flex items-start">
+                  <PlayCircle className="w-6 h-6 text-primary mr-3 mt-1" />
                   <div>
-                    <h4 className="font-medium text-lg">GMV Foundation Template</h4>
-                    <p className="text-muted-foreground">New To KeyFrames? Try our Foundational Structure for increased retention to get started!</p>
+                    <h4 className="font-medium">GMV Foundation Template</h4>
+                    <p className="text-sm text-muted-foreground mt-1">Standard structure for increased retention</p>
                   </div>
                 </div>
                 <div className="text-sm text-muted-foreground pl-11">
@@ -153,5 +196,24 @@ export default function WelcomeScreen({ open, onOpenChange, onShowSkeletonCreato
         </DialogFooter>
       </DialogContent>
     </Dialog>
+    
+    {/* Buzzy Onboarding */}
+    <BuzzyOnboarding
+      open={showBuzzyOnboarding}
+      onComplete={() => {
+        setShowBuzzyOnboarding(false);
+        // Create a skeleton based on Buzzy's recommendations
+        const skeletonId = nanoid();
+        const newSkeleton = {
+          id: skeletonId,
+          name: "My First Video",
+          frames: [],
+          units: ['Hook', 'Intro', 'Content Journey', 'Rehook', 'Outro'],
+          contentType: 'short' as const
+        };
+        addSkeleton(newSkeleton);
+        setActiveSkeletonId(newSkeleton.id);
+      }}
+    />
   );
 }

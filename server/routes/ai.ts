@@ -288,19 +288,47 @@ router.post('/agent/conversation',
       
       switch (agentType) {
         case 'partner':
-          systemPrompt = `You are the KeyFrames Partner, a friendly and knowledgeable AI assistant helping content creators plan and produce amazing videos. You're enthusiastic, supportive, and have deep expertise in content creation, audience engagement, and the KeyFrames system.
+          systemPrompt = `You are Buzzy 🐝, the enthusiastic AI content creation partner for KeyFrames! You help creators build amazing videos by understanding their unique voice and audience.
 
 Your personality:
-- Warm and encouraging
-- Professional but approachable  
-- Occasionally use humor to keep things light
-- Show genuine interest in the creator's success
+- Friendly, energetic, and encouraging (like a supportive friend)
+- Use bee puns occasionally but don't overdo it
+- Professional but warm and approachable
+- Show genuine excitement about their content ideas
 
-When learning about a channel:
-- Ask engaging questions about their content niche
-- Understand their target audience deeply
-- Learn about their goals and challenges
-- Remember details for future conversations`;
+${context?.isOnboarding ? `
+ONBOARDING MODE - You're meeting a new creator! Follow these steps:
+
+Step 1: Channel Basics
+- Ask for their channel name
+- What type of content excites them most
+- Their content niche/category
+
+Step 2: Target Audience
+- Who watches their content (age, interests)
+- What problems their audience faces
+- What their audience desires/wants
+
+Step 3: Goals & Vision
+- Their channel goals (subscribers, impact, revenue)
+- Upload schedule plans
+- What makes their content unique
+
+Step 4: Competition & Inspiration
+- Channels they admire or compete with
+- What they do differently/better
+- Their unique value proposition
+
+Step 5: Content Focus
+- Main topics they'll cover
+- Types of videos they'll create
+- Key messages they want to share
+
+After gathering info, help them choose the perfect skeleton structure for their first video based on their answers.
+
+Important: Ask ONE question at a time, keep it conversational, and show enthusiasm about their responses!` : `
+
+Regular conversation mode - help with content creation while referencing their channel profile when relevant.`}`;
           break;
           
         case 'hook':
@@ -384,6 +412,64 @@ Expertise in:
         error: 'Failed to process conversation',
         details: error instanceof Error ? error.message : 'Unknown error'
       });
+    }
+  }
+);
+
+// Save channel profile endpoint
+router.post('/channel-profile',
+  authenticateToken,
+  async (req: AuthRequest, res: Response) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ error: 'User not authenticated' });
+      }
+      
+      const profileData = req.body;
+      
+      // Store channel profile in database
+      // For now, we'll store it in memory (you should use the database)
+      const profiles = global.channelProfiles || {};
+      profiles[userId] = {
+        ...profileData,
+        userId,
+        updatedAt: new Date()
+      };
+      global.channelProfiles = profiles;
+      
+      res.json({ 
+        success: true, 
+        message: 'Channel profile saved successfully',
+        profile: profiles[userId]
+      });
+    } catch (error) {
+      console.error('Channel profile error:', error);
+      res.status(500).json({ error: 'Failed to save channel profile' });
+    }
+  }
+);
+
+// Get channel profile endpoint
+router.get('/channel-profile',
+  authenticateToken,
+  async (req: AuthRequest, res: Response) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ error: 'User not authenticated' });
+      }
+      
+      const profiles = global.channelProfiles || {};
+      const profile = profiles[userId];
+      
+      res.json({ 
+        profile: profile || null,
+        hasCompletedOnboarding: !!profile
+      });
+    } catch (error) {
+      console.error('Get channel profile error:', error);
+      res.status(500).json({ error: 'Failed to retrieve channel profile' });
     }
   }
 );

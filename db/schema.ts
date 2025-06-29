@@ -29,6 +29,29 @@ export const insertUserSchema = createInsertSchema(users, {
 
 export const selectUserSchema = createSelectSchema(users);
 
+// Channel profiles table
+export const channelProfiles = pgTable("channel_profiles", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  channelName: text("channel_name").notNull(),
+  niche: text("niche").notNull(),
+  contentTypes: text("content_types").array().notNull(),
+  targetAudience: text("target_audience").notNull(), // JSON string
+  goals: text("goals").array().notNull(),
+  competitors: text("competitors").array(),
+  focusAreas: text("focus_areas").array(),
+  painPoints: text("pain_points").array(),
+  uniqueValue: text("unique_value"),
+  uploadSchedule: text("upload_schedule"),
+  hasCompletedOnboarding: boolean("has_completed_onboarding").default(false).notNull(),
+  buzzyPersonality: text("buzzy_personality"), // Store Buzzy's learned personality traits
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const insertChannelProfileSchema = createInsertSchema(channelProfiles);
+export const selectChannelProfileSchema = createSelectSchema(channelProfiles);
+
 // Auth-specific schemas
 export const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
