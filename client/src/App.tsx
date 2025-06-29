@@ -25,6 +25,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 function UserMenu() {
   const { user, logout } = useAuth();
@@ -167,16 +168,18 @@ function AppNavigation() {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="system">
-        <AuthProvider>
-          <div className="min-h-screen flex flex-col bg-background text-foreground overflow-hidden">
-            <AppNavigation />
-            <Toaster />
-          </div>
-        </AuthProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider defaultTheme="system">
+          <AuthProvider>
+            <div className="min-h-screen flex flex-col bg-background text-foreground overflow-hidden">
+              <AppNavigation />
+              <Toaster />
+            </div>
+          </AuthProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 

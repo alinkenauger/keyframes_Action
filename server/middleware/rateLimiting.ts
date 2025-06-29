@@ -10,17 +10,17 @@ const rateLimitHandler = (req: Request, res: Response) => {
   });
 };
 
-// General API rate limiter - 100 requests per 15 minutes
+// General API rate limiter - More lenient for development
 export const generalRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100,
+  max: process.env.NODE_ENV === 'development' ? 1000 : 100, // More lenient in dev
   message: 'Too many requests from this IP, please try again later.',
   standardHeaders: true, // Return rate limit info in headers
   legacyHeaders: false,
   handler: rateLimitHandler,
   skip: (req) => {
-    // Skip rate limiting for health checks
-    return req.path === '/api/health';
+    // Skip rate limiting for health checks and auth endpoints
+    return req.path === '/api/health' || req.path.startsWith('/api/auth/');
   },
 });
 
