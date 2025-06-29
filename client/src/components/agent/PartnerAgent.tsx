@@ -82,13 +82,18 @@ export default function PartnerAgent({ userId, className }: PartnerAgentProps) {
           
           {!hasInteracted && (
             <div
-              className="absolute bottom-full right-0 mb-2 w-64 transition-all duration-300"
+              className="absolute bottom-full right-0 mb-2 w-72 transition-all duration-300 animate-bounce"
             >
-              <Card className="p-3 shadow-lg">
-                <p className="text-sm font-medium">👋 Hi! I'm your KeyFrames Partner</p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Click to chat about your content creation goals!
-                </p>
+              <Card className="p-4 shadow-xl bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-yellow-200 dark:border-yellow-800">
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">🐝</span>
+                  <div>
+                    <p className="text-sm font-bold text-yellow-900 dark:text-yellow-200">Hi! I'm Buzzy!</p>
+                    <p className="text-xs text-yellow-800 dark:text-yellow-300 mt-1">
+                      Your AI content partner. Let me help you create amazing videos! Click to get started.
+                    </p>
+                  </div>
+                </div>
               </Card>
             </div>
           )}
@@ -111,11 +116,11 @@ export default function PartnerAgent({ userId, className }: PartnerAgentProps) {
             <div className="flex items-center justify-between p-3 border-b bg-primary text-primary-foreground">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-full bg-primary-foreground/20 flex items-center justify-center">
-                  <span className="text-sm">🤖</span>
+                  <span className="text-lg">🐝</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-sm">KeyFrames Partner</h3>
-                  <p className="text-xs opacity-90">Your content creation assistant</p>
+                  <h3 className="font-semibold text-sm">Buzzy</h3>
+                  <p className="text-xs opacity-90">Your AI content creation partner</p>
                 </div>
               </div>
               <div className="flex items-center gap-1">

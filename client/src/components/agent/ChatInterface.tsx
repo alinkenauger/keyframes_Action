@@ -156,7 +156,7 @@ export default function ChatInterface({
 // Helper functions
 function getAgentName(agentType: AgentType): string {
   const names: Record<AgentType, string> = {
-    partner: 'KeyFrames Partner',
+    partner: 'Buzzy',
     hook: 'Hook Master',
     content: 'Content Expert',
     entertainment: 'Entertainment Specialist',
@@ -182,7 +182,7 @@ function getAgentDescription(agentType: AgentType): string {
 
 function getWelcomeMessage(agentType: AgentType, context?: any): string {
   if (agentType === 'partner') {
-    return "Hey there! I'm your KeyFrames Partner. I'm here to help you create amazing content that resonates with your audience. Let's start by getting to know your channel better. What kind of content are you passionate about creating?";
+    return "🐝 Hey there! I'm Buzzy, your AI content creation partner! I'm here to help you create amazing videos that your audience will love. Let's start by getting to know YOU and your channel! What's your channel name? And what kind of content gets you excited to create? 🎬✨";
   }
   
   if (agentType === 'hook' && context?.unitType === 'Hook') {
