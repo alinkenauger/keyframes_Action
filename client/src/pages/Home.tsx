@@ -226,47 +226,36 @@ export default function Home() {
     
     // For frame/template dragging from external sources (sidebar or other units)
     if (active.data.current?.type === 'frame' || active.data.current?.type === 'template') {
-      // First, check for unit container collisions with expanded hit area
+      // First check for unit collisions
       const unitContainers = droppableContainers.filter(container => 
         container.data.current?.type === 'unit'
       );
       
-      // Use pointer-based collision for better accuracy
+      // Find which unit we're over
+      let targetUnit = null;
       if (pointerCoordinates) {
         for (const container of unitContainers) {
           const rect = droppableRects.get(container.id);
           if (rect) {
-            // Expand the hit area by 50px on all sides for easier dropping
-            const expandedRect = {
-              top: rect.top - 50,
-              bottom: rect.bottom + 50,
-              left: rect.left - 50,
-              right: rect.right + 50,
-              width: rect.width + 100,
-              height: rect.height + 100
-            };
-            
-            if (pointerCoordinates.x >= expandedRect.left && 
-                pointerCoordinates.x <= expandedRect.right &&
-                pointerCoordinates.y >= expandedRect.top && 
-                pointerCoordinates.y <= expandedRect.bottom) {
-              return [{id: container.id, data: container.data}];
+            // Use normal hit area for units
+            if (pointerCoordinates.x >= rect.left && 
+                pointerCoordinates.x <= rect.right &&
+                pointerCoordinates.y >= rect.top && 
+                pointerCoordinates.y <= rect.bottom) {
+              targetUnit = container;
+              break;
             }
           }
         }
       }
       
-      // Fallback to rect intersection with priority on units
-      const rectCollisions = rectIntersection({
-        ...args,
-        droppableContainers: unitContainers
-      });
-      
-      if (rectCollisions.length > 0) {
-        return rectCollisions;
+      // If we're over a unit, always return it
+      // This ensures the unit gets isOver=true for placeholder animations
+      if (targetUnit) {
+        return [{id: targetUnit.id, data: targetUnit.data}];
       }
       
-      // Only then check for frame collisions
+      // If not over any unit, use closestCenter as fallback
       return closestCenter(args);
     }
     
