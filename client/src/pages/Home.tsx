@@ -28,6 +28,7 @@ import type { FrameTemplate } from '@/lib/frameLibrary';
 import { useKeyboardShortcuts, KeyboardShortcut } from '@/hooks/useKeyboardShortcuts';
 import { KeyboardShortcutsHelp } from '@/components/ui/keyboard-shortcuts-help';
 import { useToast } from '@/hooks/use-toast';
+import PartnerAgent from '@/components/agent/PartnerAgent';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 // Type definitions for drag data
@@ -683,6 +684,7 @@ export default function Home() {
             onOpenChange={setHelpVisible}
             shortcutsByCategory={shortcutsByCategory}
           />
+          <PartnerAgent />
         </div>
       )}
     </DndContext>

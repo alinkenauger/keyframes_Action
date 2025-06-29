@@ -362,10 +362,50 @@ Implementing an AI-powered conversational workflow where users interact with spe
    - Channel profile and workflow state types
 
 ### Next Steps:
-- Integrate chat interface with Frame dialog
-- Create backend API endpoints
-- Implement partner agent personality
-- Add unit-specific expert agents
+- Integrate chat interface with Frame dialog ✓
+- Create backend API endpoints ✓
+- Implement partner agent personality ✓
+- Add unit-specific expert agents ✓
+
+## Agentic Workflow Implementation - Phase 2
+
+### Partner Agent Implementation
+
+#### Components Added:
+
+1. **PartnerAgent.tsx** - Floating chat widget
+   - Appears in bottom-right corner
+   - Auto-opens for new users after 2 seconds
+   - Minimize/maximize functionality
+   - Persistent conversation history
+   - Smooth CSS transitions
+
+2. **Backend Enhancements**
+   - Added `/api/agent/conversation` endpoint
+   - Personality-driven responses for each agent type:
+     - Partner: Friendly onboarding assistant
+     - Hook Master: Attention-grabbing expert
+     - Content Expert: Story structure specialist
+     - CTA Expert: Conversion optimization
+
+3. **Integration Points**
+   - Frame Dialog: Added "Chat Assistant" tab
+   - Main Workspace: Floating partner agent button
+   - Conversation persistence across sessions
+
+### User Experience Flow:
+
+1. **New Users**: Partner agent welcomes them with floating notification
+2. **Frame Interaction**: Click any frame → Choose "Chat Assistant" tab
+3. **Contextual Help**: Each agent knows the frame type and provides specific guidance
+4. **Persistent Chat**: Conversations saved locally for continuity
+
+### Testing Checklist:
+- [x] Partner agent appears on page load
+- [x] Chat interface in frame dialogs
+- [x] Messages persist across sessions
+- [x] Agent personalities match their roles
+- [x] Smooth animations and transitions
 
 ## Responsive Drag-and-Drop Enhancement
 
