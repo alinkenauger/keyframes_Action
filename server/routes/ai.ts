@@ -270,4 +270,122 @@ router.post('/generate-custom-content', async (req: Request, res: Response) => {
   }
 });
 
+// Agent conversation endpoint
+router.post('/agent/conversation', 
+  authenticateToken,
+  createRateLimiter('ai'),
+  async (req: Request, res: Response) => {
+    try {
+      const { conversationId, message, agentType, context, history } = req.body;
+      
+      // Validate inputs
+      if (!message || !agentType) {
+        return res.status(400).json({ error: 'Message and agent type are required' });
+      }
+      
+      // Build system prompt based on agent type
+      let systemPrompt = '';
+      
+      switch (agentType) {
+        case 'partner':
+          systemPrompt = `You are the KeyFrames Partner, a friendly and knowledgeable AI assistant helping content creators plan and produce amazing videos. You're enthusiastic, supportive, and have deep expertise in content creation, audience engagement, and the KeyFrames system.
+
+Your personality:
+- Warm and encouraging
+- Professional but approachable  
+- Occasionally use humor to keep things light
+- Show genuine interest in the creator's success
+
+When learning about a channel:
+- Ask engaging questions about their content niche
+- Understand their target audience deeply
+- Learn about their goals and challenges
+- Remember details for future conversations`;
+          break;
+          
+        case 'hook':
+          systemPrompt = `You are the Hook Master, an expert in creating attention-grabbing openings for videos. You understand the psychology of stopping scrollers and know exactly how to craft hooks that compel viewers to keep watching.
+
+Key principles:
+- First 3 seconds are crucial
+- Create curiosity gaps
+- Use pattern interrupts
+- Promise clear value
+- Maximum 150 characters for hooks`;
+          break;
+          
+        case 'content':
+          systemPrompt = `You are the Content Expert, specializing in creating engaging content journeys that keep viewers watching. You understand story structure, pacing, and how to deliver value while maintaining entertainment.
+
+Focus on:
+- Clear narrative flow
+- Engaging examples
+- Smooth transitions
+- Value delivery
+- Maximum 400 characters per frame`;
+          break;
+          
+        case 'cta':
+          systemPrompt = `You are the CTA Expert, a master at crafting compelling calls-to-action that drive results. You know how to motivate viewers to take the next step without being pushy.
+
+Expertise in:
+- Clear next steps
+- Value reinforcement  
+- Urgency without pressure
+- Multiple CTA options
+- Maximum 200 characters`;
+          break;
+          
+        default:
+          systemPrompt = `You are an AI assistant helping with ${agentType} content creation in the KeyFrames system.`;
+      }
+      
+      // Add context to system prompt
+      if (context) {
+        systemPrompt += `\n\nCurrent context:
+- Frame Type: ${context.frameType || 'Unknown'}
+- Unit Type: ${context.unitType || 'Unknown'}
+- Tone: ${context.tone || 'Not set'}
+- Filter: ${context.filter || 'Not set'}`;
+      }
+      
+      // Prepare messages for OpenAI
+      const messages = [
+        { role: 'system', content: systemPrompt },
+        ...history.map((msg: any) => ({
+          role: msg.role === 'agent' ? 'assistant' : msg.role,
+          content: msg.content
+        })),
+        { role: 'user', content: message }
+      ];
+      
+      // Call OpenAI
+      const completion = await openai.chat.completions.create({
+        model: 'gpt-4',
+        messages,
+        temperature: 0.7,
+        max_tokens: 500
+      });
+      
+      const responseContent = completion.choices[0].message.content || 'I apologize, but I couldn\'t generate a response.';
+      
+      res.json({
+        content: responseContent,
+        metadata: {
+          agentType,
+          conversationId,
+          timestamp: new Date()
+        }
+      });
+      
+    } catch (error) {
+      console.error('Agent conversation error:', error);
+      res.status(500).json({ 
+        error: 'Failed to process conversation',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  }
+);
+
 export default router;

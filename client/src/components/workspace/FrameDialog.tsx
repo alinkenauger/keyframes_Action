@@ -29,6 +29,8 @@ import { Badge } from '@/components/ui/badge';
 import { useLocation } from 'wouter';
 import { TONES, FILTERS } from '@/lib/constants';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import ChatInterface from '@/components/agent/ChatInterface';
+import type { AgentType } from '@/types/agent';
 
 interface FrameDialogProps {
   open: boolean;
@@ -45,6 +47,21 @@ interface FrameDialogProps {
     transition?: 'smooth' | 'pattern-interrupt' | 'content-shift';
   };
   skeletonId: string;
+}
+
+// Helper function to map unit types to agent types
+function getAgentTypeForUnit(unitType: string): AgentType {
+  const unitAgentMap: Record<string, AgentType> = {
+    'Hook': 'hook',
+    'Intro': 'hook',
+    'Content Journey': 'content',
+    'Content': 'content',
+    'Rehook': 'hook',
+    'Outro': 'cta',
+    'CTA': 'cta'
+  };
+  
+  return unitAgentMap[unitType] || 'content';
 }
 
 export default function FrameDialog({ open, onOpenChange, frame, skeletonId }: FrameDialogProps) {
@@ -226,9 +243,16 @@ export default function FrameDialog({ open, onOpenChange, frame, skeletonId }: F
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4 py-4">
-          {/* Custom GPT Assistant Selection */}
-          <div className="space-y-2 pb-2 border-b">
+        <Tabs defaultValue="form" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="form">Form View</TabsTrigger>
+            <TabsTrigger value="chat">Chat Assistant</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="form" className="space-y-4 mt-4">
+            <div className="space-y-4">
+              {/* Custom GPT Assistant Selection */}
+              <div className="space-y-2 pb-2 border-b">
             <div className="flex justify-between items-center">
               <Label htmlFor="assistant">AI Assistant</Label>
               <Button 
@@ -369,12 +393,31 @@ export default function FrameDialog({ open, onOpenChange, frame, skeletonId }: F
             />
           </div>
 
-          {script.length > unitConstraints.maxLength && (
-            <p className="text-sm text-destructive">
-              Content exceeds maximum length by {script.length - unitConstraints.maxLength} characters
-            </p>
-          )}
-        </div>
+              {script.length > unitConstraints.maxLength && (
+                <p className="text-sm text-destructive">
+                  Content exceeds maximum length by {script.length - unitConstraints.maxLength} characters
+                </p>
+              )}
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="chat" className="mt-4">
+            <div className="h-[500px]">
+              <ChatInterface
+                conversationId={`frame-${frame.id}`}
+                agentType={getAgentTypeForUnit(frame.unitType)}
+                context={{
+                  frameId: frame.id,
+                  unitType: frame.unitType,
+                  skeletonId: skeletonId,
+                  tone: frame.tone,
+                  filter: frame.filter
+                }}
+                className="h-full"
+              />
+            </div>
+          </TabsContent>
+        </Tabs>
 
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
