@@ -6,6 +6,8 @@ import { useConversationStore } from '@/lib/conversation-store';
 import { cn } from '@/lib/utils';
 import { X, ChevronRight } from 'lucide-react';
 import { useWorkspace } from '@/lib/store';
+import { useToast } from '@/hooks/use-toast';
+import { apiClient } from '@/lib/api-client';
 
 interface BuzzyOnboardingProps {
   open: boolean;
@@ -15,18 +17,114 @@ interface BuzzyOnboardingProps {
 
 export default function BuzzyOnboarding({ open, onComplete, userId }: BuzzyOnboardingProps) {
   const [currentStep, setCurrentStep] = useState(0);
-  const { createConversation, addMessage } = useConversationStore();
+  const [channelData, setChannelData] = useState({
+    channelName: '',
+    niche: '',
+    contentTypes: [] as string[],
+    targetAudience: '',
+    goals: [] as string[],
+    competitors: [] as string[],
+    focusAreas: [] as string[],
+    painPoints: [] as string[],
+    uniqueValue: '',
+    uploadSchedule: ''
+  });
+  const { createConversation, addMessage, updateConversation } = useConversationStore();
   const { activeSkeletonId } = useWorkspace();
+  const { toast } = useToast();
   
   const conversationId = `buzzy-onboarding-${userId || 'default'}`;
   
+  const onboardingSteps = [
+    'Channel Basics',
+    'Target Audience',
+    'Goals & Vision',
+    'Competition & Inspiration',
+    'Content Focus'
+  ];
+  
+  // Save channel profile to database
+  const saveChannelProfile = async () => {
+    try {
+      const response = await apiClient.post('/api/ai/channel-profile', channelData);
+      if (response.data.success) {
+        toast({
+          title: 'Profile Saved',
+          description: 'Your channel profile has been saved successfully!'
+        });
+        return true;
+      }
+    } catch (error) {
+      console.error('Failed to save channel profile:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to save your channel profile. Please try again.',
+        variant: 'destructive'
+      });
+      return false;
+    }
+  };
+  
+  // Handle step completion and data extraction
+  const handleStepComplete = async (step: number, extractedData: any) => {
+    // Update channel data based on the step
+    const updatedData = { ...channelData };
+    
+    switch (step) {
+      case 0: // Channel Basics
+        if (extractedData.channelName) updatedData.channelName = extractedData.channelName;
+        if (extractedData.niche) updatedData.niche = extractedData.niche;
+        if (extractedData.contentTypes) updatedData.contentTypes = extractedData.contentTypes;
+        break;
+      case 1: // Target Audience
+        if (extractedData.targetAudience) updatedData.targetAudience = extractedData.targetAudience;
+        if (extractedData.painPoints) updatedData.painPoints = extractedData.painPoints;
+        break;
+      case 2: // Goals & Vision
+        if (extractedData.goals) updatedData.goals = extractedData.goals;
+        if (extractedData.uploadSchedule) updatedData.uploadSchedule = extractedData.uploadSchedule;
+        if (extractedData.uniqueValue) updatedData.uniqueValue = extractedData.uniqueValue;
+        break;
+      case 3: // Competition & Inspiration
+        if (extractedData.competitors) updatedData.competitors = extractedData.competitors;
+        break;
+      case 4: // Content Focus
+        if (extractedData.focusAreas) updatedData.focusAreas = extractedData.focusAreas;
+        break;
+    }
+    
+    setChannelData(updatedData);
+    
+    // Update conversation context
+    updateConversation(conversationId, {
+      context: {
+        userId,
+        isOnboarding: true,
+        step: step + 1,
+        channelData: updatedData
+      }
+    });
+    
+    if (step === 4) {
+      // Final step - save profile and complete
+      const saved = await saveChannelProfile();
+      if (saved) {
+        onComplete();
+      }
+    } else {
+      setCurrentStep(step + 1);
+    }
+  };
+  
   useEffect(() => {
-    if (open) {
-      // Create onboarding conversation
+    if (open && currentStep === 0) {
+      // Create onboarding conversation only once
       createConversation(conversationId, 'partner', {
         userId,
         isOnboarding: true,
-        step: currentStep
+        step: currentStep,
+        channelData,
+        onStepComplete: handleStepComplete
       });
       
       // Add Buzzy's initial greeting
@@ -40,7 +138,7 @@ Let's start with something simple - what's your channel name? And what kind of c
         timestamp: new Date()
       });
     }
-  }, [open, conversationId, createConversation, addMessage, currentStep, userId]);
+  }, [open]);
   
   if (!open) return null;
   
@@ -63,13 +161,13 @@ Let's start with something simple - what's your channel name? And what kind of c
         {/* Progress Indicator */}
         <div className="px-6 py-3 border-b bg-muted/50">
           <div className="flex items-center justify-between text-sm">
-            <span className="font-medium">Getting to Know You</span>
-            <span className="text-muted-foreground">Step {currentStep + 1} of 5</span>
+            <span className="font-medium">{onboardingSteps[currentStep]}</span>
+            <span className="text-muted-foreground">Step {currentStep + 1} of {onboardingSteps.length}</span>
           </div>
           <div className="mt-2 h-2 bg-muted rounded-full overflow-hidden">
             <div 
               className="h-full bg-gradient-to-r from-yellow-400 to-orange-400 transition-all duration-300"
-              style={{ width: `${((currentStep + 1) / 5) * 100}%` }}
+              style={{ width: `${((currentStep + 1) / onboardingSteps.length) * 100}%` }}
             />
           </div>
         </div>
@@ -83,15 +181,8 @@ Let's start with something simple - what's your channel name? And what kind of c
               userId,
               isOnboarding: true,
               currentStep,
-              onStepComplete: (step: number, data: any) => {
-                // Handle step completion
-                if (step === 4) {
-                  // Final step completed
-                  onComplete();
-                } else {
-                  setCurrentStep(step + 1);
-                }
-              }
+              channelData,
+              onStepComplete: handleStepComplete
             }}
             className="h-full"
           />

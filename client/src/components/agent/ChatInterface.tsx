@@ -10,16 +10,30 @@ import type { Message, AgentType } from '@/types/agent';
 interface ChatInterfaceProps {
   conversationId: string;
   agentType: AgentType;
-  context?: {
-    frameId?: string;
-    unitType?: string;
-    skeletonId?: string;
-    tone?: string;
-    filter?: string;
-  };
+  context?: any;
   onClose?: () => void;
   className?: string;
 }
+
+// Check if step has required data
+const checkStepCompletion = (step: number, data: any): boolean => {
+  if (!data) return false;
+  
+  switch (step) {
+    case 0: // Channel Basics
+      return !!(data.channelName && data.niche);
+    case 1: // Target Audience
+      return !!(data.targetAudience);
+    case 2: // Goals & Vision
+      return !!(data.goals && data.goals.length > 0);
+    case 3: // Competition & Inspiration
+      return true; // This step is optional
+    case 4: // Content Focus
+      return !!(data.focusAreas && data.focusAreas.length > 0);
+    default:
+      return false;
+  }
+};
 
 export default function ChatInterface({
   conversationId,
@@ -76,6 +90,18 @@ export default function ChatInterface({
         metadata: response.metadata,
         timestamp: new Date()
       });
+      
+      // Handle onboarding data extraction
+      if (context?.isOnboarding && response.metadata?.extractedData) {
+        // Check if we should progress to the next step
+        const extractedData = response.metadata.extractedData;
+        const hasRequiredData = checkStepCompletion(context.currentStep, extractedData);
+        
+        if (hasRequiredData && context.onStepComplete) {
+          // Trigger step completion with extracted data
+          context.onStepComplete(context.currentStep, extractedData);
+        }
+      }
     } catch (error) {
       console.error('Error sending message:', error);
       addMessage(conversationId, {

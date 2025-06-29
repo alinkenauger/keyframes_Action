@@ -1,7 +1,19 @@
 import { Router, Request, Response } from 'express';
 import OpenAI from 'openai';
-import { aiRateLimiter, premiumAiRateLimiter } from '../middleware/rateLimiting-simple';
+import { aiRateLimiter, premiumAiRateLimiter, createRateLimiter } from '../middleware/rateLimiting-simple';
 import { authenticateToken } from '../middleware/auth';
+import { db } from '@/db';
+import { channelProfiles } from '@/db/schema';
+import { eq } from 'drizzle-orm';
+
+// Extend Request to include user
+interface AuthRequest extends Request {
+  user?: {
+    id: number;
+    email: string;
+    username: string;
+  };
+}
 
 const router = Router();
 
@@ -274,13 +286,25 @@ router.post('/generate-custom-content', async (req: Request, res: Response) => {
 router.post('/agent/conversation', 
   authenticateToken,
   createRateLimiter('ai'),
-  async (req: Request, res: Response) => {
+  async (req: AuthRequest, res: Response) => {
     try {
       const { conversationId, message, agentType, context, history } = req.body;
+      const userId = req.user?.id;
       
       // Validate inputs
       if (!message || !agentType) {
         return res.status(400).json({ error: 'Message and agent type are required' });
+      }
+      
+      // Get user's channel profile if authenticated
+      let channelProfile = null;
+      if (userId) {
+        const [profile] = await db
+          .select()
+          .from(channelProfiles)
+          .where(eq(channelProfiles.userId, userId))
+          .limit(1);
+        channelProfile = profile;
       }
       
       // Build system prompt based on agent type
@@ -328,7 +352,18 @@ After gathering info, help them choose the perfect skeleton structure for their 
 
 Important: Ask ONE question at a time, keep it conversational, and show enthusiasm about their responses!` : `
 
-Regular conversation mode - help with content creation while referencing their channel profile when relevant.`}`;
+Regular conversation mode - help with content creation while referencing their channel profile when relevant.`}
+
+${channelProfile ? `
+CHANNEL PROFILE:
+- Channel Name: ${channelProfile.channelName}
+- Niche: ${channelProfile.niche}
+- Content Types: ${channelProfile.contentTypes?.join(', ')}
+- Target Audience: ${channelProfile.targetAudience}
+- Goals: ${channelProfile.goals?.join(', ')}
+- Unique Value: ${channelProfile.uniqueValue}
+
+Use this information to provide personalized advice and suggestions that align with their channel's identity and goals.` : ''}`;
           break;
           
         case 'hook':
@@ -339,7 +374,9 @@ Key principles:
 - Create curiosity gaps
 - Use pattern interrupts
 - Promise clear value
-- Maximum 150 characters for hooks`;
+- Maximum 150 characters for hooks
+
+${channelProfile ? `Channel Context: Creating hooks for ${channelProfile.channelName} (${channelProfile.niche}) targeting ${channelProfile.targetAudience}` : ''}`;
           break;
           
         case 'content':
@@ -350,7 +387,9 @@ Focus on:
 - Engaging examples
 - Smooth transitions
 - Value delivery
-- Maximum 400 characters per frame`;
+- Maximum 400 characters per frame
+
+${channelProfile ? `Channel Context: Creating content for ${channelProfile.channelName} (${channelProfile.niche}) with focus on ${channelProfile.focusAreas?.join(', ')}` : ''}`;
           break;
           
         case 'cta':
@@ -361,7 +400,9 @@ Expertise in:
 - Value reinforcement  
 - Urgency without pressure
 - Multiple CTA options
-- Maximum 200 characters`;
+- Maximum 200 characters
+
+${channelProfile ? `Channel Context: CTAs for ${channelProfile.channelName} aligned with goals: ${channelProfile.goals?.join(', ')}` : ''}`;
           break;
           
         default:
@@ -397,12 +438,49 @@ Expertise in:
       
       const responseContent = completion.choices[0].message.content || 'I apologize, but I couldn\'t generate a response.';
       
+      // Extract structured data if in onboarding mode
+      let extractedData = null;
+      if (context?.isOnboarding && agentType === 'partner') {
+        // Add a follow-up request to extract structured data
+        const extractionPrompt = `Based on the conversation so far, extract the following information that the user has shared. Return only a JSON object with the fields that have been mentioned. Do not make up information that wasn't provided.
+
+For step ${context.currentStep}:
+${context.currentStep === 0 ? 'Extract: channelName, niche, contentTypes (as array)' : ''}
+${context.currentStep === 1 ? 'Extract: targetAudience (description), painPoints (as array)' : ''}
+${context.currentStep === 2 ? 'Extract: goals (as array), uploadSchedule, uniqueValue' : ''}
+${context.currentStep === 3 ? 'Extract: competitors (as array)' : ''}
+${context.currentStep === 4 ? 'Extract: focusAreas (as array)' : ''}
+
+Return ONLY valid JSON, no explanations.`;
+
+        const extractionMessages = [
+          ...messages,
+          { role: 'assistant', content: responseContent },
+          { role: 'user', content: extractionPrompt }
+        ];
+
+        try {
+          const extractionCompletion = await openai.chat.completions.create({
+            model: 'gpt-4',
+            messages: extractionMessages,
+            temperature: 0,
+            max_tokens: 300
+          });
+
+          const extractionResult = extractionCompletion.choices[0].message.content || '{}';
+          extractedData = JSON.parse(extractionResult);
+        } catch (error) {
+          console.error('Failed to extract structured data:', error);
+        }
+      }
+      
       res.json({
         content: responseContent,
         metadata: {
           agentType,
           conversationId,
-          timestamp: new Date()
+          timestamp: new Date(),
+          extractedData
         }
       });
       
@@ -428,21 +506,46 @@ router.post('/channel-profile',
       
       const profileData = req.body;
       
-      // Store channel profile in database
-      // For now, we'll store it in memory (you should use the database)
-      const profiles = global.channelProfiles || {};
-      profiles[userId] = {
-        ...profileData,
-        userId,
-        updatedAt: new Date()
-      };
-      global.channelProfiles = profiles;
+      // Check if profile already exists
+      const existingProfile = await db
+        .select()
+        .from(channelProfiles)
+        .where(eq(channelProfiles.userId, userId))
+        .limit(1);
       
-      res.json({ 
-        success: true, 
-        message: 'Channel profile saved successfully',
-        profile: profiles[userId]
-      });
+      if (existingProfile.length > 0) {
+        // Update existing profile
+        const [updatedProfile] = await db
+          .update(channelProfiles)
+          .set({
+            ...profileData,
+            updatedAt: new Date()
+          })
+          .where(eq(channelProfiles.userId, userId))
+          .returning();
+        
+        res.json({ 
+          success: true, 
+          message: 'Channel profile updated successfully',
+          profile: updatedProfile
+        });
+      } else {
+        // Create new profile
+        const [newProfile] = await db
+          .insert(channelProfiles)
+          .values({
+            userId,
+            ...profileData,
+            hasCompletedOnboarding: true
+          })
+          .returning();
+        
+        res.json({ 
+          success: true, 
+          message: 'Channel profile created successfully',
+          profile: newProfile
+        });
+      }
     } catch (error) {
       console.error('Channel profile error:', error);
       res.status(500).json({ error: 'Failed to save channel profile' });
@@ -460,8 +563,11 @@ router.get('/channel-profile',
         return res.status(401).json({ error: 'User not authenticated' });
       }
       
-      const profiles = global.channelProfiles || {};
-      const profile = profiles[userId];
+      const [profile] = await db
+        .select()
+        .from(channelProfiles)
+        .where(eq(channelProfiles.userId, userId))
+        .limit(1);
       
       res.json({ 
         profile: profile || null,
