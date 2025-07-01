@@ -289,8 +289,16 @@ router.post('/agent/conversation',
   createRateLimiter('ai'),
   async (req: AuthRequest, res: Response) => {
     try {
+      console.log('Conversation request received:', { 
+        body: req.body,
+        user: req.user,
+        headers: req.headers.authorization
+      });
+      
       const { conversationId, message, agentType, context, history } = req.body;
-      const userId = req.user?.id;
+      const userId = req.user?.userId || req.user?.id;
+      
+      console.log('Extracted userId:', userId);
       
       // Validate inputs
       if (!message || !agentType) {
@@ -430,14 +438,21 @@ ${channelProfile ? `Channel Context: CTAs for ${channelProfile.channelName} alig
       ];
       
       // Call OpenAI
+      console.log('Calling OpenAI with messages:', messages.length);
+      
+      if (!process.env.OPENAI_API_KEY) {
+        throw new Error('OpenAI API key not configured');
+      }
+      
       const completion = await openai.chat.completions.create({
-        model: 'gpt-4',
+        model: 'gpt-4-turbo-preview',
         messages,
         temperature: 0.7,
         max_tokens: 500
       });
       
       const responseContent = completion.choices[0].message.content || 'I apologize, but I couldn\'t generate a response.';
+      console.log('OpenAI response received:', responseContent.substring(0, 100) + '...');
       
       // Extract structured data if in onboarding mode
       let extractedData = null;
@@ -462,7 +477,7 @@ Return ONLY valid JSON, no explanations.`;
 
         try {
           const extractionCompletion = await openai.chat.completions.create({
-            model: 'gpt-4',
+            model: 'gpt-4-turbo-preview',
             messages: extractionMessages,
             temperature: 0,
             max_tokens: 300

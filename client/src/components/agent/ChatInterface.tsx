@@ -103,11 +103,17 @@ export default function ChatInterface({
           context.onStepComplete(currentStep, extractedData);
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error sending message:', error);
+      console.error('Error details:', {
+        conversationId,
+        content,
+        context,
+        error: error.message || error
+      });
       addMessage(conversationId, {
         role: 'system',
-        content: 'Sorry, I encountered an error. Please try again.',
+        content: `Sorry, I encountered an error: ${error.message || 'Unknown error'}. Please try again.`,
         timestamp: new Date()
       });
     } finally {

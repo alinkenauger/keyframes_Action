@@ -39,9 +39,11 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
   
   try {
     const payload = AuthService.verifyAccessToken(token);
+    console.log('Auth middleware - token payload:', payload);
     req.user = payload;
     next();
   } catch (error) {
+    console.error('Auth middleware - token verification failed:', error);
     return res.status(403).json({ 
       error: 'Invalid or expired token',
       code: 'INVALID_TOKEN' 
