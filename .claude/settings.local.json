@@ -15,7 +15,8 @@
       "Bash(node start-dev.js)",
       "Bash(DATABASE_URL=\"postgresql://test:test@localhost:5432/keyframes_test\" node start-dev.js)",
       "Bash(pkill:*)",
-      "Bash(true)"
+      "Bash(true)",
+      "Bash(npx tsc:*)"
     ],
     "deny": []
   }

@@ -421,6 +421,33 @@ export default function SkeletonUnit({
           </div>
         )}
       </div>
+      
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={deleteConfirmation.open} onOpenChange={(open) => 
+        setDeleteConfirmation(prev => ({ ...prev, open }))
+      }>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete "{deleteConfirmation.unitName}" Unit?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will permanently delete the unit and all {unitFrames.length} frame{unitFrames.length !== 1 ? 's' : ''} inside it.
+              This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              onClick={() => {
+                onDeleteUnit?.(deleteConfirmation.unitName);
+                setDeleteConfirmation({ open: false, unitName: '' });
+              }}
+            >
+              Delete Unit
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

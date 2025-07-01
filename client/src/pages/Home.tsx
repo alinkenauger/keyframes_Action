@@ -220,8 +220,17 @@ export default function Home() {
   const customCollisionDetection: CollisionDetection = args => {
     const { active, droppableContainers, draggableRect, droppableRects, collisionRect, pointerCoordinates } = args;
     
-    // Ignore skeleton-unit dragging as it's handled separately
+    // Handle skeleton-unit dragging
     if (active.data.current?.type === 'skeleton-unit') {
+      // Allow unit to be dragged over other units for reordering
+      const droppableContainers = collisions.filter(collision => {
+        const container = droppables.get(collision.id);
+        return container?.data.current?.type === 'unit';
+      });
+      
+      if (droppableContainers.length > 0) {
+        return droppableContainers;
+      }
       return [];
     }
     
@@ -409,8 +418,31 @@ export default function Home() {
     const activeSkeleton = skeletons.find((s) => s.id === activeSkeletonId);
     if (!activeSkeleton) return;
 
-    // Skip skeleton unit handling as it's now handled by UnitManager
-    if (active.data.current?.type === 'skeleton-unit') {
+    // Handle skeleton unit reordering
+    if (active.data.current?.type === 'skeleton-unit' && over.data.current?.type === 'skeleton-unit') {
+      const activeUnit = active.data.current.unit;
+      const overUnit = over.data.current.unit;
+      
+      if (activeUnit && overUnit && activeUnit.id !== overUnit.id) {
+        const skeleton = skeletons.find(s => s.id === activeSkeletonId);
+        if (!skeleton || !skeleton.units) return;
+        
+        const oldIndex = skeleton.units.findIndex(u => u.toLowerCase() === activeUnit.name.toLowerCase());
+        const newIndex = skeleton.units.findIndex(u => u.toLowerCase() === overUnit.name.toLowerCase());
+        
+        if (oldIndex !== -1 && newIndex !== -1 && oldIndex !== newIndex) {
+          const newUnits = [...skeleton.units];
+          const [removed] = newUnits.splice(oldIndex, 1);
+          newUnits.splice(newIndex, 0, removed);
+          
+          updateSkeletonUnits(activeSkeletonId, newUnits);
+          
+          toast({
+            title: 'Units Reordered',
+            description: `${activeUnit.name} moved successfully`,
+          });
+        }
+      }
       return;
     }
 
