@@ -5,6 +5,8 @@ import { MessageCircle, X, Minimize2, Maximize2 } from 'lucide-react';
 import ChatInterface from './ChatInterface';
 import { useConversationStore } from '@/lib/conversation-store';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
+import { apiClient } from '@/lib/api-client';
 // Using CSS transitions instead of framer-motion for now
 
 interface PartnerAgentProps {
@@ -16,10 +18,12 @@ export default function PartnerAgent({ userId, className }: PartnerAgentProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [hasChannelProfile, setHasChannelProfile] = useState<boolean | null>(null);
   
   const { getConversation, createConversation } = useConversationStore();
+  const { user } = useAuth();
   
-  const conversationId = `partner-${userId || 'default'}`;
+  const conversationId = `partner-${userId || user?.id || 'default'}`;
   
   useEffect(() => {
     // Check if user has interacted before
@@ -29,16 +33,37 @@ export default function PartnerAgent({ userId, className }: PartnerAgentProps) {
     }
   }, [conversationId, getConversation]);
   
-  // Show welcome prompt for new users
+  // Check if user has completed onboarding (has channel profile)
   useEffect(() => {
-    if (!hasInteracted && !isOpen) {
+    const checkChannelProfile = async () => {
+      if (user?.id) {
+        try {
+          const response = await apiClient.get('/auth/profile');
+          if (response.data?.channelProfile) {
+            setHasChannelProfile(true);
+          } else {
+            setHasChannelProfile(false);
+          }
+        } catch (error) {
+          console.error('Error checking channel profile:', error);
+          setHasChannelProfile(false);
+        }
+      }
+    };
+    
+    checkChannelProfile();
+  }, [user?.id]);
+  
+  // Show welcome prompt for new users who have completed onboarding
+  useEffect(() => {
+    if (!hasInteracted && !isOpen && hasChannelProfile === true) {
       const timer = setTimeout(() => {
         setIsOpen(true);
       }, 2000); // Show after 2 seconds
       
       return () => clearTimeout(timer);
     }
-  }, [hasInteracted, isOpen]);
+  }, [hasInteracted, isOpen, hasChannelProfile]);
   
   const handleOpen = () => {
     setIsOpen(true);
@@ -47,8 +72,9 @@ export default function PartnerAgent({ userId, className }: PartnerAgentProps) {
     // Create conversation if it doesn't exist
     if (!getConversation(conversationId)) {
       createConversation(conversationId, 'partner', {
-        userId,
-        isFirstTime: !hasInteracted
+        userId: user?.id || userId,
+        isFirstTime: !hasInteracted,
+        hasChannelProfile: hasChannelProfile
       });
     }
   };
@@ -61,6 +87,11 @@ export default function PartnerAgent({ userId, className }: PartnerAgentProps) {
   const handleMinimize = () => {
     setIsMinimized(!isMinimized);
   };
+  
+  // Don't render if user hasn't completed onboarding
+  if (hasChannelProfile === false) {
+    return null;
+  }
   
   return (
     <>

@@ -1,12 +1,14 @@
 import { Router, Request, Response } from 'express';
 import { AuthService } from '../services/auth.service';
-import { loginSchema, registerSchema } from '../../db/schema';
+import { loginSchema, registerSchema, channelProfiles } from '../../db/schema';
 import {
   authenticateToken,
   authRateLimiter,
   registerRateLimiter,
   validateBody,
 } from '../middleware/auth';
+import { db } from '../../db';
+import { eq } from 'drizzle-orm';
 
 const router = Router();
 
@@ -174,6 +176,44 @@ router.get('/me', authenticateToken, async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Get user error:', error);
     res.status(500).json({ error: 'Failed to get user information' });
+  }
+});
+
+/**
+ * Get user profile with channel information
+ * GET /api/auth/profile
+ */
+router.get('/profile', authenticateToken, async (req: Request, res: Response) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+
+    const user = await AuthService.getUserById(req.user.userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    // Get channel profile if exists
+    const [profile] = await db
+      .select()
+      .from(channelProfiles)
+      .where(eq(channelProfiles.userId, user.id))
+      .limit(1);
+
+    res.json({
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      isEmailVerified: user.isEmailVerified,
+      createdAt: user.createdAt,
+      lastLogin: user.lastLogin,
+      channelProfile: profile || null
+    });
+  } catch (error) {
+    console.error('Get profile error:', error);
+    res.status(500).json({ error: 'Failed to get profile information' });
   }
 });
 

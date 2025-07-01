@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { nanoid } from 'nanoid';
 import type { Conversation, Message, AgentType } from '@/types/agent';
+import { apiClient } from './api-client';
 
 interface ConversationStore {
   conversations: Record<string, Conversation>;
@@ -126,25 +127,19 @@ export const useConversationStore = create<ConversationStore>()(
         }
         
         try {
-          const response = await fetch('/api/agent/conversation', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              conversationId,
-              message: content,
-              agentType: conversation.agentType,
-              context: conversation.context,
-              history: get().messages[conversationId] || []
-            })
+          const response = await apiClient.post('/agent/conversation', {
+            conversationId,
+            message: content,
+            agentType: conversation.agentType,
+            context: conversation.context,
+            history: get().messages[conversationId] || []
           });
           
-          if (!response.ok) {
-            throw new Error('Failed to send message');
+          if (response.error) {
+            throw new Error(response.error);
           }
           
-          const data = await response.json();
+          const data = response.data;
           
           return {
             id: nanoid(),

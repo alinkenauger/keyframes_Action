@@ -444,12 +444,12 @@ ${channelProfile ? `Channel Context: CTAs for ${channelProfile.channelName} alig
         // Add a follow-up request to extract structured data
         const extractionPrompt = `Based on the conversation so far, extract the following information that the user has shared. Return only a JSON object with the fields that have been mentioned. Do not make up information that wasn't provided.
 
-For step ${context.currentStep}:
-${context.currentStep === 0 ? 'Extract: channelName, niche, contentTypes (as array)' : ''}
-${context.currentStep === 1 ? 'Extract: targetAudience (description), painPoints (as array)' : ''}
-${context.currentStep === 2 ? 'Extract: goals (as array), uploadSchedule, uniqueValue' : ''}
-${context.currentStep === 3 ? 'Extract: competitors (as array)' : ''}
-${context.currentStep === 4 ? 'Extract: focusAreas (as array)' : ''}
+For step ${context.step || 0}:
+${(context.step || 0) === 0 ? 'Extract: channelName, niche, contentTypes (as array)' : ''}
+${(context.step || 0) === 1 ? 'Extract: targetAudience (description), painPoints (as array)' : ''}
+${(context.step || 0) === 2 ? 'Extract: goals (as array), uploadSchedule, uniqueValue' : ''}
+${(context.step || 0) === 3 ? 'Extract: competitors (as array)' : ''}
+${(context.step || 0) === 4 ? 'Extract: focusAreas (as array)' : ''}
 
 Return ONLY valid JSON, no explanations.`;
 

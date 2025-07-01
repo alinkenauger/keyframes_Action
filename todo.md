@@ -45,10 +45,10 @@ Make the drag-and-drop experience smooth and intuitive for creatives and busines
 3. **Auto-scrolling** - Added smooth scrolling near edges (20% threshold)
 4. **Keyboard shortcuts** - Alt+Arrow keys for frame movement
 
-### Phase 5: Unit (Row) Enhancements
-- [ ] Make units themselves draggable to reorder
-- [ ] Add delete button to units with confirmation
-- [ ] Implement unit resizing with drag handles
+### Phase 5: Unit (Row) Enhancements ✓
+- [x] Make units themselves draggable to reorder
+- [x] Add delete button to units with confirmation
+- [x] Implement unit resizing with drag handles
 - [ ] Add rotation capability (optional - discuss with user)
 
 ### Phase 6: Polish & Testing
@@ -222,6 +222,41 @@ Make the drag-and-drop experience smooth and intuitive for creatives and busines
 2. **Mouse Position** - Improved accuracy using `activatorEvent.clientY`
 3. **Type Safety** - Added proper TypeScript interfaces for drag data
 4. **Throttling** - Kept at component level (simpler and more effective)
+
+## Phase 5 Implementation - Unit Enhancements
+
+### Changes Made:
+
+1. **Draggable Units**
+   - Integrated unit dragging with @dnd-kit system
+   - Added drag handle (GripVertical icon) that appears on hover
+   - Units can be reordered by dragging
+   - Visual feedback during drag with opacity change
+   - Smooth animations for unit reordering
+
+2. **Delete Confirmation**
+   - Added AlertDialog for delete confirmation
+   - Shows unit name and frame count in confirmation
+   - Prevents accidental deletion
+   - Styled with destructive theme for clarity
+
+3. **Resize Handles** (Already Implemented)
+   - Vertical resize handle on right edge of each unit
+   - Visual feedback during resize
+   - Minimum width constraint (300px)
+   - Responsive layout adjustments
+
+### Files Modified:
+- `/client/src/components/workspace/UnitManager.tsx`
+  - Converted from HTML5 drag to @dnd-kit
+  - Added SortableUnit component
+  - Removed nested DndContext to avoid conflicts
+- `/client/src/components/workspace/SkeletonUnit.tsx`
+  - Added delete confirmation dialog
+  - Imported AlertDialog components
+- `/client/src/pages/Home.tsx`
+  - Updated collision detection for skeleton-units
+  - Added unit reordering logic in handleDragEnd
 
 ## Phase 4 Review & Testing
 

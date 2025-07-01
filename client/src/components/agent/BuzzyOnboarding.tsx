@@ -44,16 +44,17 @@ export default function BuzzyOnboarding({ open, onComplete, userId }: BuzzyOnboa
   ];
   
   // Save channel profile to database
-  const saveChannelProfile = async () => {
+  const saveChannelProfile = async (profileData: any) => {
     try {
-      const response = await apiClient.post('/api/ai/channel-profile', channelData);
-      if (response.data.success) {
+      const response = await apiClient.post('/api/ai/channel-profile', profileData);
+      if (response.data?.success) {
         toast({
           title: 'Profile Saved',
           description: 'Your channel profile has been saved successfully!'
         });
         return true;
       }
+      return false;
     } catch (error) {
       console.error('Failed to save channel profile:', error);
       toast({
@@ -107,7 +108,7 @@ export default function BuzzyOnboarding({ open, onComplete, userId }: BuzzyOnboa
     
     if (step === 4) {
       // Final step - save profile and complete
-      const saved = await saveChannelProfile();
+      const saved = await saveChannelProfile(updatedData);
       if (saved) {
         onComplete();
       }
