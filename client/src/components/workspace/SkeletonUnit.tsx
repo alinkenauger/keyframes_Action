@@ -6,6 +6,16 @@ import { Button } from '@/components/ui/button';
 import { Copy, Trash2, GripVertical } from 'lucide-react';
 import type { Frame as FrameType } from '@/types';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 interface SkeletonUnitProps {
   id: string;

@@ -29,7 +29,7 @@ export default function BuzzyOnboarding({ open, onComplete, userId }: BuzzyOnboa
     uniqueValue: '',
     uploadSchedule: ''
   });
-  const { createConversation, addMessage, updateConversation } = useConversationStore();
+  const { createConversation, addMessage, updateConversation, messages } = useConversationStore();
   const { activeSkeletonId } = useWorkspace();
   const { toast } = useToast();
   
@@ -124,8 +124,7 @@ export default function BuzzyOnboarding({ open, onComplete, userId }: BuzzyOnboa
         userId,
         isOnboarding: true,
         step: currentStep,
-        channelData,
-        onStepComplete: handleStepComplete
+        channelData
       });
       
       // Add Buzzy's initial greeting
@@ -140,6 +139,16 @@ Let's start with something simple - what's your channel name? And what kind of c
       });
     }
   }, [open]);
+  
+  // Monitor for extracted data in messages
+  useEffect(() => {
+    const conversationMessages = messages[conversationId] || [];
+    const lastMessage = conversationMessages[conversationMessages.length - 1];
+    
+    if (lastMessage?.role === 'agent' && lastMessage.metadata?.extractedData) {
+      handleStepComplete(currentStep, lastMessage.metadata.extractedData);
+    }
+  }, [messages, conversationId, currentStep]);
   
   if (!open) return null;
   
@@ -185,9 +194,7 @@ Let's start with something simple - what's your channel name? And what kind of c
               userId,
               isOnboarding: true,
               step: currentStep,
-              currentStep: currentStep, // Keep both for compatibility
-              channelData,
-              onStepComplete: handleStepComplete
+              channelData
             }}
             className="h-full"
           />

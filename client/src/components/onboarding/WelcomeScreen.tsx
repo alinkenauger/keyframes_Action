@@ -8,6 +8,7 @@ import { nanoid } from 'nanoid';
 import { ArrowRight, PlayCircle, FileText, Layout, Sparkles, MessageCircle } from 'lucide-react';
 import BuzzyOnboarding from '@/components/agent/BuzzyOnboarding';
 import { Badge } from '@/components/ui/badge';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface WelcomeScreenProps {
   open: boolean;
@@ -17,6 +18,7 @@ interface WelcomeScreenProps {
 
 export default function WelcomeScreen({ open, onOpenChange, onShowSkeletonCreator }: WelcomeScreenProps) {
   const { addSkeleton, setActiveSkeletonId, setVideoContext } = useWorkspace();
+  const { user } = useAuth();
   const [showBuzzyOnboarding, setShowBuzzyOnboarding] = useState(false);
 
   const handleSelectTemplate = (templateId: string) => {
@@ -201,6 +203,7 @@ export default function WelcomeScreen({ open, onOpenChange, onShowSkeletonCreato
     {/* Buzzy Onboarding */}
     <BuzzyOnboarding
       open={showBuzzyOnboarding}
+      userId={user?.id}
       onComplete={() => {
         setShowBuzzyOnboarding(false);
         // Create a skeleton based on Buzzy's recommendations

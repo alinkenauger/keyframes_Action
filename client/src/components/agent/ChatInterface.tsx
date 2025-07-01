@@ -92,29 +92,22 @@ export default function ChatInterface({
         timestamp: new Date()
       });
       
-      // Handle onboarding data extraction
-      if (context?.isOnboarding && response.metadata?.extractedData) {
-        // Check if we should progress to the next step
-        const extractedData = response.metadata.extractedData;
-        const currentStep = context.step || context.currentStep || 0;
-        const hasRequiredData = checkStepCompletion(currentStep, extractedData);
-        
-        if (hasRequiredData && context.onStepComplete) {
-          // Trigger step completion with extracted data
-          context.onStepComplete(currentStep, extractedData);
-        }
-      }
+      // Data extraction is now handled by the parent component monitoring messages
     } catch (error: any) {
-      console.error('Error sending message:', error);
-      console.error('Error details:', {
-        conversationId,
-        content,
-        context,
-        error: error.message || error
-      });
+      console.error('Error in ChatInterface:', error);
+      
+      // More user-friendly error messages
+      let errorMessage = 'I\'m having trouble responding right now. Please try again.';
+      
+      if (error.message?.includes('network') || error.message?.includes('fetch')) {
+        errorMessage = 'Connection issue. Please check your internet and try again.';
+      } else if (error.message?.includes('authentication') || error.message?.includes('401')) {
+        errorMessage = 'Session expired. Please refresh the page and log in again.';
+      }
+      
       addMessage(conversationId, {
         role: 'system',
-        content: `Sorry, I encountered an error: ${error.message || 'Unknown error'}. Please try again.`,
+        content: errorMessage,
         timestamp: new Date()
       });
     } finally {

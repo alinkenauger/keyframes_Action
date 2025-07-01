@@ -148,20 +148,27 @@ export const useConversationStore = create<ConversationStore>()(
           const data = response.data;
           console.log('Conversation response data:', data);
           
-          // Handle different response structures
-          const content = data?.content || data?.message || data?.response || 'No response received';
+          // Ensure we have valid content
+          if (!data || typeof data.content !== 'string') {
+            throw new Error('Invalid response format from server');
+          }
           
           return {
             id: nanoid(),
-            role: 'agent',
-            content: content,
-            metadata: data?.metadata || {},
+            role: 'agent' as const,
+            content: data.content,
+            metadata: data.metadata || {},
             timestamp: new Date()
           };
         } catch (error) {
           console.error('Error sending message:', error);
           throw error;
         }
+      },
+      
+      // Clear all conversations (useful for debugging)
+      clearAllConversations: () => {
+        set({ conversations: {}, messages: {} });
       }
     }),
     {
