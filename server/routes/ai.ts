@@ -9,7 +9,8 @@ import { eq } from 'drizzle-orm';
 // Extend Request to include user
 interface AuthRequest extends Request {
   user?: {
-    id: number;
+    id?: number;
+    userId?: number;
     email: string;
     username: string;
   };
@@ -499,8 +500,9 @@ router.post('/channel-profile',
   authenticateToken,
   async (req: AuthRequest, res: Response) => {
     try {
-      const userId = req.user?.id;
+      const userId = req.user?.id || req.user?.userId;
       if (!userId) {
+        console.error('User not found in request:', req.user);
         return res.status(401).json({ error: 'User not authenticated' });
       }
       
@@ -558,8 +560,9 @@ router.get('/channel-profile',
   authenticateToken,
   async (req: AuthRequest, res: Response) => {
     try {
-      const userId = req.user?.id;
+      const userId = req.user?.id || req.user?.userId;
       if (!userId) {
+        console.error('User not found in request:', req.user);
         return res.status(401).json({ error: 'User not authenticated' });
       }
       

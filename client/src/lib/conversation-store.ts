@@ -136,7 +136,13 @@ export const useConversationStore = create<ConversationStore>()(
           });
           
           if (response.error) {
+            console.error('Conversation API error:', response.error);
             throw new Error(response.error);
+          }
+          
+          if (!response.data) {
+            console.error('No data in response:', response);
+            throw new Error('No response data received');
           }
           
           const data = response.data;

@@ -95,11 +95,12 @@ export default function ChatInterface({
       if (context?.isOnboarding && response.metadata?.extractedData) {
         // Check if we should progress to the next step
         const extractedData = response.metadata.extractedData;
-        const hasRequiredData = checkStepCompletion(context.currentStep, extractedData);
+        const currentStep = context.step || context.currentStep || 0;
+        const hasRequiredData = checkStepCompletion(currentStep, extractedData);
         
         if (hasRequiredData && context.onStepComplete) {
           // Trigger step completion with extracted data
-          context.onStepComplete(context.currentStep, extractedData);
+          context.onStepComplete(currentStep, extractedData);
         }
       }
     } catch (error) {
