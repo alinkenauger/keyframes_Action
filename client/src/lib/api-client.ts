@@ -30,7 +30,7 @@ class APIClient {
 
   constructor(config: APIClientConfig = {}) {
     this.baseURL = config.baseURL || '/api';
-    this.retryAttempts = config.retryAttempts || 3;
+    this.retryAttempts = config.retryAttempts || (process.env.NODE_ENV === 'development' ? 0 : 3);
     this.retryDelay = config.retryDelay || 1000;
     this.timeout = config.timeout || 30000;
   }

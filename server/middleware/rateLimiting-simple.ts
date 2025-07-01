@@ -83,7 +83,7 @@ class SimpleRateLimiter {
 // Create rate limiters
 export const generalRateLimiter = new SimpleRateLimiter({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100,
+  max: process.env.NODE_ENV === 'development' ? 10000 : 100, // Much higher limit in dev
   message: 'Too many requests from this IP, please try again later.',
 }).middleware();
 
