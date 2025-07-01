@@ -458,21 +458,22 @@ ${channelProfile ? `Channel Context: CTAs for ${channelProfile.channelName} alig
       let extractedData = null;
       if (context?.isOnboarding && agentType === 'partner') {
         // Add a follow-up request to extract structured data
+        const currentStep = context.step || 0;
         const extractionPrompt = `Based on the conversation so far, extract the following information that the user has shared. Return only a JSON object with the fields that have been mentioned. Do not make up information that wasn't provided.
 
-For step ${context.step || 0}:
-${(context.step || 0) === 0 ? 'Extract: channelName, niche, contentTypes (as array)' : ''}
-${(context.step || 0) === 1 ? 'Extract: targetAudience (description), painPoints (as array)' : ''}
-${(context.step || 0) === 2 ? 'Extract: goals (as array), uploadSchedule, uniqueValue' : ''}
-${(context.step || 0) === 3 ? 'Extract: competitors (as array)' : ''}
-${(context.step || 0) === 4 ? 'Extract: focusAreas (as array)' : ''}
+For step ${currentStep}:
+${currentStep === 0 ? 'Extract: channelName, niche, contentTypes (as array)' : ''}
+${currentStep === 1 ? 'Extract: targetAudience (description), painPoints (as array)' : ''}
+${currentStep === 2 ? 'Extract: goals (as array), uploadSchedule, uniqueValue' : ''}
+${currentStep === 3 ? 'Extract: competitors (as array)' : ''}
+${currentStep === 4 ? 'Extract: focusAreas (as array)' : ''}
 
 Return ONLY valid JSON, no explanations.`;
 
         const extractionMessages = [
           ...messages,
-          { role: 'assistant', content: responseContent },
-          { role: 'user', content: extractionPrompt }
+          { role: 'assistant' as const, content: responseContent },
+          { role: 'user' as const, content: extractionPrompt }
         ];
 
         try {
@@ -500,11 +501,13 @@ Return ONLY valid JSON, no explanations.`;
         }
       });
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Agent conversation error:', error);
+      console.error('Error stack:', error.stack);
       res.status(500).json({ 
         error: 'Failed to process conversation',
-        details: error instanceof Error ? error.message : 'Unknown error'
+        details: error instanceof Error ? error.message : 'Unknown error',
+        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
       });
     }
   }
