@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git fetch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git stash push:*)",
+      "Bash(find:*)",
+      "Bash(git rev-list:*)",
+      "Bash(ls:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm install:*)",
+      "Bash(NODE_OPTIONS=\"--loader tsx\" npm run dev)",
+      "Bash(grep:*)"
+    ],
+    "deny": []
+  }
+}
