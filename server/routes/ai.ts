@@ -2,8 +2,8 @@ import { Router, Request, Response } from 'express';
 import OpenAI from 'openai';
 import { aiRateLimiter, premiumAiRateLimiter, createRateLimiter } from '../middleware/rateLimiting-simple';
 import { authenticateToken } from '../middleware/auth';
-import { db } from '@/db';
-import { channelProfiles } from '@/db/schema';
+import { db } from '../../db/index.js';
+import { channelProfiles } from '../../db/schema.js';
 import { eq } from 'drizzle-orm';
 
 // Extend Request to include user

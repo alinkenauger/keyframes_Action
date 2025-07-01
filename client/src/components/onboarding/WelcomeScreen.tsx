@@ -72,6 +72,7 @@ export default function WelcomeScreen({ open, onOpenChange, onShowSkeletonCreato
   };
 
   return (
+    <>
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-4xl">
         <DialogHeader>
@@ -215,5 +216,6 @@ export default function WelcomeScreen({ open, onOpenChange, onShowSkeletonCreato
         setActiveSkeletonId(newSkeleton.id);
       }}
     />
+    </>
   );
 }
