@@ -146,12 +146,16 @@ export const useConversationStore = create<ConversationStore>()(
           }
           
           const data = response.data;
+          console.log('Conversation response data:', data);
+          
+          // Handle different response structures
+          const content = data?.content || data?.message || data?.response || 'No response received';
           
           return {
             id: nanoid(),
             role: 'agent',
-            content: data.content,
-            metadata: data.metadata,
+            content: content,
+            metadata: data?.metadata || {},
             timestamp: new Date()
           };
         } catch (error) {

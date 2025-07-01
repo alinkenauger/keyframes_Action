@@ -10,9 +10,11 @@ import { useState } from 'react';
 interface MessageBubbleProps {
   message: Message;
   className?: string;
+  agentType?: string;
+  agentName?: string;
 }
 
-export default function MessageBubble({ message, className }: MessageBubbleProps) {
+export default function MessageBubble({ message, className, agentType, agentName }: MessageBubbleProps) {
   const [copied, setCopied] = useState(false);
   const isUser = message.role === 'user';
   const isAgent = message.role === 'agent';
@@ -81,7 +83,7 @@ export default function MessageBubble({ message, className }: MessageBubbleProps
         {!isUser && (
           <div className="flex items-center gap-2 mb-1">
             <span className="text-xs font-medium">
-              {isAgent ? '🤖 Agent' : '⚠️ System'}
+              {isAgent ? `${agentType === 'partner' ? '🐝' : '🤖'} ${agentName || 'Agent'}` : '⚠️ System'}
             </span>
           </div>
         )}

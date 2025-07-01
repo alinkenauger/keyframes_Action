@@ -82,11 +82,12 @@ export default function ChatInterface({
     try {
       // Send message to backend and get agent response
       const response = await sendMessage(conversationId, content);
+      console.log('ChatInterface received response:', response);
       
       // Add agent response
       addMessage(conversationId, {
         role: 'agent',
-        content: response.content,
+        content: response.content || 'No response content',
         metadata: response.metadata,
         timestamp: new Date()
       });
@@ -130,7 +131,7 @@ export default function ChatInterface({
       <div className="flex items-center justify-between p-4 border-b">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-            <span className="text-sm">🤖</span>
+            <span className="text-sm">{getAgentEmoji(agentType)}</span>
           </div>
           <div>
             <h3 className="font-semibold">{agentName}</h3>
@@ -160,6 +161,8 @@ export default function ChatInterface({
                 content: getWelcomeMessage(agentType, context),
                 timestamp: new Date()
               }}
+              agentType={agentType}
+              agentName={agentName}
             />
           )}
           
@@ -167,6 +170,8 @@ export default function ChatInterface({
             <MessageBubble
               key={message.id}
               message={message}
+              agentType={agentType}
+              agentName={agentName}
             />
           ))}
           
@@ -198,6 +203,19 @@ function getAgentName(agentType: AgentType): string {
     custom: 'Custom Assistant'
   };
   return names[agentType] || 'AI Assistant';
+}
+
+function getAgentEmoji(agentType: AgentType): string {
+  const emojis: Record<AgentType, string> = {
+    partner: '🐝',
+    hook: '🎣',
+    content: '📝',
+    entertainment: '🎬',
+    howto: '📚',
+    cta: '🎯',
+    custom: '🤖'
+  };
+  return emojis[agentType] || '🤖';
 }
 
 function getAgentDescription(agentType: AgentType): string {
