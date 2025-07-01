@@ -75,3 +75,6 @@ export const registerSchema = z.object({
 
 export type InsertUser = typeof users.$inferInsert;
 export type SelectUser = typeof users.$inferSelect;
+
+// User API Keys table
+export { userApiKeys, type UserApiKey, type NewUserApiKey } from './schema/userApiKeys';

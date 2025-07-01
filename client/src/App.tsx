@@ -7,6 +7,7 @@ import Home from "@/pages/Home";
 import CustomGptManagerPage from "@/pages/CustomGptManagerPage";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
+import Profile from "@/pages/Profile";
 import { Brain, Keyboard, LogOut, User } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -97,6 +98,12 @@ function AppNavigation() {
       category: 'Navigation'
     },
     {
+      key: 'g p',
+      action: () => setLocation('/profile'),
+      description: 'Go to Profile',
+      category: 'Navigation'
+    },
+    {
       key: '?',
       action: () => setHelpVisible(true),
       description: 'Show keyboard shortcuts',
@@ -157,6 +164,11 @@ function AppNavigation() {
           <Route path="/custom-gpt">
             <ProtectedRoute>
               <CustomGptManagerPage />
+            </ProtectedRoute>
+          </Route>
+          <Route path="/profile">
+            <ProtectedRoute>
+              <Profile />
             </ProtectedRoute>
           </Route>
           <Route component={NotFound} />

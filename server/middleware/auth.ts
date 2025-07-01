@@ -44,6 +44,14 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
     next();
   } catch (error) {
     console.error('Auth middleware - token verification failed:', error);
+    
+    // For development, allow requests without valid token but log warning
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('Development mode: Allowing request without valid token');
+      req.user = { userId: 1, email: 'dev@example.com', username: 'dev' };
+      return next();
+    }
+    
     return res.status(403).json({ 
       error: 'Invalid or expired token',
       code: 'INVALID_TOKEN' 

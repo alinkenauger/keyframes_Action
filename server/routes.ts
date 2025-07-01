@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import cookieParser from "cookie-parser";
 import aiRoutes from "./routes/ai";
 import authRoutes from "./routes/auth";
+import userApiKeysRoutes from "./routes/userApiKeys";
 import { authenticateToken } from "./middleware/auth";
 import { healthCheckRateLimiter } from "./middleware/rateLimiting-simple";
 
@@ -24,6 +25,9 @@ export function registerRoutes(app: Express): Server {
 
   // AI routes - authentication is optional (handled internally for rate limiting)
   app.use("/api/ai", aiRoutes);
+  
+  // User API keys routes - requires authentication
+  app.use("/api/user/api-keys", userApiKeysRoutes);
 
   const httpServer = createServer(app);
 

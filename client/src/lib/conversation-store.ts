@@ -127,7 +127,14 @@ export const useConversationStore = create<ConversationStore>()(
         }
         
         try {
-          const response = await apiClient.post('/agent/conversation', {
+          console.log('Sending message:', {
+            conversationId,
+            message: content,
+            agentType: conversation.agentType,
+            context: conversation.context
+          });
+          
+          const response = await apiClient.post('/ai/agent/conversation', {
             conversationId,
             message: content,
             agentType: conversation.agentType,

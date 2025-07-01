@@ -1,10 +1,12 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import OpenAI from 'openai';
 import { aiRateLimiter, premiumAiRateLimiter, createRateLimiter } from '../middleware/rateLimiting-simple';
 import { authenticateToken } from '../middleware/auth';
 import { db } from '../../db/index.js';
 import { channelProfiles } from '../../db/schema.js';
-import { eq } from 'drizzle-orm';
+import { userApiKeys } from '../../db/schema/userApiKeys.js';
+import { eq, and } from 'drizzle-orm';
+import { EncryptionService } from '../services/encryption.service.js';
 
 // Extend Request to include user
 interface AuthRequest extends Request {
@@ -18,10 +20,72 @@ interface AuthRequest extends Request {
 
 const router = Router();
 
-// Initialize OpenAI with server-side API key
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+// Initialize OpenAI with server-side API key as fallback
+console.log('Initializing OpenAI with key:', process.env.OPENAI_API_KEY ? 'Key exists' : 'NO KEY FOUND');
+const serverOpenai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY || ''
 });
+
+// Helper function to get user's OpenAI API key and create client
+async function getUserOpenAIClient(userId: number | undefined): Promise<{ client: OpenAI | null, userApiKeyId: number | null }> {
+  if (!userId) {
+    return { client: null, userApiKeyId: null };
+  }
+
+  try {
+    const [userApiKey] = await db
+      .select()
+      .from(userApiKeys)
+      .where(
+        and(
+          eq(userApiKeys.userId, userId),
+          eq(userApiKeys.provider, 'openai'),
+          eq(userApiKeys.isActive, true)
+        )
+      )
+      .limit(1);
+
+    if (userApiKey) {
+      const decryptedKey = EncryptionService.decrypt(userApiKey.apiKey);
+      return {
+        client: new OpenAI({ apiKey: decryptedKey }),
+        userApiKeyId: userApiKey.id
+      };
+    }
+  } catch (error) {
+    console.error('Error fetching user API key:', error);
+  }
+
+  return { client: null, userApiKeyId: null };
+}
+
+// Helper function to update lastUsed timestamp
+async function updateApiKeyLastUsed(apiKeyId: number) {
+  try {
+    await db
+      .update(userApiKeys)
+      .set({ lastUsed: new Date(), updatedAt: new Date() })
+      .where(eq(userApiKeys.id, apiKeyId));
+  } catch (error) {
+    console.error('Error updating API key lastUsed:', error);
+  }
+}
+
+// Helper function to get OpenAI client (user's or server's)
+async function getOpenAIClient(userId: number | undefined): Promise<{ client: OpenAI, userApiKeyId: number | null }> {
+  const { client: userClient, userApiKeyId } = await getUserOpenAIClient(userId);
+  
+  if (userClient) {
+    return { client: userClient, userApiKeyId };
+  }
+  
+  // Fall back to server API key
+  if (!process.env.OPENAI_API_KEY) {
+    throw new Error('No API key available. Please configure your own OpenAI API key in settings.');
+  }
+  
+  return { client: serverOpenai, userApiKeyId: null };
+}
 
 // Simple data extraction helper
 function extractDataFromResponse(response: string, step: number, history: any[]): any {
@@ -82,9 +146,10 @@ router.use((req: Request, res: Response, next) => {
 });
 
 // Endpoint for adapting frame content
-router.post('/adapt-content', async (req: Request, res: Response) => {
+router.post('/adapt-content', async (req: AuthRequest, res: Response) => {
   try {
     const { content, tone, filter, frameType, unitType } = req.body;
+    const userId = req.user?.userId || req.user?.id;
     
     // Basic validation
     if (!content || !tone || !filter) {
@@ -110,6 +175,9 @@ router.post('/adapt-content', async (req: Request, res: Response) => {
     
     Provide only the adapted content without any explanations or metadata.`;
 
+    // Get appropriate OpenAI client
+    const { client: openai, userApiKeyId } = await getOpenAIClient(userId);
+    
     const response = await openai.chat.completions.create({
       model: "gpt-4",
       messages: [
@@ -119,6 +187,11 @@ router.post('/adapt-content', async (req: Request, res: Response) => {
       temperature: 0.7,
       max_tokens: 500
     });
+    
+    // Update lastUsed if using user's API key
+    if (userApiKeyId) {
+      await updateApiKeyLastUsed(userApiKeyId);
+    }
 
     const adaptedContent = response.choices[0]?.message?.content || content;
     
@@ -128,7 +201,7 @@ router.post('/adapt-content', async (req: Request, res: Response) => {
     
     // Don't expose internal errors to client
     if (error instanceof Error && error.message.includes('API key')) {
-      return res.status(500).json({ error: 'AI service configuration error' });
+      return res.status(500).json({ error: 'AI service configuration error. Please configure your OpenAI API key in settings.' });
     }
     
     res.status(500).json({ error: 'Failed to adapt content' });
@@ -136,9 +209,10 @@ router.post('/adapt-content', async (req: Request, res: Response) => {
 });
 
 // Endpoint for generating video scripts
-router.post('/generate-script', async (req: Request, res: Response) => {
+router.post('/generate-script', async (req: AuthRequest, res: Response) => {
   try {
     const { frames, duration } = req.body;
+    const userId = req.user?.userId || req.user?.id;
     
     // Validation
     if (!frames || !Array.isArray(frames) || frames.length === 0) {
@@ -172,6 +246,9 @@ router.post('/generate-script', async (req: Request, res: Response) => {
     
     Format the response as a clean script with timing markers.`;
 
+    // Get appropriate OpenAI client
+    const { client: openai, userApiKeyId } = await getOpenAIClient(userId);
+    
     const response = await openai.chat.completions.create({
       model: "gpt-4",
       messages: [
@@ -181,6 +258,11 @@ router.post('/generate-script', async (req: Request, res: Response) => {
       temperature: 0.7,
       max_tokens: 2000
     });
+    
+    // Update lastUsed if using user's API key
+    if (userApiKeyId) {
+      await updateApiKeyLastUsed(userApiKeyId);
+    }
 
     const script = response.choices[0]?.message?.content || 'Script generation failed';
     
@@ -192,9 +274,10 @@ router.post('/generate-script', async (req: Request, res: Response) => {
 });
 
 // Endpoint for AI agent operations
-router.post('/agent', async (req: Request, res: Response) => {
+router.post('/agent', async (req: AuthRequest, res: Response) => {
   try {
     const { command, context } = req.body;
+    const userId = req.user?.userId || req.user?.id;
     
     if (!command) {
       return res.status(400).json({ 
@@ -208,6 +291,9 @@ router.post('/agent', async (req: Request, res: Response) => {
       ? `Context: ${context}\n\nCommand: ${command}`
       : `Command: ${command}`;
 
+    // Get appropriate OpenAI client
+    const { client: openai, userApiKeyId } = await getOpenAIClient(userId);
+    
     const response = await openai.chat.completions.create({
       model: "gpt-4",
       messages: [
@@ -217,6 +303,11 @@ router.post('/agent', async (req: Request, res: Response) => {
       temperature: 0.7,
       max_tokens: 1000
     });
+    
+    // Update lastUsed if using user's API key
+    if (userApiKeyId) {
+      await updateApiKeyLastUsed(userApiKeyId);
+    }
 
     const result = response.choices[0]?.message?.content || 'No response generated';
     
@@ -228,9 +319,10 @@ router.post('/agent', async (req: Request, res: Response) => {
 });
 
 // Endpoint for generating custom content
-router.post('/generate-custom-content', async (req: Request, res: Response) => {
+router.post('/generate-custom-content', async (req: AuthRequest, res: Response) => {
   try {
     const { model, messages, temperature, max_tokens } = req.body;
+    const userId = req.user?.userId || req.user?.id;
     
     // Validate required fields
     if (!model || !messages) {
@@ -291,6 +383,9 @@ router.post('/generate-custom-content', async (req: Request, res: Response) => {
       });
     }
 
+    // Get appropriate OpenAI client
+    const { client: openai, userApiKeyId } = await getOpenAIClient(userId);
+    
     // Call OpenAI with the provided parameters
     const response = await openai.chat.completions.create({
       model: model,
@@ -298,6 +393,11 @@ router.post('/generate-custom-content', async (req: Request, res: Response) => {
       temperature: temperature !== undefined ? temperature : 0.7,
       max_tokens: max_tokens !== undefined ? max_tokens : 1000
     });
+    
+    // Update lastUsed if using user's API key
+    if (userApiKeyId) {
+      await updateApiKeyLastUsed(userApiKeyId);
+    }
 
     const content = response.choices[0]?.message?.content || '';
     
@@ -308,7 +408,7 @@ router.post('/generate-custom-content', async (req: Request, res: Response) => {
     // Handle specific OpenAI errors
     if (error instanceof Error) {
       if (error.message.includes('API key')) {
-        return res.status(500).json({ error: 'AI service configuration error' });
+        return res.status(500).json({ error: 'AI service configuration error. Please configure your OpenAI API key in settings.' });
       }
       if (error.message.includes('rate limit')) {
         return res.status(429).json({ error: 'Rate limit exceeded. Please try again later.' });
@@ -324,10 +424,21 @@ router.post('/generate-custom-content', async (req: Request, res: Response) => {
 
 // Agent conversation endpoint
 router.post('/agent/conversation', 
-  authenticateToken,
+  // Make auth optional in development
+  (req: Request, res: Response, next: NextFunction) => {
+    if (process.env.NODE_ENV === 'development' && !req.headers.authorization) {
+      (req as any).user = { userId: 1, email: 'dev@example.com', username: 'dev' };
+      return next();
+    }
+    authenticateToken(req, res, next);
+  },
   createRateLimiter('ai'),
   async (req: AuthRequest, res: Response) => {
     try {
+      console.log('Conversation endpoint called');
+      console.log('User:', req.user);
+      console.log('Body:', req.body);
+      
       const { conversationId, message, agentType, context, history } = req.body;
       const userId = req.user?.userId || req.user?.id;
       
@@ -336,9 +447,7 @@ router.post('/agent/conversation',
         return res.status(400).json({ error: 'Message and agent type are required' });
       }
       
-      if (!process.env.OPENAI_API_KEY) {
-        return res.status(500).json({ error: 'OpenAI API key not configured' });
-      }
+      // We'll check for API key availability later when getting the client
       
       // Get user's channel profile if authenticated
       let channelProfile = null;
@@ -477,12 +586,20 @@ ${channelProfile ? `Channel Context: CTAs for ${channelProfile.channelName} alig
       let extractedData = null;
       
       try {
+        // Get appropriate OpenAI client
+        const { client: openai, userApiKeyId } = await getOpenAIClient(userId);
+        
         const completion = await openai.chat.completions.create({
           model: 'gpt-3.5-turbo',
           messages,
           temperature: 0.7,
           max_tokens: 500
         });
+        
+        // Update lastUsed if using user's API key
+        if (userApiKeyId) {
+          await updateApiKeyLastUsed(userApiKeyId);
+        }
         
         responseContent = completion.choices[0]?.message?.content || 'I apologize, but I couldn\'t generate a response.';
         
@@ -493,7 +610,11 @@ ${channelProfile ? `Channel Context: CTAs for ${channelProfile.channelName} alig
         }
       } catch (openAIError: any) {
         console.error('OpenAI API error:', openAIError);
-        responseContent = 'I\'m having trouble connecting right now. Please try again in a moment.';
+        if (openAIError.message && openAIError.message.includes('API key')) {
+          responseContent = 'I need an OpenAI API key to help you. Please configure your API key in the settings.';
+        } else {
+          responseContent = 'I\'m having trouble connecting right now. Please try again in a moment.';
+        }
       }
       
       // Always return a valid response
