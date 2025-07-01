@@ -80,14 +80,53 @@ class APIClient {
 
       // Parse response
       let data: any;
-      try {
-        data = await response.json();
-      } catch (e) {
-        // Response might not be JSON
+      const contentType = response.headers.get('content-type');
+      
+      if (contentType && contentType.includes('application/json')) {
+        try {
+          data = await response.json();
+        } catch (e) {
+          console.error('Failed to parse JSON response:', e);
+          data = { error: 'Invalid JSON response' };
+        }
+      } else {
+        // For non-JSON responses, read as text
         data = await response.text();
       }
 
       if (!response.ok) {
+        // Handle 401 Unauthorized by trying to refresh token
+        if (response.status === 401 && endpoint !== '/auth/refresh') {
+          try {
+            const refreshResponse = await fetch('/api/auth/refresh', {
+              method: 'POST',
+              credentials: 'include',
+            });
+            
+            if (refreshResponse.ok) {
+              const { accessToken } = await refreshResponse.json();
+              
+              // Store the new token
+              if (typeof window !== 'undefined') {
+                localStorage.setItem('access_token', accessToken);
+                localStorage.setItem('token_expiry', new Date(Date.now() + 3600000).toISOString());
+              }
+              
+              // Retry the original request with new token
+              if (this.interceptors.request) {
+                finalOptions.headers = {
+                  ...finalOptions.headers,
+                  Authorization: `Bearer ${accessToken}`,
+                };
+              }
+              
+              return this.request(endpoint, options, 0); // Don't retry again
+            }
+          } catch (refreshError) {
+            console.error('Token refresh failed:', refreshError);
+          }
+        }
+        
         return {
           error: data?.error || `Request failed with status ${response.status}`,
           status: response.status,

@@ -66,33 +66,8 @@ apiClient.interceptors = {
     }
     return config;
   },
-  response: async (response: any) => {
-    // If we get a 401, try to refresh the token
-    if (response.status === 401) {
-      try {
-        const refreshResponse = await fetch('/api/auth/refresh', {
-          method: 'POST',
-          credentials: 'include', // Include cookies
-        });
-        
-        if (refreshResponse.ok) {
-          const { accessToken } = await refreshResponse.json();
-          setAccessToken(accessToken);
-          
-          // Retry the original request
-          const token = getAccessToken();
-          if (token) {
-            response.config.headers.Authorization = `Bearer ${token}`;
-            return fetch(response.config.url, response.config);
-          }
-        }
-      } catch (error) {
-        // Refresh failed, user needs to login again
-        clearTokens();
-      }
-    }
-    return response;
-  },
+  // Remove response interceptor for now - it's causing the body stream error
+  // We'll handle 401s in the main request flow instead
 };
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {

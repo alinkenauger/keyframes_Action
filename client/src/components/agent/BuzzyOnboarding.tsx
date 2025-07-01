@@ -147,7 +147,7 @@ Let's start with something simple - what's your channel name? And what kind of c
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
       <Card className="w-full max-w-3xl h-[80vh] flex flex-col shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b bg-gradient-to-r from-black via-gray-900 to-yellow-500 text-white">
+        <div className="flex items-center justify-between p-6 border-b bg-black text-white">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-amber-400 flex items-center justify-center text-2xl shadow-lg border-2 border-amber-300">
               🐝
@@ -157,7 +157,7 @@ Let's start with something simple - what's your channel name? And what kind of c
               <p className="text-sm opacity-90">Your AI Content Creation Partner</p>
             </div>
           </div>
-          <div className="text-sm font-medium bg-white/20 px-3 py-1 rounded-full">
+          <div className="text-sm font-medium bg-amber-400 text-black px-3 py-1 rounded-full">
             Channel Basics Guide
           </div>
         </div>
@@ -170,7 +170,7 @@ Let's start with something simple - what's your channel name? And what kind of c
           </div>
           <div className="mt-2 h-2 bg-muted rounded-full overflow-hidden">
             <div 
-              className="h-full bg-gradient-to-r from-black to-yellow-500 transition-all duration-300"
+              className="h-full bg-amber-400 transition-all duration-300"
               style={{ width: `${((currentStep + 1) / onboardingSteps.length) * 100}%` }}
             />
           </div>
