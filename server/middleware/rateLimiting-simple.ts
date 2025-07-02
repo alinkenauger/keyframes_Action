@@ -149,6 +149,32 @@ export function createRateLimiter(options: {
   max: number;
   message?: string;
   keyGenerator?: (req: Request) => string;
-}) {
+} | string) {
+  // If string is passed, use preset configurations
+  if (typeof options === 'string') {
+    switch (options) {
+      case 'ai':
+        return aiRateLimiter;
+      case 'auth':
+        return new SimpleRateLimiter({
+          windowMs: 15 * 60 * 1000, // 15 minutes
+          max: 5,
+          message: 'Too many authentication attempts, please try again later.',
+        }).middleware();
+      case 'general':
+        return new SimpleRateLimiter({
+          windowMs: 1 * 60 * 1000, // 1 minute
+          max: 100,
+          message: 'Too many requests, please try again later.',
+        }).middleware();
+      default:
+        return new SimpleRateLimiter({
+          windowMs: 1 * 60 * 1000, // 1 minute
+          max: 60,
+          message: 'Too many requests, please try again later.',
+        }).middleware();
+    }
+  }
+  
   return new SimpleRateLimiter(options).middleware();
 }

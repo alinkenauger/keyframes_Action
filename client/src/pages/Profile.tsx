@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuthStore } from '@/stores/authStore';
+import { useAuth } from '@/contexts/AuthContext';
 import { ApiKeyManager } from '@/components/settings/ApiKeyManager';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -7,7 +7,8 @@ import { User, Key, Settings } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function Profile() {
-  const { user, isLoading } = useAuthStore();
+  const { user } = useAuth();
+  const isLoading = false; // Auth context doesn't provide loading state
 
   if (isLoading) {
     return (

@@ -18,7 +18,15 @@
       "Bash(true)",
       "Bash(npx tsc:*)",
       "Bash(npx drizzle-kit:*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(brew list:*)",
+      "Bash(brew:*)",
+      "Bash(export:*)",
+      "Bash(/opt/homebrew/opt/postgresql@16/bin/createuser:*)",
+      "Bash(/opt/homebrew/opt/postgresql@16/bin/createdb -O test keyframes_test)",
+      "Bash(/opt/homebrew/opt/postgresql@16/bin/psql:*)",
+      "Bash(npx:*)",
+      "Bash(chmod:*)"
     ],
     "deny": []
   }
