@@ -26,7 +26,8 @@
       "Bash(/opt/homebrew/opt/postgresql@16/bin/createdb -O test keyframes_test)",
       "Bash(/opt/homebrew/opt/postgresql@16/bin/psql:*)",
       "Bash(npx:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(./start-dev.sh:*)"
     ],
     "deny": []
   }
