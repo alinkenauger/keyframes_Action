@@ -27,7 +27,9 @@
       "Bash(/opt/homebrew/opt/postgresql@16/bin/psql:*)",
       "Bash(npx:*)",
       "Bash(chmod:*)",
-      "Bash(./start-dev.sh:*)"
+      "Bash(./start-dev.sh:*)",
+      "Bash(sudo lsof:*)",
+      "Bash(node:*)"
     ],
     "deny": []
   }
